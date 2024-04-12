@@ -71,20 +71,12 @@ function App() {
                   name: "twitch",
                   showOnModal: false,
                 },
-                apple: {
-                  name: "apple",
-                  showOnModal: false,
-                },
                 line: {
                   name: "line",
                   showOnModal: false,
                 },
                 linkedin: {
                   name: "linkedin",
-                  showOnModal: false,
-                },
-                twitter: {
-                  name: "twitter",
                   showOnModal: false,
                 },
                 weibo: {
