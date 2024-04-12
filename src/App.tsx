@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import {
+  CHAIN_NAMESPACES,
+  IProvider,
+  WEB3AUTH_NETWORK,
+  WALLET_ADAPTERS,
+} from "@web3auth/base";
 import Web3 from "web3";
 
 import "./App.css";
@@ -27,6 +32,12 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
 });
 
 const web3auth = new Web3Auth({
+  uiConfig: {
+    defaultLanguage: "ko",
+    loginGridCol: 2,
+    loginMethodsOrder: ["google", "kakao", "github"],
+    primaryButton: "emailLogin",
+  },
   clientId,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
   privateKeyProvider: privateKeyProvider,
@@ -39,7 +50,59 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        await web3auth.initModal();
+        await web3auth.initModal({
+          modalConfig: {
+            [WALLET_ADAPTERS.OPENLOGIN]: {
+              label: "openlogin",
+              loginMethods: {
+                facebook: {
+                  name: "facebook",
+                  showOnModal: false,
+                },
+                reddit: {
+                  name: "reddit",
+                  showOnModal: false,
+                },
+                discord: {
+                  name: "discord",
+                  showOnModal: false,
+                },
+                twitch: {
+                  name: "twitch",
+                  showOnModal: false,
+                },
+                apple: {
+                  name: "apple",
+                  showOnModal: false,
+                },
+                line: {
+                  name: "line",
+                  showOnModal: false,
+                },
+                linkedin: {
+                  name: "linkedin",
+                  showOnModal: false,
+                },
+                twitter: {
+                  name: "twitter",
+                  showOnModal: false,
+                },
+                weibo: {
+                  name: "weibo",
+                  showOnModal: false,
+                },
+                wechat: {
+                  name: "wechat",
+                  showOnModal: false,
+                },
+                farcaster: {
+                  name: "farcaster",
+                  showOnModal: false,
+                },
+              },
+            },
+          },
+        });
         setProvider(web3auth.provider);
 
         if (web3auth.connected) {
