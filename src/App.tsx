@@ -12,6 +12,8 @@ import Web3 from "web3";
 import "./App.css";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
+import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+
 // IMP START - Dashboard Registration
 const clientId =
   "BPbO-LorL6VnxrYGqX9WrY23EIN1cEEz9qR1Ir4npgxR8Yik9WfXh8_ic8o7en7yN7usdzHNYb8fEQxokEUzI_E"; // get from https://dashboard.web3auth.io
@@ -39,8 +41,31 @@ const web3auth = new Web3Auth({
     primaryButton: "emailLogin",
   },
   clientId,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
+});
+
+const metamaskAdapter = new MetamaskAdapter({
+  clientId,
+  sessionTime: 3600, // 1 hour in seconds
+  web3AuthNetwork: "sapphire_mainnet",
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "0x1",
+    rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+  },
+});
+
+web3auth.configureAdapter(metamaskAdapter);
+
+metamaskAdapter.setAdapterSettings({
+  sessionTime: 86400, // 1 day in seconds
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "0x1",
+    rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+  },
+  web3AuthNetwork: "sapphire_mainnet",
 });
 
 function App() {
