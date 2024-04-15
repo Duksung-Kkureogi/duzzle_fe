@@ -58,8 +58,8 @@ function App() {
             [WALLET_ADAPTERS.OPENLOGIN]: {
               label: "openlogin",
               loginMethods: {
-                facebook: {
-                  name: "facebook",
+                github: {
+                  name: "github",
                   showOnModal: false,
                 },
                 reddit: {
