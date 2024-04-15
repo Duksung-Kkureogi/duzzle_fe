@@ -45,28 +45,7 @@ const web3auth = new Web3Auth({
   privateKeyProvider: privateKeyProvider,
 });
 
-const metamaskAdapter = new MetamaskAdapter({
-  clientId,
-  sessionTime: 3600, // 1 hour in seconds
-  web3AuthNetwork: "sapphire_mainnet",
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x1",
-    rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
-  },
-});
-
-web3auth.configureAdapter(metamaskAdapter);
-
-metamaskAdapter.setAdapterSettings({
-  sessionTime: 86400, // 1 day in seconds
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x1",
-    rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
-  },
-  web3AuthNetwork: "sapphire_mainnet",
-});
+web3auth.configureAdapter(new MetamaskAdapter());
 
 function App() {
   const [provider, setProvider] = useState<IProvider | null>(null);
@@ -135,10 +114,20 @@ function App() {
 
   const login = async () => {
     const web3authProvider = await web3auth.connect();
+    console.log();
     setProvider(web3authProvider);
     if (web3auth.connected) {
       setLoggedIn(true);
     }
+  };
+
+  const authenticateUser = async () => {
+    if (!web3auth) {
+      uiConsole("web3auth not initialized yet");
+      return;
+    }
+    const idToken = await web3auth.authenticateUser();
+    uiConsole(idToken);
   };
 
   const getUserInfo = async () => {
@@ -218,6 +207,11 @@ function App() {
         <div>
           <button onClick={getUserInfo} className="card">
             Get User Info
+          </button>
+        </div>
+        <div>
+          <button onClick={authenticateUser} className="card">
+            Get ID Token
           </button>
         </div>
         <div>
