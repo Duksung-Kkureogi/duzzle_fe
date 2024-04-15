@@ -1,3 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  margin: 0px;
+}
+
+@media (min-width: 650px) {
+  .App {
+    width: 640px;
+  }
+}
+
+@media (max-width: 650px) {
+  .App {
+    width: 90vw;
+  }
+}
+
+#root {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.App {
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* MyHeader */
+
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+header > div {
+  display: flex;
+}
+
+header .head_text {
+  width: 50%;
+  font-size: 25px;
+  justify-content: center;
+  font-family: "Roboto";
+  font-weight: 700;
+}
+
+header .head_btn_left {
+  width: 25%;
+  justify-content: start;
+}
+
+/* MyButton */
+
+.MyButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  margin-left: 20px;
+
+  font-size: 18px;
+
+  white-space: nowrap;
+
+  background-color: #34a853;
+  svg {
+    width: 20px;
+    color: white;
+  }
+}
+
+/* Auth */
+
 .container {
   width: 80%;
   margin: auto;
@@ -100,4 +189,10 @@
   word-wrap: break-word;
   font-size: 16px;
   font-family: monospace;
+}
+
+/* Mypage */
+
+.Mypage svg {
+  width: 100px;
 }
