@@ -19,14 +19,13 @@ const clientId =
   "BPbO-LorL6VnxrYGqX9WrY23EIN1cEEz9qR1Ir4npgxR8Yik9WfXh8_ic8o7en7yN7usdzHNYb8fEQxokEUzI_E"; // get from https://dashboard.web3auth.io
 
 const chainConfig = {
-  chainId: "0x1", // Please use 0x1 for Mainnet
-  rpcTarget: "https://rpc.ankr.com/eth",
+  chainId: "0x13882", // Please use 0x1 for Mainnet
+  rpcTarget: "https://rpc-amoy.polygon.technology",
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  displayName: "Ethereum Mainnet",
-  blockExplorerUrl: "https://etherscan.io/",
-  ticker: "ETH",
-  tickerName: "Ethereum",
-  logo: "https://images.toruswallet.io/eth.svg",
+  displayName: "Amoy",
+  blockExplorerUrl: "https://www.oklink.com/amoy",
+  ticker: "MATIC",
+  tickerName: "MATIC",
 };
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({
