@@ -5,7 +5,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Roboto", sans-serif;
   min-height: 100vh;
   margin: 0px;
 }
@@ -31,6 +30,7 @@ body {
   min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
+  font-family: "Roboto", sans-serif;
 }
 
 /* MyHeader */
@@ -192,7 +192,59 @@ header .head_btn_left {
 }
 
 /* Mypage */
+.Mypage {
+}
 
-.Mypage svg {
+.Mypage section {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Mypage .user_img svg {
   width: 100px;
+}
+
+.Mypage .user_info {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.Mypage .user_name {
+  font-size: 40px;
+  font-weight: bolder;
+  margin: 0px 0px 5px 0px;
+}
+
+.Mypage .user_email {
+  font-size: 20px;
+  font-weight: bold;
+  color: #8c8c8c;
+  margin: 0px 0px 0px 0px;
+}
+
+.Mypage .user_dal {
+  width: fit-content;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 15px;
+  background-color: #34a853;
+  border-radius: 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+
+  margin-left: auto;
+  flex-direction: row;
+}
+
+.Mypage .user_dal svg {
+  width: 30px;
+  fill: yellow;
+  color: yellow;
+}
+
+.Mypage .user_menu {
+  display: block;
 }

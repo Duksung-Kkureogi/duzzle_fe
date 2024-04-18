@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 function Mypage() {
   const navigate = useNavigate();
 
+  const user_name = "DukDol";
+  const user_email = "DukDol@gmail.com";
+  const user_dal = 24;
+
   return (
     <div className="Mypage">
-      <section>
-        <h1>마이페이지(작업중..)</h1>
-      </section>
-      <section>
+      <section className="user_img">
         <svg
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -22,13 +23,34 @@ function Mypage() {
           ></path>
         </svg>
       </section>
-      <section>
-        <p>Dukdol</p>
-        <p>Dukdol@gmail.com</p>
+      <section className="user_info">
+        <p className="user_name">{user_name}</p>
+        <p className="user_email">{user_email}</p>
+      </section>
+      <section className="user_dal">
+        <svg
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+          ></path>
+        </svg>
+        {user_dal} Dal
       </section>
       <section>
-        <button onClick={() => navigate("/profile")}>프로필</button>
-        <button onClick={() => navigate("/setting")}>설정</button>
+        <div className="user_menu">
+          <button onClick={() => navigate("/profile")}>프로필</button>
+
+          <button onClick={() => navigate("/setting")}>설정</button>
+        </div>
       </section>
     </div>
   );
