@@ -47,7 +47,7 @@ function Mypage() {
   return (
     <div className="Mypage">
       <section className="user_firstrow">
-        <img src="/src/assets/images/dog.gif" />
+        <img src="/src/assets/images/profileImg.png" />
         <p className="logout" onClick={logout}>
           로그아웃
         </p>
