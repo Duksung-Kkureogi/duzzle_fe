@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { web3auth } from "./Login";
+// import { web3auth } from "./Login";
 
 function Mypage() {
   const navigate = useNavigate();
@@ -39,15 +39,16 @@ function Mypage() {
   }
 
   const logout = async () => {
-    await web3auth.logout();
+    // await web3auth.logout();
     console.log("logged out");
+    navigate("/");
   };
 
   return (
     <div className="Mypage">
       <section className="user_firstrow">
         <img src="/src/assets/images/dog.gif" />
-        <p className="logout" onClick={() => logout}>
+        <p className="logout" onClick={logout}>
           로그아웃
         </p>
       </section>
