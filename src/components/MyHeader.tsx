@@ -5,7 +5,7 @@ interface MyHeaderProps {
   leftChild: React.ReactNode;
 }
 
-const MyHeader: React.FC<MyHeaderProps> = ({ headerText, leftChild }) => {
+const MyHeader: React.FC<MyHeaderProps> = ({ headerText, leftChild}) => {
   return (
     <header>
       <div className="head_btn_left">{leftChild}</div>

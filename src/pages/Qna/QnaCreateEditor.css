@@ -1,0 +1,39 @@
+.Editor{
+    padding: 50px 50px;
+}
+.Editor .sort_section{
+    display: flex;
+    padding: 20px 12px;
+}
+
+
+.Editor .email_section{
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 5px;
+}
+.Editor .content_section{
+    padding: 15px 15px;
+}
+
+.Editor > section > textarea{
+    padding: 5px 5px;
+    width: 500PX;
+    min-height: 200px;
+}
+
+.Editor .button_section{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.Editor .button_section button{
+    flex:0.4;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: rgb(236, 236, 236);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 2px;
+}

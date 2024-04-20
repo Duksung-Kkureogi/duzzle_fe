@@ -1,5 +1,5 @@
-import MyButton from "../components/MyButton";
-import MyHeader from "../components/MyHeader";
+import MyButton from "../../components/MyButton";
+import MyHeader from "../../components/MyHeader";
 
 function Faq() {
   return (

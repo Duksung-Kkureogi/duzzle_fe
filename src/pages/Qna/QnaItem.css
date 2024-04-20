@@ -1,0 +1,33 @@
+.QnaItem{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+
+    padding: 15px 0px;
+    border-bottom: 1px solid gray;
+}
+.QnaItem .infor_section {
+    flex:1;
+    cursor: pointer;
+}
+.QnaItem .infor_section .created_date{
+    font-size: 13px;
+    color: grey;
+}
+.QnaItem .infor_section .content {
+    font-size: 20px;
+    font-weight: bold;
+}
+.QnaItem .answer_section{
+    font-size: 15px;
+    color: blue;
+    padding: 5px 0px;
+}
+.QnaItem .button_section button{
+    background-color: rgb(256, 256, 256);
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 2px;
+    margin: 3px;
+    cursor: pointer;
+}

@@ -1,0 +1,24 @@
+.QnaList .menu_bar{
+    margin: 20px 0px;
+    display: flex;
+    gap: 300px;
+}
+
+.QnaList .menu_bar select{
+    background-color: rgb(236, 236, 236);
+    border: none;
+    border-radius: 5px;
+
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.QnaList .menu_bar button{
+    flex:1;
+    border: none;
+    border-radius: 5px;
+    background-color: #50cf72;
+    font-size: 15px;
+    cursor: pointer;
+}
