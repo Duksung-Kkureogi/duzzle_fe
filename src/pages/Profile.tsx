@@ -1,21 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
+import axios from "axios";
 
 function Profile() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [image, setImage] = useState("/src/assets/images/profileImg.png");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [wallet, setWallet] = useState("0xAb5801a7D398351b8bE11");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [name, setName] = useState("Dukdol");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [email, setEmail] = useState("Dukdol@gmail.com");
+  const [wallet, setWallet] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [level, setLevel] = useState("Lv.4");
   const achievement = `2022 #Summer Duksung Lv.8
     2023 #Spring Duksung Lv.9 
     2023 #Autumn Duksung Lv.10`;
+
+  useEffect(() => {
+    getData();
+  });
+
+  async function getData() {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      setWallet(response.data["data"]["walletAddress"]);
+      setName(response.data["data"]["name"] ?? "User");
+      setEmail(response.data["data"]["email"]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="Profile">
