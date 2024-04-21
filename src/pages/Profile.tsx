@@ -15,6 +15,8 @@ function Profile() {
     2023 #Spring Duksung Lv.9 
     2023 #Autumn Duksung Lv.10`;
 
+  const [newName] = useState("new User");
+
   useEffect(() => {
     getData();
   });
@@ -35,6 +37,26 @@ function Profile() {
       setWallet(response.data["data"]["walletAddress"]);
       setName(response.data["data"]["name"] ?? "User");
       setEmail(response.data["data"]["email"]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function patchData(new_name: string) {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.patch(
+        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user/name",
+        { name: new_name },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      setName(response.data["data"]["name"]);
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +102,7 @@ function Profile() {
           <p className="list_name">이름(닉네임)</p>
           <div className="name">
             <p>{name}</p>
-            <button>
+            <button onClick={() => patchData(newName)}>
               <svg
                 data-slot="icon"
                 fill="none"
