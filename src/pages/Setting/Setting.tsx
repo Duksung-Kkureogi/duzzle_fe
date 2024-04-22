@@ -1,8 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import MyButton from "../components/MyButton";
-import MyHeader from "../components/MyHeader";
+import MyButton from "../../components/MyButton";
+import MyHeader from "../../components/MyHeader";
 import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
+
+import "./Setting.css";
+
+interface SelectOptionProps {
+  show: boolean;
+}
+
+const SelectOptions = styled.ul<SelectOptionProps>`
+  max-height: ${(props) => (props.show ? "none" : "0")};
+`;
 
 function Setting() {
   const navigate = useNavigate();
@@ -16,14 +26,6 @@ function Setting() {
     const eventTarget = e.target as HTMLElement;
     setLanguage(eventTarget.innerText);
   };
-
-  interface SelectOptionProps {
-    show: boolean;
-  }
-
-  const SelectOptions = styled.ul<SelectOptionProps>`
-    max-height: ${(props) => (props.show ? " none " : " 0 ")};
-  `;
 
   return (
     <div className="Setting">
