@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { web3auth } from "./Login";
 
+import "./Mypage.css";
+
 function Mypage() {
   const navigate = useNavigate();
   const [userName, SetUserName] = useState("");

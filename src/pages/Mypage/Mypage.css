@@ -1,0 +1,141 @@
+/* Mypage */
+.Mypage {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.Mypage section {
+  width: 100%;
+  display: flex;
+}
+
+.Mypage .user_firstrow {
+  margin-top: 30px;
+}
+
+.Mypage .user_firstrow img {
+  margin-left: 255px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.Mypage .logout {
+  cursor: pointer;
+  margin: 0px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #8c8c8c;
+
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.Mypage .user_info {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 45px;
+}
+.Mypage .user_name {
+  font-size: 38px;
+  font-weight: bolder;
+  margin: 0px 0px 5px 0px;
+}
+
+.Mypage .user_email {
+  font-size: 25px;
+  font-weight: bold;
+  color: #8c8c8c;
+  margin: 0px 0px 0px 0px;
+}
+
+.Mypage .user_dal {
+  width: fit-content;
+  padding: 5px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 18px;
+
+  background-color: #34a853;
+  border-radius: 30px;
+  color: white;
+  font-size: 30px;
+  font-weight: 500;
+
+  margin-left: auto;
+  margin-right: 20px;
+  flex-direction: row;
+}
+
+.Mypage .user_dal img {
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.Mypage .user_menu {
+  margin: 20px;
+  margin-top: 20px;
+  height: 400px;
+
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 5%;
+  justify-content: center;
+  text-align: center;
+}
+
+.Mypage .user_menu * {
+  width: 600px;
+  border-radius: 30px;
+  background-color: #ececec;
+
+  font-size: 28px;
+  font-weight: 700;
+  color: #34a853;
+}
+
+.Mypage .user_menu span {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+  cursor: pointer;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.Mypage .user_nft {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.Mypage .user_nft img {
+  width: 100px;
+  height: 100px;
+}
+
+.Mypage .user_nft span {
+  cursor: default;
+  width: 300px;
+}
+
+.Mypage .nft_items {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Mypage .nft_pieces {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
