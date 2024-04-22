@@ -7,7 +7,7 @@ import "./Profile.css";
 
 function Profile() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [image, setImage] = useState("/src/assets/images/dog.gif");
+  const [image, setImage] = useState("/src/assets/images/profileImg.png");
   const [wallet, setWallet] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
