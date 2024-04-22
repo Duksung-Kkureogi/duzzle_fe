@@ -7,7 +7,7 @@ import Setting from "./pages/Setting";
 import Faq from "./pages/Faq";
 import Qna from "./pages/Qna";
 import Mypage from "./pages/Mypage";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   return (

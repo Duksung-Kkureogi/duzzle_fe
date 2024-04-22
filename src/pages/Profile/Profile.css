@@ -1,0 +1,146 @@
+/* Profile */
+.Profile {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.Profile .profile_title {
+  margin: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  p {
+    font-size: 25px;
+    font-weight: 700;
+    color: #8c8c8c;
+  }
+}
+
+.Profile .profile_img {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  button {
+    position: absolute;
+    top: 150px;
+    left: 370px;
+    border: none;
+    border-radius: 50%;
+    background-color: #34a853;
+    cursor: pointer;
+    svg {
+      margin-top: 2px;
+      padding: 7px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+}
+
+.Profile .profile_list_title {
+  margin-left: 30px;
+  margin-bottom: 30px;
+  p {
+    font-size: 25px;
+    margin: 0;
+    color: #34a853;
+    font-weight: 700;
+  }
+}
+
+.Profile section {
+  display: flex;
+
+  border-radius: 20px;
+  padding: 20px;
+  width: 580px;
+  background-color: #ececec;
+}
+
+.Profile .profile_list {
+  margin: 20px;
+  height: 200px;
+
+  display: grid;
+  gap: 5%;
+  grid-template-rows: repeat(4, auto);
+  justify-content: center;
+  p {
+    margin: 0;
+    font-size: 18px;
+    color: #8c8c8c;
+    font-weight: 700;
+  }
+}
+
+.Profile .profile_list .list_name {
+  color: #34a853;
+}
+
+.Profile .profile_list .wallet {
+  margin-left: auto;
+  margin-right: 30px;
+  p {
+    font-size: 16px;
+  }
+}
+
+.Profile .profile_list .name {
+  margin-left: auto;
+  margin-right: 30px;
+  display: flex;
+
+  button {
+    border: none;
+    cursor: pointer;
+    svg {
+      margin-top: 2.5px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  textarea {
+    resize: none;
+    width: 180px;
+    height: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    background-color: #cbcbcb;
+    border: 2.5px solid #8c8c8c;
+    border-radius: 10px;
+    padding-top: 4px;
+    padding-left: 6.5px;
+    &::placeholder {
+      font-size: 16px;
+      font-weight: 600;
+      padding-left: 3px;
+    }
+    &:focus {
+      outline: none;
+      border-color: #34a853;
+    }
+  }
+}
+
+.Profile .profile_list .email {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.Profile .profile_list .level {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.Profile .profile_list .achievement {
+  margin-left: auto;
+  margin-right: 30px;
+  p {
+    width: 270px;
+  }
+}
