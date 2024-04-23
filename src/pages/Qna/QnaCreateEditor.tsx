@@ -85,7 +85,6 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
                 <option value={"duksung.ac.kr"}>duksung.ac.kr</option>
                 <option value={"daum.net"}>daum.net</option>
                 <option value={"hanmail.net"}>hanmail.net</option>
-                <option value="custom">직접 입력</option>
                 </select>
             </div>
         </section>
