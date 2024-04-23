@@ -4,6 +4,7 @@ import MyHeader from "../../components/MyHeader";
 import QnaList from "./QnaList";
 import { useState , useContext } from "react";
 import { DiaryStateContext } from "../../App";
+import './Qna.css';
 
 function Qna() {
   const data = useContext(DiaryStateContext);
@@ -11,10 +12,12 @@ function Qna() {
   
   return(
     
-      <div className="Qna">
-        <MyHeader headerText="1:1 문의하기" leftChild={<MyButton />} />
-        <QnaList data={data}/>
-      </div>
+    <div className="Qna">
+    <MyHeader headerText="1:1 문의하기" leftChild={<MyButton />} />
+    <div className="Qna_wrapper">
+      <QnaList data={data}/>
+    </div>
+  </div>
   );
 }
 

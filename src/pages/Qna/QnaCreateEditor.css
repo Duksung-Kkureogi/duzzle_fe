@@ -5,15 +5,27 @@
     display: flex;
     padding: 20px 12px;
 }
-
+.Editor .sort_title{
+    color: rgba(52, 168, 83, 1);
+    font-weight: bold;
+}
 
 .Editor .email_section{
     display: flex;
     justify-content: space-around;
-    padding: 40px 5px;
+    padding: 40px 0px;
+}
+.Editor .email_title{
+    color: rgba(52, 168, 83, 1);
+    font-weight: bold;
+    padding: 10;
 }
 .Editor .content_section{
     padding: 15px 15px;
+}
+.Editor .content_title{
+    color: rgba(52, 168, 83, 1);
+    font-weight: bold;
 }
 
 .Editor > section > textarea{
@@ -29,11 +41,11 @@
 }
 
 .Editor .button_section button{
-    flex:0.4;
-    border: 1px solid grey;
+    flex:0.35;
+    border: none;
     border-radius: 5px;
-    background-color: rgb(236, 236, 236);
-    font-size: 15px;
+    background-color: rgb(63, 205, 101);
+    font-size: 20px;
     cursor: pointer;
-    padding: 2px;
+    padding: 3px;
 }

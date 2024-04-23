@@ -32,7 +32,7 @@ const QnaList = ({data}) => {
             <option value={"oldest"}>오래된 순</option>
         </select>
         <Button onClick={()=>nav("/qnanew")}
-        text={"새 문의 작성하기"} />
+        text={"새 문의 작성"} />
         </div>
         <div className="list_wrapper">
             {sortedData.map((item)=> <QnaItem key={item.id} {...item}/>)}

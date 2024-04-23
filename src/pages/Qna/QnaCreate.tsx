@@ -4,6 +4,7 @@ import QnaCreateEdior from "./QnaCreateEditor";
 import { useContext } from "react";
 import { DiaryDispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+
 function QnaCreate() {
     const nav = useNavigate();
     const {onCreate} = useContext(DiaryDispatchContext);

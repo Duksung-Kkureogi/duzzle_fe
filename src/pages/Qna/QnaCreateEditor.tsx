@@ -61,7 +61,7 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
 
     return( <div className="Editor">
         <section className="sort_section">
-            <div>문의 분류 *ㅤㅤ</div>
+                <div className="sort_title">🧩 문의 종류 ㅤㅤ</div>
             <div className="menu_bar">
                 <select value={sortType}
                 onChange = {onChangeSortType}>
@@ -74,7 +74,7 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
             </div>
         </section>
         <section className="email_section">
-            <div>답변 받을 이메일 주소 *</div>
+            <div className="email_title">💌 이메일 </div>
             <input onChange={onChangeInput}
             value={input.emailType} name="emailType"></input>
             <div>@</div>
@@ -85,12 +85,11 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
                 <option value={"duksung.ac.kr"}>duksung.ac.kr</option>
                 <option value={"daum.net"}>daum.net</option>
                 <option value={"hanmail.net"}>hanmail.net</option>
-                <option value="custom">직접 입력</option>
                 </select>
             </div>
         </section>
         <section className="content_section">
-            <div>문의 내용 *ㅤㅤ</div>
+                <div className="content_title">🌙 문의 사항</div>
             <div>ㅤㅤ</div>
             <textarea name="content" value={input.content}
             onChange={onChangeInput}

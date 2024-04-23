@@ -15,9 +15,11 @@ const QnaItem = ({ id, submitTime, sortType, emailId, content }) => {
                     등록일 {new Date(submitTime).toLocaleDateString()}
                 </div>
             </div>
-            <div className="answer_section">답변대기</div>
-            <div className="button_section">
-                <Button onClick={() => nav(`/qnaedit/${id}`)} text={"수정하기"} />
+            <div>
+                <div className="answer_section">답변대기  </div>
+                <div className="button_section">
+                    <Button onClick={() => nav(`/qnaedit/${id}`)} text={"수정하기"} />
+                </div>
             </div>
         </div>
     )
