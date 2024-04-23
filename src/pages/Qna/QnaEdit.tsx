@@ -26,7 +26,7 @@ function QnaEdit() {
         if (window.confirm("문의를 수정하시겠습니까?")){
             onUpdate(
                 params.id,
-                input.submitTime, 
+                new Date().getTime(), 
                 input.sortType, 
                 input.emailType, 
                 input.emailType2,
