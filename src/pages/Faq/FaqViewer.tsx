@@ -15,7 +15,7 @@ const FaqViewer: React.FC = () => {
         "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/support/faq",
       )
       console.log(response);
-      const data = await response.json();
+      const data = await response.data;
       setFaqs(data.data.list);
     } catch (error) {
       console.error('Error fetching FAQ:', error);
