@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FaqItem from './FaqItem';
+import axios from 'axios';
 
 const FaqViewer: React.FC = () => {
   const [faqs, setFaqs] = useState([]);
@@ -10,7 +11,10 @@ const FaqViewer: React.FC = () => {
 
   const fetchFaq = async () => {
     try {
-      const response = await fetch('/v1/support/faq');
+      const response = await axios.get(
+        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/support/faq",
+      )
+      console.log(response);
       const data = await response.json();
       setFaqs(data.data.list);
     } catch (error) {
@@ -27,6 +31,23 @@ const FaqViewer: React.FC = () => {
       setFaqs(mockData);
     }
   };
+  async function getData() {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/support/faq",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="faq-viewer">
