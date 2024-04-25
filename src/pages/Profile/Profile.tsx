@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MyButton from "../../components/MyButton";
 import MyHeader from "../../components/MyHeader";
-import axios from "axios";
+import axios, { AxiosResponse, isAxiosError } from "axios";
 
 import "./Profile.css";
 
@@ -18,11 +18,11 @@ function Profile() {
     2023 #Autumn Duksung Lv.10`;
 
   const [isEditing, setEditing] = useState(false);
-  const [editedName, setEditedName] = useState(name ?? "");
+  const [editedName, setEditedName] = useState("");
 
   useEffect(() => {
     getData();
-  });
+  }, [isEditing]);
 
   async function getData() {
     try {
@@ -31,18 +31,22 @@ function Profile() {
         "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user",
         {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: token,
             "Content-Type": "application/json",
           },
         }
       );
-      console.log(response);
-      setWallet(response.data["data"]["walletAddress"]);
-      setName(response.data["data"]["name"] ?? "User");
-      setEmail(response.data["data"]["email"]);
+      console.log("GET 성공", response);
+      setProfile(response);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function setProfile(response: AxiosResponse) {
+    setWallet(response.data["data"]["walletAddress"]);
+    setName(response.data["data"]["name"] ?? "Anonymous");
+    setEmail(response.data["data"]["email"]);
   }
 
   const onNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,6 +62,7 @@ function Profile() {
       console.error(error);
     }
     setEditing(false);
+    setEditedName("");
   };
 
   async function patchData(new_name: string) {
@@ -68,15 +73,19 @@ function Profile() {
         { name: new_name },
         {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: token,
             "Content-Type": "application/json",
           },
         }
       );
-      console.log(response);
-      setName(response.data["data"]["name"]);
+      console.log("PATCH 성공", response);
     } catch (error) {
       console.error(error);
+      if (isAxiosError(error)) {
+        if (error.response?.status == 409) {
+          alert("동일한 이름이 존재합니다.\n다른 이름을 입력해주세요.");
+        }
+      }
     }
   }
 
@@ -125,23 +134,45 @@ function Profile() {
               <p>{name}</p>
             )}
             {isEditing ? (
-              <button className="done" onClick={onEditName}>
-                <svg
-                  data-slot="icon"
-                  fill="none"
-                  strokeWidth="2.0"
-                  stroke="rgba(0, 0, 0, 0.3)"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  ></path>
-                </svg>
-              </button>
+              <>
+                {editedName.length > 0 ? (
+                  <button className="done" onClick={onEditName}>
+                    <svg
+                      data-slot="icon"
+                      fill="none"
+                      strokeWidth="2.0"
+                      stroke="rgba(0, 0, 0, 0.3)"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      ></path>
+                    </svg>
+                  </button>
+                ) : (
+                  <button onClick={() => setEditing(false)}>
+                    <svg
+                      data-slot="icon"
+                      fill="none"
+                      strokeWidth="2.0"
+                      stroke="rgba(0, 0, 0, 0.3)"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18 18 6M6 6l12 12"
+                      ></path>
+                    </svg>
+                  </button>
+                )}
+              </>
             ) : (
               <button className="edit" onClick={() => setEditing(true)}>
                 <svg
