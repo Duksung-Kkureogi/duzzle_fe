@@ -4,11 +4,11 @@
 }
 
 .Profile .profile_title {
-  margin: 40px;
-  margin-bottom: 40px;
+  margin: 10px;
   text-align: center;
   p {
-    font-size: 25px;
+    font-size: 20px;
+    margin: 0;
     font-weight: 700;
     color: #8c8c8c;
   }
@@ -44,7 +44,7 @@
   margin-left: 30px;
   margin-bottom: 30px;
   p {
-    font-size: 25px;
+    font-size: 20px;
     margin: 0;
     color: #34a853;
     font-weight: 700;
@@ -55,22 +55,20 @@
   display: flex;
 
   border-radius: 20px;
-  padding: 20px;
+  padding: 15px;
   width: 580px;
   background-color: #ececec;
 }
 
 .Profile .profile_list {
   margin: 20px;
-  height: 200px;
-
   display: grid;
   gap: 5%;
   grid-template-rows: repeat(4, auto);
   justify-content: center;
   p {
     margin: 0;
-    font-size: 18px;
+    font-size: 15px;
     color: #8c8c8c;
     font-weight: 700;
   }
@@ -84,7 +82,7 @@
   margin-left: auto;
   margin-right: 30px;
   p {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
@@ -92,7 +90,7 @@
   margin-left: auto;
   margin-right: 30px;
   display: flex;
-
+  align-items: center;
   button {
     border: none;
     cursor: pointer;
@@ -107,7 +105,7 @@
     resize: none;
     width: 180px;
     height: 20px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: black;
     background-color: #cbcbcb;
@@ -116,7 +114,7 @@
     padding-top: 4px;
     padding-left: 6.5px;
     &::placeholder {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       padding-left: 3px;
       color: rgba(0, 0, 0, 0.2);
@@ -142,7 +140,7 @@
   margin-left: auto;
   margin-right: 30px;
   p {
-    width: 270px;
+    width: 230px;
   }
 }
 
@@ -178,7 +176,7 @@
   .Profile .profile_list {
     height: 100px;
     p {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
   .Profile .profile_img {
@@ -211,21 +209,21 @@
   .Profile .profile_list .name {
     textarea {
       width: 110px;
-      font-size: 14px;
+      font-size: 13px;
       &::placeholder {
-        font-size: 14px;
+        font-size: 13px;
       }
     }
   }
   .Profile .profile_list .email {
     p {
-      font-size: 14px;
+      font-size: 13px;
     }
   }
   .Profile .profile_list .achievement {
     margin-right: 15px;
     p {
-      width: 230px;
+      width: 200px;
     }
   }
 }

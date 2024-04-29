@@ -47,36 +47,39 @@ function Mypage() {
 
   return (
     <div className="Mypage">
-      <section className="user_firstrow">
+      <p className="logout" onClick={logout}>
+        로그아웃
+      </p>
+      <div className="user_image">
         <img src="/src/assets/images/profileImg.png" />
-        <p className="logout" onClick={logout}>
-          로그아웃
-        </p>
-      </section>
-      <section className="user_info">
+      </div>
+      <div className="user_info">
         <p className="user_name">{userName}</p>
         <p className="user_email">{userEmail}</p>
-      </section>
-      <section className="user_dal">
+      </div>
+      <div className="user_dal">
         <img src="/src/assets/images/moon.png" />
-        {user_dal} Dal
-      </section>
-      <section>
-        <div className="user_menu">
-          <span onClick={() => navigate("/profile")}>프로필</span>
-          <div className="user_nft">
-            <div className="nft_items">
-              <img src="/src/assets/images/item.png" />
-              <span>{nft_items} Items</span>
-            </div>
-            <div className="nft_pieces">
-              <img src="/src/assets/images/piece.png" />
-              <span>{nft_pieces} Pieces</span>
-            </div>
+        <p>{user_dal} Dal</p>
+      </div>
+
+      <div className="user_menu">
+        <section className="user_profile" onClick={() => navigate("/profile")}>
+          <p>프로필</p>
+        </section>
+        <section className="user_nft">
+          <div className="nft_items">
+            <img src="/src/assets/images/item.png" />
+            <p>{nft_items} Items</p>
           </div>
-          <span onClick={() => navigate("/setting")}>설정</span>
-        </div>
-      </section>
+          <div className="nft_pieces">
+            <img src="/src/assets/images/piece.png" />
+            <p>{nft_pieces} Pieces</p>
+          </div>
+        </section>
+        <section className="user_setting" onClick={() => navigate("/setting")}>
+          <p>설정</p>
+        </section>
+      </div>
     </div>
   );
 }
