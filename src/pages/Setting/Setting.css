@@ -1,5 +1,6 @@
 /* Setting */
 .Setting {
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .Setting .setting_name {
@@ -15,7 +16,6 @@
 }
 
 .Setting section {
-  width: 100%;
   display: flex;
 
   border-radius: 20px;
@@ -32,13 +32,13 @@
   gap: 5%;
   grid-template-rows: repeat(4, auto);
   justify-content: center;
-}
 
-.Setting .setting_menu p {
-  font-size: 20px;
-  color: #34a853;
-  font-weight: 900;
-  margin: 0;
+  p {
+    font-size: 20px;
+    color: #34a853;
+    font-weight: 900;
+    margin: 0;
+  }
 }
 
 .Setting .setting_vib button {
@@ -51,7 +51,8 @@
 
 .Setting .setting_vib .setting_vib_button {
   padding: 0;
-  margin-left: 390px;
+  margin-left: auto;
+  margin-right: 60px;
   img {
     cursor: pointer;
     width: 43px;
@@ -74,6 +75,7 @@
 
 .Setting .setting_cc .setting_cc_button {
   margin-left: auto;
+  margin-right: 10px;
   opacity: 80%;
 }
 
@@ -103,9 +105,13 @@
   }
 }
 
+.Setting .setting_vol_bar {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
 .Setting .setting_vol input {
   width: 220px;
-  margin-left: 310px;
 }
 
 .Setting .setting_vol_bar input[type="range"] {
@@ -137,7 +143,8 @@
 }
 
 .Setting .setting_lang_box {
-  margin-left: 340px;
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .Setting .setting_lang_box div {
@@ -187,5 +194,80 @@
   transition: background-color 0.2s ease-in;
   &:hover {
     background-color: #8c8c8c;
+  }
+}
+
+/* PC (해상도 1024px)*/
+@media all and (min-width: 1024px) {
+}
+
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/
+@media all and (max-width: 767px) {
+  .Setting section {
+    width: 320px;
+  }
+  .Setting .setting_name {
+    margin-bottom: 80px;
+  }
+  .Setting .setting_menu {
+    height: 300px;
+
+    p {
+      font-size: 15px;
+    }
+  }
+
+  .Setting .setting_vib .setting_vib_button {
+    margin-right: 40px;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .Setting .setting_vib .button_vib {
+    margin-right: 5px;
+  }
+
+  .Setting .setting_vol input {
+    width: 170px;
+  }
+  .Setting .setting_vol_bar input[type="range"] {
+    width: 170px;
+  }
+  .Setting .setting_vol_bar ::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    margin-top: -10px;
+  }
+  .Setting .setting_vol_bar ::-webkit-slider-runnable-track {
+    width: 170px;
+  }
+
+  .Setting .setting_lang {
+    height: 120px;
+  }
+  .Setting .setting_lang_box div {
+    width: 150px;
+    &::before {
+      font-size: 13px;
+    }
+  }
+  .Setting .setting_lang_box label {
+    font-size: 13px;
+  }
+  .Setting .setting_lang_box ul {
+    height: 90px;
+  }
+  .Setting .setting_lang_box li {
+    font-size: 13px;
+  }
+
+  .Setting .setting_cc button {
+    width: 170px;
+    font-size: 12px;
   }
 }
