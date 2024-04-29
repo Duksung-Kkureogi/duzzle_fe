@@ -5,6 +5,8 @@ import axios, { AxiosResponse, isAxiosError } from "axios";
 
 import "./Profile.css";
 
+const RequestURL = import.meta.env.VITE_REQUEST_URL;
+
 function Profile() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [image, setImage] = useState("/src/assets/images/profileImg.png");
@@ -27,15 +29,12 @@ function Profile() {
   async function getData() {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user",
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(RequestURL + "/v1/user", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
       console.log("GET 성공", response);
       setProfile(response);
     } catch (error) {
@@ -69,7 +68,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.patch(
-        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user/name",
+        RequestURL + "/v1/user/name",
         { name: new_name },
         {
           headers: {

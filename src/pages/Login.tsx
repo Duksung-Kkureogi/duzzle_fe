@@ -46,6 +46,8 @@ export const web3auth = new Web3Auth({
 
 web3auth.configureAdapter(new MetamaskAdapter());
 
+const RequestUrl = import.meta.env.VITE_REQUEST_URL;
+
 function Login() {
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -119,7 +121,7 @@ function Login() {
       const loginType = "GOOGLE";
 
       const response = await axios.post(
-        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/auth",
+        RequestUrl + "/v1/auth",
         { loginType: loginType, walletAddress: walletAddress },
         {
           headers: {

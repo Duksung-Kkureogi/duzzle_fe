@@ -16,6 +16,8 @@ function Mypage() {
   const nft_items = 18;
   const nft_pieces = 7;
 
+  const RequestUrl = import.meta.env.VITE_REQUEST_URL;
+
   useEffect(() => {
     getData();
   }, []);
@@ -23,15 +25,12 @@ function Mypage() {
   async function getData() {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/user",
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(RequestUrl + "/v1/user", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response);
       SetUserName(response.data["data"]["name"] ?? "User");
       SetUserEmail(response.data["data"]["email"]);
