@@ -27,7 +27,7 @@ const QnaList = ({data}) => {
     return(
     <div className="QnaList">
         <div className="menu_bar">
-        <select onChange = {onChangeSortType}>
+        <select onChange = {onChangeSortType} className="option">
             <option value={"latest"}>최신순</option>
             <option value={"oldest"}>오래된 순</option>
         </select>

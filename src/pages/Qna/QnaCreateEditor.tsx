@@ -64,7 +64,7 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
                 <div className="sort_title">🧩 문의 종류 ㅤㅤ</div>
             <div className="menu_bar">
                 <select value={sortType}
-                onChange = {onChangeSortType}>
+                onChange = {onChangeSortType} className="pl">
                     <option>거래</option>
                     <option>계정</option>
                     <option>퀘스트</option>
@@ -74,19 +74,19 @@ const QnaCreateEdior = ({initData, onSubmit}) =>{
             </div>
         </section>
         <section className="email_section">
-            <div className="email_title">💌 이메일 </div>
-            <input onChange={onChangeInput}
-            value={input.emailType} name="emailType"></input>
-            <div>@</div>
-            <div className="email_bar">
-                <select onChange = {onChangeEmailType}>
-                <option value={"naver.com"}>naver.com</option>
-                <option value={"gmail.com"}>gmail.com</option>
-                <option value={"duksung.ac.kr"}>duksung.ac.kr</option>
-                <option value={"daum.net"}>daum.net</option>
-                <option value={"hanmail.net"}>hanmail.net</option>
-                </select>
-            </div>
+            <div className="email_title">💌 이메일 ㅤ</div>
+                <input onChange={onChangeInput}
+                value={input.emailType} name="emailType"></input>
+                <div>@</div>
+                <div className="email_bar">
+                    <select onChange = {onChangeEmailType} className="pl2">
+                    <option value={"naver.com"}>naver.com</option>
+                    <option value={"gmail.com"}>gmail.com</option>
+                    <option value={"duksung.ac.kr"}>duksung.ac.kr</option>
+                    <option value={"daum.net"}>daum.net</option>
+                    <option value={"hanmail.net"}>hanmail.net</option>
+                    </select>
+                </div>
         </section>
         <section className="content_section">
                 <div className="content_title">🌙 문의 사항</div>

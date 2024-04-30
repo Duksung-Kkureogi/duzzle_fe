@@ -6,8 +6,8 @@ const QnaViewer = ({sortType, emailType, emailType2, content})=>{
             <div className="info_title">🌙 문의자 정보</div>
         <section className="info_section">
             
-            <div>문의 종류 🧩 {sortType}</div>
-            <div>이메일 💌  {emailType}@{emailType2}</div>
+            <div>문의 종류 🧩: {sortType}</div>
+            <div>이메일 💌:  {emailType}@{emailType2}</div>
         </section>
         <section className="content_section">
             <div className="content_title">

@@ -15,11 +15,11 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
 
   return (
     <div className="faq-item">
-      <div className="question" onClick={toggleAnswer}>
+      <div className="question" tabIndex={0} onClick={toggleAnswer}>
         {question}
         <button>{isOpen ? '▲' : '▼'}</button>
       </div>
-      {isOpen && <div className="answer">{answer}</div>}
+      {isOpen && <div className="answer" >{answer}</div>}
     </div>
   );
 };

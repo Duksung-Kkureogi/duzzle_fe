@@ -1,3 +1,4 @@
+
 .QnaItem {
     display: flex;
     gap: 20px;
@@ -41,4 +42,35 @@
     cursor: pointer;
     color: rgba(52, 168, 83, 1);
     font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+    .QnaItem .infor_section .created_date {
+        font-size: 11px;
+    }
+
+    .QnaItem .infor_section .content {
+        font-size: 16px;
+    }
+
+    .QnaItem .answer_section {
+        font-size: 13px;
+    }
+
+    .QnaItem .button_section button {
+        padding: 1px;
+        margin: 0px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .QnaItem .infor_section .content {
+        font-size: 14px;
+    }
+
+    .QnaItem .button_section button {
+        font-size: 12px;
+    }
 }
