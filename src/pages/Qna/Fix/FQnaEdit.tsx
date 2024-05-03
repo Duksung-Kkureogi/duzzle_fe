@@ -47,12 +47,13 @@ const FQnaEdit = () => {
       setEmail(emailArr[0]);
       setEmailType(emailArr[1]);
       setContent(response.data["data"]["question"]);
-      //   setInitData({
-      //     sortType: sortType,
-      //     email: email,
-      //     emailType: emailType,
-      //     content: content,
-      //   });
+      // setInitData가 제대로 안됨..
+      setInitData({
+        sortType: sortType,
+        email: email,
+        emailType: emailType,
+        content: content,
+      });
       console.log(initData);
     } catch (error) {
       console.error(error);
