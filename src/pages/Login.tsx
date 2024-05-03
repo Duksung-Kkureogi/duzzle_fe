@@ -12,6 +12,7 @@ import Web3 from "web3";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+import axios from "axios";
 
 // IMP START - Dashboard Registration
 const clientId =
@@ -44,6 +45,8 @@ const web3auth = new Web3Auth({
 });
 
 web3auth.configureAdapter(new MetamaskAdapter());
+
+const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
 function Login() {
   const [provider, setProvider] = useState<IProvider | null>(null);
@@ -110,12 +113,37 @@ function Login() {
     init();
   }, []);
 
+  async function postData() {
+    try {
+      const web3 = new Web3(provider as any);
+      const walletAddress = (await web3.eth.getAccounts())[0];
+      const token = await web3auth.authenticateUser();
+      const loginType = "GOOGLE";
+
+      const response = await axios.post(
+        RequestUrl + "/v1/auth",
+        { loginType: loginType, walletAddress: walletAddress },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token.idToken,
+          },
+        }
+      );
+      console.log("요청 성공", response.data);
+      localStorage.setItem("accessToken", response.data["data"]["accessToken"]);
+    } catch (error) {
+      console.error("요청 실패:", error);
+    }
+  }
+
   const login = async () => {
     const web3authProvider = await web3auth.connect();
     console.log();
     setProvider(web3authProvider);
     if (web3auth.connected) {
       setLoggedIn(true);
+      postData();
     }
   };
 
