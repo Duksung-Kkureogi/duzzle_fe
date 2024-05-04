@@ -68,7 +68,9 @@ const FQnaEditor = ({ initData, onSubmit }) => {
       <section className="sort_section">
         <div className="sort_title">🧩 문의 종류 ㅤㅤ</div>
         <div className="menu_bar">
-          <select value={sortType} onChange={onChangeSortType}>
+          <select value={sortType} 
+          onChange={onChangeSortType}
+          className="pl">
             <option>거래</option>
             <option>계정</option>
             <option>퀘스트</option>
@@ -86,7 +88,8 @@ const FQnaEditor = ({ initData, onSubmit }) => {
         ></input>
         <div>@</div>
         <div className="email_bar">
-          <select value={emailType} onChange={onChangeEmailType}>
+          <select value={emailType} onChange={onChangeEmailType}
+          className="pl2">
             <option value={"naver.com"}>naver.com</option>
             <option value={"gmail.com"}>gmail.com</option>
             <option value={"duksung.ac.kr"}>duksung.ac.kr</option>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FaqItem from './FaqItem';
 import axios from 'axios';
+import './FaqViewer.css';
 
 const FaqViewer: React.FC = () => {
   const [faqs, setFaqs] = useState([]);
@@ -12,7 +13,7 @@ const FaqViewer: React.FC = () => {
   const fetchFaq = async () => {
     try {
       const response = await axios.get(
-        "http://duzzle-dev-env.eba-tesapmjt.ap-northeast-2.elasticbeanstalk.com/v1/support/faq",
+        "http://duzzle-development-env.eba-n6vfrcj2.ap-northeast-2.elasticbeanstalk.com/v1/support/faq",
       )
       console.log(response);
       const data = await response.data;

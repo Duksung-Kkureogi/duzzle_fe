@@ -8,7 +8,6 @@
     border-bottom: 1px solid grey;
     padding: 10px;
     cursor: pointer;
-    
 }
 
 .question button {
@@ -17,10 +16,35 @@
     background-color: white;
     font-size: 18px;
 }
+.question:focus{
+    border: 1px solid #9B51E0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: 3px solid #F8E4FF;
+    border-radius: 10px;
+}
 
 .answer {
     background-color: #ffffff;
     border-bottom: 1px solid grey;
     padding: 10px;
     margin: 10px 10px;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .faq-item {
+        margin: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .question, .answer {
+        margin: 5px;
+        padding: 8px;
+    }
+    
+    .question button {
+        float: none;
+        font-size: 16px;
+    }
 }

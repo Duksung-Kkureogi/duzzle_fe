@@ -42,23 +42,38 @@ const FQnaEdit = () => {
         }
       );
       console.log("GET 성공", response);
-      setSortType(response.data["data"]["category"]);
-      const emailArr = response.data["data"]["email"].split("@");
-      setEmail(emailArr[0]);
-      setEmailType(emailArr[1]);
-      setContent(response.data["data"]["question"]);
-      // setInitData가 제대로 안됨..
-      setInitData({
-        sortType: sortType,
-        email: email,
-        emailType: emailType,
-        content: content,
-      });
-      console.log(initData);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+      // 혜림님 코드
+  //     setSortType(response.data["data"]["category"]);
+  //     const emailArr = response.data["data"]["email"].split("@");
+  //     setEmail(emailArr[0]);
+  //     setEmailType(emailArr[1]);
+  //     setContent(response.data["data"]["question"]);
+  //     // setInitData가 제대로 안됨..
+  //     setInitData({
+  //       sortType: sortType,
+  //       email: email,
+  //       emailType: emailType,
+  //       content: content,
+  //     });
+  //     console.log(initData);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  // 수정
+  const data = response.data.data; 
+  setInitData({
+    sortType: data.category,
+    email: data.email.split("@")[0],
+    emailType: data.email.split("@")[1],
+    content: data.question,
+  });
+} catch (error) {
+  console.error(error);
+}
+}
+//
 
   async function onDelete(questionId) {
     try {
@@ -103,6 +118,7 @@ const FQnaEdit = () => {
           category: category,
           email: email + "@" + emailType,
           question: content,
+          submitTime: submitTime,
         },
         {
           headers: {

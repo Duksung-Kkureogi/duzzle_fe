@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import {
@@ -32,7 +32,7 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig: chainConfig },
 });
 
-const web3auth = new Web3Auth({
+export const web3auth = new Web3Auth({
   uiConfig: {
     defaultLanguage: "ko",
     loginGridCol: 2,
@@ -46,7 +46,7 @@ const web3auth = new Web3Auth({
 
 web3auth.configureAdapter(new MetamaskAdapter());
 
-const RequestUrl = import.meta.env.VITE_REQUEST_URL;
+const RequestUrl = "http://duzzle-development-env.eba-n6vfrcj2.ap-northeast-2.elasticbeanstalk.com"
 
 function Login() {
   const [provider, setProvider] = useState<IProvider | null>(null);
@@ -138,12 +138,15 @@ function Login() {
   }
 
   const login = async () => {
-    const web3authProvider = await web3auth.connect();
-    console.log();
-    setProvider(web3authProvider);
-    if (web3auth.connected) {
-      setLoggedIn(true);
-      postData();
+    try {
+      const web3authProvider = await web3auth.connect();
+      setProvider(web3authProvider);
+      if (web3auth.connected) {
+        setLoggedIn(true);
+        postData();
+      }
+    } catch (error) {
+      console.log("로그인 실패: ", error);
     }
   };
 
