@@ -9,6 +9,7 @@ function Home() {
       <body>
         <button onClick={() => navigate("/login")}>로그인페이지로 가기</button>
         <button onClick={() => navigate("/mypage")}>마이페이지로 가기</button>
+        <button onClick={() => navigate("/quest")}>퀘스트페이지로 가기</button>
       </body>
     </div>
   );
