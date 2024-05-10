@@ -1,0 +1,140 @@
+/* Mypage */
+.Mypage {
+  font-family: "Noto Sans KR", sans-serif;
+  cursor: default;
+}
+
+.Mypage .logout {
+  cursor: pointer;
+  margin: 0;
+  width: fit-content;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8c8c8c;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.Mypage .user_image {
+  text-align: center;
+  img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+  }
+}
+
+.Mypage .user_info {
+  flex-direction: column;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 45px;
+}
+
+.Mypage .user_name {
+  font-size: 30px;
+  font-weight: bolder;
+  margin: 0px 0px 5px 0px;
+}
+
+.Mypage .user_email {
+  font-size: 20px;
+  font-weight: bold;
+  color: #8c8c8c;
+  margin: 0px 0px 0px 0px;
+}
+
+.Mypage .user_dal {
+  flex-direction: row;
+  display: flex;
+  width: fit-content;
+  background-color: #34a853;
+  border-radius: 30px;
+  padding: 3px;
+  padding-bottom: 5px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  img {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    margin-top: 8px;
+  }
+  p {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    margin-right: 8px;
+  }
+}
+
+.Mypage .user_menu {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 5%;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: #34a853;
+
+  section {
+    width: 580px;
+    display: flex;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #ececec;
+    justify-content: center;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.Mypage .user_profile {
+  cursor: pointer;
+}
+
+.Mypage .user_nft {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.Mypage .nft_items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 80px;
+}
+
+.Mypage .nft_pieces {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Mypage .user_setting {
+  cursor: pointer;
+}
+
+/* PC (해상도 1024px)*/
+@media all and (min-width: 1024px) {
+}
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (min-width: 768px) and (max-width: 1023px) {
+}
+/* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/
+@media all and (max-width: 767px) {
+  .Mypage .user_menu {
+    section {
+      width: 320px;
+    }
+  }
+}
