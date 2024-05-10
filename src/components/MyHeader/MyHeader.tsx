@@ -1,4 +1,5 @@
 import React from "react";
+import "./MyHeader.css";
 
 interface MyHeaderProps {
   headerText: string;

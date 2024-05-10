@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import MyButton from "../../components/MyButton";
-import MyHeader from "../../components/MyHeader";
+import MyButton from "../../components/MyButton/MyButton";
+import MyHeader from "../../components/MyHeader/MyHeader";
 import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
 
