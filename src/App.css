@@ -6,7 +6,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Roboto", sans-serif;
   min-height: 100vh;
   margin: 0px;
 }
@@ -32,6 +31,7 @@ body {
   min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
+  font-family: "Roboto", sans-serif;
 }
 
 /* MyHeader */
