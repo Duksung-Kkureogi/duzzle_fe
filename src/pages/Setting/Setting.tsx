@@ -27,6 +27,14 @@ function Setting() {
     setLanguage(eventTarget.innerText);
   };
 
+  interface SelectOptionProps {
+    show: boolean;
+  }
+
+  const SelectOptions = styled.ul<SelectOptionProps>`
+    max-height: ${(props) => (props.show ? " none " : " 0 ")};
+  `;
+
   return (
     <div className="Setting">
       <MyHeader headerText="설정" leftChild={<MyButton />} />
