@@ -13,6 +13,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // IMP START - Dashboard Registration
 const clientId =
@@ -51,6 +52,7 @@ const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 function Login() {
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
@@ -144,6 +146,7 @@ function Login() {
       if (web3auth.connected) {
         setLoggedIn(true);
         postData();
+        navigate("/mypage");
       }
     } catch (error) {
       console.log("로그인 실패: ", error);
