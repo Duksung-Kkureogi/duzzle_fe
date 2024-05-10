@@ -6,14 +6,6 @@ import styled from "styled-components";
 
 import "./Setting.css";
 
-interface SelectOptionProps {
-  show: boolean;
-}
-
-const SelectOptions = styled.ul<SelectOptionProps>`
-  max-height: ${(props) => (props.show ? "none" : "0")};
-`;
-
 function Setting() {
   const navigate = useNavigate();
   const [vibration_on, setVibration_on] = useState(true);
