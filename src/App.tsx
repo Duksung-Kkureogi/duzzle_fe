@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Setting from "./pages/Setting";
+import Setting from "./pages/Setting/Setting";
 import Faq from "./pages/Faq";
 import Qna from "./pages/Qna";
 import Mypage from "./pages/Mypage/Mypage";
