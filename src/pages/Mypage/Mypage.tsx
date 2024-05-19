@@ -7,11 +7,10 @@ import "./Mypage.css";
 
 function Mypage() {
   const navigate = useNavigate();
-  const [userName, SetUserName] = useState("");
-  const [userEmail, SetUserEmail] = useState("");
+  const [userImg, setUserImg] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
-  // const user_name = "DukDol";
-  // const user_email = "DukDol@gmail.com";
   const user_dal = 24;
   const nft_items = 18;
   const nft_pieces = 7;
@@ -32,8 +31,9 @@ function Mypage() {
         },
       });
       console.log(response);
-      SetUserName(response.data["data"]["name"] ?? "User");
-      SetUserEmail(response.data["data"]["email"]);
+      setUserImg(response.data["data"]["image"]);
+      setUserName(response.data["data"]["name"] ?? "User");
+      setUserEmail(response.data["data"]["email"]);
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +51,7 @@ function Mypage() {
         로그아웃
       </p>
       <div className="user_image">
-        <img src="/src/assets/images/profileImg.png" />
+        <img src={userImg} />
       </div>
       <div className="user_info">
         <p className="user_name">{userName}</p>
