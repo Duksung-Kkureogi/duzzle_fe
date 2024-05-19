@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MyButton from "../../components/MyButton";
 import MyHeader from "../../components/MyHeader";
 import axios, { AxiosResponse, isAxiosError } from "axios";
@@ -8,8 +8,7 @@ import "./Profile.css";
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
 function Profile() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [image, setImage] = useState("/src/assets/images/profileImg.png");
+  const [image, setImage] = useState("");
   const [wallet, setWallet] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,12 +18,15 @@ function Profile() {
     2023 #Spring Duksung Lv.9 
     2023 #Autumn Duksung Lv.10`;
 
-  const [isEditing, setEditing] = useState(false);
+  const [isEditingName, setEditingName] = useState(false);
   const [editedName, setEditedName] = useState("");
+
+  const [isEditingImg, setEditingImg] = useState(false);
+  const ImgInput = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     getData();
-  }, [isEditing]);
+  }, [isEditingName, isEditingImg]);
 
   async function getData() {
     try {
@@ -46,6 +48,7 @@ function Profile() {
     setWallet(response.data["data"]["walletAddress"]);
     setName(response.data["data"]["name"] ?? "Anonymous");
     setEmail(response.data["data"]["email"]);
+    setImage(response.data["data"]["image"]);
   }
 
   const onNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -56,15 +59,15 @@ function Profile() {
     const ok = confirm("이름을 바꾸시겠습니까?");
     if (!ok) return;
     try {
-      await patchData(editedName);
+      await patchName(editedName);
     } catch (error) {
       console.error(error);
     }
-    setEditing(false);
+    setEditingName(false);
     setEditedName("");
   };
 
-  async function patchData(new_name: string) {
+  async function patchName(new_name: string) {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.patch(
@@ -88,6 +91,42 @@ function Profile() {
     }
   }
 
+  async function onUploadImg(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) {
+      return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0]);
+      for (const key of formData.keys()) {
+        console.log(key, ":", formData.get(key));
+      }
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.patch(
+        RequestURL + "/v1/user/image",
+        formData,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("PATCH 성공", response);
+      setEditingImg(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleClick = () => {
+    if (!ImgInput.current) {
+      return;
+    }
+    ImgInput.current.click();
+    setEditingImg(true);
+  };
+
   return (
     <div className="Profile">
       <MyHeader headerText="프로필" leftChild={<MyButton />} />
@@ -96,7 +135,7 @@ function Profile() {
       </div>
       <div className="profile_img">
         <img src={image} />
-        <button onClick={() => alert("프로필 이미지 변경")}>
+        <button onClick={handleClick}>
           <svg
             data-slot="icon"
             fill="none"
@@ -112,6 +151,14 @@ function Profile() {
               d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
             ></path>
           </svg>
+          <input
+            type="file"
+            accept="image/*"
+            name="userImg"
+            ref={ImgInput}
+            onChange={onUploadImg}
+            style={{ display: "none" }}
+          />
         </button>
       </div>
       <div className="profile_list_title">
@@ -127,12 +174,12 @@ function Profile() {
         <section className="profile_name">
           <p className="list_name">이름(닉네임)</p>
           <div className="name">
-            {isEditing ? (
+            {isEditingName ? (
               <textarea onChange={onNameChange} placeholder={name} />
             ) : (
               <p>{name}</p>
             )}
-            {isEditing ? (
+            {isEditingName ? (
               <>
                 {editedName.length > 0 ? (
                   <button className="done" onClick={onEditName}>
@@ -153,7 +200,7 @@ function Profile() {
                     </svg>
                   </button>
                 ) : (
-                  <button onClick={() => setEditing(false)}>
+                  <button onClick={() => setEditingName(false)}>
                     <svg
                       data-slot="icon"
                       fill="none"
@@ -173,7 +220,7 @@ function Profile() {
                 )}
               </>
             ) : (
-              <button className="edit" onClick={() => setEditing(true)}>
+              <button className="edit" onClick={() => setEditingName(true)}>
                 <svg
                   data-slot="icon"
                   fill="none"
