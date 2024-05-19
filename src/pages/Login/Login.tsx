@@ -117,12 +117,21 @@ function Login() {
     init();
   }, []);
 
+  function checkLoginType(loginType: string | undefined) {
+    if (loginType === "EMAIL_PASSWORDLESS") return "EMAIL";
+    else if (loginType === "SMS_PASSWORDLESS") return "SMS";
+    else if (loginType == null) return "METAMASK";
+    else return loginType;
+  }
+
   async function postData() {
     try {
       const web3 = new Web3(provider as any);
       const walletAddress = (await web3.eth.getAccounts())[0];
       const token = await web3auth.authenticateUser();
-      const loginType = "GOOGLE";
+      const loginType = checkLoginType(
+        (await web3auth.getUserInfo()).typeOfLogin?.toUpperCase()
+      );
 
       const response = await axios.post(
         RequestUrl + "/v1/auth",
