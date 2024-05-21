@@ -29,7 +29,7 @@
     left: 350px;
     border: none;
     border-radius: 50%;
-    background-color: #34a853;
+    background-color: #00b5cc;
     cursor: pointer;
     svg {
       margin-top: 2px;
@@ -46,7 +46,7 @@
   p {
     font-size: 20px;
     margin: 0;
-    color: #34a853;
+    color: #f16d9a;
     font-weight: 700;
   }
 }
@@ -75,7 +75,7 @@
 }
 
 .Profile .profile_list .list_name {
-  color: #34a853;
+  color: #22bcbc;
 }
 
 .Profile .profile_list .wallet {
@@ -121,7 +121,7 @@
     }
     &:focus {
       outline: none;
-      border-color: #34a853;
+      border-color: #22bcbc;
     }
   }
 }
