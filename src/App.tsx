@@ -8,6 +8,7 @@ import Qna from "./pages/Qna";
 import Mypage from "./pages/Mypage/Mypage";
 import Profile from "./pages/Profile/Profile";
 import Login from "./pages/Login/Login";
+import Store from "./pages/Store/Store";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/qna" element={<Qna />} />
+          <Route path="/store" element={<Store />} />
         </Routes>
       </div>
     </BrowserRouter>
