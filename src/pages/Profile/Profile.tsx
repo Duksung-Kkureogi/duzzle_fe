@@ -84,8 +84,12 @@ function Profile() {
     } catch (error) {
       console.error(error);
       if (isAxiosError(error)) {
-        if (error.response?.status == 409) {
+        if (error.response?.data.code == "ALREADY_EXISTS") {
           alert("동일한 이름이 존재합니다.\n다른 이름을 입력해주세요.");
+        } else if (error.response?.data.code == "LIMIT_EXCEEDED") {
+          alert(
+            "이름 변경은 10분 간격으로 가능합니다.\n잠시 후에 시도해주세요."
+          );
         }
       }
     }
