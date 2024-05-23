@@ -1,127 +1,136 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
-.Quest{
-    text-align: center;
+.Quest {
+  text-align: center;
 }
-.Quest .random{
-    font-size: 70px;
+.Quest .random {
+  margin-top: 100px;
+  font-size: 65px;
+  background: linear-gradient(110deg, red, orange, yellow, green, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .btn-hover {
-    width: 250px;
-    font-size: 25px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin: 20px;
-    height: 70px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-    border-radius: 50px;
+  width: 250px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 70px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
 }
 
 .btn-hover:focus {
-    outline: none;
+  outline: none;
 }
 
 .btn-hover.color-6 {
-    background-image: linear-gradient(to right, #009245, #FCEE21, #00A8C5, #D9E021);
-    box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+  background-image: linear-gradient(
+    to right,
+    #009245,
+    #fcee21,
+    #00a8c5,
+    #d9e021
+  );
+  box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
 }
 
-
 #wrap {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 100px auto;
-    perspective: 700px;
-    cursor: pointer;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 100px auto;
+  perspective: 700px;
+  cursor: pointer;
 }
 
 #wrap::after {
-    position: absolute;
-    left: 50%;
-    bottom: -60px;
-    transform: translateX(-50%);
-    display: block;
-    content: "";
-    width: 120px;
-    height: 10px;
-    border-radius: 50%;
-    filter: blur(8px);
-    background-color: rgba(2, 0, 0, 0.75);
+  position: absolute;
+  left: 50%;
+  bottom: -60px;
+  transform: translateX(-50%);
+  display: block;
+  content: "";
+  width: 120px;
+  height: 10px;
+  border-radius: 50%;
+  filter: blur(8px);
+  background-color: rgba(2, 0, 0, 0.75);
 }
 
 #wrap .dice {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 1.5s;
-    transform-style: preserve-3d;
-    animation: freeturn 6s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 1.5s;
+  transform-style: preserve-3d;
+  animation: freeturn 6s linear infinite;
 }
 
 #wrap .dice > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    font-size: 30px;
-    border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  border: none;
 }
 
 #wrap .dice > div:nth-child(1) {
-    transform: translateZ(50px);
-    background-color: rgb(255, 23, 185);
+  transform: translateZ(50px);
+  background-color: rgb(255, 23, 185);
 }
 
 #wrap .dice > div:nth-child(2) {
-    transform: translateX(-50px) rotateY(-90deg);
-    background-color: rgb(255, 166, 0);
+  transform: translateX(-50px) rotateY(-90deg);
+  background-color: rgb(255, 166, 0);
 }
 
 #wrap .dice > div:nth-child(3) {
-    transform: translateZ(-50px) rotateY(-180deg);
-    background-color:#FCEE21;
+  transform: translateZ(-50px) rotateY(-180deg);
+  background-color: #fcee21;
 }
 
 #wrap .dice > div:nth-child(4) {
-    transform: translateX(50px) rotateY(90deg);
-    background-color: rgb(212, 255, 0);
+  transform: translateX(50px) rotateY(90deg);
+  background-color: rgb(212, 255, 0);
 }
 
 #wrap .dice > div:nth-child(5) {
-    transform: translateY(-50px) rotateX(90deg);
-    background-color: rgb(149, 255, 0);
+  transform: translateY(-50px) rotateX(90deg);
+  background-color: rgb(149, 255, 0);
 }
 
 #wrap .dice > div:nth-child(6) {
-    transform: translateY(50px) rotateX(270deg);
-    background-color: rgb(230, 91, 255);
+  transform: translateY(50px) rotateX(270deg);
+  background-color: rgb(230, 91, 255);
 }
 
-
 @keyframes freeturn {
-    0% {
-        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    }
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
 
-    100% {
-        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-    }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
 }

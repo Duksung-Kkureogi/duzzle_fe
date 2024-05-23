@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FQnaItem from "./FQnaItem";
-
 import "./FQnaList.css";
 
 const Fix_QnaList = ({ data }) => {

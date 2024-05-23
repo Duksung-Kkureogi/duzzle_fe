@@ -42,39 +42,18 @@ const FQnaEdit = () => {
         }
       );
       console.log("GET 성공", response);
-      // 혜림님 코드
-  //     setSortType(response.data["data"]["category"]);
-  //     const emailArr = response.data["data"]["email"].split("@");
-  //     setEmail(emailArr[0]);
-  //     setEmailType(emailArr[1]);
-  //     setContent(response.data["data"]["question"]);
-  //     // setInitData가 제대로 안됨..
-  //     setInitData({
-  //       sortType: sortType,
-  //       email: email,
-  //       emailType: emailType,
-  //       content: content,
-  //     });
-  //     console.log(initData);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
-  // 수정
-  const data = response.data.data; 
-  setInitData({
-    sortType: data.category,
-    email: data.email.split("@")[0],
-    emailType: data.email.split("@")[1],
-    content: data.question,
-  });
-} catch (error) {
-  console.error(error);
-}
-}
-//
-
+      const data = response.data.data;
+      setInitData({
+        sortType: data.category,
+        email: data.email.split("@")[0],
+        emailType: data.email.split("@")[1],
+        content: data.question,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   async function onDelete(questionId) {
     try {
       const token = localStorage.getItem("accessToken");
@@ -101,14 +80,7 @@ const FQnaEdit = () => {
     else if (value === "기타") return "ETC";
   };
 
-  async function onUpdate(
-    questionId,
-    submitTime,
-    sortType,
-    email,
-    emailType,
-    content
-  ) {
+  async function onUpdate(questionId, sortType, email, emailType, content) {
     try {
       const category = onSort(sortType);
       const token = localStorage.getItem("accessToken");
@@ -118,7 +90,6 @@ const FQnaEdit = () => {
           category: category,
           email: email + "@" + emailType,
           question: content,
-          submitTime: submitTime,
         },
         {
           headers: {
@@ -144,13 +115,13 @@ const FQnaEdit = () => {
     if (window.confirm("문의를 수정하시겠습니까?")) {
       onUpdate(
         questionId,
-        new Date().getTime(),
         input.sortType,
         input.email,
         input.emailType,
         input.content
       );
       nav("/qna");
+      console.log(input.content);
     }
   };
 

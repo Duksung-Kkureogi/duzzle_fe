@@ -37,10 +37,6 @@ const FQnaEditor = ({ initData, onSubmit }) => {
   useEffect(() => {
     if (initData) {
       setInput({ ...initData });
-      //   setSortType(initData.sortType);
-      //   setEmail(initData.email);
-      //   setEmailType(initData.emailType);
-      //   setContent(initData.content);
     }
   }, [initData]);
 
@@ -62,15 +58,18 @@ const FQnaEditor = ({ initData, onSubmit }) => {
     };
     onSubmit(updatedInput);
   };
+  console.log(input.content);
 
   return (
     <div className="Editor">
       <section className="sort_section">
         <div className="sort_title">🧩 문의 종류 ㅤㅤ</div>
         <div className="menu_bar">
-          <select value={sortType} 
-          onChange={onChangeSortType}
-          className="pl">
+          <select
+            value={input.sortType}
+            onChange={onChangeSortType}
+            className="pl"
+          >
             <option>거래</option>
             <option>계정</option>
             <option>퀘스트</option>
@@ -88,8 +87,11 @@ const FQnaEditor = ({ initData, onSubmit }) => {
         ></input>
         <div>@</div>
         <div className="email_bar">
-          <select value={emailType} onChange={onChangeEmailType}
-          className="pl2">
+          <select
+            value={input.emailType}
+            onChange={onChangeEmailType}
+            className="pl2"
+          >
             <option value={"naver.com"}>naver.com</option>
             <option value={"gmail.com"}>gmail.com</option>
             <option value={"duksung.ac.kr"}>duksung.ac.kr</option>

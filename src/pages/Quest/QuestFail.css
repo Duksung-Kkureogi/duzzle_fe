@@ -1,61 +1,130 @@
-.text{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
 }
-.text .text_fail{
-    font-size: 50px;
-    color: rgba(255, 8, 8, 1);
+
+body {
+  background-color: #f5f8ff;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  min-block-size: 100vh;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  overflow: hidden;
 }
-.text .text_good{
-    font-size: 20px;
-    color: rgba(46, 124, 246, 1);
+
+.QuestFail {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.QuestFail .w-6.h-6 {
+  width: 200px;
+  height: 200px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.QuestFail .text_suc {
+  background-image: linear-gradient(to right, #ff66bd, #ff66bd, #ff66bd);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  font-weight: bold;
+  margin: 90px 0px;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  padding: 0;
 }
 .buttons {
-    margin: 10%;
-    text-align: center;
-    /* display: flex; */
-}
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  gap: 1rem;
 }
 
-.btn-hover {
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin: 20px;
-    height: 55px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-    border-radius: 50px;
-    width: 200px;
+.btn1 {
+  background-color: #00b5cc;
+  color: #fff;
+  border: 0;
+  font-size: 1.9rem;
+  font-weight: 400;
+  width: 280px;
+  height: 100px;
+  padding: 0.5em 1.25em;
+  border-radius: 0.5em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  box-shadow: 0 4px 15px 0 #99c9d0;
+  z-index: 1;
 }
 
-.btn-hover:focus {
-    outline: none;
+.btn2 {
+  background-color: #ff66bd;
+  color: #fff;
+  border: 0;
+  font-size: 1.9rem;
+  font-weight: 400;
+  width: 280px;
+  height: 100px;
+  padding: 0.5em 1.25em;
+  border-radius: 0.5em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  box-shadow: 0 4px 15px 0 #99c9d0;
+  z-index: 1;
 }
 
-.btn-hover.color-1 {
-    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
-}
-.btn-hover.color-2 {
-    background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);
-    box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+.btn-jittery {
+  animation: jittery 4s infinite;
 }
 
-.img_moon {
-    text-align: center;
+@keyframes jittery {
+  5%,
+  50% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  15% {
+    transform: scale(1.15);
+  }
+  20% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  30% {
+    transform: scale(1.15) rotate(-3deg);
+  }
+  35% {
+    transform: scale(1.15) rotate(2deg);
+  }
+  40% {
+    transform: scale(1.15) rotate(0);
+  }
 }
 
-.img_moon img {
-    width: 200px;
-    height: auto;
-    margin-top: 50px;
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px; /* 간격 조정 */
+  gap: 3rem;
 }

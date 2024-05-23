@@ -1,38 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
 import "./Quest.css";
 
 function Quest() {
     const nav = useNavigate();
-    const [randomQuiz, setRandomQuiz] = useState(null);
-    const [quizType, setQuizType] = useState(""); // 퀴즈 종류 상태 추가
-
-    useEffect(() => {
-        // 랜덤 퀴즈 선택 API 호출
-        // API 호출 후 randomQuiz 상태 업데이트
-        const getRandomQuiz = async () => {
-            try {
-                const response = await fetch("API_URL");
-                const data = await response.json();
-                setRandomQuiz(data);
-                setQuizType(data.type); // 퀴즈 종류 업데이트
-            } catch (error) {
-                console.error("Error fetching random quiz:", error);
-                // API 연결이 안될 시에는 speedQuiz로 설정
-                setQuizType("speedQuiz");
-            }
-        };
-        
-        getRandomQuiz();
-    }, []);
-
-    const startQuiz = () => {
-        // 랜덤 퀴즈 종류에 따라 해당 퀴즈로 이동
-        if (quizType === "speedQuiz") {
+    const [type, setQuizType] = useState(""); 
+    const RequestURL = import.meta.env.VITE_REQUEST_URL;
+    const startQuiz = async () => {
+        try {
+            const token = localStorage.getItem("accessToken");
+            const response = await axios.post(
+                RequestURL + "/v1/quest/start",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            console.log("POST 성공", response.data);
+            setQuizType(response.data.data.type);
+            if (response.data.data.type === "SPEED_QUIZ") {
+                nav("/questspeed");
+            } 
+            // else if (response.data.data.type === "RAIN_QUIZ") {
+            //     nav("/questrain");
+            // }
+        } catch (error) {
+            console.error("Error fetching random quiz:", error);
+            // API 연결이 안될 시
+            setQuizType("SPEED_QUIZ");
             nav("/questspeed");
-        } else if (quizType === "rainQuiz") {
-            nav("/questrain");
-        } // 이후 다른 종류의 퀴즈가 추가된다면 계속해서 else if 문으로 처리
+        }
     };
 
     return (
@@ -49,7 +50,6 @@ function Quest() {
                 </div>
             </div>
             <button className="btn-hover color-6" onClick={startQuiz}>START</button>
-            {randomQuiz}
         </div>
     );
 }

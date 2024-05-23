@@ -1,64 +1,153 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./QuestSpped.css";
+import axios from "axios";
+import "./QuestSpeed.css";
 
 function QuestSpeed() {
-    const nav = useNavigate();
-    const [timeLeft, setTimeLeft] = useState(30);
-    const [answers, setAnswers] = useState(["", "", "", ""]);
-    const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const nav = useNavigate();
+  const [timeLimit, setTimeLimit] = useState(30);
+  const [answers, setAnswers] = useState([]);
+  const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const [questData, setQuestData] = useState(null);
+  const [logId, setLogId] = useState(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
-    useEffect(() => {
-        if (isTimerRunning && timeLeft > 0) {
-            const timer = setTimeout(() => {
-                setTimeLeft(timeLeft - 1);
-            }, 1000);
-            return () => clearTimeout(timer);
-        } else if (timeLeft === 0) {
-            setIsTimerRunning(false);
-            nav("/questfail");
+  useEffect(() => {
+    getRandomSpeedQuest();
+  }, []);
+
+  useEffect(() => {
+    // 타이머
+    if (isTimerRunning && timeLimit > 0) {
+      const timer = setTimeout(() => {
+        setTimeLimit(timeLimit - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLimit === 0) {
+      setIsTimerRunning(false);
+      nav("/questfail");
+    }
+  }, [isTimerRunning, timeLimit]);
+
+  const handleInputChange = (index, value) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = value;
+    setAnswers(newAnswers);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        RequestURL + "/v1/quest/result",
+        {
+          logId,
+          answer: answers,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
         }
-    }, [isTimerRunning, timeLeft, nav]);
+      );
+      console.log("Result Submitted:", response);
+      setIsCompleted(true);
+      setIsTimerRunning(false);
+      if (response.data.data) {
+        nav("/questsuccess");
+      } else {
+        nav("/questfail");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.error("모든 퀘스트를 이미 완료했습니다.");
+      } else {
+        console.error("Error submitting result:", error);
+        nav("/questfail");
+      }
+    }
+  };
 
-    const handleInputChange = (index, value) => {
-        const newAnswers = [...answers];
-        newAnswers[index] = value;
-        setAnswers(newAnswers);
-    };
-
-    const handleSubmit = () => {
-        const correctAnswers = ["3", "가정약학관", "김수근", "건축상"];
-        if (JSON.stringify(answers) === JSON.stringify(correctAnswers)) {
-            nav("/questsuccess");
-        } else {
-            nav("/questfail");
+  const getRandomSpeedQuest = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        RequestURL + "/v1/quest/start",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-    };
+      );
+      console.log("GET 성공", response.data["data"]);
+      console.log(
+        "Quest Length:",
+        response.data.data.quest
+          ? response.data.data.quest.split("?").length
+          : 0
+      );
+      setQuestData({ ...response.data["data"] });
+      setLogId(response.data.data.logId);
+      setAnswers(
+        Array(
+          response.data.data.quest
+            .split("?")
+            .filter((part) => part.trim() !== "").length
+        ).fill("")
+      );
+      setIsCompleted(false);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.error("모든 퀘스트를 이미 완료했습니다.");
+      } else {
+        console.error("Error fetching random speed quest:", error);
+        nav("/questfail");
+      }
+    }
+  };
 
-    return (
+  return (
+    <div className="QuestSpeed">
+      {questData && (
         <>
-            <div className="QuestSpeed">
-                [스피드 퀴즈]
+          <div className="speed-quiz-title">[스피드 퀴즈]</div>
+          <div className="time-info">
+            <div>제한시간: {timeLimit}초</div>
+            <div>남은시간: {timeLimit}초</div>
+          </div>
+          <div className="quiz-container">
+            <div className="quiz">
+              {questData.quest.split("?").map((part, index) => (
+                <span key={index}>
+                  {part}
+                  {index !== questData.quest.split("?").length - 1 && (
+                    <input
+                      type="text"
+                      maxLength="10"
+                      value={answers[index]}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                    />
+                  )}
+                </span>
+              ))}
             </div>
-            <div className="time-info">
-                <div>제한시간: 30초</div>
-                <div>남은시간: {timeLeft}초</div>
-            </div>
-            <div className="quiz-container">
-                <div className="quiz">
-                    덕성여자대학교 쌍문동 캠퍼스에서 첫번째로 지어진 건물 중 하나인 자연관은 1. <input type="text" maxLength="2" value={answers[0]} onChange={(e) => handleInputChange(0, e.target.value)} />층 건물이다.
-                    자연관의 구 명칭은 <input type="text" maxLength="6" value={answers[1]} onChange={(e) => handleInputChange(1, e.target.value)} />이였다.
-                    <br />
-                    자연관은 대한민국 현대 건축 1세대 <input type="text" maxLength="4" value={answers[2]} onChange={(e) => handleInputChange(2, e.target.value)} /> 건축가의 작품이다.
-                    또한, 1979에 <input type="text" maxLength="7" value={answers[3]} onChange={(e) => handleInputChange(3, e.target.value)} />상을 수상하였다.
-                </div>
-            </div>
-            <div className="buttons">
-                <button className="submit-btn" onClick={handleSubmit}>제출하기</button>
-                <button className="quit-btn" onClick={() => nav("/questfail")}>그만하기</button>
-            </div>
+          </div>
+          <div className="buttons">
+            <button className="submit-btn" onClick={handleSubmit}>
+              제출하기
+            </button>
+            <button className="quit-btn" onClick={() => nav("/questfail")}>
+              그만하기
+            </button>
+          </div>
         </>
-    );
+      )}
+    </div>
+  );
 }
 
 export default QuestSpeed;
