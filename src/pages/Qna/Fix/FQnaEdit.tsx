@@ -13,7 +13,7 @@ const RequestURL = import.meta.env.VITE_REQUEST_URL;
 const FQnaEdit = () => {
   const params = useParams();
   const questionId = params.id;
-  const [sortType, setSortType] = useState("거래");
+  const [sortType, setSortType] = useState("");
   const [email, setEmail] = useState("");
   const [emailType, setEmailType] = useState("naver.com");
   const [content, setContent] = useState("");
@@ -72,22 +72,28 @@ const FQnaEdit = () => {
     }
   }
 
-  const onSort = (value) => {
-    if (value === "거래") return "MARKET";
-    else if (value === "계정") return "ACCOUNT";
-    else if (value === "퀘스트") return "QUEST";
-    else if (value === "스토리") return "STORY";
-    else if (value === "기타") return "ETC";
-  };
-
   async function onUpdate(questionId, sortType, email, emailType, content) {
     try {
-      const category = onSort(sortType);
+      let category = "";
+      if (sortType === "거래") {
+        category = "MARKET";
+      } else if (sortType === "계정") {
+        category = "ACCOUNT";
+      } else if (sortType === "퀘스트") {
+        category = "QUEST";
+      } else if (sortType === "스토리") {
+        category = "STORY";
+      } else if (sortType === "기타") {
+        category = "ETC";
+      }
       const token = localStorage.getItem("accessToken");
+      console.log("questionId:", questionId);
+      console.log("email:", email);
+      console.log("content:", content);
       const response = await axios.put(
         RequestURL + `/v1/support/qna/${questionId}`,
         {
-          category: category,
+          category: sortType,
           email: email + "@" + emailType,
           question: content,
         },
@@ -121,7 +127,7 @@ const FQnaEdit = () => {
         input.content
       );
       nav("/qna");
-      console.log(input.content);
+      console.log(initData.content);
     }
   };
 
