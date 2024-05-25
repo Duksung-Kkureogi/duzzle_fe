@@ -18,7 +18,7 @@ body {
 
 @media (max-width: 650px) {
   .App {
-    width: 90vw;
+    width: 100vw;
   }
 }
 

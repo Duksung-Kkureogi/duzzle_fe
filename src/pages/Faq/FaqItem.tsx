@@ -1,5 +1,5 @@
-import './FaqItem.css';
-import React, { useState } from 'react';
+import "./FaqItem.css";
+import React, { useState } from "react";
 
 interface FaqItemProps {
   question: string;
@@ -17,7 +17,7 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
     <div className="faq-item">
       <div className="question" tabIndex={0} onClick={toggleAnswer}>
         {question}
-        <button>{isOpen ? '▲' : '▼'}</button>
+        <button>{isOpen ? "ㅤ▲" : "ㅤ▼"}</button>
       </div>
       {isOpen && <div className="answer">{answer}</div>}
     </div>
@@ -25,4 +25,3 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
 };
 
 export default FaqItem;
-

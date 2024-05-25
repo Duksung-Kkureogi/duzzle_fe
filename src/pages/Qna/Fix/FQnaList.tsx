@@ -13,11 +13,13 @@ const Fix_QnaList = ({ data }) => {
   };
 
   const getSortedData = () => {
-    return data.sort((a, b) => {
+    return data.slice().sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
       if (sortType === "oldest") {
-        return Number(a.submitTime) - Number(b.submitTime);
+        return dateA.getTime() - dateB.getTime();
       } else {
-        return Number(b.submitTime) - Number(a.submitTime);
+        return dateB.getTime() - dateA.getTime();
       }
     });
   };
