@@ -14,9 +14,13 @@
 .Quest .random {
   margin-top: 100px;
   font-size: 65px;
-  background: linear-gradient(110deg, red, orange, yellow, green, blue, violet);
+  background: linear-gradient(150deg, red, yellow, green, violet);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  background-clip: text;
+  font-size: 60px;
+  font-weight: bold;
 }
 
 .btn-hover {
@@ -38,13 +42,7 @@
 }
 
 .btn-hover.color-6 {
-  background-image: linear-gradient(
-    to right,
-    #009245,
-    #fcee21,
-    #00a8c5,
-    #d9e021
-  );
+  background-image: linear-gradient(to right, #0ad368, #009245, #009245);
   box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
 }
 
@@ -93,6 +91,7 @@
   height: 100%;
   font-size: 30px;
   border: none;
+  font-weight: bold;
 }
 
 #wrap .dice > div:nth-child(1) {

@@ -23,8 +23,7 @@ body {
 .QuestFail .w-6.h-6 {
   width: 200px;
   height: 200px;
-  margin-top: 20px;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
 }
 
 .QuestFail .text_suc {
@@ -35,7 +34,7 @@ body {
   -webkit-text-fill-color: transparent;
   font-size: 60px;
   font-weight: bold;
-  margin: 90px 0px;
+  margin: 80px 0px;
 }
 
 button {
