@@ -1,25 +1,40 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { web3auth } from "./Login";
 
 import "./Mypage.css";
+import { useAuth } from "../../services/AuthContext";
 
 function Mypage() {
+  const { web3auth, getDalBalance, web3AuthInit, logout } = useAuth();
   const navigate = useNavigate();
   const [userImg, setUserImg] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userDal, setUserDal] = useState("");
 
-  const user_dal = 24;
   const nft_items = 18;
   const nft_pieces = 7;
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
   useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
+
+  useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    const fetchUserDal = async () => {
+      const balance = await getDalBalance();
+      setUserDal(balance);
+    };
+    fetchUserDal();
+  }, [getDalBalance]);
 
   async function getData() {
     try {
@@ -39,15 +54,15 @@ function Mypage() {
     }
   }
 
-  const logout = async () => {
-    // await web3auth.logout();
+  const Logout = () => {
+    logout;
     console.log("logged out");
     navigate("/");
   };
 
   return (
     <div className="Mypage">
-      <p className="logout" onClick={logout}>
+      <p className="logout" onClick={Logout}>
         로그아웃
       </p>
       <div className="user_image">
@@ -59,7 +74,7 @@ function Mypage() {
       </div>
       <div className="user_dal">
         <img src="/src/assets/images/moon.png" />
-        <p>{user_dal} Dal</p>
+        <p>{userDal} Dal</p>
       </div>
 
       <div className="user_menu">

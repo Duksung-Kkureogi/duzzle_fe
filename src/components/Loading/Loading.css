@@ -1,0 +1,10 @@
+/* Loading */
+
+.Loading {
+  text-align: center;
+}
+
+.Loading img {
+  border-radius: 30px;
+  width: 130px;
+}
