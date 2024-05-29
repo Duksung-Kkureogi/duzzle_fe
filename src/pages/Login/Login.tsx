@@ -4,14 +4,8 @@ import { useAuth } from "../../services/AuthContext";
 import "./Login.css";
 
 function Login() {
-  const {
-    user,
-    logout,
-    web3auth,
-    web3AuthInit,
-    duzzleLoggedIn,
-    getDalBalance,
-  } = useAuth();
+  const { user, logout, web3auth, web3AuthInit, duzzleLoggedIn, getDal } =
+    useAuth();
   const [userDal, setUserDal] = useState("");
 
   useEffect(() => {
@@ -20,11 +14,11 @@ function Login() {
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      const balance = await getDalBalance();
+      const balance = await getDal();
       setUserDal(balance);
     };
     fetchUserDal();
-  }, [getDalBalance]);
+  }, [getDal]);
 
   const login = async (): Promise<void> => {
     if (!web3auth) {

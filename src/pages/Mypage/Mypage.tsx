@@ -6,7 +6,7 @@ import "./Mypage.css";
 import { useAuth } from "../../services/AuthContext";
 
 function Mypage() {
-  const { web3auth, getDalBalance, web3AuthInit, logout } = useAuth();
+  const { web3auth, getDal, web3AuthInit, logout } = useAuth();
   const navigate = useNavigate();
   const [userImg, setUserImg] = useState("");
   const [userName, setUserName] = useState("");
@@ -30,11 +30,11 @@ function Mypage() {
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      const balance = await getDalBalance();
+      const balance = await getDal();
       setUserDal(balance);
     };
     fetchUserDal();
-  }, [getDalBalance]);
+  }, [getDal]);
 
   async function getData() {
     try {

@@ -31,7 +31,8 @@ interface AuthContextType {
   duzzleLogin: (params: LoginRequest) => void;
   user: DuzzleUser | null;
   logout: () => void;
-  getDalBalance: () => Promise<string>;
+  showDalBalance: () => void;
+  getDal: () => Promise<string>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -130,6 +131,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         )
       ).data;
+      localStorage.setItem("accessToken", response.data["accessToken"]);
       const user: DuzzleUser = {
         ...response.data,
         ...response.data.user,
@@ -147,14 +149,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setWeb3LoggedIn(false);
   };
 
-  const getDalBalance = async () => {
+  const showDalBalance = async () => {
+    if (!web3auth?.provider) {
+      console.log("provider not initialized yet");
+    } else {
+      const rpc = new RPC(web3auth.provider as IProvider);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const balance = await rpc.getDalBalance();
+      //UiConsole(balance);
+    }
+  };
+
+  const getDal = async () => {
     if (!web3auth?.provider) {
       console.log("provider not initialized yet");
     } else {
       try {
         const rpc = new RPC(web3auth.provider as IProvider);
         const balance = await rpc.getDalBalance();
-        return balance.toString().split(".")[0];
+        return balance;
       } catch (error) {
         console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
       }
@@ -174,7 +187,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setWeb3auth,
         web3AuthInit,
         user,
-        getDalBalance,
+        showDalBalance,
+        getDal,
       }}
     >
       {children}

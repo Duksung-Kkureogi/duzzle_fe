@@ -11,7 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import { itemList } from "../../util/item";
 
 function Store() {
-  const { web3auth, getDalBalance, web3AuthInit } = useAuth();
+  const { web3auth, web3AuthInit, getDal } = useAuth();
   const [userDal, setUserDal] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [enoughDal, setEnoughDal] = useState(false);
@@ -34,12 +34,12 @@ function Store() {
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      const balance = await getDalBalance();
+      const balance = await getDal();
       setUserDal(balance);
-      //setUserDal("1");
+      //setUserDal("");
     };
     fetchUserDal();
-  }, [getDalBalance]);
+  }, [getDal]);
 
   useEffect(() => {
     if (metadataUrl) {
@@ -100,8 +100,8 @@ function Store() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "350px",
-      height: "220px",
+      width: "300px",
+      height: "250px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",
@@ -135,19 +135,22 @@ function Store() {
           {loading ? (
             <Loading />
           ) : (
-            <>
-              <button onClick={closeModal}>X</button>
-              <div>
-                <div style={{ textAlign: "center" }}>
-                  <h3>{curNFTItem?.item_name}</h3>
-                  <img src={curNFTItem?.item_img} style={{ width: "100px" }} />
-                </div>
-                <div>
-                  <button>보유 NFT 확인</button>
-                  <button>잠금해제 하러 가기</button>
-                </div>
+            <div className="modal_dalO">
+              <div className="dal_btn_X">
+                <button onClick={closeModal}>X</button>
               </div>
-            </>
+              <div className="dalO_p">
+                <p>재료 NFT 구입 완료!</p>
+              </div>
+              <div className="dalO_item">
+                <img src={curNFTItem?.item_img} />
+                <p>{curNFTItem?.item_name}</p>
+              </div>
+              <div className="dalO_btn">
+                <button>보유 NFT 확인</button>
+                <button>잠금해제 하러 가기</button>
+              </div>
+            </div>
           )}
         </Modal>
       ) : (
@@ -157,11 +160,18 @@ function Store() {
           style={customStyles}
           shouldCloseOnOverlayClick={false}
         >
-          <button onClick={closeModal}>X</button>
-          <div>
-            <h2>Dal이 부족합니다!</h2>
-            <h2>랜덤 퀘스트를 통해 Dal을 획득해보세요.</h2>
-            <button>퀘스트 하러가기</button>
+          <div className="modal_dalX">
+            <div className="dal_btn_X">
+              <button onClick={closeModal}>X</button>
+            </div>
+            <div className="dalX_p">
+              <p>DAL 이 부족합니다!</p>
+              <p>랜덤 퀘스트를 통해 DAL 을 </p>
+              <p>획득해보세요.</p>
+            </div>
+            <div className="dalX_btn">
+              <button>퀘스트 하러가기</button>
+            </div>
           </div>
         </Modal>
       )}

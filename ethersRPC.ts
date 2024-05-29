@@ -49,7 +49,6 @@ export default class EthereumRpc {
   async getDalBalance(): Promise<any> {
     const ethersProvider = new ethers.BrowserProvider(this.provider);
     const signer = await ethersProvider.getSigner();
-
     const contract = new ethers.Contract(
       ContractAddress.Dal,
       JSON.parse(JSON.stringify(DalAbi)),
@@ -59,7 +58,7 @@ export default class EthereumRpc {
     // Read message from smart contract
     const balance = await contract.balanceOf(signer.address);
 
-    return ethers.formatEther(balance);
+    return parseFloat(ethers.formatEther(balance));
   }
 
   async getRandomItem(): Promise<any> {
