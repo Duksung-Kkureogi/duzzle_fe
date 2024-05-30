@@ -1,3 +1,103 @@
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+.QuestSpeed {
+  text-align: center;
+  margin-top: 80px;
+}
+.QuestSpeed .speed-quiz-title {
+  background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 50px;
+  font-weight: bold;
+}
+.QuestSpeed .quiz-container input {
+  width: 20%;
+  padding: 4px;
+  font-size: 13px;
+  margin: 0px 5px;
+  height: 30px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+.QuestSpeed .time-info {
+  display: flex;
+  flex-direction: raw;
+  justify-content: center;
+  margin: 20px;
+}
+.time-info .time {
+  background-image: linear-gradient(to right, #000000, #000000);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.quiz-container .quiz {
+  font-size: 20px;
+}
+.quiz-container .input {
+}
+.time-info .info {
+  background-image: linear-gradient(to right, #f16d9a, #f16d9a);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 20px;
+  font-weight: bold;
+}
+button {
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.buttons .submit.btn {
+  color: #fff;
+  border: 0;
+  font-size: 1.2rem;
+  font-weight: 200;
+  width: 140px;
+  height: 50px;
+  padding: 0.5em 1.25em;
+  border-radius: 0.5em;
+  z-index: 999;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  background-color: #00b5cc;
+  box-shadow: 0 4px 15px 0 #99c9d0;
+}
+.buttons .quit.btn {
+  color: #fff;
+  border: 0;
+  font-size: 1.2rem;
+  font-weight: 200;
+  width: 140px;
+  height: 50px;
+  padding: 0.5em 1.25em;
+  border-radius: 0.5em;
+  z-index: 999;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  background-color: #9a9c9d;
+  box-shadow: 0 4px 15px 0 #828282;
+}

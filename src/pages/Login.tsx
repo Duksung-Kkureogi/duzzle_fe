@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import {
@@ -46,7 +45,8 @@ export const web3auth = new Web3Auth({
 
 web3auth.configureAdapter(new MetamaskAdapter());
 
-const RequestUrl = "http://duzzle-development-env.eba-n6vfrcj2.ap-northeast-2.elasticbeanstalk.com"
+const RequestUrl =
+  "http://duzzle-dev-env.eba-4znzzpmi.ap-northeast-2.elasticbeanstalk.com";
 
 function Login() {
   const [provider, setProvider] = useState<IProvider | null>(null);

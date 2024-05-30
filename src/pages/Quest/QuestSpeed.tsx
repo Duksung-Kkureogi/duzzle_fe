@@ -73,24 +73,6 @@ function QuestSpeed() {
 
   const getRandomSpeedQuest = async () => {
     try {
-      // const token = localStorage.getItem("accessToken");
-      // const response = await axios.post(
-      //   RequestURL + "/v1/quest/start",
-      //   {},
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-      // console.log("GET 성공", response.data["data"]);
-      // console.log(
-      //   "Quest Length:",
-      //   response.data.data.quest
-      //     ? response.data.data.quest.split("?").length
-      //     : 0
-      // );
       const quest = localStorage.getItem("quest");
       const logId = localStorage.getItem("logId");
       const time = localStorage.getItem("timeLimit");
@@ -99,14 +81,6 @@ function QuestSpeed() {
       setLogId(logId);
       setTimeLimit(Number(time));
       setAnswers(Array(questParts.length).fill(""));
-      // setQuestData(quest);
-      // setLogId(logId);
-      // setTimeLimit(Number(time));
-      // setAnswers(
-      //   Array(
-      //     quest.split("?").filter((part) => part.trim() !== "").length
-      //   ).fill("")
-      // );
       setIsCompleted(false);
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -122,10 +96,10 @@ function QuestSpeed() {
     <div className="QuestSpeed">
       {questData && (
         <>
-          <div className="speed-quiz-title">[스피드 퀴즈]</div>
+          <div className="speed-quiz-title">스피드 QUIZ</div>
           <div className="time-info">
-            <div>제한시간: {timeLimit}초</div>
-            <div>남은시간: {timeLimit}초</div>
+            <div className="time">제한시간: </div>
+            <div className="info">{timeLimit}초</div>
           </div>
           <div className="quiz-container">
             <div className="quiz">
@@ -145,10 +119,10 @@ function QuestSpeed() {
             </div>
           </div>
           <div className="buttons">
-            <button className="submit-btn" onClick={handleSubmit}>
+            <button className="submit btn" onClick={handleSubmit}>
               제출하기
             </button>
-            <button className="quit-btn" onClick={() => nav("/questfail")}>
+            <button className="quit btn" onClick={() => nav("/questfail")}>
               그만하기
             </button>
           </div>

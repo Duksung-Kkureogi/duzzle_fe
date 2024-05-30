@@ -79,7 +79,7 @@ button {
 }
 
 .btn-jittery {
-  animation: jittery 4s infinite;
+  animation: jittery 3s infinite;
 }
 
 @keyframes jittery {
