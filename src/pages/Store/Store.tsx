@@ -7,14 +7,16 @@ import "./Store.css";
 import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
-import Loading from "../../components/Loading/Loading";
 import { itemList } from "../../util/item";
+import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 function Store() {
   const { web3auth, web3AuthInit, getDal } = useAuth();
-  const [userDal, setUserDal] = useState("");
+  const [userDal, setUserDal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [enoughDal, setEnoughDal] = useState(false);
+  const [boughtNFT, setBoughtNFT] = useState(false);
 
   const [metadataUrl, setMetadataUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +38,7 @@ function Store() {
     const fetchUserDal = async () => {
       const balance = await getDal();
       setUserDal(balance);
-      //setUserDal("");
+      //setUserDal(0);
     };
     fetchUserDal();
   }, [getDal]);
@@ -64,6 +66,9 @@ function Store() {
     try {
       const response = await fetch(metadataUrl);
       console.log(response);
+      if (response.type === "cors") {
+        setBoughtNFT(true);
+      }
       const data = await response.json();
       const foundNFTItem = itemList.find(
         (it) => it.metadata_name === data.name
@@ -80,7 +85,7 @@ function Store() {
   };
 
   function buyItem() {
-    if (Number(userDal) > 2) {
+    if (userDal > 2) {
       setEnoughDal(true);
       getRandomItem();
       getNFTItem();
@@ -125,16 +130,16 @@ function Store() {
           <p>2 Dal</p>
         </div>
       </div>
-      {enoughDal ? (
-        <Modal
-          isOpen={modalOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          shouldCloseOnOverlayClick={false}
-        >
-          {loading ? (
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        shouldCloseOnOverlayClick={false}
+      >
+        {enoughDal ? (
+          loading ? (
             <Loading />
-          ) : (
+          ) : boughtNFT ? (
             <div className="modal_dalO">
               <div className="dal_btn_X">
                 <button onClick={closeModal}>X</button>
@@ -151,15 +156,10 @@ function Store() {
                 <button>잠금해제 하러 가기</button>
               </div>
             </div>
-          )}
-        </Modal>
-      ) : (
-        <Modal
-          isOpen={modalOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          shouldCloseOnOverlayClick={false}
-        >
+          ) : (
+            <Error />
+          )
+        ) : (
           <div className="modal_dalX">
             <div className="dal_btn_X">
               <button onClick={closeModal}>X</button>
@@ -173,8 +173,8 @@ function Store() {
               <button>퀘스트 하러가기</button>
             </div>
           </div>
-        </Modal>
-      )}
+        )}
+      </Modal>
     </div>
   );
 }

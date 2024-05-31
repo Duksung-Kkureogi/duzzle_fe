@@ -32,7 +32,7 @@ interface AuthContextType {
   user: DuzzleUser | null;
   logout: () => void;
   showDalBalance: () => void;
-  getDal: () => Promise<string>;
+  getDal: () => Promise<number>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
