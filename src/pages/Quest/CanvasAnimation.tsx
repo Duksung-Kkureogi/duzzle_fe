@@ -2,14 +2,26 @@ import React, { useEffect, useRef } from "react";
 
 const CanvasAnimation = () => {
   const canvasRef = useRef(null);
+  const drops = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const drops = [];
 
-    canvas.width = window.innerWidth; // 캔버스 너비를 창 너비로 설정
-    canvas.height = window.innerHeight; // 캔버스 높이를 창 높이로 설정
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Reset drops for the new canvas size
+      drops.current = [];
+      for (let i = 0; i < 200; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const speed = Math.random() * 1 + 1;
+        const length = Math.random() * 5 + 5;
+        drops.current.push(new Drop(x, y, speed, length));
+      }
+    };
 
     class Drop {
       x: number;
@@ -38,13 +50,13 @@ const CanvasAnimation = () => {
     function render() {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      drops.forEach((drop) => {
+      drops.current.forEach((drop) => {
         drop.y += drop.speed;
         if (drop.y > canvas.height) {
           drop.y = 0;
           drop.x = Math.random() * canvas.width;
-          drop.speed = Math.random() * 3 + 1;
-          drop.length = Math.random() * 5 + 2;
+          drop.speed = Math.random() * 1 + 0.5;
+          drop.length = Math.random() * 8 + 2;
         }
 
         drop.draw();
@@ -53,14 +65,13 @@ const CanvasAnimation = () => {
       requestAnimationFrame(render);
     }
 
-    for (let i = 0; i < 200; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      const speed = Math.random() * 3 + 1;
-      const length = Math.random() * 5 + 2;
-      drops.push(new Drop(x, y, speed, length));
-    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
     render();
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, []);
 
   return (

@@ -68,18 +68,18 @@ button {
   width: 280px;
   height: 100px;
   padding: 0.5em 1.25em;
-  border-radius: 0.5em;
+  border-radius: 1.5em;
   z-index: 999;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  box-shadow: 0 4px 15px 0 #99c9d0;
+  box-shadow: 0 4px 15px 0 #5daeba;
 }
 
 .btn-jittery {
-  animation: jittery 3s infinite;
+  animation: jittery 1.5s infinite;
 }
 
 @keyframes jittery {

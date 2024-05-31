@@ -12,9 +12,9 @@
   text-align: center;
 }
 .Quest .random {
-  margin-top: 100px;
-  font-size: 65px;
-  background: linear-gradient(150deg, red, yellow, green, violet);
+  margin-top: 80px;
+  font-size: 70px;
+  background: linear-gradient(150deg, rgba(52, 168, 83, 1), rgb(109, 236, 143));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
@@ -22,19 +22,18 @@
   font-size: 60px;
   font-weight: bold;
 }
-
 .btn-hover {
-  width: 250px;
+  width: 260px;
+  height: 90px;
   font-size: 25px;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
   margin: 20px;
-  height: 70px;
   text-align: center;
   border: none;
   background-size: 300% 100%;
-  border-radius: 50px;
+  border-radius: 2.5rem;
 }
 
 .btn-hover:focus {
@@ -42,8 +41,12 @@
 }
 
 .btn-hover.color-6 {
-  background-image: linear-gradient(to right, #0ad368, #009245, #009245);
-  box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+  background-image: linear-gradient(
+    to right,
+    rgba(52, 168, 83, 1),
+    rgba(52, 168, 83, 1)
+  );
+  box-shadow: 0 4px 15px 0 rgba(52, 168, 83, 1);
 }
 
 #wrap {
@@ -75,9 +78,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  transition: all 1.5s;
+  transition: all 1s;
   transform-style: preserve-3d;
-  animation: freeturn 6s linear infinite;
+  animation: freeturn 4s linear infinite;
 }
 
 #wrap .dice > div {
@@ -92,36 +95,37 @@
   font-size: 30px;
   border: none;
   font-weight: bold;
+  color: #000000;
 }
 
 #wrap .dice > div:nth-child(1) {
   transform: translateZ(50px);
-  background-color: rgb(255, 23, 185);
+  background-color: rgb(254, 87, 87);
 }
 
 #wrap .dice > div:nth-child(2) {
   transform: translateX(-50px) rotateY(-90deg);
-  background-color: rgb(255, 166, 0);
+  background-color: rgb(254, 147, 224);
 }
 
 #wrap .dice > div:nth-child(3) {
   transform: translateZ(-50px) rotateY(-180deg);
-  background-color: #fcee21;
+  background-color: orange;
 }
 
 #wrap .dice > div:nth-child(4) {
   transform: translateX(50px) rotateY(90deg);
-  background-color: rgb(212, 255, 0);
+  background-color: yellow;
 }
 
 #wrap .dice > div:nth-child(5) {
   transform: translateY(-50px) rotateX(90deg);
-  background-color: rgb(149, 255, 0);
+  background-color: rgb(88, 211, 246);
 }
 
 #wrap .dice > div:nth-child(6) {
   transform: translateY(50px) rotateX(270deg);
-  background-color: rgb(230, 91, 255);
+  background-color: rgb(98, 98, 248);
 }
 
 @keyframes freeturn {
