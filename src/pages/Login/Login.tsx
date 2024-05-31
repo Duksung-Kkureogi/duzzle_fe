@@ -6,7 +6,7 @@ import "./Login.css";
 function Login() {
   const { user, logout, web3auth, web3AuthInit, duzzleLoggedIn, getDal } =
     useAuth();
-  const [userDal, setUserDal] = useState("");
+  const [userDal, setUserDal] = useState(0);
 
   useEffect(() => {
     web3AuthInit();

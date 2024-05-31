@@ -11,7 +11,7 @@ function Mypage() {
   const [userImg, setUserImg] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [userDal, setUserDal] = useState("");
+  const [userDal, setUserDal] = useState(0);
 
   const nft_items = 18;
   const nft_pieces = 7;
