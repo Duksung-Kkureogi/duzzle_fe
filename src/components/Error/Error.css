@@ -1,0 +1,11 @@
+/* Error */
+
+.Error {
+  text-align: center;
+}
+
+.Error img {
+  margin-top: 20px;
+  border-radius: 30px;
+  width: 130px;
+}

@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+/* Store */
+.Store {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.Store .user_dal {
+  display: flex;
+  width: fit-content;
+  background-color: #34a853;
+  border-radius: 30px;
+  padding: 3px;
+  padding-bottom: 5px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  img {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    margin-top: 8px;
+  }
+  p {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    margin-right: 8px;
+  }
+}
+
+.Store .store_main {
+  background-image: url("/src/assets/images/store.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 500px;
+  height: 500px;
+  text-align: center;
+}
+
+.Store .store_gift {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  margin-top: 210px;
+  img {
+    width: 80px;
+  }
+  :hover {
+    animation: rotate_image 2s infinite;
+  }
+}
+
+@keyframes rotate_image {
+  5%,
+  50% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(0.9);
+  }
+
+  15% {
+    transform: scale(1.15);
+  }
+
+  20% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+
+  25% {
+    transform: scale(1.15) rotate(5deg);
+  }
+
+  30% {
+    transform: scale(1.15) rotate(-3deg);
+  }
+
+  35% {
+    transform: scale(1.15) rotate(2deg);
+  }
+
+  40% {
+    transform: scale(1.15) rotate(0);
+  }
+}
+
+.Store .gift_dal {
+  display: flex;
+  margin-left: 210px;
+  img {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    margin-top: 8px;
+  }
+  p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.dal_btn_X {
+  text-align: end;
+  button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+  }
+}
+
+.modal_dalO {
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.dalO_p {
+  p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: default;
+  }
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.dalO_item {
+  text-align: center;
+  margin-bottom: 5px;
+  img {
+    width: 70px;
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 30px;
+  }
+  p {
+    font-family: "Nanum Gothic", sans-serif;
+    margin: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: default;
+  }
+}
+
+.dalO_btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  gap: 20%;
+  button {
+    width: 135px;
+    font-family: "Nanum Gothic", sans-serif;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    padding: 6px;
+    font-weight: bold;
+    word-break: keep-all;
+    background-color: #f16d9a;
+    cursor: pointer;
+  }
+}
+
+.modal_dalX {
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.dalX_p {
+  p {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: default;
+    line-height: 40px;
+  }
+  margin-bottom: 40px;
+}
+
+.dalX_btn {
+  text-align: center;
+  button {
+    font-family: "Nanum Gothic", sans-serif;
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #f16d9a;
+    cursor: pointer;
+  }
+}
