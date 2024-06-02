@@ -35,12 +35,6 @@ function App() {
           <Route path="/questsuccess" element={<QuestSuccess />} />
           <Route path="/questfail" element={<QuestFail />} />
           <Route path="/questspeed" element={<QuestSpeed />} />
-
-          {/* <Route path="/qna" element={<Qna />} />
-          <Route path="/qnadiary/:id" element={<QnaDiary />} />
-          <Route path="/qnanew" element={<QnaCreate />} />
-          <Route path="/qnalist" element={<QnaList />} />
-          <Route path="/qnaedit/:id" element={<QnaEdit />} /> */}
         </Routes>
       </div>
     </BrowserRouter>

@@ -22,11 +22,11 @@
   border-radius: 10px;
 }
 .QuestSpeed .quiz-container input {
-  width: 35%;
+  width: 30%;
   padding: 4px;
   font-size: 13px;
-  margin: 0px 5px;
-  height: 30px;
+  margin: 2px 5px;
+  height: 25px;
   font-size: 20px;
   font-weight: 500;
   border: 0;
@@ -36,7 +36,7 @@
   background-color: rgb(233, 233, 233);
 }
 .quiz-container .quiz {
-  padding: 50px 10px;
+  padding: 35px 12px;
 }
 .QuestSpeed .time-info {
   display: flex;
@@ -55,7 +55,7 @@
   margin-right: 10px;
 }
 .quiz-container .quiz {
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 500;
 }
 
