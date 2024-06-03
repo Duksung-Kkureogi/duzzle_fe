@@ -16,6 +16,48 @@
   }
 }
 
+.Items .tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  svg {
+    width: 20px;
+  }
+}
+
+.Items .tooltip .tooltip_text {
+  visibility: hidden;
+  width: 300px;
+  background-color: #8c8c8c;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: -120%;
+  left: -450%;
+  margin-left: -60px;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+.Items .tooltip:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+  font-size: 13px;
+  &::after {
+    border-bottom: 10px solid #8c8c8c;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: 50%;
+  }
+}
+
 .Items .items_total {
   display: flex;
   img {
