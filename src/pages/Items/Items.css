@@ -34,18 +34,30 @@
 }
 
 .Items .items_main {
+  height: 500px;
   margin-top: 10px;
   margin-bottom: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 30px;
+  overflow: auto;
+}
+
+.items_main::-webkit-scrollbar {
+  width: 6px;
+  background-color: #ececec;
+  border-radius: 10px;
+}
+.items_main::-webkit-scrollbar-thumb {
+  background-color: #34a853;
+  border-radius: 10px;
 }
 
 .Items .item {
   text-align: center;
   border-radius: 30px;
   img {
-    height: 80px;
+    height: 120px;
     background-color: #ececec;
     padding: 20px;
     border-radius: 30px;
@@ -70,7 +82,7 @@
   border-radius: 30px;
   svg {
     height: 28px;
-    margin-top: 5px;
+    margin-top: 4px;
     margin-right: 20px;
   }
   p {

@@ -6,7 +6,7 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 import "./Items.css";
 
 function Items() {
-  const [totalItems, setTotalItems] = useState(18);
+  const [totalItems, setTotalItems] = useState(20);
   const [blueprint, setBlueprint] = useState(2);
   const [redbrick, setRedbrick] = useState(7);
   const [glass, setGlass] = useState(3);
@@ -24,30 +24,40 @@ function Items() {
         <p>{totalItems} Items</p>
       </div>
       <div className="items_main">
-        <div className="item blueprint">
+        <div className="item">
           <img src="/src/assets/images/blueprint.png" />
-          <p>설계도</p>
+          <p>설계도(대강의동)</p>
           <p>수량 : {blueprint}</p>
         </div>
-        <div className="item brick">
+        <div className="item">
           <img src="/src/assets/images/brick.png" />
           <p>설계도</p>
           <p>수량 : {redbrick}</p>
         </div>
-        <div className="item glass">
+        <div className="item">
           <img src="/src/assets/images/glass.png" />
           <p>설계도</p>
           <p>수량 : {glass}</p>
         </div>
-        <div className="item sand">
+        <div className="item">
           <img src="/src/assets/images/sand.png" />
           <p>설계도</p>
           <p>수량 : {sand}</p>
         </div>
-        <div className="item hammer">
+        <div className="item">
           <img src="/src/assets/images/hammer.png" />
           <p>설계도</p>
           <p>수량 : {hammer}</p>
+        </div>
+        <div className="item">
+          <img src="/src/assets/images/blueprint.png" />
+          <p>설계도(스머프동산)</p>
+          <p>수량 : {blueprint}</p>
+        </div>
+        <div className="item">
+          <img src="/src/assets/images/blueprint.png" />
+          <p>설계도(차미리사관)</p>
+          <p>수량 : {blueprint}</p>
         </div>
       </div>
       <div className="store_btn">
