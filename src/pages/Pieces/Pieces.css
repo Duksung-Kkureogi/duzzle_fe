@@ -16,6 +16,10 @@
   }
 }
 
+.Pieces .pieces_filter {
+  display: flex;
+}
+
 .Pieces .pieces_total {
   display: flex;
   img {
