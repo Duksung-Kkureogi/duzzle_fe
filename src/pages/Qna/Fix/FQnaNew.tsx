@@ -1,5 +1,5 @@
-import MyButton from "../../../components/MyButton";
-import MyHeader from "../../../components/MyHeader";
+import MyHeader from "../../../components/MyHeader/MyHeader";
+import MyButton from "../../../components/MyButton/MyButton";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

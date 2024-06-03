@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import FQnaList from "./FQnaList";
-import MyHeader from "../../../components/MyHeader";
-import MyButton from "../../../components/MyButton";
-
+import MyHeader from "../../../components/MyHeader/MyHeader";
+import MyButton from "../../../components/MyButton/MyButton";
 import "./FQna.css";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;

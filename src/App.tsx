@@ -1,10 +1,7 @@
 import "./App.css";
-import { useReducer, useRef, createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting/Setting";
-import Faq from "./pages/Faq";
-import Qna from "./pages/Qna";
 import Mypage from "./pages/Mypage/Mypage";
 import Profile from "./pages/Profile/Profile";
 import Login from "./pages/Login/Login";
@@ -18,6 +15,7 @@ import Quest from "./pages/Quest/Quest";
 import QuestSuccess from "./pages/Quest/QuestSuccess";
 import QuestFail from "./pages/Quest/QuestFail";
 import QuestSpeed from "./pages/Quest/QuestSpeed";
+import Faq from "./pages/Faq/Faq";
 
 function App() {
   return (
@@ -30,11 +28,9 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/setting" element={<Setting />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/qna" element={<Qna />} />
             <Route path="/store" element={<Store />} />
-            <Route path="/faq" element={<Faq />} />
             <Route path="/qna" element={<FQna />} />
+            <Route path="/faq" element={<Faq />} />
             <Route path="/qnadetail/:id" element={<FQnaDetail />} />
             <Route path="/qnanew" element={<FQnaNew />} />
             <Route path="/qnaedit/:id" element={<FQnaEdit />} />

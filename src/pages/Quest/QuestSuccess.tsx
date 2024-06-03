@@ -39,7 +39,7 @@ function QuestSuccess() {
       <div className="buttons">
         <button
           className="btn btn-primary btn-jittery"
-          onClick={() => nav("/story")}
+          onClick={() => nav("/store")}
         >
           상점에서 재료 NFT 구입
         </button>

@@ -1,7 +1,7 @@
-import MyButton from "../../components/MyButton";
-import MyHeader from "../../components/MyHeader";
 import FaqViewer from "./FaqViewer";
 import "./Faq.css";
+import MyHeader from "../../components/MyHeader/MyHeader";
+import MyButton from "../../components/MyButton/MyButton";
 
 function Faq() {
   return (

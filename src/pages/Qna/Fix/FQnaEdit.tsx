@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import MyButton from "../../../components/MyButton";
-import MyHeader from "../../../components/MyHeader";
+import MyHeader from "../../../components/MyHeader/MyHeader";
+import MyButton from "../../../components/MyButton/MyButton";
 import Button from "./Button";
 import FQnaEditor from "./FQnaEditor";
 import { useEffect, useState } from "react";
