@@ -82,7 +82,7 @@ function Mypage() {
           <p>프로필</p>
         </section>
         <section className="user_nft">
-          <div className="nft_items">
+          <div className="nft_items" onClick={() => navigate("/mypage/items")}>
             <img src="/src/assets/images/item.png" />
             <p>{nft_items} Items</p>
           </div>
