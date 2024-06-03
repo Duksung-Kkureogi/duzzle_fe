@@ -17,6 +17,7 @@ import QuestFail from "./pages/Quest/QuestFail";
 import QuestSpeed from "./pages/Quest/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
 import Items from "./pages/Items/Items";
+import Pieces from "./pages/Pieces/Pieces";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mypage/items" element={<Items />} />
+            <Route path="/mypage/pieces" element={<Pieces />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/store" element={<Store />} />

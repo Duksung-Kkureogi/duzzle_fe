@@ -86,7 +86,10 @@ function Mypage() {
             <img src="/src/assets/images/item.png" />
             <p>{nft_items} Items</p>
           </div>
-          <div className="nft_pieces">
+          <div
+            className="nft_pieces"
+            onClick={() => navigate("/mypage/pieces")}
+          >
             <img src="/src/assets/images/piece.png" />
             <p>{nft_pieces} Pieces</p>
           </div>

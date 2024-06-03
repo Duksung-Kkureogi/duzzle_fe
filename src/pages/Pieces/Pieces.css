@@ -1,0 +1,35 @@
+/* Pieces */
+.Pieces {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 500px;
+}
+
+.Pieces .pieces_title {
+  margin: 40px;
+  text-align: center;
+  p {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 700;
+    color: #8c8c8c;
+    cursor: default;
+  }
+}
+
+.Pieces .pieces_total {
+  display: flex;
+  img {
+    margin-left: auto;
+    margin-top: 3px;
+    margin-right: 3px;
+    height: 25px;
+  }
+  p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 30px;
+    color: #34a853;
+    cursor: default;
+  }
+}
