@@ -1,12 +1,12 @@
 /* 기본 레이아웃_데스크톱 (1920px) */
 .faq-viewer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 반응형_태블릿(768 px) */
+@media screen and (max-width: 1920px) {
+  .faq-viewer {
+    padding: 10px;
   }
-  
-  /* 반응형_태블릿(768 px) */
-  @media screen and (max-width: 768px) {
-    .faq-viewer {
-      padding: 10px;
-    }
-  }
+}
