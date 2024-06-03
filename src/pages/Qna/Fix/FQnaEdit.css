@@ -1,0 +1,14 @@
+.button_section {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+.Button {
+  border: none;
+  background-color: rgb(255, 57, 57);
+  color: #fff;
+  padding: 10px 13px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+}

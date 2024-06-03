@@ -1,0 +1,12 @@
+.Qna {
+  height: 100%;
+}
+
+.Qna .Qna_wrapper {
+  padding: 13px;
+  overflow: auto;
+  max-height: calc(100vh - 120px);
+}
+.Qna .Qna_wrapper::-webkit-scrollbar {
+  width: 12px; /* Chrome, Safari, Opera */
+}

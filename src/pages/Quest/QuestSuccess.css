@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+  background-color: #f5f8ff;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  min-block-size: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.Questsuccess {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.Questsuccess .w-6.h-6 {
+  width: 200px;
+  height: 200px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.Questsuccess .text_suc {
+  background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  font-weight: bold;
+}
+.Questsuccess .text_dal {
+  background-image: linear-gradient(to right, #ff66bd, #ff66bd, #ff66bd);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  font-weight: bold;
+}
+.Questsuccess .text_done {
+  background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  background-color: #00b5cc;
+  color: #fff;
+  border: 0;
+  font-size: 1.9rem;
+  font-weight: 400;
+  width: 280px;
+  height: 100px;
+  padding: 0.5em 1.25em;
+  border-radius: 1.5em;
+  z-index: 999;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  box-shadow: 0 4px 15px 0 #5daeba;
+}
+
+.btn-jittery {
+  animation: jittery 1.5s infinite;
+}
+
+@keyframes jittery {
+  5%,
+  50% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  15% {
+    transform: scale(1.15);
+  }
+  20% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  30% {
+    transform: scale(1.15) rotate(-3deg);
+  }
+  35% {
+    transform: scale(1.15) rotate(2deg);
+  }
+  40% {
+    transform: scale(1.15) rotate(0);
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

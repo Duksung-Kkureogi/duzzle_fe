@@ -1,3 +1,4 @@
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -14,5 +15,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/no-unused-vars': 'off', // TypeScript의 경우 no-unused-vars 규칙 비활성화
+    'react/prop-types': 'off', // React prop-types 규칙 비활성화
   },
 }
