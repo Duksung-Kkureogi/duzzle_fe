@@ -9,6 +9,7 @@ function Mypage() {
   const { web3auth, getDal, web3AuthInit, logout } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
+
   interface UserInfo {
     email: string;
     name: string;
@@ -19,6 +20,7 @@ function Mypage() {
     image: "",
     email: "",
   });
+
   const [nftItems, setNftItems] = useState(0);
   const [nftPieces, setNftPieces] = useState(0);
 
