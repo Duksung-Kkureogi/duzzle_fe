@@ -1,17 +1,66 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyButton from "../../components/MyButton/MyButton";
 import MyHeader from "../../components/MyHeader/MyHeader";
 
 import "./Items.css";
+import axios from "axios";
+import { useAuth } from "../../services/AuthContext";
 
 function Items() {
-  const [totalItems, setTotalItems] = useState(20);
-  const [blueprint, setBlueprint] = useState(2);
-  const [redbrick, setRedbrick] = useState(7);
-  const [glass, setGlass] = useState(3);
-  const [sand, setSand] = useState(5);
-  const [hammer, setHammer] = useState(1);
+  const { web3auth, web3AuthInit } = useAuth();
+  const [totalItems, setTotalItems] = useState(0);
+  const [items, setItems] = useState([]);
+
+  interface Item {
+    name: string;
+    count: number;
+    image: string;
+  }
+
+  interface MyItemsResponse {
+    totalItems: number;
+    items: Item[];
+  }
+
+  interface GetItemsResponse {
+    result: boolean;
+    data: MyItemsResponse;
+  }
+
+  const RequestUrl = import.meta.env.VITE_REQUEST_URL;
+
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
+
+  useEffect(() => {
+    const getUserItem = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get<GetItemsResponse>(
+          RequestUrl + "/v1/my/nft-items",
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
+        if (response.data.result) {
+          setTotalItems(response.data.data.totalItems);
+          setItems(response.data.data.items);
+        } else {
+          console.error("Failed to fetch items");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserItem();
+  }, [RequestUrl]);
 
   return (
     <div className="Items">
@@ -45,41 +94,13 @@ function Items() {
         <p>{totalItems} Items</p>
       </div>
       <div className="items_main">
-        <div className="item">
-          <img src="/src/assets/images/blueprint.png" />
-          <p>설계도(대강의동)</p>
-          <p>수량 : {blueprint}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/brick.png" />
-          <p>설계도</p>
-          <p>수량 : {redbrick}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/glass.png" />
-          <p>설계도</p>
-          <p>수량 : {glass}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/sand.png" />
-          <p>설계도</p>
-          <p>수량 : {sand}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/hammer.png" />
-          <p>설계도</p>
-          <p>수량 : {hammer}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/blueprint.png" />
-          <p>설계도(스머프동산)</p>
-          <p>수량 : {blueprint}</p>
-        </div>
-        <div className="item">
-          <img src="/src/assets/images/blueprint.png" />
-          <p>설계도(차미리사관)</p>
-          <p>수량 : {blueprint}</p>
-        </div>
+        {items.map((item) => (
+          <div className="item" key={item.name}>
+            <img src={item.image} alt={item.name} />
+            <p>{item.name}</p>
+            <p>수량 : {item.count}</p>
+          </div>
+        ))}
       </div>
       <div className="store_btn">
         <svg
