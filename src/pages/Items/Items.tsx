@@ -10,22 +10,12 @@ import { useAuth } from "../../services/AuthContext";
 function Items() {
   const { web3auth, web3AuthInit } = useAuth();
   const [totalItems, setTotalItems] = useState(0);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Item[]>([]);
 
   interface Item {
     name: string;
     count: number;
     image: string;
-  }
-
-  interface MyItemsResponse {
-    totalItems: number;
-    items: Item[];
-  }
-
-  interface GetItemsResponse {
-    result: boolean;
-    data: MyItemsResponse;
   }
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
@@ -40,14 +30,11 @@ function Items() {
     const getUserItem = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await axios.get<GetItemsResponse>(
-          RequestUrl + "/v1/my/nft-items",
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
+        const response = await axios.get(RequestUrl + "/v1/my/nft-items", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
         console.log(response);
         if (response.data.result) {
           setTotalItems(response.data.data.totalItems);
