@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./QuestFail.css";
-import CanvasAnimation from "./CanvasAnimation";
+import CanvasAnimation from "./Speed/CanvasAnimation";
 
 function QuestFail() {
   const nav = useNavigate();

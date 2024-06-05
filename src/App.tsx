@@ -14,8 +14,9 @@ import FQnaEdit from "./pages/Qna/Fix/FQnaEdit";
 import Quest from "./pages/Quest/Quest";
 import QuestSuccess from "./pages/Quest/QuestSuccess";
 import QuestFail from "./pages/Quest/QuestFail";
-import QuestSpeed from "./pages/Quest/QuestSpeed";
+import QuestSpeed from "./pages/Quest/Speed/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
+import Acid from "./pages/Quest/Acid/Acid";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/questsuccess" element={<QuestSuccess />} />
             <Route path="/questfail" element={<QuestFail />} />
             <Route path="/questspeed" element={<QuestSpeed />} />
+            <Route path="/questacid" element={<Acid />} />
           </Routes>
         </div>
       </BrowserRouter>

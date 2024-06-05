@@ -26,10 +26,9 @@ function Quest() {
         localStorage.setItem("quest", response.data.data.quest);
         localStorage.setItem("timeLimit", response.data.data.timeLimit);
         nav("/questspeed");
+      } else if (response.data.data.type === "RAIN_QUIZ") {
+        nav("/questacid");
       }
-      // else if (response.data.data.type === "RAIN_QUIZ") {
-      //     nav("/questrain");
-      // }
       setQuizType(response.data.data.type);
     } catch (error) {
       console.error("Error fetching random quiz:", error);
