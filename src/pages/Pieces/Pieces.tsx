@@ -4,6 +4,7 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 
 import "./Pieces.css";
 import axios from "axios";
+import { zoneList } from "../../util/zone";
 
 function Pieces() {
   const [totalPieces, setTotalPieces] = useState(0);
@@ -13,6 +14,7 @@ function Pieces() {
     id: number;
     name: string;
     image: string;
+    zoneKr: string;
   }
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
@@ -185,30 +187,14 @@ function Pieces() {
             >
               구역 전체
             </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("차미리사관", "zone")}
-            >
-              차미리사관
-            </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("학생회관", "zone")}
-            >
-              학생회관
-            </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("대강의동", "zone")}
-            >
-              대강의동
-            </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("하나누리관", "zone")}
-            >
-              하나누리관
-            </li>
+            {zoneList.map((zone) => (
+              <li
+                className="optionItem"
+                onClick={() => handleOptionClick(zone.nameKr, "zone")}
+              >
+                {zone.nameKr}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

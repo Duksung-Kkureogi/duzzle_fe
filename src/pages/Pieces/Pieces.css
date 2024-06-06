@@ -49,6 +49,10 @@
   margin-right: 15px;
 }
 
+.Pieces .filter.zone {
+  width: 230px;
+}
+
 .Pieces .label {
   width: inherit;
   height: inherit;
@@ -81,7 +85,18 @@
 }
 
 .Pieces .filter.active .optionList {
-  max-height: 500px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.optionList::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+  border-radius: 10px;
+}
+.optionList::-webkit-scrollbar-thumb {
+  background-color: #c47e95;
+  border-radius: 10px;
 }
 
 .Pieces .optionItem {
