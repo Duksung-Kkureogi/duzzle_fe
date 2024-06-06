@@ -1,11 +1,9 @@
 export const seasonList = [
   {
-    season_name: "크리스마스",
-  },
-  {
-    season_name: "여름",
-  },
-  {
-    season_name: "가을",
+    createdAt: "2024-06-02T13:44:11.983Z",
+    updatedAt: "2024-06-02T13:44:11.983Z",
+    id: 0,
+    title: "summer",
+    totalPieces: 39,
   },
 ];
