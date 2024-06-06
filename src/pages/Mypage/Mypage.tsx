@@ -14,15 +14,16 @@ function Mypage() {
     email: string;
     name: string;
     image: string;
+    totalItems: number;
+    totalPieces: number;
   }
   const [user, setUser] = useState<UserInfo>({
     name: "",
     image: "",
     email: "",
+    totalItems: 0,
+    totalPieces: 0,
   });
-
-  const [nftItems, setNftItems] = useState(0);
-  const [nftPieces, setNftPieces] = useState(0);
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
@@ -52,26 +53,7 @@ function Mypage() {
         console.error(error);
       }
     };
-    const getUserItems = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        const response = await axios.get(RequestUrl + "/v1/my/nft-items", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        console.log(response);
-        if (response.data.result) {
-          setNftItems(response.data.data.totalItems);
-        } else {
-          console.error("Failed to fetch user items");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
     getUserInfo();
-    getUserItems();
   }, [RequestUrl]);
 
   useEffect(() => {
@@ -112,14 +94,14 @@ function Mypage() {
         <section className="user_nft">
           <div className="nft_items" onClick={() => navigate("/mypage/items")}>
             <img src="/src/assets/images/item.png" />
-            <p>{nftItems} Items</p>
+            <p>{user.totalItems} Items</p>
           </div>
           <div
             className="nft_pieces"
             onClick={() => navigate("/mypage/pieces")}
           >
             <img src="/src/assets/images/piece.png" />
-            <p>{nftPieces} Pieces</p>
+            <p>{user.totalPieces} Pieces</p>
           </div>
         </section>
         <section className="user_setting" onClick={() => navigate("/setting")}>
