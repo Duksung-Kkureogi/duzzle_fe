@@ -3,42 +3,68 @@ import MyButton from "../../components/MyButton/MyButton";
 import MyHeader from "../../components/MyHeader/MyHeader";
 
 import "./Pieces.css";
-import { piece_data } from "./piece_data";
-import { PuzzlePieceDto } from "./PuzzlePieceDTO";
+import axios from "axios";
 
 function Pieces() {
   const [totalPieces, setTotalPieces] = useState(0);
-  const [pieces, setPieces] = useState([]);
-  const [filteredPieces, setFilteredPieces] = useState([]);
-  const [season, setSeason] = useState("");
-  const [zone, setZone] = useState("");
+  const [pieces, setPieces] = useState<Piece[]>([]);
+
+  interface Piece {
+    id: number;
+    name: string;
+    image: string;
+  }
+
+  const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
   useEffect(() => {
-    setPieces(piece_data);
-    setTotalPieces(piece_data.length);
-  }, []);
+    const getUserPuzzle = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get(RequestUrl + "/v1/my/nft-puzzles", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          params: { count: 4, page: 0 },
+        });
+        console.log(response);
+        if (response.data.result) {
+          setTotalPieces(response.data.data.total);
+          setPieces(response.data.data.list);
+        } else {
+          console.error("Failed to fetch pieces");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserPuzzle();
+  }, [RequestUrl]);
 
-  useEffect(() => {
-    filterPieces();
-  }, [season, zone, pieces]);
+  const [isSActive, setIsSActive] = useState(false);
+  const [isZActive, setIsZActive] = useState(false);
+  const [filterSeason, setFilterSeason] = useState("시즌");
+  const [filterZone, setFilterZone] = useState("구역");
 
-  const filterPieces = () => {
-    let filtered = pieces;
-    if (season) {
-      filtered = filtered.filter((piece) => piece.seasonName === season);
+  const handleOptionClick = (option: string, filter: string) => {
+    if (filter === "season") {
+      setFilterSeason(option);
+      setIsSActive(false);
+    } else {
+      setFilterZone(option);
+      setIsZActive(false);
     }
-    if (zone) {
-      filtered = filtered.filter((piece) => piece.zoneName === zone);
-    }
-    setFilteredPieces(filtered);
   };
 
-  const getUniqueValues = (key: keyof PuzzlePieceDto): string[] => {
-    return [...new Set(piece_data.map((piece) => String(piece[key])))];
-  };
-
-  const seasons = getUniqueValues("seasonName");
-  const zones = getUniqueValues("zoneName");
+  const handleLabelClick =
+    (filter: string): React.MouseEventHandler<HTMLButtonElement> =>
+    () => {
+      if (filter === "season") {
+        setIsSActive((prevState) => !prevState);
+      } else {
+        setIsZActive((prevState) => !prevState);
+      }
+    };
 
   return (
     <div className="Pieces">
@@ -51,38 +77,148 @@ function Pieces() {
         <p>{totalPieces} Pieces</p>
       </div>
       <div className="pieces_filter">
-        <div className="filter_season">
-          <select value={season} onChange={(e) => setSeason(e.target.value)}>
-            <option value="">시즌 전체</option>
-            {seasons.map((season, index) => (
-              <option key={index} value={season}>
-                {season}
-              </option>
-            ))}
-          </select>
+        <div className={`filter season ${isSActive ? "active" : ""}`}>
+          <button className="label" onClick={handleLabelClick("season")}>
+            {filterSeason}
+            {isSActive ? (
+              <svg
+                data-slot="icon"
+                fill="none"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                data-slot="icon"
+                fill="none"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                ></path>
+              </svg>
+            )}
+          </button>
+          <ul className="optionList">
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("시즌 전체", "season")}
+            >
+              시즌 전체
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("크리스마스", "season")}
+            >
+              크리스마스
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("여름", "season")}
+            >
+              여름
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("가을", "season")}
+            >
+              가을
+            </li>
+          </ul>
         </div>
-        <div className="filter_zone">
-          <select value={zone} onChange={(e) => setZone(e.target.value)}>
-            <option value="">구역 전체</option>
-            {zones.map((zone, index) => (
-              <option key={index} value={zone}>
-                {zone}
-              </option>
-            ))}
-          </select>
+        <div className={`filter zone ${isZActive ? "active" : ""}`}>
+          <button className="label" onClick={handleLabelClick("zone")}>
+            {filterZone}
+            {isZActive ? (
+              <svg
+                data-slot="icon"
+                fill="none"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                data-slot="icon"
+                fill="none"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                ></path>
+              </svg>
+            )}
+          </button>
+          <ul className="optionList">
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("구역 전체", "zone")}
+            >
+              구역 전체
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("차미리사관", "zone")}
+            >
+              차미리사관
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("학생회관", "zone")}
+            >
+              학생회관
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("대강의동", "zone")}
+            >
+              대강의동
+            </li>
+            <li
+              className="optionItem"
+              onClick={() => handleOptionClick("하나누리관", "zone")}
+            >
+              하나누리관
+            </li>
+          </ul>
         </div>
       </div>
       <div className="pieces_main">
-        <div className="piece">
-          <ul>
-            {filteredPieces.map((piece, index) => (
-              <li key={index}>
-                {piece.seasonName} - {piece.zoneName} (Piece ID: {piece.pieceId}
-                )
-              </li>
-            ))}
-          </ul>
-        </div>
+        {pieces.map((piece) => (
+          <div className="piece" key={piece.name}>
+            <img src={piece.image} alt={piece.name} />
+            <p>{piece.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
