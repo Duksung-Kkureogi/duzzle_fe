@@ -34,7 +34,7 @@ body {
 #end-score {
   display: inline-block;
   margin-top: 20vh;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 #help-div {
   margin-top: 15vh;
@@ -58,7 +58,9 @@ body {
 #start-btn {
   font-size: 2rem;
 }
-
+.control-panel .col-form-label {
+  font-size: 10px;
+}
 .word {
   position: absolute;
   font-size: 15px;
