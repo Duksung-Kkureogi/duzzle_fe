@@ -190,6 +190,7 @@ function Pieces() {
             {zoneList.map((zone) => (
               <li
                 className="optionItem"
+                key={zone.nameKr}
                 onClick={() => handleOptionClick(zone.nameKr, "zone")}
               >
                 {zone.nameKr}
@@ -203,6 +204,9 @@ function Pieces() {
           <div className="piece" key={piece.name}>
             <img src={piece.image} alt={piece.name} />
             <p>{piece.name}</p>
+            <span className="tooltip_text">
+              시즌: summer<br></br> 구역: {piece.zoneKr}
+            </span>
           </div>
         ))}
       </div>
