@@ -28,7 +28,7 @@
 .Items .tooltip .tooltip_text {
   visibility: hidden;
   width: 300px;
-  background-color: #8c8c8c;
+  background-color: #f47735;
   color: #fff;
   text-align: center;
   border-radius: 5px;
@@ -101,6 +101,7 @@
   border-radius: 30px;
   img {
     height: 120px;
+    width: 120px;
     background-color: #ececec;
     padding: 20px;
     border-radius: 30px;
