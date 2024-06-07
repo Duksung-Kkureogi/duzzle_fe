@@ -205,7 +205,7 @@ function Pieces() {
             <img src={piece.image} alt={piece.name} />
             <p>{piece.name}</p>
             <span className="tooltip_text">
-              시즌: 여름<br></br> 구역: {piece.zoneKr}
+              시즌: summer<br></br> 구역: {piece.zoneKr}
             </span>
           </div>
         ))}
