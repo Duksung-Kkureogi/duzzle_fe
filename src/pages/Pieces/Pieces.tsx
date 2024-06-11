@@ -5,6 +5,7 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 import "./Pieces.css";
 import axios from "axios";
 import { zoneList } from "../../util/zone";
+import { seasonList } from "../../util/season";
 
 function Pieces() {
   const [totalPieces, setTotalPieces] = useState(0);
@@ -19,15 +20,39 @@ function Pieces() {
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
+  const [isSActive, setIsSActive] = useState(false);
+  const [isZActive, setIsZActive] = useState(false);
+  const [filterSeason, setFilterSeason] = useState("시즌 전체");
+  const [filterZone, setFilterZone] = useState("구역 전체");
+
   useEffect(() => {
     const getUserPuzzle = async () => {
       try {
         const token = localStorage.getItem("accessToken");
+        const season =
+          filterSeason !== "시즌 전체"
+            ? seasonList.find((season) => season.title === filterSeason)
+            : null;
+        const zone =
+          filterZone !== "구역 전체"
+            ? zoneList.find((zone) => zone.nameKr === filterZone)
+            : null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const params: any = {
+          count: 4,
+          page: 0,
+        };
+        if (season) {
+          params.season = season.id;
+        }
+        if (zone) {
+          params.zone = zone.id;
+        }
         const response = await axios.get(RequestUrl + "/v1/my/nft-puzzles", {
           headers: {
             Authorization: "Bearer " + token,
           },
-          params: { count: 4, page: 0 },
+          params: params,
         });
         console.log(response);
         if (response.data.result) {
@@ -41,12 +66,7 @@ function Pieces() {
       }
     };
     getUserPuzzle();
-  }, [RequestUrl]);
-
-  const [isSActive, setIsSActive] = useState(false);
-  const [isZActive, setIsZActive] = useState(false);
-  const [filterSeason, setFilterSeason] = useState("시즌");
-  const [filterZone, setFilterZone] = useState("구역");
+  }, [RequestUrl, filterSeason, filterZone]);
 
   const handleOptionClick = (option: string, filter: string) => {
     if (filter === "season") {
@@ -123,24 +143,15 @@ function Pieces() {
             >
               시즌 전체
             </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("크리스마스", "season")}
-            >
-              크리스마스
-            </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("여름", "season")}
-            >
-              여름
-            </li>
-            <li
-              className="optionItem"
-              onClick={() => handleOptionClick("가을", "season")}
-            >
-              가을
-            </li>
+            {seasonList.map((season) => (
+              <li
+                className="optionItem"
+                key={season.title}
+                onClick={() => handleOptionClick(season.title, "season")}
+              >
+                {season.title}
+              </li>
+            ))}
           </ul>
         </div>
         <div className={`filter zone ${isZActive ? "active" : ""}`}>
