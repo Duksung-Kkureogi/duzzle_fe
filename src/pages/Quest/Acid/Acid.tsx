@@ -27,7 +27,7 @@ const Acid = () => {
   const [showHelp, setShowHelp] = useState(true);
   const inputRef = useRef(null);
   const gamePanelRef = useRef(null);
-  const speed = 2.5;
+  const speed = 2;
   const delay = 1000;
   const gameoverLimit = 5;
 
@@ -143,14 +143,14 @@ const Acid = () => {
           className="col-md-5 align-content-center container"
         >
           <div>
-            <label className="col-form-label">점수 : </label>
-            <label className="col-form-label" id="score-1">
+            <label className="my-score">점수 : </label>
+            <label className="my-score" id="score-1">
               {score}
             </label>
           </div>
           <div>
-            <label className="col-form-label">실패 : </label>
-            <label className="col-form-label" id="failed">
+            <label className="my-score">실패 : </label>
+            <label className="my-score" id="failed">
               {failed}
             </label>
           </div>
@@ -161,7 +161,7 @@ const Acid = () => {
         {showHelp && (
           <div id="help-div">
             <label className="col-form-label" id="help-title">
-              게임 설명
+              산성비 게임💧
             </label>
             <div>
               1. 위에서 떨어지는 단어가 <b>바닥에 닿기 전에</b> 해당 단어를{" "}
@@ -176,7 +176,7 @@ const Acid = () => {
               <br />
             </div>
             <button
-              className="btn-hover color-a"
+              className="buttonstart"
               role="button"
               id="start"
               onClick={startGame}
@@ -188,14 +188,10 @@ const Acid = () => {
         {gameover && !showHelp && (
           <div className="score">
             <div id="end-score">점수 : {score}</div>
-            <button
-              className="btn-hover color-a"
-              id="restart"
-              onClick={startGame}
-            >
+            <button className="restart" id="restart" onClick={startGame}>
               다시 시작
             </button>
-            <button className="btn-hover color-a" onClick={showHelpScreen}>
+            <button className="explain" onClick={showHelpScreen}>
               게임 설명
             </button>
           </div>

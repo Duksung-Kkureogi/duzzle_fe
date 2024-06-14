@@ -31,7 +31,7 @@ function QuestFail() {
         </button>
         <button
           className="btn2 btn-primary btn-jittery"
-          onClick={() => nav("/questspeed")}
+          onClick={() => nav("/quest")}
         >
           다시 도전하기
         </button>

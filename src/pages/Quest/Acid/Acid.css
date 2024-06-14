@@ -10,6 +10,33 @@ body {
   position: relative;
   transform: translateY(-50%);
 }
+.my-score {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  margin-right: 10px;
+}
+#score-1 {
+  color: rgb(66, 207, 250);
+}
+
+#failed {
+  color: red;
+}
+#control-panel {
+  margin: 50px 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+input[type="text"] {
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid rgb(249, 11, 213);
+  border-radius: 4px;
+  font-size: 16px;
+}
 
 #game-panel {
   height: 500px;
@@ -19,7 +46,7 @@ body {
 }
 
 #control-panel-frame {
-  height: 30%;
+  height: 40%;
   border-style: solid;
   border-color: rgb(60, 187, 60);
 }
@@ -37,39 +64,97 @@ body {
   font-size: 4rem;
 }
 #help-div {
-  margin-top: 15vh;
-  font-size: 20px;
+  margin: 10vh 15px;
+  font-size: 16px;
 }
 #help-div > #help-title {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 35px;
   text-align: center;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2.4rem;
 }
 #help-div > #bt {
   text-align: center;
 }
 #help-div b {
-  color: rgb(51, 30, 210);
+  color: rgb(249, 11, 213);
+}
+#help-div .buttonstart {
+  margin-left: 90px;
 }
 #restart-btn,
 #help-btn,
 #start-btn {
   font-size: 2rem;
 }
-.control-panel .col-form-label {
-  font-size: 10px;
-}
 .word {
   position: absolute;
-  font-size: 15px;
+  font-size: 16px;
 }
-.btn-hover.color-a {
+
+.buttonstart {
   background-image: linear-gradient(
     to right,
     rgb(66, 207, 250),
     rgb(66, 207, 250)
   );
   box-shadow: 0 4px 15px 0 rgb(19, 222, 232);
+  width: 210px;
+  height: 90px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 40px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 2.5rem;
+}
+.score {
+  text-align: center;
+}
+.score #end-score {
+  font-size: 55px;
+}
+
+.score .restart {
+  background-image: linear-gradient(
+    to right,
+    rgb(66, 207, 250),
+    rgb(66, 207, 250)
+  );
+  box-shadow: 0 4px 15px 0 rgb(19, 222, 232);
+  width: 210px;
+  height: 90px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 15px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 2.5rem;
+  margin-left: 30px;
+}
+.score .explain {
+  background-image: linear-gradient(
+    to right,
+    rgb(79, 235, 97),
+    rgb(79, 235, 97)
+  );
+  box-shadow: 0 4px 15px 0 rgb(79, 235, 97);
+  width: 210px;
+  height: 90px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 2.5rem;
+  margin-left: 20px;
 }
