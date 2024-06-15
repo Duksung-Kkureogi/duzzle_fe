@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Acid.css";
-
-const wordString = `아른아른 아지랑이 괜히 눈이 부시고
-포근해진 얼음은 겨우 녹아내릴 것만 같아
-동지섣달 기나긴 밤 지나 헤매었던 발걸음
-있잖아 까맣고 혼자 외로운 날 그 때가 기억조차 안 나
-새하얗게 웃던 날을 기억하나요 그대
-내가 느낀 모든 걸 너에게 줄 수 있다면
-바람아 내게 봄을 데려와 줘 벚꽃잎이 흩날리듯이
-`.split(/ |\n/gm);
+import {
+  AcidRainEventName as Event,
+  AcidRainProps,
+  WordInstance,
+} from "./Acid.types";
+import { useWebSocket } from "../../../services/WebSocketContext";
+import { useNavigate } from "react-router-dom";
 
 const Word = ({ word, x, y }) => {
   return (
@@ -18,38 +16,108 @@ const Word = ({ word, x, y }) => {
   );
 };
 
-const Acid = () => {
-  const [waitWords, setWaitWords] = useState([...wordString]);
-  const [activeWordObjs, setActiveWordObjs] = useState([]);
+const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
+  const nav = useNavigate();
+  const { dropIntervalMs, dropDistance, gameoverLimit, passingScore } = data;
+
+  // 글자 복사 방지
+  document.onselectstart = function () {
+    return false;
+  };
+
+  const [waitWords, setWaitWords] = useState<string[]>([]);
+  const [activeWordObjs, setActiveWordObjs] = useState<WordInstance[]>([]);
   const [score, setScore] = useState(0);
   const [failed, setFailed] = useState(0);
   const [gameover, setGameover] = useState(false);
+  const [isSucceeded, setIsSucceeded] = useState(false);
   const [showHelp, setShowHelp] = useState(true);
-  const inputRef = useRef(null);
-  const gamePanelRef = useRef(null);
-  const speed = 2;
-  const delay = 1000;
-  const gameoverLimit = 5;
+  const inputRef = useRef<any>();
+  const gamePanelRef = useRef<any>();
+  const { socket } = useWebSocket();
+
+  const handleHit = (hitWord: string) => {
+    // 맞춘단어는 active word 에서 제거
+    const index = activeWordObjs.findIndex(
+      (element) => element.word === hitWord
+    );
+    if (index !== -1) {
+      clearInterval(activeWordObjs[index].interval);
+      setActiveWordObjs((prev) => prev.filter((_, i) => i !== index));
+    }
+  };
+
+  const handleWrong = () => {
+    // TODO: 1점 감점 표현
+  };
 
   useEffect(() => {
-    if (!gameover && !showHelp) {
-      inputRef.current.focus();
-      document.addEventListener("click", handleClick);
-      const dropInterval = setInterval(() => {
-        dropWord();
-        if (isGameOver() || isGameClear()) {
-          clearInterval(dropInterval);
-          setActiveWordObjs([]);
-          setGameover(true);
-        }
-      }, delay);
+    const handleNewWord = (newWord: string) => {
+      console.timeLog("game", `new word: ${newWord}`);
+      setWaitWords((prev) => {
+        return [...prev, newWord];
+      });
+    };
 
+    const handleScore = (score: number) => {
+      setScore(score);
+    };
+
+    const handleGameover = (score: number) => {
+      console.timeLog("game", "gameover!!! ");
+      setGameover(true);
+      setScore(score);
+      setActiveWordObjs([]);
+      setIsSucceeded(false);
+    };
+
+    const handleMissedWord = (data: { word: string; count: number }) => {
+      const { word, count } = data;
+      setFailed(count);
+      console.log(
+        `0.5 점 마이너스!! ${word} 놓쳤다고 판단, 지금까지 놓친 단어 수 = ${count}`
+      );
+    };
+
+    const handleResult = (data: { result: boolean; score: number }) => {
+      const { result, score } = data;
+      setScore(score);
+      console.timeLog("game", `최종 결과: result:${result}, score: ${score}`);
+      setGameover(true);
+      setActiveWordObjs([]);
+      setIsSucceeded(result);
+    };
+
+    socket.on(Event.Inbound.Word, handleNewWord);
+    socket.on(Event.Inbound.Score, handleScore);
+    socket.on(Event.Inbound.Hit, handleHit);
+    socket.on(Event.Inbound.Wrong, handleWrong);
+    socket.on(Event.Inbound.GameOver, handleGameover);
+    socket.on(Event.Inbound.Miss, handleMissedWord);
+    socket.on(Event.Inbound.Result, handleResult);
+
+    // 컴포넌트 언마운트 시 소켓 이벤트 리스너 정리
+    return () => {
+      socket.off(Event.Inbound.Word, handleNewWord);
+      socket.off(Event.Inbound.Score, handleScore);
+      socket.off(Event.Inbound.Hit, handleHit);
+      socket.off(Event.Inbound.Wrong, handleWrong);
+      socket.off(Event.Inbound.GameOver, handleGameover);
+      socket.off(Event.Inbound.Miss, handleMissedWord);
+      socket.off(Event.Inbound.Result, handleResult);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!gameover && !showHelp && socket) {
+      inputRef.current?.focus();
+      document.addEventListener("click", handleClick);
+      dropWord();
       const repaintInterval = setInterval(() => {
         repaint();
-      }, 30);
+      }, dropIntervalMs);
 
       return () => {
-        clearInterval(dropInterval);
         clearInterval(repaintInterval);
       };
     }
@@ -57,68 +125,77 @@ const Acid = () => {
 
   const dropWord = () => {
     if (waitWords.length !== 0) {
-      const word = waitWords.shift();
+      const word = waitWords.shift()!;
       const wordInstance = {
         word,
         x: Math.random() * gamePanelRef.current.offsetWidth,
         y: 0,
-        interval: null,
+        interval: setInterval(() => {
+          wordInstance.y += dropDistance;
+        }, dropIntervalMs),
       };
-      wordInstance.interval = setInterval(() => {
-        wordInstance.y += speed;
-      }, 30);
       setActiveWordObjs((prev) => [...prev, wordInstance]);
     }
   };
 
   const repaint = () => {
-    setActiveWordObjs((prev) =>
-      prev
-        .map((wordObj) => {
-          if (wordObj.y >= gamePanelRef.current.offsetHeight - 10) {
-            setFailed((prev) => prev + 0.5);
-            clearInterval(wordObj.interval);
-            return null;
-          }
-          return wordObj;
-        })
-        .filter(Boolean)
+    setActiveWordObjs(
+      (prev) =>
+        prev
+          .map((wordObj) => {
+            if (wordObj.y >= gamePanelRef.current.offsetHeight - 10) {
+              clearInterval(wordObj.interval);
+
+              return null;
+            }
+            return wordObj;
+          })
+          .filter(Boolean) as WordInstance[]
     );
   };
 
-  const hitWord = (word) => {
-    console.log("입력된 단어:", word);
-    const index = activeWordObjs.findIndex((element) => element.word === word);
-    if (index !== -1) {
-      clearInterval(activeWordObjs[index].interval);
-      setActiveWordObjs((prev) => prev.filter((_, i) => i !== index));
-      setScore((prev) => prev + 1);
-    } else {
-      setScore((prev) => (prev > 0 ? prev - 1 : 0));
+  const hitWord = (word: string) => {
+    if (socket) {
+      socket.emit(Event.Outbound.Answer, { answer: word });
+      console.log(`서버 유저 입력 단어 전송: ${word}`);
+      socket.on("hit", handleHit);
     }
-    console.log("score", score);
   };
 
-  const isGameOver = () => failed >= gameoverLimit;
-  const isGameClear = () =>
-    activeWordObjs.length === 0 && waitWords.length === 0;
-
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.nativeEvent.isComposing) {
+      return;
+    }
     inputRef.current.focus();
     if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      event.stopPropagation();
       hitWord(inputRef.current.value.trim());
+
       inputRef.current.value = "";
     }
   };
 
   const startGame = () => {
-    setWaitWords([...wordString]);
     setActiveWordObjs([]);
     setScore(0);
     setFailed(0);
     setGameover(false);
     setShowHelp(false);
     inputRef.current.focus();
+
+    if (socket) {
+      socket.connect();
+      console.time("game");
+      socket.emit(Event.Outbound.Start, {
+        logId,
+        gamePanelOffsetHeight: gamePanelRef.current.offsetHeight,
+      });
+
+      socket.on("exception", (data) => {
+        console.error("Error from server:", data);
+      });
+    }
   };
 
   const showHelpScreen = () => {
@@ -127,7 +204,15 @@ const Acid = () => {
 
   const handleClick = () => {
     if (!gameover && !showHelp) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
+    }
+  };
+
+  const handleResultPageNavigation = () => {
+    if (isSucceeded) {
+      nav("/questsuccess");
+    } else {
+      nav("/questfail");
     }
   };
 
@@ -172,7 +257,8 @@ const Acid = () => {
               됩니다.
               <br />
               4. 단어가 모두 나와서 처리되면 <b>게임은 종료</b>됩니다. <br />
-              5. 게임이 종료되면 획득한 점수가 공개됩니다.
+              5. 게임이 종료되면 획득한 점수가 공개됩니다. <br />
+              6. <b>{passingScore}점</b> 이상 획득시 성공, <b>1 DAL 🌛</b> 지급
               <br />
             </div>
             <button
@@ -188,8 +274,12 @@ const Acid = () => {
         {gameover && !showHelp && (
           <div className="score">
             <div id="end-score">점수 : {score}</div>
-            <button className="restart" id="restart" onClick={startGame}>
-              다시 시작
+            <button
+              className="restart"
+              id="restart"
+              onClick={handleResultPageNavigation}
+            >
+              결과 확인
             </button>
             <button className="explain" onClick={showHelpScreen}>
               게임 설명
