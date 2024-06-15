@@ -26,6 +26,10 @@ export interface AcidRainProps {
 
 const AcidRainPrefix: string = "quest:acid-rain";
 
+export const CORRECT_ANSWER_POINTS: number = 1;
+export const WRONG_ANSWER_PENALTY: number = 1;
+export const MISSING_ANSWER_PENALTY: number = 0.5;
+
 export const AcidRainEventName = {
   // 클라이언트 발신 메시지
   Outbound: {

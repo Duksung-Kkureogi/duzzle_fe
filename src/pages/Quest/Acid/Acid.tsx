@@ -4,9 +4,17 @@ import {
   AcidRainEventName as Event,
   AcidRainProps,
   WordInstance,
+  CORRECT_ANSWER_POINTS,
+  WRONG_ANSWER_PENALTY,
+  MISSING_ANSWER_PENALTY,
 } from "./Acid.types";
 import { useWebSocket } from "../../../services/WebSocketContext";
 import { useNavigate } from "react-router-dom";
+import {
+  ToastComponent,
+  ToastProps,
+  ToastType,
+} from "../../../components/Toast";
 
 const Word = ({ word, x, y }) => {
   return (
@@ -35,6 +43,15 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   const inputRef = useRef<any>();
   const gamePanelRef = useRef<any>();
   const { socket } = useWebSocket();
+  const [toast, setToast] = useState<ToastProps | null>(null);
+
+  const showToast = (message: string, type: ToastType) => {
+    setToast({ message, type });
+
+    setTimeout(() => {
+      setToast(null);
+    }, 3000);
+  };
 
   const handleHit = (hitWord: string) => {
     // 맞춘단어는 active word 에서 제거
@@ -45,10 +62,12 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
       clearInterval(activeWordObjs[index].interval);
       setActiveWordObjs((prev) => prev.filter((_, i) => i !== index));
     }
+
+    showToast(`+ ${CORRECT_ANSWER_POINTS}점`, ToastType.Success);
   };
 
   const handleWrong = () => {
-    // TODO: 1점 감점 표현
+    showToast(`- ${WRONG_ANSWER_PENALTY}점`, ToastType.Error);
   };
 
   useEffect(() => {
@@ -74,8 +93,10 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
     const handleMissedWord = (data: { word: string; count: number }) => {
       const { word, count } = data;
       setFailed(count);
+      showToast(`- ${MISSING_ANSWER_PENALTY}점`, ToastType.Warning);
+
       console.log(
-        `0.5 점 마이너스!! ${word} 놓쳤다고 판단, 지금까지 놓친 단어 수 = ${count}`
+        `0.5 점 마이너스!! ${word} 놓쳤다고 판단, 지금까지 놓친 단어 수 = ${count}`
       );
     };
 
@@ -290,6 +311,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
       {activeWordObjs.map((wordObj, index) => (
         <Word key={index} word={wordObj.word} x={wordObj.x} y={wordObj.y} />
       ))}
+      {toast && <ToastComponent message={toast.message} type={toast.type} />}
     </div>
   );
 };
