@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Mypage.css";
 import { useAuth } from "../../services/AuthContext";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Mypage() {
   const { web3auth, getDal, web3AuthInit, logout } = useAuth();
@@ -108,6 +109,7 @@ function Mypage() {
           <p>설정</p>
         </section>
       </div>
+      <MyBottomNavBar />
     </div>
   );
 }

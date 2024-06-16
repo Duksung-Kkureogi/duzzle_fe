@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Quest.css";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Quest() {
   const nav = useNavigate();
@@ -55,6 +56,7 @@ function Quest() {
       <button className="btn-hover color-6" onClick={startQuiz}>
         START
       </button>
+      <MyBottomNavBar />
     </div>
   );
 }

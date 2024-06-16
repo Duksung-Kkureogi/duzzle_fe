@@ -10,6 +10,7 @@
 
 .Quest {
   text-align: center;
+  width: 500px;
 }
 .Quest .random {
   margin-top: 80px;

@@ -10,6 +10,7 @@ import { IProvider } from "@web3auth/base";
 import { itemList } from "../../util/item";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Store() {
   const { web3auth, web3AuthInit, getDal } = useAuth();
@@ -175,6 +176,7 @@ function Store() {
           </div>
         )}
       </Modal>
+      <MyBottomNavBar />
     </div>
   );
 }

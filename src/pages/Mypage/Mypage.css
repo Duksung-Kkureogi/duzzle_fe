@@ -2,6 +2,7 @@
 .Mypage {
   font-family: "Noto Sans KR", sans-serif;
   cursor: default;
+  width: 500px;
 }
 
 .Mypage .logout {
@@ -82,7 +83,7 @@
   color: #22bcbc;
 
   section {
-    width: 580px;
+    width: 480px;
     display: flex;
     border-radius: 20px;
     padding: 20px;
