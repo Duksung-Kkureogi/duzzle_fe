@@ -85,7 +85,7 @@ function Store() {
   };
 
   function buyItem() {
-    if (userDal > 2) {
+    if (userDal >= 2) {
       setEnoughDal(true);
       getRandomItem();
       getNFTItem();
