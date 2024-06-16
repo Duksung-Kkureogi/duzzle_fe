@@ -3,6 +3,14 @@
 /* Store */
 .Store {
   font-family: "Noto Sans KR", sans-serif;
+  width: 500px;
+}
+
+.store_title {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .Store .user_dal {

@@ -117,7 +117,7 @@ function Store() {
 
   return (
     <div className="Store">
-      <MyHeader headerText="상점" leftChild={<MyButton />} />
+      <p className="store_title">상점</p>
       <div className="user_dal">
         <img src="/src/assets/images/moon.png" />
         <p>{userDal} Dal</p>
