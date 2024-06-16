@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import MyButton from "../../components/MyButton/MyButton";
-import MyHeader from "../../components/MyHeader/MyHeader";
 import Modal from "react-modal";
 import "./Store.css";
 
