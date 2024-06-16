@@ -105,8 +105,8 @@ function Store() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "300px",
-      height: "250px",
+      width: "350px",
+      height: "300px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",
@@ -153,7 +153,9 @@ function Store() {
               </div>
               <div className="dalO_btn">
                 <button>보유 NFT 확인</button>
-                <button>잠금해제 하러 가기</button>
+                <button>
+                  잠금해제<br></br> 하러 가기
+                </button>
               </div>
             </div>
           ) : (
