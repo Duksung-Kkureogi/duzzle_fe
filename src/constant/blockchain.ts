@@ -7,6 +7,8 @@ import {
 import { ModalConfig } from "@web3auth/modal";
 import { OpenloginAdapterOptions } from "@web3auth/openlogin-adapter";
 
+const rpcTarget = import.meta.env.VITE_RPC_TARGET;
+
 export const Web3AuthParameters: {
   clientId: string;
   chainConfig: CustomChainConfig;
@@ -19,7 +21,7 @@ export const Web3AuthParameters: {
 
   chainConfig: {
     chainId: "0x13882", // Please use 0x1 for Mainnet
-    rpcTarget: "https://rpc-amoy.polygon.technology",
+    rpcTarget: rpcTarget,
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     displayName: "Amoy",
     blockExplorerUrl: "https://www.oklink.com/amoy",
