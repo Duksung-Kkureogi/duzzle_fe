@@ -164,6 +164,7 @@
     word-break: keep-all;
     background-color: #f16d9a;
     cursor: pointer;
+    box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -195,5 +196,6 @@
     font-weight: bold;
     background-color: #f16d9a;
     cursor: pointer;
+    box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.25);
   }
 }
