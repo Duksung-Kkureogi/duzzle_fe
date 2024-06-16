@@ -18,6 +18,7 @@ import QuestSpeed from "./pages/Quest/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
 import Items from "./pages/Items/Items";
 import Pieces from "./pages/Pieces/Pieces";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path="/questsuccess" element={<QuestSuccess />} />
             <Route path="/questfail" element={<QuestFail />} />
             <Route path="/questspeed" element={<QuestSpeed />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>
