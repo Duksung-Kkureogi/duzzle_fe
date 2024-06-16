@@ -147,6 +147,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await web3auth!.logout();
     setDuzzleLoggedIn(false);
     setWeb3LoggedIn(false);
+    localStorage.clear();
   };
 
   const showDalBalance = async () => {

@@ -16,7 +16,8 @@ import QuestSuccess from "./pages/Quest/QuestSuccess";
 import QuestFail from "./pages/Quest/QuestFail";
 import QuestSpeed from "./pages/Quest/Speed/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
-import Acid from "./pages/Quest/Acid/Acid";
+import AuthGuardLayout from "./components/AuthGuard";
+import AcidPage from "./pages/Quest/Acid/AcidPage";
 
 function App() {
   return (
@@ -39,7 +40,14 @@ function App() {
             <Route path="/questsuccess" element={<QuestSuccess />} />
             <Route path="/questfail" element={<QuestFail />} />
             <Route path="/questspeed" element={<QuestSpeed />} />
-            <Route path="/questacid" element={<Acid />} />
+            <Route
+              path="/questacid/:logId?"
+              element={
+                <AuthGuardLayout>
+                  <AcidPage />
+                </AuthGuardLayout>
+              }
+            />
           </Routes>
         </div>
       </BrowserRouter>
