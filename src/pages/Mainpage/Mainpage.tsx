@@ -5,13 +5,15 @@ import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
 import { PieceDto, Minted, Unminted } from "./PieceDto";
-import { pieces } from "./PieceData";
 import axios from "axios";
 import { seasonList } from "../../util/season";
+import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
+  const navigate = useNavigate();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [pieces, setPieces] = useState<PieceDto[]>([]);
   const [selectedPiece, setSelectedPiece] = useState<PieceDto | null>(null);
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
@@ -30,6 +32,12 @@ function Mainpage() {
           }
         );
         console.log(response);
+        if (response.data.result) {
+          const pieceData = response.data.data.pieces;
+          setPieces(pieceData);
+        } else {
+          console.error("Failed to fetch pieces");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -61,7 +69,7 @@ function Mainpage() {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: "350px",
-      height: "550px",
+      height: "500px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#80DAE6",
@@ -126,12 +134,12 @@ function Mainpage() {
                     onClick={() => openModal(piece)}
                     key={piece.pieceId}
                     style={{
-                      left: `${piece.points.x}px`,
-                      top: `${piece.points.y}px`,
+                      left: `${piece.coordinates.split(",")[0]}%`,
+                      top: `${piece.coordinates.split(",")[1]}%`,
                       transform: `scale(${1 / scale})`,
                     }}
                   >
-                    {piece.zoneName}
+                    {piece.zoneNameKr}
                   </div>
                 ))}
                 {selectedPiece && (
@@ -176,7 +184,7 @@ function Mainpage() {
                           <p className="info_title">NFT 컬렉션</p>
                           <p className="info">덕성 크리스마스 퍼즐 100조각</p>
                           <p className="info_title">조각 위치</p>
-                          <p className="info">{selectedPiece.zoneName}</p>
+                          <p className="info">{selectedPiece.zoneNameKr}</p>
                           <p className="info_title">재료</p>
                           {(selectedPiece.data as Unminted).requiredItems.map(
                             (item, index) => (
@@ -191,7 +199,16 @@ function Mainpage() {
                         </div>
                         <div className="mintedX_btn">
                           <button onClick={closeModal}>닫기</button>
-                          <button>NFT 발행하기</button>
+                          <button
+                            onClick={() => {
+                              alert(
+                                "재료가 부족합니다.\n상점으로 이동하여 재료를 획득해보세요."
+                              );
+                              navigate("/store");
+                            }}
+                          >
+                            NFT 발행하기
+                          </button>
                         </div>
                       </div>
                     )}

@@ -1,7 +1,7 @@
 export type PieceDto = {
-  zoneName: string;
+  zoneNameKr: string;
   pieceId: number;
-  points: { x: number; y: number };
+  coordinates: string;
   minted: boolean;
   data: Minted | Unminted;
 };
