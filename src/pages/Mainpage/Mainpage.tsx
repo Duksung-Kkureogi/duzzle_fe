@@ -8,9 +8,13 @@ import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDto";
 import axios from "axios";
 import { seasonList } from "../../util/season";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../services/AuthContext";
+import RPC from "../../../ethersRPC";
+import { IProvider } from "@web3auth/base";
 
 function Mainpage() {
   const navigate = useNavigate();
+  const { web3auth, web3AuthInit } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [pieces, setPieces] = useState<PieceDto[]>([]);
@@ -45,6 +49,12 @@ function Mainpage() {
     getPuzzle();
   }, [RequestUrl, seasonId]);
 
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {
     setScale(event.instance.transformState.scale);
@@ -75,6 +85,20 @@ function Mainpage() {
       backgroundColor: "#80DAE6",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
     },
+  };
+
+  const unlockPuzzlePiece = async (pieceId: number) => {
+    const rpc = new RPC(web3auth?.provider as IProvider);
+    try {
+      const pieceMetadataUrl = await rpc.unlockPuzzlePiece(pieceId);
+      console.log(pieceMetadataUrl);
+      setModalOpen(false);
+      alert("조각NFT 발행을 성공하였습니다.");
+    } catch (error) {
+      console.log(error);
+      setModalOpen(false);
+      alert("재료가 부족합니다.");
+    }
   };
 
   return (
@@ -137,6 +161,7 @@ function Mainpage() {
                       left: `${piece.coordinates.split(",")[0]}%`,
                       top: `${piece.coordinates.split(",")[1]}%`,
                       transform: `scale(${1 / scale})`,
+                      backgroundColor: piece.minted ? "#f47735" : "#8C8C8C",
                     }}
                   >
                     {piece.zoneNameKr}
@@ -201,10 +226,7 @@ function Mainpage() {
                           <button onClick={closeModal}>닫기</button>
                           <button
                             onClick={() => {
-                              alert(
-                                "재료가 부족합니다.\n상점으로 이동하여 재료를 획득해보세요."
-                              );
-                              navigate("/store");
+                              unlockPuzzlePiece(selectedPiece.pieceId);
                             }}
                           >
                             NFT 발행하기

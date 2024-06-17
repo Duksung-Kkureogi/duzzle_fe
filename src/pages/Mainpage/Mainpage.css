@@ -57,7 +57,6 @@
   font-family: "Nanum Gothic", sans-serif;
   p {
     margin: 0;
-    margin-bottom: 3px;
     cursor: default;
   }
 }
@@ -66,7 +65,6 @@
   font-family: "Nanum Gothic", sans-serif;
   p {
     margin: 0;
-    margin-bottom: 3px;
   }
 }
 
@@ -107,7 +105,7 @@
 }
 .wallet {
   padding: 3px;
-  font-size: 12px;
+  font-size: 11px;
   width: 270px;
   word-break: break-all;
 }

@@ -20,7 +20,7 @@
     "bootstrap": "^5.3.3",
     "canvas-confetti": "^1.9.3",
     "dotenv": "^16.4.5",
-    "ethers": "^6.12.2",
+    "ethers": "^6.13.0",
     "metamask": "^0.0.1-security",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
