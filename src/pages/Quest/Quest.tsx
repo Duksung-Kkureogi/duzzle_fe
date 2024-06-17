@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Quest.css";
+import { AcidRainQuestData } from "./Acid/Acid.types";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Quest() {
@@ -27,10 +28,13 @@ function Quest() {
         localStorage.setItem("quest", response.data.data.quest);
         localStorage.setItem("timeLimit", response.data.data.timeLimit);
         nav("/questspeed");
+      } else if (response.data.data.type === "ACID_RAIN") {
+        const quest: AcidRainQuestData = JSON.parse(response.data.data.quest);
+        const queryParms = Object.entries(quest)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
+        nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
       }
-      // else if (response.data.data.type === "RAIN_QUIZ") {
-      //     nav("/questrain");
-      // }
       setQuizType(response.data.data.type);
     } catch (error) {
       console.error("Error fetching random quiz:", error);

@@ -13,8 +13,10 @@ import FQnaEdit from "./pages/Qna/Fix/FQnaEdit";
 import Quest from "./pages/Quest/Quest";
 import QuestSuccess from "./pages/Quest/QuestSuccess";
 import QuestFail from "./pages/Quest/QuestFail";
-import QuestSpeed from "./pages/Quest/QuestSpeed";
+import QuestSpeed from "./pages/Quest/Speed/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
+import AuthGuardLayout from "./components/AuthGuard";
+import AcidPage from "./pages/Quest/Acid/AcidPage";
 import Items from "./pages/Items/Items";
 import Pieces from "./pages/Pieces/Pieces";
 import NotFound from "./pages/NotFound/NotFound";
@@ -43,6 +45,14 @@ function App() {
             <Route path="/questsuccess" element={<QuestSuccess />} />
             <Route path="/questfail" element={<QuestFail />} />
             <Route path="/questspeed" element={<QuestSpeed />} />
+            <Route
+              path="/questacid/:logId?"
+              element={
+                <AuthGuardLayout>
+                  <AcidPage />
+                </AuthGuardLayout>
+              }
+            />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
