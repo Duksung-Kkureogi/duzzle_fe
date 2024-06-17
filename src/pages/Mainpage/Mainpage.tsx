@@ -4,7 +4,7 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
-import { PieceDto, Minted, Unminted } from "./PieceDto";
+import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDto";
 import axios from "axios";
 import { seasonList } from "../../util/season";
 import { useNavigate } from "react-router-dom";
