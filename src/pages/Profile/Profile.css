@@ -1,6 +1,7 @@
 /* Profile */
 .Profile {
   font-family: "Noto Sans KR", sans-serif;
+  width: 500px;
 }
 
 .Profile .profile_title {
@@ -19,14 +20,14 @@
   margin-bottom: 20px;
   position: relative;
   img {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
   }
   button {
     position: absolute;
     top: 110px;
-    left: 340px;
+    left: 300px;
     border: none;
     border-radius: 50%;
     background-color: #00b5cc;
@@ -56,7 +57,7 @@
 
   border-radius: 20px;
   padding: 15px;
-  width: 580px;
+  width: 480px;
   background-color: #ececec;
 }
 
@@ -79,6 +80,7 @@
 }
 
 .Profile .profile_list .wallet {
+  width: 220px;
   margin-left: auto;
   margin-right: 30px;
   p {
@@ -140,18 +142,12 @@
   margin-left: auto;
   margin-right: 30px;
   p {
-    width: 230px;
+    width: 220px;
   }
 }
 
 /* PC (해상도 1024px)*/
 @media all and (min-width: 1024px) {
-  .Profile .profile_img {
-    button {
-      top: 150px;
-      left: 370px;
-    }
-  }
 }
 
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
@@ -160,6 +156,10 @@
     img {
       height: 150px;
       width: 150px;
+    }
+    button {
+      top: 150px;
+      left: 320px;
     }
   }
 }

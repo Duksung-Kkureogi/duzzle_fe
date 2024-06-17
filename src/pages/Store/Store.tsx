@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import MyButton from "../../components/MyButton/MyButton";
-import MyHeader from "../../components/MyHeader/MyHeader";
 import Modal from "react-modal";
 import "./Store.css";
 
@@ -10,6 +8,7 @@ import { IProvider } from "@web3auth/base";
 import { itemList } from "../../util/item";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Store() {
   const { web3auth, web3AuthInit, getDal } = useAuth();
@@ -85,7 +84,7 @@ function Store() {
   };
 
   function buyItem() {
-    if (userDal > 2) {
+    if (userDal >= 2) {
       setEnoughDal(true);
       getRandomItem();
       getNFTItem();
@@ -105,8 +104,8 @@ function Store() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "300px",
-      height: "250px",
+      width: "350px",
+      height: "300px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",
@@ -116,7 +115,7 @@ function Store() {
 
   return (
     <div className="Store">
-      <MyHeader headerText="상점" leftChild={<MyButton />} />
+      <p className="store_title">상점</p>
       <div className="user_dal">
         <img src="/src/assets/images/moon.png" />
         <p>{userDal} Dal</p>
@@ -153,7 +152,9 @@ function Store() {
               </div>
               <div className="dalO_btn">
                 <button>보유 NFT 확인</button>
-                <button>잠금해제 하러 가기</button>
+                <button>
+                  잠금해제<br></br>하러 가기
+                </button>
               </div>
             </div>
           ) : (
@@ -175,6 +176,7 @@ function Store() {
           </div>
         )}
       </Modal>
+      <MyBottomNavBar />
     </div>
   );
 }

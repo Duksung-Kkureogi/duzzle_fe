@@ -1,6 +1,7 @@
 /* Setting */
 .Setting {
   font-family: "Noto Sans KR", sans-serif;
+  width: 500px;
 }
 
 .Setting .setting_name {
@@ -20,7 +21,7 @@
 
   border-radius: 20px;
   padding: 20px;
-  width: 600px;
+  width: 480px;
   background-color: #ececec;
 }
 
@@ -33,7 +34,7 @@
   grid-template-rows: repeat(4, auto);
   justify-content: center;
   p {
-    font-size: 20px;
+    font-size: 18px;
     color: #34a853;
     font-weight: 900;
     margin: 0;
@@ -175,7 +176,7 @@
 .Setting .setting_lang_box ul {
   position: absolute;
   list-style: none;
-  top: 18px;
+  top: 38px;
   left: 0;
   width: 100%;
   overflow: hidden;

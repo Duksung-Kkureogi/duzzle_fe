@@ -120,6 +120,13 @@ function Profile() {
       setEditingImg(false);
     } catch (error) {
       console.error(error);
+      if (isAxiosError(error)) {
+        if (error.response?.data.code == "FILE_NAME_EXTENSION") {
+          alert("지원되지 않는 파일 형식입니다.");
+        } else if (error.response?.data.code == "FILE_NAME_CHARACTERS") {
+          alert("파일명에 특수문자를 포함할 수 없습니다.");
+        }
+      }
     }
   }
 

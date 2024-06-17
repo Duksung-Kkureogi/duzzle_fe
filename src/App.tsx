@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Setting from "./pages/Setting/Setting";
 import Mypage from "./pages/Mypage/Mypage";
 import Profile from "./pages/Profile/Profile";
@@ -18,6 +17,10 @@ import QuestSpeed from "./pages/Quest/Speed/QuestSpeed";
 import Faq from "./pages/Faq/Faq";
 import AuthGuardLayout from "./components/AuthGuard";
 import AcidPage from "./pages/Quest/Acid/AcidPage";
+import Items from "./pages/Items/Items";
+import Pieces from "./pages/Pieces/Pieces";
+import NotFound from "./pages/NotFound/NotFound";
+import Mainpage from "./pages/Mainpage/Mainpage";
 
 function App() {
   return (
@@ -25,9 +28,11 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Mainpage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<Mypage />} />
+            <Route path="/mypage/items" element={<Items />} />
+            <Route path="/mypage/pieces" element={<Pieces />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/store" element={<Store />} />
@@ -48,6 +53,7 @@ function App() {
                 </AuthGuardLayout>
               }
             />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>

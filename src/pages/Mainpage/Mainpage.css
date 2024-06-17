@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+/* Mainpage */
+.Mainpage {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 90vw;
+  max-width: 500px;
+}
+
+.mainImg {
+  padding-top: 20px;
+}
+
+.mainImg .tools {
+  position: absolute;
+  z-index: 2;
+  transform: translate(10px, 10px);
+  button {
+    border: 2px solid #ececec;
+    margin-right: 2px;
+    background-color: #34a853;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    padding-top: 2px;
+    padding: 3px;
+  }
+  svg {
+    height: 15px;
+  }
+}
+
+.mainImg .transform-component-module_wrapper__SPB86 {
+  max-width: 100%;
+  max-height: calc(-50px + 100vh);
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: grab;
+  img {
+    height: 90vh;
+  }
+}
+
+.mainImg .piece {
+  position: absolute;
+  background-color: #f47735;
+  border-radius: 13px;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.modal_mintedO,
+.modal_mintedX {
+  font-family: "Nanum Gothic", sans-serif;
+  p {
+    margin: 0;
+    cursor: default;
+  }
+}
+
+.mintedO_piece .piece_img {
+  text-align: center;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.mintedX_piece .required_items {
+  display: flex;
+  img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+  }
+}
+
+.info_title {
+  width: 100px;
+  padding: 5px;
+  padding-left: 10px;
+  background-color: #ececec;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.info {
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.owner {
+  color: #f47735;
+}
+.wallet {
+  padding: 3px;
+  font-size: 12px;
+  width: 270px;
+  word-break: break-all;
+}
+.items {
+  padding-top: 12px;
+}
+
+.mintedO_btn,
+.mintedX_btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  gap: 10%;
+  button {
+    background-color: #00b5cc;
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: black;
+    cursor: pointer;
+    box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.mintedX_btn {
+  margin-top: 110px;
+}
