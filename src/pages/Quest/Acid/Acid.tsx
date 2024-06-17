@@ -16,10 +16,19 @@ import {
   ToastType,
 } from "../../../components/Toast";
 
+const rainbowColors = ["red", "pink", "green", "blue", "indigo", "violet"];
+
 const Word = ({ word, x, y }) => {
   return (
     <div className="word" style={{ left: x, top: y }}>
-      {word}
+      {word.split("").map((char, index) => (
+        <span
+          key={index}
+          style={{ color: rainbowColors[index % rainbowColors.length] }}
+        >
+          {char}
+        </span>
+      ))}
     </div>
   );
 };

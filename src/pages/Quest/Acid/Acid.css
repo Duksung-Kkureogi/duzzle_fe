@@ -4,7 +4,7 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .container-fluid {
-  width: 400px;
+  width: 500px;
   height: 700px;
   margin: 350px auto;
   position: relative;
@@ -53,6 +53,7 @@ input[type="text"] {
 
 #board {
   position: absolute;
+  /* text-align: center; */
   left: 0;
   top: 0;
   width: 100%;
@@ -81,18 +82,18 @@ input[type="text"] {
   color: rgb(249, 11, 213);
 }
 #help-div .buttonstart {
-  margin-left: 90px;
+  margin-left: 140px;
 }
 #restart-btn,
 #help-btn,
 #start-btn {
   font-size: 2rem;
 }
+/* 내리는 글자 */
 .word {
   position: absolute;
   font-size: 16px;
 }
-
 .buttonstart {
   background-image: linear-gradient(
     to right,
@@ -114,6 +115,9 @@ input[type="text"] {
 }
 .score {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .score #end-score {
   font-size: 55px;
