@@ -9,8 +9,10 @@ import { itemList } from "../../util/item";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
+import { useNavigate } from "react-router-dom";
 
 function Store() {
+  const navigate = useNavigate();
   const { web3auth, web3AuthInit, getDal } = useAuth();
   const [userDal, setUserDal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -151,8 +153,18 @@ function Store() {
                 <p>{curNFTItem?.item_name}</p>
               </div>
               <div className="dalO_btn">
-                <button>보유 NFT 확인</button>
-                <button>
+                <button
+                  onClick={() => {
+                    navigate("/mypage/items");
+                  }}
+                >
+                  보유 NFT 확인
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
                   잠금해제<br></br>하러 가기
                 </button>
               </div>
