@@ -4,16 +4,14 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
-import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDto";
+import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
 import axios from "axios";
 import { seasonList } from "../../util/season";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 
 function Mainpage() {
-  const navigate = useNavigate();
   const { web3auth, web3AuthInit } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
