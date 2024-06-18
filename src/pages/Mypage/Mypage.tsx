@@ -7,7 +7,14 @@ import { useAuth } from "../../services/AuthContext";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Mypage() {
-  const { web3auth, getDal, web3AuthInit, logout } = useAuth();
+  const {
+    web3auth,
+    getDal,
+    web3AuthInit,
+    logout,
+    duzzleLoggedIn,
+    web3LoggedIn,
+  } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
 
@@ -28,6 +35,19 @@ function Mypage() {
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
+  const getAccessToken = async (): Promise<string> => {
+    // 하나라도 아니면, 로그아웃 시키고 Login Page 로 이동
+    if (!duzzleLoggedIn || !web3LoggedIn) {
+      await logout();
+      navigate("/login");
+    }
+
+    const token = localStorage.getItem("accessToken");
+    if (duzzleLoggedIn && web3LoggedIn && token) {
+      return token;
+    }
+  };
+
   useEffect(() => {
     if (!web3auth) {
       web3AuthInit();
@@ -36,25 +56,24 @@ function Mypage() {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-          navigate("/login");
+      const token = await getAccessToken();
+      if (token) {
+        try {
+          const response = await axios.get(RequestUrl + "/v1/user", {
+            headers: {
+              Authorization: "Bearer " + token,
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(response);
+          if (response.data.result) {
+            setUser(response.data.data);
+          } else {
+            console.error("Failed to fetch userInfo");
+          }
+        } catch (error) {
+          console.error(error);
         }
-        const response = await axios.get(RequestUrl + "/v1/user", {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-        });
-        console.log(response);
-        if (response.data.result) {
-          setUser(response.data.data);
-        } else {
-          console.error("Failed to fetch userInfo");
-        }
-      } catch (error) {
-        console.error(error);
       }
     };
     getUserInfo();
@@ -62,8 +81,10 @@ function Mypage() {
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      const balance = await getDal();
-      setUserDal(balance);
+      if (await getAccessToken()) {
+        const balance = await getDal();
+        setUserDal(balance);
+      }
     };
     fetchUserDal();
   }, [getDal]);
