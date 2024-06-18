@@ -183,7 +183,9 @@ function Store() {
               <p>획득해보세요.</p>
             </div>
             <div className="dalX_btn">
-              <button>퀘스트 하러가기</button>
+              <button onClick={() => navigate("/quest")}>
+                퀘스트 하러가기
+              </button>
             </div>
           </div>
         )}

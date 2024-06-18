@@ -12,6 +12,15 @@ function Quest() {
   const startQuiz = async () => {
     try {
       const token = localStorage.getItem("accessToken");
+      if (!token) {
+        if (
+          confirm(
+            "비회원일 경우 DAL 토큰을 지급받을 수 없습니다. 로그인을 해주세요."
+          )
+        ) {
+          nav("/login");
+        }
+      }
       const response = await axios.post(
         RequestURL + "/v1/quest/start",
         {},

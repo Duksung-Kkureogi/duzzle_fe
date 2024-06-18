@@ -38,6 +38,9 @@ function Mypage() {
     const getUserInfo = async () => {
       try {
         const token = localStorage.getItem("accessToken");
+        if (!token) {
+          navigate("/login");
+        }
         const response = await axios.get(RequestUrl + "/v1/user", {
           headers: {
             Authorization: "Bearer " + token,
@@ -66,7 +69,7 @@ function Mypage() {
   }, [getDal]);
 
   const Logout = () => {
-    logout;
+    logout();
     console.log("logged out");
     navigate("/");
   };

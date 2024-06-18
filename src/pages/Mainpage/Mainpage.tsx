@@ -10,13 +10,19 @@ import { seasonList } from "../../util/season";
 import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
+import { ProgressBar } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
+  const navigate = useNavigate();
   const { web3auth, web3AuthInit } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [pieces, setPieces] = useState<PieceDto[]>([]);
   const [selectedPiece, setSelectedPiece] = useState<PieceDto | null>(null);
+  const [total, setTotal] = useState<number>(0);
+  const [minted, setMinted] = useState<number>(0);
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
   const seasonId = seasonList[seasonList.length - 1].id;
@@ -37,6 +43,8 @@ function Mainpage() {
         if (response.data.result) {
           const pieceData = response.data.data.pieces;
           setPieces(pieceData);
+          setTotal(response.data.data.total);
+          setMinted(response.data.data.minted);
         } else {
           console.error("Failed to fetch pieces");
         }
@@ -95,12 +103,28 @@ function Mainpage() {
     } catch (error) {
       console.log(error);
       setModalOpen(false);
-      alert("재료가 부족합니다.");
+      if (confirm("재료가 부족합니다")) {
+        navigate("store");
+      }
     }
   };
 
   return (
     <div className="Mainpage">
+      <div>
+        <p>
+          발행된 NFT: <b>{minted}</b> / {total} <br />
+          남은 NFT: <b>{total - minted}</b>
+        </p>
+        <ProgressBar
+          variant="info"
+          now={minted}
+          min={0}
+          max={total}
+          animated={true}
+          label={`Minted ${(minted / total) * 100}%`}
+        />
+      </div>
       <div className="mainImg">
         <TransformWrapper
           initialScale={1}

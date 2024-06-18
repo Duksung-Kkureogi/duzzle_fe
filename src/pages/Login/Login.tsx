@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../services/AuthContext";
 
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const { user, logout, web3auth, web3AuthInit, duzzleLoggedIn, getDal } =
     useAuth();
   const [userDal, setUserDal] = useState(0);
@@ -13,11 +15,13 @@ function Login() {
   }, []);
 
   useEffect(() => {
-    const fetchUserDal = async () => {
-      const balance = await getDal();
-      setUserDal(balance);
-    };
-    fetchUserDal();
+    if (duzzleLoggedIn) {
+      const fetchUserDal = async () => {
+        const balance = await getDal();
+        setUserDal(balance);
+      };
+      fetchUserDal();
+    }
   }, [getDal]);
 
   const login = async (): Promise<void> => {
@@ -62,16 +66,21 @@ function Login() {
   );
 
   const UnloggedInView = (
-    <button onClick={login} className="card">
-      Login
-    </button>
+    <div>
+      <button onClick={login} className="card">
+        Login
+      </button>
+    </div>
   );
 
   return (
-    <div className="Login">
-      <img src="/src/assets/images/duzzle logo.png" />
-      <div className="grid">
-        {duzzleLoggedIn ? LoggedInView : UnloggedInView}
+    <div>
+      <button onClick={() => navigate("/")}>Home</button>
+      <div className="Login">
+        <img src="/src/assets/images/duzzle logo.png" />
+        <div className="grid">
+          {duzzleLoggedIn ? LoggedInView : UnloggedInView}
+        </div>
       </div>
     </div>
   );
