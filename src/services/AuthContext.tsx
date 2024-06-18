@@ -1,4 +1,4 @@
-import { IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { ADAPTER_STATUS, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
@@ -30,7 +30,7 @@ interface AuthContextType {
 
   duzzleLogin: (params: LoginRequest) => void;
   user: DuzzleUser | null;
-  logout: () => void;
+  logout: () => Promise<void>;
   showDalBalance: () => void;
   getDal: () => Promise<number>;
 }
@@ -144,10 +144,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
-    await web3auth!.logout();
+    if (web3auth.status === ADAPTER_STATUS.CONNECTED) {
+      await web3auth.logout();
+    }
+    localStorage.clear();
     setDuzzleLoggedIn(false);
     setWeb3LoggedIn(false);
-    localStorage.clear();
   };
 
   const showDalBalance = async () => {

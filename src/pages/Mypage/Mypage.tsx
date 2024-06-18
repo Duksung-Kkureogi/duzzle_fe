@@ -68,8 +68,8 @@ function Mypage() {
     fetchUserDal();
   }, [getDal]);
 
-  const Logout = () => {
-    logout();
+  const Logout = async () => {
+    await logout();
     console.log("logged out");
     navigate("/");
   };
