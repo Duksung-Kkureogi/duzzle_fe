@@ -73,7 +73,9 @@
 }
 
 .Pieces .optionList {
-  width: 100%;
+  padding-inline-start: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
   cursor: pointer;
   background-color: #f69ebb;
   list-style-type: none;
@@ -109,12 +111,10 @@
   }
   &:first-child {
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
   }
   &:last-child {
     border-bottom: 0 none;
     border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
   }
 }
 
@@ -126,7 +126,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 10px;
-  row-gap: 60px;
+  row-gap: 50px;
 }
 
 .Pieces .piece {
@@ -134,8 +134,8 @@
   text-align: center;
   border-radius: 30px;
   img {
-    height: 170px;
-    width: 170px;
+    height: 140px;
+    width: 140px;
     background-color: #ececec;
     padding: 30px;
     border-radius: 30px;
@@ -154,7 +154,7 @@
   background-color: #f47735;
   color: white;
   text-align: center;
-  font-size: 12px;
+  font-size: 12.5px;
   border: 1.5px dashed white;
   box-shadow: 0px 0px 0px 4px #f47735;
   border-radius: 10px;

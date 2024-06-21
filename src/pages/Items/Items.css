@@ -47,7 +47,7 @@
   opacity: 1;
   font-size: 13px;
   &::after {
-    border-bottom: 10px solid #8c8c8c;
+    border-bottom: 10px solid #f47735;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 0px solid transparent;
@@ -100,8 +100,8 @@
   text-align: center;
   border-radius: 30px;
   img {
-    height: 120px;
-    width: 120px;
+    height: 80px;
+    width: 80px;
     background-color: #ececec;
     padding: 20px;
     border-radius: 30px;
@@ -111,6 +111,7 @@
     color: #22bcbc;
     font-weight: bold;
     cursor: default;
+    font-size: 15px;
   }
 }
 
@@ -126,12 +127,12 @@
   border-radius: 30px;
   svg {
     height: 28px;
-    margin-top: 4px;
+    margin-top: 2px;
     margin-right: 20px;
   }
   p {
     margin: 0;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
     color: white;
   }

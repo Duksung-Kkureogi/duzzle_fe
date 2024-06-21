@@ -13,7 +13,7 @@
   width: 500px;
 }
 .Quest .random {
-  margin-top: 80px;
+  padding-top: 80px;
   font-size: 70px;
   background: linear-gradient(150deg, rgba(52, 168, 83, 1), rgb(109, 236, 143));
   -webkit-background-clip: text;
