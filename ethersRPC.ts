@@ -6,6 +6,7 @@ import { DalAbi } from "./src/constant/abi/dal-abi";
 import { PlayDuzzleAbi } from "./src/constant/abi/playduzzle-abi";
 import { BlueprintItemAbi } from "./src/constant/abi/blueprintItem-abi";
 import { MaterialItemAbi } from "./src/constant/abi/MaterialItem-abi";
+import { PuzzlePieceAbi } from "./src/constant/abi/puzzle-piece-abi";
 
 export default class EthereumRpc {
   private provider: IProvider;
@@ -98,6 +99,42 @@ export default class EthereumRpc {
     };
     const metadataUrl = await getMetadataUrl(tokenAddress);
     console.log("metadataUrl: ", metadataUrl);
+
+    return metadataUrl;
+  }
+
+  async unlockPuzzlePiece(pieceId: number) {
+    const ethersProvider = new ethers.BrowserProvider(this.provider);
+    const signer = await ethersProvider.getSigner();
+
+    const contract = new ethers.Contract(
+      ContractAddress.PlayDuzzle,
+      JSON.parse(JSON.stringify(PlayDuzzleAbi)),
+      signer
+    );
+
+    const tx = await contract.unlockPuzzlePiece(pieceId);
+    const receipt = await tx.wait();
+    const mintEvent = receipt?.logs.find(
+      (e: any) => e.topics[0] === EventTopic.Mint
+    );
+
+    const tokenAddress = mintEvent?.address;
+    const getMetadataUrl = async (tokenAddress: string) => {
+      const iface = new ethers.Interface(PuzzlePieceAbi);
+      const decodedLog = iface.parseLog(mintEvent!);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain, no-unsafe-optional-chaining
+      const [, tokenId] = decodedLog?.args!;
+      const tokenContract = new ethers.Contract(
+        tokenAddress,
+        JSON.parse(JSON.stringify(PuzzlePieceAbi)),
+        signer
+      );
+      const metadataUrl = await tokenContract.tokenURI(tokenId);
+
+      return metadataUrl;
+    };
+    const metadataUrl = await getMetadataUrl(tokenAddress);
 
     return metadataUrl;
   }
