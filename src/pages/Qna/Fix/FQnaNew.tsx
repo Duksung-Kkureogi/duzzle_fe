@@ -2,7 +2,7 @@ import MyHeader from "../../../components/MyHeader/MyHeader";
 import MyButton from "../../../components/MyButton/MyButton";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import "../Fix/FQnaNew.css";
 import FQnaEditor from "./FQnaEditor";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
