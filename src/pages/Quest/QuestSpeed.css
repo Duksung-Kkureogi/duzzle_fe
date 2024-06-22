@@ -1,9 +1,7 @@
-/* * {
-  font-family: "Noto Sans KR", sans-serif;
-} */
 .QuestSpeed {
   text-align: center;
   margin-top: 80px;
+  width: 500px;
 }
 .QuestSpeed .speed-quiz-title {
   background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);

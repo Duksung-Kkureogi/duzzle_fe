@@ -9,7 +9,7 @@ const CanvasAnimation = () => {
     const context = canvas.getContext("2d");
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
+      canvas.width = 500;
       canvas.height = window.innerHeight;
 
       // Reset drops for the new canvas size
@@ -77,7 +77,12 @@ const CanvasAnimation = () => {
   return (
     <canvas
       ref={canvasRef}
-      style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
     />
   );
 };

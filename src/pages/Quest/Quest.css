@@ -1,17 +1,8 @@
-/* * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-family: "Noto Sans KR", sans-serif;
-} */
-
 .Quest {
   text-align: center;
   width: 500px;
 }
+
 .Quest .random {
   padding-top: 80px;
   font-size: 70px;
