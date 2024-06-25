@@ -144,7 +144,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
-    await web3auth!.logout();
+    if (web3auth.connected) {
+      await web3auth.logout();
+    }
+    localStorage.clear();
     setDuzzleLoggedIn(false);
     setWeb3LoggedIn(false);
   };

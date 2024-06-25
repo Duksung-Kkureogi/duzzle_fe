@@ -66,9 +66,10 @@ function Mypage() {
   }, [getDal]);
 
   const Logout = () => {
-    logout;
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      logout();
+    }
     console.log("logged out");
-    navigate("/");
   };
 
   return (
