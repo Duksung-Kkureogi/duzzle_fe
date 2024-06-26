@@ -84,6 +84,7 @@ const FQnaEditor = ({ initData, onSubmit }) => {
           onChange={onChangeInput}
           value={input.email}
           name="email"
+          className="emailinput"
         ></input>
         <div>@</div>
         <div className="email_bar">

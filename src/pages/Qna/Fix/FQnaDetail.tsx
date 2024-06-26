@@ -4,6 +4,7 @@ import MyButton from "../../../components/MyButton/MyButton";
 import FQnaViewer from "./FQnaViewer";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "../Fix/FQnaDetail.css";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 

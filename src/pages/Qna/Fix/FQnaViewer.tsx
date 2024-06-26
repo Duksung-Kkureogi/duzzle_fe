@@ -3,7 +3,7 @@ import "./FQnaViewer.css";
 const FQnaViewer = ({ sortType, email, content }) => {
   return (
     <div className="Viewer">
-      <div className="info_title">🌙 문의자 정보</div>
+      <div className="info_title1">🌙 문의자 정보</div>
       <section className="info_section">
         <div>문의 종류 🧩 {sortType}</div>
         <div>이메일 💌 {email}</div>

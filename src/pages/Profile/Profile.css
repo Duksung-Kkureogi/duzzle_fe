@@ -26,8 +26,8 @@
   }
   button {
     position: absolute;
-    top: 110px;
-    left: 300px;
+    top: 120px;
+    left: 290px;
     border: none;
     border-radius: 50%;
     background-color: #00b5cc;
@@ -35,8 +35,8 @@
     svg {
       margin-top: 2px;
       padding: 7px;
-      height: 30px;
-      width: 35px;
+      height: 15px;
+      width: 20px;
     }
   }
 }
@@ -85,6 +85,7 @@
   margin-right: 30px;
   p {
     font-size: 13px;
+    word-break: break-all;
   }
 }
 
@@ -152,16 +153,6 @@
 
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
 @media all and (min-width: 768px) and (max-width: 1023px) {
-  .Profile .profile_img {
-    img {
-      height: 150px;
-      width: 150px;
-    }
-    button {
-      top: 150px;
-      left: 320px;
-    }
-  }
 }
 
 /* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/

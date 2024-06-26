@@ -153,7 +153,7 @@ function Store() {
               <div className="dalO_btn">
                 <button>보유 NFT 확인</button>
                 <button>
-                  잠금해제<br></br>하러 가기
+                  잠금해제<br></br> 하러 가기
                 </button>
               </div>
             </div>

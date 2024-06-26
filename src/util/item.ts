@@ -6,7 +6,7 @@ import hammerImg from "../assets/images/hammer.png";
 
 export const itemList = [
   {
-    metadata_name: "Duksung Christmas 20 Blueprint Item",
+    metadata_name: "Blueprint Item",
     item_name: "설계도",
     item_img: blueprintImg,
   },

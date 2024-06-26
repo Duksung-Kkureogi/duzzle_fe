@@ -4,15 +4,23 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
-import { PieceDto, Minted, Unminted } from "./PieceDto";
-import { pieces } from "./PieceData";
+import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
 import axios from "axios";
 import { seasonList } from "../../util/season";
+import { useAuth } from "../../services/AuthContext";
+import RPC from "../../../ethersRPC";
+import { IProvider } from "@web3auth/base";
+import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
+  const navigate = useNavigate();
+  const { web3auth, web3AuthInit } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [pieces, setPieces] = useState<PieceDto[]>([]);
   const [selectedPiece, setSelectedPiece] = useState<PieceDto | null>(null);
+  const [totalPieces, setTotalPieces] = useState(0);
+  const [mintedPieces, setMintedPieces] = useState(0);
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
   const seasonId = seasonList[seasonList.length - 1].id;
@@ -30,12 +38,26 @@ function Mainpage() {
           }
         );
         console.log(response);
+        if (response.data.result) {
+          const pieceData = response.data.data.pieces;
+          setPieces(pieceData);
+          setTotalPieces(response.data.data.total);
+          setMintedPieces(response.data.data.minted);
+        } else {
+          console.error("Failed to fetch pieces");
+        }
       } catch (error) {
         console.error(error);
       }
     };
     getPuzzle();
   }, [RequestUrl, seasonId]);
+
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {
@@ -60,13 +82,29 @@ function Mainpage() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "350px",
-      height: "550px",
+      width: "300px",
+      height: "450px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#80DAE6",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
     },
+  };
+
+  const unlockPuzzlePiece = async (pieceId: number) => {
+    const rpc = new RPC(web3auth?.provider as IProvider);
+    try {
+      const pieceMetadataUrl = await rpc.unlockPuzzlePiece(pieceId);
+      console.log(pieceMetadataUrl);
+      setModalOpen(false);
+      alert("조각NFT 발행을 성공하였습니다.");
+    } catch (error) {
+      console.log(error);
+      setModalOpen(false);
+      if (confirm("재료가 부족합니다")) {
+        navigate("store");
+      }
+    }
   };
 
   return (
@@ -81,6 +119,12 @@ function Mainpage() {
         >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <React.Fragment>
+              {/* <div>
+                <p>
+                  발행된 NFT: <b>{mintedPieces}</b> / {totalPieces} <br />
+                  남은 NFT: <b>{totalPieces - mintedPieces}</b>
+                </p>
+              </div> */}
               <div className="tools">
                 <button onClick={() => zoomIn()}>
                   <svg
@@ -126,12 +170,13 @@ function Mainpage() {
                     onClick={() => openModal(piece)}
                     key={piece.pieceId}
                     style={{
-                      left: `${piece.points.x}px`,
-                      top: `${piece.points.y}px`,
+                      left: `${piece.coordinates.split(",")[0]}%`,
+                      top: `${piece.coordinates.split(",")[1]}%`,
                       transform: `scale(${1 / scale})`,
+                      backgroundColor: piece.minted ? "#f47735" : "#8C8C8C",
                     }}
                   >
-                    {piece.zoneName}
+                    {piece.zoneNameKr}
                   </div>
                 ))}
                 {selectedPiece && (
@@ -176,7 +221,7 @@ function Mainpage() {
                           <p className="info_title">NFT 컬렉션</p>
                           <p className="info">덕성 크리스마스 퍼즐 100조각</p>
                           <p className="info_title">조각 위치</p>
-                          <p className="info">{selectedPiece.zoneName}</p>
+                          <p className="info">{selectedPiece.zoneNameKr}</p>
                           <p className="info_title">재료</p>
                           {(selectedPiece.data as Unminted).requiredItems.map(
                             (item, index) => (
@@ -191,7 +236,13 @@ function Mainpage() {
                         </div>
                         <div className="mintedX_btn">
                           <button onClick={closeModal}>닫기</button>
-                          <button>NFT 발행하기</button>
+                          <button
+                            onClick={() => {
+                              unlockPuzzlePiece(selectedPiece.pieceId);
+                            }}
+                          >
+                            NFT 발행하기
+                          </button>
                         </div>
                       </div>
                     )}

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.6.3",
     "@types/react-modal": "^3.16.3",
     "@web3auth/base": "^8.1.0",
     "@web3auth/ethereum-provider": "^8.1.0",
@@ -20,7 +22,7 @@
     "bootstrap": "^5.3.3",
     "canvas-confetti": "^1.9.3",
     "dotenv": "^16.4.5",
-    "ethers": "^6.12.2",
+    "ethers": "^6.13.1",
     "metamask": "^0.0.1-security",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",

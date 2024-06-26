@@ -5,10 +5,13 @@
 }
 .Button {
   border: none;
-  background-color: rgb(255, 57, 57);
+  background-color: rgb(251, 71, 71);
   color: #fff;
   padding: 10px 13px;
   font-size: 13px;
   cursor: pointer;
   border-radius: 5px;
+}
+.QnaEdit {
+  width: 500px;
 }

@@ -16,6 +16,7 @@
   z-index: 2;
   transform: translate(10px, 10px);
   button {
+    padding: 3px;
     border: 2px solid #ececec;
     margin-right: 2px;
     background-color: #34a853;
@@ -24,7 +25,6 @@
     font-size: 15px;
     cursor: pointer;
     padding-top: 2px;
-    padding: 3px;
   }
   svg {
     height: 15px;
@@ -46,16 +46,18 @@
   background-color: #f47735;
   border-radius: 13px;
   color: white;
-  font-size: 12px;
+  font-size: 10px;
   padding: 5px;
   cursor: pointer;
 }
 
 .modal_mintedO,
 .modal_mintedX {
+  height: 450px;
   font-family: "Nanum Gothic", sans-serif;
   p {
     margin: 0;
+    margin-bottom: 2px;
     cursor: default;
   }
 }
@@ -63,8 +65,8 @@
 .mintedO_piece .piece_img {
   text-align: center;
   img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
   }
 }
 
@@ -83,7 +85,7 @@
   padding-left: 10px;
   background-color: #ececec;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -97,8 +99,8 @@
 }
 .wallet {
   padding: 3px;
-  font-size: 12px;
-  width: 270px;
+  font-size: 11px;
+  width: 300px;
   word-break: break-all;
 }
 .items {
@@ -107,14 +109,15 @@
 
 .mintedO_btn,
 .mintedX_btn {
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 300px;
+  position: absolute;
+  top: 430px;
   display: flex;
-  gap: 10%;
+  gap: 40px;
   button {
     background-color: #00b5cc;
+    width: 50%;
     color: white;
-    width: 100%;
     border: none;
     padding: 8px;
     font-size: 17px;
@@ -124,8 +127,4 @@
     cursor: pointer;
     box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.25);
   }
-}
-
-.mintedX_btn {
-  margin-top: 110px;
 }

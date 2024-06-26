@@ -12,7 +12,7 @@
   font-size: 13px;
   font-weight: 500;
   color: #8c8c8c;
-  margin-top: 30px;
+  padding-top: 30px;
   margin-left: auto;
   margin-right: 20px;
 }
@@ -83,7 +83,7 @@
   color: #22bcbc;
 
   section {
-    width: 480px;
+    width: 460px;
     display: flex;
     border-radius: 20px;
     padding: 20px;
@@ -135,9 +135,4 @@
 }
 /* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/
 @media all and (max-width: 767px) {
-  .Mypage .user_menu {
-    section {
-      width: 320px;
-    }
-  }
 }
