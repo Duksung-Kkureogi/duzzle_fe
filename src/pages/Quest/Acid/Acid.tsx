@@ -268,16 +268,16 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
           <div id="help-div">
             <div id="help-title">산성비 게임💧</div>
             <div id="de">
-              ⭐위에서 비처럼 떨어지는 단어가 <b>바닥에 닿기 전</b> 단어를{" "}
+              💙HOW TO?
+              <br />
+              위에서 비처럼 떨어지는 단어가 <b>바닥에 닿기 전</b> 단어를{" "}
               <b>입력</b>하여 점수를 획득하세요.
               <br />
               <br />
-              👉 없는 단어 입력 시 <b>점수가 차감</b>됩니다. <br />
-              👉 <b>{gameoverLimit}개</b>가 바닥에 떨어지면 <b>게임은 종료</b>
-              됩니다.
+              ✔️ <b>없는 단어</b> 입력 시 점수가 차감됩니다. <br />
+              ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료 됩니다.
               <br />
-              👉 단어가 모두 나와서 처리되면 <b>게임은 종료</b>됩니다. <br />
-              👉 게임이 종료되면 획득한 점수가 공개됩니다. <br />
+              ✔️ 게임이 종료되면 획득한 점수가 공개됩니다. <br />
             </div>
             <button
               className="buttonstart"
