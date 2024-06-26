@@ -1,14 +1,7 @@
-html,
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
 .container-fluid {
-  width: 400px;
+  width: 500px;
   height: 700px;
-  margin: 350px auto;
   position: relative;
-  transform: translateY(-50%);
 }
 .my-score {
   font-size: 18px;
@@ -64,15 +57,24 @@ input[type="text"] {
   font-size: 4rem;
 }
 #help-div {
-  margin: 10vh 15px;
-  font-size: 16px;
+  width: 500px;
+  height: 814px;
+  font-size: 18px;
+  background-color: rgb(255, 255, 255);
+}
+#help-div > #de {
+  margin: 50px;
+  line-height: 1.8;
+  background-color: rgb(235, 241, 241);
+  border-radius: 10px;
+  padding: 10px;
 }
 #help-div > #help-title {
   display: block;
-  margin-bottom: 35px;
+  padding: 80px;
   text-align: center;
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 3rem;
 }
 #help-div > #bt {
   text-align: center;
@@ -81,12 +83,12 @@ input[type="text"] {
   color: rgb(249, 11, 213);
 }
 #help-div .buttonstart {
-  margin-left: 90px;
+  margin-left: 130px;
 }
 #restart-btn,
 #help-btn,
 #start-btn {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 .word {
   position: absolute;
