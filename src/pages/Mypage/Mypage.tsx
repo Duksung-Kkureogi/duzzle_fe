@@ -35,9 +35,21 @@ function Mypage() {
   }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const web3LoggedIn = localStorage.getItem("web3LoggedIn");
+    const duzzleLoggedIn = localStorage.getItem("duzzleLoggedIn");
+
+    const checkLoggedIn = async () => {
+      console.log("User data:", user);
+      if (web3LoggedIn != "true" || duzzleLoggedIn != "true" || !token) {
+        alert("로그인이 필요합니다.\n로그인 화면으로 이동합니다.");
+        navigate("/login");
+        return;
+      }
+    };
+
     const getUserInfo = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
         const response = await axios.get(RequestUrl + "/v1/user", {
           headers: {
             Authorization: "Bearer " + token,
@@ -54,16 +66,19 @@ function Mypage() {
         console.error(error);
       }
     };
-    getUserInfo();
-  }, [RequestUrl]);
 
-  useEffect(() => {
     const fetchUserDal = async () => {
       const balance = await getDal();
       setUserDal(balance);
     };
-    fetchUserDal();
-  }, [getDal]);
+
+    const fetchData = async () => {
+      await checkLoggedIn();
+      await Promise.all([getUserInfo(), fetchUserDal()]);
+    };
+
+    fetchData();
+  }, [RequestUrl, getDal]);
 
   const Logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {

@@ -87,6 +87,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       if (web3auth.connected) {
         setWeb3LoggedIn(true);
+        localStorage.setItem("web3LoggedIn", "true");
         const rpc = new RPC(web3auth!.provider as IProvider);
         const [openLoginUserInfo, web3AuthInfo, walletAddress] =
           await Promise.all([
@@ -101,6 +102,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           loginType: openLoginUserInfo.typeOfLogin?.toUpperCase()!,
           walletAddress,
         });
+        console.log("web3auth initialized");
       }
     } catch (error) {
       console.error(error);
@@ -137,6 +139,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         ...response.data.user,
       };
       setDuzzleLoggedIn(true);
+      localStorage.setItem("duzzleLoggedIn", "true");
       setUser(user);
     } catch (error) {
       console.log(error);
