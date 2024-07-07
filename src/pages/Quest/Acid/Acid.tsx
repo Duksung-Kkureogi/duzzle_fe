@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Acid.css";
 import {
   AcidRainEventName as Event,
@@ -45,37 +45,37 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   const { socket } = useWebSocket();
   const [toast, setToast] = useState<ToastProps | null>(null);
 
-  const showToast = (message: string, type: ToastType) => {
+  const showToast = useCallback((message: string, type: ToastType) => {
     setToast({ message, type });
 
     setTimeout(() => {
       setToast(null);
     }, 3000);
-  };
+  }, []);
 
-  const handleHit = (hitWord: string) => {
+  const handleHit = useCallback(
     // 맞춘단어는 active word 에서 제거
-    const index = activeWordObjs.findIndex(
-      (element) => element.word === hitWord
-    );
-    if (index !== -1) {
-      clearInterval(activeWordObjs[index].interval);
-      setActiveWordObjs((prev) => prev.filter((_, i) => i !== index));
-    }
+    (hitWord: string) => {
+      const index = activeWordObjs.findIndex(
+        (element) => element.word === hitWord
+      );
+      if (index !== -1) {
+        clearInterval(activeWordObjs[index].interval);
+        setActiveWordObjs((prev) => prev.filter((_, i) => i !== index));
+      }
+      showToast(`+ ${CORRECT_ANSWER_POINTS}점`, ToastType.Success);
+    },
+    [activeWordObjs, showToast]
+  );
 
-    showToast(`+ ${CORRECT_ANSWER_POINTS}점`, ToastType.Success);
-  };
-
-  const handleWrong = () => {
+  const handleWrong = useCallback(() => {
     showToast(`- ${WRONG_ANSWER_PENALTY}점`, ToastType.Error);
-  };
+  }, [showToast]);
 
   useEffect(() => {
     const handleNewWord = (newWord: string) => {
       console.timeLog("game", `new word: ${newWord}`);
-      setWaitWords((prev) => {
-        return [...prev, newWord];
-      });
+      setWaitWords((prev) => [...prev, newWord]);
     };
 
     const handleScore = (score: number) => {
@@ -127,13 +127,12 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
       socket.off(Event.Inbound.Miss, handleMissedWord);
       socket.off(Event.Inbound.Result, handleResult);
     };
-  }, []);
+  }, [handleHit, handleWrong, showToast, socket]);
 
   useEffect(() => {
     if (!gameover && !showHelp && socket) {
       inputRef.current?.focus();
       document.addEventListener("click", handleClick);
-      dropWord();
       const repaintInterval = setInterval(() => {
         repaint();
       }, dropIntervalMs);
@@ -142,21 +141,32 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
         clearInterval(repaintInterval);
       };
     }
-  }, [gameover, showHelp, waitWords]);
+  }, [gameover, showHelp, waitWords, socket, dropIntervalMs]);
+
+  useEffect(() => {
+    if (waitWords.length !== 0) {
+      dropWord();
+    }
+  }, [waitWords]);
 
   const dropWord = () => {
-    if (waitWords.length !== 0) {
-      const word = waitWords.shift()!;
-      const wordInstance = {
-        word,
-        x: Math.random() * gamePanelRef.current.offsetWidth,
-        y: 0,
-        interval: setInterval(() => {
-          wordInstance.y += dropDistance;
-        }, dropIntervalMs),
-      };
-      setActiveWordObjs((prev) => [...prev, wordInstance]);
-    }
+    const word = waitWords.shift()!;
+    const wordInstance = {
+      word,
+      x: Math.random() * gamePanelRef.current.offsetWidth,
+      y: 0,
+      interval: setInterval(() => {
+        setActiveWordObjs((prev) => {
+          const updatedWords = prev.map((obj) =>
+            obj.word === word ? { ...obj, y: obj.y + dropDistance } : obj
+          );
+          return updatedWords.filter(
+            (obj) => obj.y < gamePanelRef.current.offsetHeight - 10
+          );
+        });
+      }, dropIntervalMs),
+    };
+    setActiveWordObjs((prev) => [...prev, wordInstance]);
   };
 
   const repaint = () => {
@@ -166,7 +176,6 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
           .map((wordObj) => {
             if (wordObj.y >= gamePanelRef.current.offsetHeight - 10) {
               clearInterval(wordObj.interval);
-
               return null;
             }
             return wordObj;
@@ -179,7 +188,6 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
     if (socket) {
       socket.emit(Event.Outbound.Answer, { answer: word });
       console.log(`서버 유저 입력 단어 전송: ${word}`);
-      socket.on("hit", handleHit);
     }
   };
 
@@ -291,7 +299,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
         )}
         {gameover && !showHelp && (
           <div className="score">
-            <div id="end-score">점수 : {score}</div>
+            <div id="end-score">점수: {score}</div>
             <button
               className="restart"
               id="restart"

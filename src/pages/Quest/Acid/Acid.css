@@ -53,8 +53,10 @@ input[type="text"] {
 }
 #end-score {
   display: inline-block;
-  margin-top: 20vh;
+  margin-top: 20px;
   font-size: 4rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
 }
 #help-div {
   width: 500px;
@@ -121,7 +123,7 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ensures the score section takes up the full viewport height */
+  height: 100vh;
   text-align: center;
   background-color: rgb(255, 255, 255);
 }
