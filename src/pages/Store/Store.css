@@ -3,6 +3,8 @@
 /* Store */
 .Store {
   font-family: "Noto Sans KR", sans-serif;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Store .user_dal {
@@ -32,22 +34,27 @@
 }
 
 .Store .store_main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background-image: url("/src/assets/images/store.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  width: 500px;
-  height: 500px;
+  height: 55vh;
   text-align: center;
 }
 
 .Store .store_gift {
+  position: absolute;
+  left: calc(50% - 8vh / 2);
+  top: 23vh;
   cursor: pointer;
   border: none;
   background-color: transparent;
-  margin-top: 210px;
+  width: fit-content;
   img {
-    width: 80px;
+    height: 8vh;
   }
   :hover {
     animation: rotate_image 2s infinite;
@@ -90,17 +97,20 @@
 }
 
 .Store .gift_dal {
+  position: absolute;
+  left: calc(50% - 32.5px);
+  top: calc(23vh + 8vh);
+  width: 65px;
   display: flex;
-  margin-left: 210px;
   img {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin: 5px;
-    margin-top: 8px;
+    margin-top: 5px;
   }
   p {
     margin: 0;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
   }
 }
