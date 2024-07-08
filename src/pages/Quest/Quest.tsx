@@ -36,10 +36,13 @@ function Quest() {
       }
       setQuizType(response.data.data.type);
     } catch (error) {
-      console.error("Error fetching random quiz:", error);
-      // API 연결이 안될 시
+      if (error.response && error.response.status === 409) {
+        console.error("모든 퀘스트 완료 => 409 오류");
+        alert("모든 퀘스트를 완료하였습니다. 최고에요!");
+      } else {
+        console.error("Error submitting result:", error);
+      }
       setQuizType("SPEED_QUIZ");
-      // nav("/questspeed");
     }
   };
 
