@@ -48,7 +48,7 @@
 .Store .store_gift {
   position: absolute;
   left: calc(50% - 8vh / 2);
-  top: 23vh;
+  top: 22vh;
   cursor: pointer;
   border: none;
   background-color: transparent;
@@ -99,7 +99,7 @@
 .Store .gift_dal {
   position: absolute;
   left: calc(50% - 32.5px);
-  top: calc(23vh + 8vh);
+  top: calc(22vh + 8vh);
   width: 65px;
   display: flex;
   img {
