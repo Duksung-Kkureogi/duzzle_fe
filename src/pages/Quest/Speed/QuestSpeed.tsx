@@ -41,7 +41,7 @@ function QuestSpeed() {
       const token = localStorage.getItem("accessToken");
       const filteredAnswers = answers.filter((answer) => answer.trim() !== "");
       const response = await axios.post(
-        RequestURL + "/v1/quest/result",
+        RequestURL + "/v1/quest-test/result",
         {
           logId: Number(localStorage.getItem("logId")),
           answer: filteredAnswers,

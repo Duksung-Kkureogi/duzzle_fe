@@ -12,7 +12,7 @@ function Quest() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest/start",
+        RequestURL + "/v1/quest-test/start",
         {},
         {
           headers: {
@@ -21,7 +21,7 @@ function Quest() {
           },
         }
       );
-      console.log("POST 성공", response.data);
+      console.log("Quest POST 성공", response.data);
       if (response.data.data.type === "SPEED_QUIZ") {
         localStorage.setItem("logId", response.data.data.logId);
         localStorage.setItem("quest", response.data.data.quest);
