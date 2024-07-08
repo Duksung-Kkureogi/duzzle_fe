@@ -170,6 +170,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return balance;
       } catch (error) {
         console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
+        return 0;
       }
     }
   };
