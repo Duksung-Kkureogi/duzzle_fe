@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import MyButton from "../../components/MyButton/MyButton";
-import MyHeader from "../../components/MyHeader/MyHeader";
 import Modal from "react-modal";
 import "./Store.css";
 
@@ -106,8 +104,8 @@ function Store() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "300px",
-      height: "250px",
+      width: "350px",
+      height: "300px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",
@@ -117,7 +115,7 @@ function Store() {
 
   return (
     <div className="Store">
-      <MyHeader headerText="상점" leftChild={<MyButton />} />
+      <p className="store_title">상점</p>
       <div className="user_dal">
         <img src="/src/assets/images/moon.png" />
         <p>{userDal} Dal</p>
