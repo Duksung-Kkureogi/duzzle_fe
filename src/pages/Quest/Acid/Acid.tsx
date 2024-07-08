@@ -282,6 +282,8 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
               <b>입력</b>하여 점수를 획득하세요.
               <br />
               <br />
+              ✔️ 총 <b>{passingScore}단어</b> 이상을 입력하면 <b>성공</b>
+              <br />
               ✔️ <b>없는 단어</b> 입력 시 점수가 차감됩니다. <br />
               ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료 됩니다.
               <br />
