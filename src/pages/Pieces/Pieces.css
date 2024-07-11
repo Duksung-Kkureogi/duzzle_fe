@@ -6,7 +6,7 @@
 }
 
 .Pieces .pieces_title {
-  margin: 10px;
+  margin: 20px;
   text-align: center;
   p {
     font-size: 20px;
@@ -19,7 +19,7 @@
 
 .Pieces .pieces_total {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   img {
     margin-left: auto;
     margin-top: 5px;
@@ -124,12 +124,12 @@
 .Pieces .pieces_main {
   position: relative;
   z-index: 1;
-  height: 58vh;
+  height: 50vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 10px;
-  row-gap: 50px;
+  row-gap: 5%;
 }
 
 .Pieces .piece {
@@ -137,8 +137,8 @@
   text-align: center;
   border-radius: 30px;
   img {
-    width: 15vw;
-    max-width: 80px;
+    width: 25vw;
+    max-width: 140px;
     background-color: #ececec;
     padding: 15px;
     border-radius: 20px;
