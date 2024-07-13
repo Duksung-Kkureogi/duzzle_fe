@@ -1,4 +1,4 @@
-import { IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
@@ -7,7 +7,14 @@ import RPC from "../../ethersRPC";
 import { LoginRequest } from "../Data/DTOs/UserDTO";
 import { Web3AuthParameters } from "../constant/blockchain";
 import { Http } from "./Http";
+
+// Adapters
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+import {
+  getWalletConnectV2Settings,
+  WalletConnectV2Adapter,
+} from "@web3auth/wallet-connect-v2-adapter";
+import { TorusWalletAdapter } from "@web3auth/torus-evm-adapter";
 
 interface DuzzleUser {
   accessToken: string;
@@ -79,12 +86,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const web3auth = new Web3Auth(web3AuthOptions);
       const openloginAdapter = new OpenloginAdapter(openLoginAdapterOptions);
       web3auth.configureAdapter(openloginAdapter);
-      web3auth.configureAdapter(new MetamaskAdapter());
+
+      // adding metamask adapter
+      const metamaskAdapter = new MetamaskAdapter({
+        clientId,
+        chainConfig: chainConfig,
+      });
+      web3auth.configureAdapter(metamaskAdapter);
+
+      // adding wallet connect v2 adapter
+      const defaultWcSettings = await getWalletConnectV2Settings(
+        "eip155",
+        ["1"],
+        "f4b1fc8eb521fdd13a9c05b403e69ed4"
+      );
+      const walletConnectV2Adapter = new WalletConnectV2Adapter({
+        adapterSettings: { ...defaultWcSettings.adapterSettings },
+        loginSettings: { ...defaultWcSettings.loginSettings },
+      });
+      web3auth.configureAdapter(walletConnectV2Adapter);
+
+      // adding torus evm adapter
+      const torusWalletAdapter = new TorusWalletAdapter({
+        clientId,
+      });
+      web3auth.configureAdapter(torusWalletAdapter);
+
       setWeb3auth(web3auth);
 
       await web3auth.initModal({
         modalConfig,
       });
+
       if (web3auth.connected) {
         setWeb3LoggedIn(true);
         localStorage.setItem("web3LoggedIn", "true");
