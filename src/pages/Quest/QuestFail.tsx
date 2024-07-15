@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./QuestFail.css";
-import CanvasAnimation from "./CanvasAnimation";
+import CanvasAnimation from "./Speed/CanvasAnimation";
 
 function QuestFail() {
   const nav = useNavigate();
@@ -31,7 +31,7 @@ function QuestFail() {
         </button>
         <button
           className="btn2 btn-primary btn-jittery"
-          onClick={() => nav("/questspeed")}
+          onClick={() => nav("/quest")}
         >
           다시 도전하기
         </button>
