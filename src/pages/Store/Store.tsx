@@ -105,6 +105,7 @@ function Store() {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: "65vw",
+      maxWidth: "300px",
       height: "250px",
       borderRadius: "20px",
       justifyContent: "center",

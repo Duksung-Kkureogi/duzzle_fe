@@ -8,12 +8,13 @@ import "./Profile.css";
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
 function Profile() {
-  const [image, setImage] = useState("");
-  const [wallet, setWallet] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [level, setLevel] = useState("Lv.4");
+  const [image, setImage] = useState("/src/assets/images/dog.gif");
+  const [wallet, setWallet] = useState(
+    "0x990F87645027a2Fd02fB7Db05ec8a46BB6025384"
+  );
+  const [name, setName] = useState("bb");
+  const [email, setEmail] = useState("bingbong9981@gmail.com");
+  const level = "Lv.4";
   const achievement = `2022 #Summer Duksung Lv.8
     2023 #Spring Duksung Lv.9 
     2023 #Autumn Duksung Lv.10`;
