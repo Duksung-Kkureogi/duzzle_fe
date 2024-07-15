@@ -1,11 +1,12 @@
 /* Items */
 .Items {
   font-family: "Noto Sans KR", sans-serif;
-  width: 500px;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Items .items_title {
-  margin: 40px;
+  margin: 10px;
   text-align: center;
   p {
     font-size: 20px;
@@ -62,13 +63,13 @@
   display: flex;
   img {
     margin-left: auto;
-    margin-top: 3px;
+    margin-top: 5px;
     margin-right: 3px;
-    height: 25px;
+    height: 18px;
   }
   p {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     padding-right: 30px;
     color: #34a853;
@@ -77,12 +78,11 @@
 }
 
 .Items .items_main {
-  height: 500px;
+  height: 58vh;
   margin-top: 10px;
-  margin-bottom: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  row-gap: 30px;
+  row-gap: 5%;
   overflow: auto;
 }
 
@@ -100,39 +100,41 @@
   text-align: center;
   border-radius: 30px;
   img {
-    height: 80px;
-    width: 80px;
+    width: 15vw;
+    max-width: 70px;
     background-color: #ececec;
-    padding: 20px;
-    border-radius: 30px;
+    padding: 15px;
+    border-radius: 20px;
   }
   p {
     margin: 0;
     color: #22bcbc;
     font-weight: bold;
     cursor: default;
-    font-size: 15px;
+    font-size: 11px;
   }
 }
 
 .Items .store_btn {
-  margin-left: 170px;
+  position: absolute;
+  margin-top: 30px;
+  left: calc(50% - 52.3px);
   cursor: pointer;
   display: flex;
   width: fit-content;
   background-color: #f16d9a;
-  padding: 10px;
-  padding-left: 30px;
-  padding-right: 40px;
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 25px;
   border-radius: 30px;
   svg {
-    height: 28px;
-    margin-top: 2px;
-    margin-right: 20px;
+    height: 20px;
+    margin-top: 1.5px;
+    margin-right: 12px;
   }
   p {
     margin: 0;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     color: white;
   }

@@ -42,12 +42,13 @@
 }
 
 .plusNavBar {
+  width: 90vw;
   position: fixed;
   bottom: 90px;
-  margin-left: 135px;
 }
 
 .plusNavBar > div {
+  margin-right: calc(90vw / 2 - 24px);
   margin-bottom: 10px;
   border: none;
   display: flex;
@@ -72,5 +73,14 @@
     background-color: #34a8539d;
     padding: 10px;
     border-radius: 15px;
+  }
+}
+
+@media all and (min-width: 540px) {
+  .plusNavBar {
+    width: 500px;
+  }
+  .plusNavBar > div {
+    margin-right: 225.5px;
   }
 }
