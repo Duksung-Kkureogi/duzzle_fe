@@ -17,9 +17,17 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
 .Login .flex-container {
+  width: 70vw;
+  max-width: 350px;
+  font-size: 13px;
+  word-break: break-all;
+  table {
+    margin-bottom: 20px;
+  }
   * {
     border-color: #00b5cc;
     border-radius: 5px;
