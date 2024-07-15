@@ -1,6 +1,7 @@
 .Quest {
   text-align: center;
-  width: 500px;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Quest .random {

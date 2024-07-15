@@ -17,7 +17,7 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
     <div className="faq-item">
       <div className="question" tabIndex={0} onClick={toggleAnswer}>
         {question}
-        <button>{isOpen ? "ㅤ▲" : "ㅤ▼"}</button>
+        <button>{isOpen ? "ㅤㅤ" : "ㅤㅤ"}</button>
       </div>
       {isOpen && <div className="answer">{answer}</div>}
     </div>

@@ -1,8 +1,8 @@
 .faq-item {
   margin: 20px;
   margin-bottom: 15px;
-  max-width: 390px;
-  width: 150%;
+  width: 80vw;
+  max-width: 500px;
 }
 
 .question {
@@ -11,7 +11,8 @@
   padding: 10px;
   cursor: pointer;
   font-size: 16px;
-  width: 430px;
+  width: 75vw;
+  max-width: 410px;
 }
 
 .question button {
@@ -21,12 +22,13 @@
   font-size: 10px;
 }
 .question:focus {
-  border: 1px solid #9b51e0;
+  border: 1px solid #e335ac;
   box-sizing: border-box;
   border-radius: 10px;
   outline: 3px solid #f8e4ff;
   border-radius: 10px;
-  width: 430px;
+  width: 75vw;
+  max-width: 420px;
 }
 
 .answer {
@@ -35,24 +37,6 @@
   padding: 10px;
   margin: 10px 10px;
   font-size: 16px;
-  width: 420px;
-}
-
-@media screen and (max-width: 768px) {
-  .faq-item {
-    margin: 8px;
-    margin-bottom: 10px;
-  }
-
-  .question,
-  .answer {
-    margin: 5px;
-    padding: 8px;
-    font-size: 15px;
-  }
-
-  .question button {
-    float: none;
-    font-size: 10px;
-  }
+  width: 74vw;
+  max-width: 420px;
 }
