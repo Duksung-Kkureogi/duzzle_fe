@@ -19,9 +19,9 @@ function Mypage() {
     totalPieces: number;
   }
   const [user, setUser] = useState<UserInfo>({
-    name: "",
-    image: "",
-    email: "",
+    name: "aa",
+    image: "/src/assets/images/dog.gif",
+    email: "aa@duzzle.co.kr",
     totalItems: 0,
     totalPieces: 0,
   });
