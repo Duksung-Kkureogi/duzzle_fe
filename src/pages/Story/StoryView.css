@@ -1,0 +1,33 @@
+.container {
+  width: 90vw;
+  max-width: 500px;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.content {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.button_next {
+  padding: 10px 20px;
+  background-color: #3b5998;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #2a4274;
+}
+
+.page-info {
+  font-size: 14px;
+  color: #666;
+}
