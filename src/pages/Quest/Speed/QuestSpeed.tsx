@@ -96,7 +96,7 @@ function QuestSpeed() {
     <div className="QuestSpeed">
       {questData && (
         <>
-          <div className="speed-quiz-title">스피드 QUIZ</div>
+          <div className="speed-quiz-title">스피드 퀴즈</div>
           <div className="time-info">
             <div className="time">제한시간: </div>
             <div className="info">{timeLimit}초</div>
@@ -108,6 +108,7 @@ function QuestSpeed() {
                   {part}
                   {index !== questData.split("?").length - 1 && (
                     <input
+                      className="input_text"
                       type="text"
                       max="10"
                       value={answers[index]}
@@ -133,10 +134,3 @@ function QuestSpeed() {
 }
 
 export default QuestSpeed;
-// 테스트 했음 -> 첫번째는 speed, rain 구분 start -> 두번째는 speed페이지 안에서 정보가 필요해서 다시 호출
-// 호출했을시 409에러 발생
-// 스웨거 테스트
-// start를 호출했을때 30초이내에 다시 start를 호출하면 무조건 409밷는 문제 발생
-// 지금 해결하는 방법은 기존 start api에서 로컬스토리지로 저장하는방법했는데,
-// 베스트 방법은 아니니까 1) quest, rain 정하는 api 따로
-// 2) quest, timeLimit을 주는 api 하나

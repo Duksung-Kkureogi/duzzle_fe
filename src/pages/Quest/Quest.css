@@ -2,11 +2,10 @@
   text-align: center;
   width: 90vw;
   max-width: 500px;
+  /* overflow: hidden; */
 }
 
 .Quest .random {
-  padding-top: 80px;
-  font-size: 70px;
   background: linear-gradient(150deg, rgba(52, 168, 83, 1), rgb(109, 236, 143));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -14,6 +13,7 @@
   background-clip: text;
   font-size: 60px;
   font-weight: bold;
+  margin-top: 40px;
 }
 .btn-hover {
   width: 260px;

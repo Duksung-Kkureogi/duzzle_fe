@@ -1,14 +1,15 @@
 .container-fluid {
-  width: 500px;
-  height: 700px;
-  position: relative;
+  width: 89.2vw;
+  max-width: 500px;
 }
+
 .my-score {
   font-size: 18px;
   font-weight: bold;
   color: #000000;
   margin-right: 10px;
 }
+
 #score-1 {
   color: rgb(66, 207, 250);
 }
@@ -16,12 +17,14 @@
 #failed {
   color: red;
 }
+
 #control-panel {
   margin: 50px 5px;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
+
 input[type="text"] {
   width: 50%;
   padding: 10px;
@@ -32,7 +35,8 @@ input[type="text"] {
 }
 
 #game-panel {
-  height: 500px;
+  height: 450px;
+  margin-top: 30px;
   border-style: solid;
   border-color: rgb(255, 255, 255);
   position: relative;
@@ -44,13 +48,6 @@ input[type="text"] {
   border-color: rgb(25, 185, 213);
 }
 
-#board {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-}
 #end-score {
   display: inline-block;
   margin-top: 20px;
@@ -58,41 +55,64 @@ input[type="text"] {
   font-weight: bold;
   color: rgb(0, 0, 0);
 }
+
+#board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 115%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
 #help-div {
-  width: 500px;
-  height: 814px;
+  justify-content: center;
+  text-align: center;
+  width: 300vw;
+  max-width: 500px;
   font-size: 18px;
   background-color: rgb(255, 255, 255);
 }
+
 #help-div > #de {
-  margin: 50px;
-  line-height: 1.8;
+  margin: 23px;
+  line-height: 1.84;
   background-color: rgb(235, 241, 241);
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 4px 15px 0 rgb(214, 218, 218);
 }
+
 #help-div > #help-title {
+  margin-left: 10px;
+  margin-bottom: 20px;
   display: block;
-  padding: 80px;
   text-align: center;
   font-weight: bold;
   font-size: 3rem;
 }
+
 #help-div > #bt {
   text-align: center;
 }
+
 #help-div b {
   color: rgb(249, 11, 213);
 }
+
 #help-div .buttonstart {
-  margin-left: 130px;
 }
+
 #restart-btn,
 #help-btn,
 #start-btn {
   font-size: 2.5rem;
 }
+
 .word {
   position: absolute;
   font-size: 16px;
@@ -117,6 +137,7 @@ input[type="text"] {
   background-size: 300% 100%;
   border-radius: 2.5rem;
 }
+
 .score {
   text-align: center;
   display: flex;
@@ -127,6 +148,7 @@ input[type="text"] {
   text-align: center;
   background-color: rgb(255, 255, 255);
 }
+
 .score #end-score {
   font-size: 55px;
   margin-bottom: 100px;
@@ -152,6 +174,7 @@ input[type="text"] {
   border-radius: 2.5rem;
   margin-left: 30px;
 }
+
 .score .explain {
   background-image: linear-gradient(
     to right,

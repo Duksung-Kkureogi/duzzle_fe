@@ -28,7 +28,7 @@
   margin: 20px;
   padding: 20px;
   justify-content: center;
-  background-color: rgba(244, 244, 244, 1);
+  background-color: #ececec;
   border-radius: 5px;
   word-wrap: break-word;
   font-family: "Roboto", sans-serif;
@@ -39,7 +39,7 @@
   max-width: 458px;
   margin: 20px;
   min-height: 230px;
-  background-color: rgba(244, 244, 244, 1);
+  background-color: #ececec;
   border-radius: 5px;
   word-break: keep-all;
   overflow: break-word;

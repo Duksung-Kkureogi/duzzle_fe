@@ -48,7 +48,7 @@ function Quest() {
 
   return (
     <div className="Quest">
-      <div className="random"> RANDOM QUEST</div>
+      <div className="random"> 랜덤 게임</div>
       <div id="wrap">
         <div className="dice">
           <div>1</div>
