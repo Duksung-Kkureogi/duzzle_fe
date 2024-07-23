@@ -109,6 +109,10 @@ function Mainpage() {
     }
   };
 
+  const fillerStyles = {
+    width: `${(mintedPieces / totalPieces) * 100}%`,
+  };
+
   return (
     <div className="Mainpage">
       <div className="mainImg">
@@ -121,12 +125,15 @@ function Mainpage() {
         >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <React.Fragment>
-              {/* <div>
+              <div className="minted_pieces">
+                <div className="container">
+                  <div className="filler" style={fillerStyles}></div>
+                </div>
                 <p>
-                  발행된 NFT: <b>{mintedPieces}</b> / {totalPieces} <br />
-                  남은 NFT: <b>{totalPieces - mintedPieces}</b>
+                  발행된 NFT: {mintedPieces} / {totalPieces} <br />
+                  남은 NFT: {totalPieces - mintedPieces}
                 </p>
-              </div> */}
+              </div>
               <div className="tools">
                 <button onClick={() => zoomIn()}>
                   <svg
