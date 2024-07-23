@@ -113,6 +113,25 @@ function Mainpage() {
     width: `${(mintedPieces / totalPieces) * 100}%`,
   };
 
+  // 사용자 지갑 주소 중간 생략
+  const WalletComponent: React.FC<{ wallet: string }> = ({ wallet }) => {
+    const { start, end } = truncateWallet(wallet);
+
+    return (
+      <>
+        <span>({start}</span>
+        <span>...</span>
+        <span>{end})</span>
+      </>
+    );
+  };
+
+  const truncateWallet = (wallet: string): { start: string; end: string } => {
+    const start = wallet.slice(0, 6);
+    const end = wallet.slice(-4);
+    return { start, end };
+  };
+
   return (
     <div className="Mainpage">
       <div className="mainImg">
@@ -207,9 +226,12 @@ function Mainpage() {
                             {(selectedPiece.data as Minted).owner.name}
                           </p>
                           <p className="info wallet">
-                            (
-                            {(selectedPiece.data as Minted).owner.walletAddress}
-                            )
+                            <WalletComponent
+                              wallet={
+                                (selectedPiece.data as Minted).owner
+                                  .walletAddress
+                              }
+                            />
                           </p>
                           <div className="piece_img">
                             <img

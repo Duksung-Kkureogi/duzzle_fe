@@ -137,8 +137,7 @@
 }
 .wallet {
   padding: 3px;
-  font-size: 11px;
-  width: calc(65vw - 6px);
+  font-size: 12px;
   word-break: break-all;
 }
 .items {
