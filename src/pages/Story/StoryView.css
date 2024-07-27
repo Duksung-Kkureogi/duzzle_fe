@@ -1,16 +1,18 @@
-.container {
+.container_v {
   width: 90vw;
-  max-width: 500px;
+  text-align: center;
 }
 
 .title {
   font-size: 30px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .content {
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 300px;
+  text-align: center;
 }
 
 .button_next {
@@ -23,11 +25,14 @@
   margin-right: 10px;
 }
 
-button:hover {
-  background-color: #2a4274;
+.button_next:hover {
+  background-color: #7892c8;
 }
 
 .page-info {
   font-size: 14px;
   color: #666;
+}
+.current {
+  text-align: center;
 }

@@ -2,65 +2,93 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Story.css";
 
-interface Book {
-  storyId: number;
+interface Zone {
+  zoneId: number;
   zoneNameKr: string;
   zoneNameUs: string;
-  totalPage: number;
-  readPage: number;
-  zoneId: number;
+  totalStory: number;
+  readStory: number;
 }
 
-const books: Book[] = [
+const zones: Zone[] = [
   {
-    storyId: 1,
-    zoneNameKr: "차미리사관",
-    zoneNameUs: "chamirisa",
-    totalPage: 10,
-    readPage: 4,
     zoneId: 1,
+    zoneNameKr: "차미리사관",
+    zoneNameUs: "Chamirisa",
+    totalStory: 10,
+    readStory: 4,
   },
   {
-    storyId: 2,
-    zoneNameKr: "덕성여자대학교",
-    zoneNameUs: "Duksung",
-    totalPage: 12,
-    readPage: 6,
     zoneId: 2,
+    zoneNameKr: "덕성여자대학교",
+    zoneNameUs: "Duksung's uni",
+    totalStory: 8,
+    readStory: 2,
+  },
+  {
+    zoneId: 3,
+    zoneNameKr: "대강의동",
+    zoneNameUs: "lecture",
+    totalStory: 10,
+    readStory: 6,
+  },
+  {
+    zoneId: 4,
+    zoneNameKr: "인사대",
+    zoneNameUs: "language&literature",
+    totalStory: 5,
+    readStory: 3,
+  },
+  {
+    zoneId: 5,
+    zoneNameKr: "자연관",
+    zoneNameUs: "science",
+    totalStory: 12,
+    readStory: 8,
+  },
+  {
+    zoneId: 6,
+    zoneNameKr: "종로운현캠퍼스",
+    zoneNameUs: "history",
+    totalStory: 7,
+    readStory: 4,
   },
 ];
 
 const Story: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleReadBook = (storyId: number) => {
-    navigate(`/story/${storyId}`);
+  const handleZoneClick = (zoneId: number) => {
+    navigate(`/zone/${zoneId}`);
   };
 
   return (
     <div className="container">
-      <h1 className="Story_title">Story</h1>
+      <h1 className="Story_title">Duzzle 스토리</h1>
+      <img className="img" src="/src/pages/Story/story.jpg" />
       <ul className="ul">
-        {books.map((book) => (
-          <li className="li" key={book.storyId}>
-            <h2 className="h2">
-              {book.zoneNameKr} / {book.zoneNameUs}
-            </h2>
+        {zones.map((zone) => (
+          <li className="li" key={zone.zoneId}>
+            <span>
+              {zone.zoneNameKr} ({zone.zoneNameUs})
+            </span>
             <button
-              className="button"
-              onClick={() => handleReadBook(book.storyId)}
+              className="button_b"
+              onClick={() => handleZoneClick(zone.zoneId)}
             >
-              click
+              선택
             </button>
-            <div className="progress-bar-container">
+            <div className="progress-bar">
               <div
-                className="progress-bar"
-                style={{ width: `${(book.readPage / book.totalPage) * 100}%` }}
-              />
+                className="progress-bar-inner"
+                style={{
+                  width: `${(zone.readStory / zone.totalStory) * 100}%`,
+                }}
+              ></div>
             </div>
-            <p className="page-info">
-              {book.readPage}/{book.totalPage}
-            </p>
+            <span>
+              {zone.readStory}/{zone.totalStory}
+            </span>
           </li>
         ))}
       </ul>

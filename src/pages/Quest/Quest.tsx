@@ -12,7 +12,7 @@ function Quest() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest-test/start",
+        RequestURL + "/v1/quest/start",
         {},
         {
           headers: {
