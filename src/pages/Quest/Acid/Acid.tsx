@@ -268,7 +268,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
           <input type="text" ref={inputRef} onKeyDown={handleKeyDown} />
         </div>
       </div>
-      <div id="board" style={{ display: showHelp ? "flex" : "none" }}>
+      <div id="board">
         {showHelp && (
           <div id="help-div">
             <div id="help-title">산성비 게임💧</div>
