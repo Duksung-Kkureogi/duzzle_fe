@@ -1,4 +1,4 @@
-.container {
+.container_list {
   width: 90vw;
   max-width: 500px;
 }
@@ -7,12 +7,12 @@
   text-align: center;
 }
 
-.ul {
+.ul_list {
   list-style-type: none;
   padding: 0;
 }
 
-.li {
+.li_list {
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #ccc;

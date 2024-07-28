@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Story.css";
 
 interface Zone {
@@ -10,65 +11,41 @@ interface Zone {
   readStory: number;
 }
 
-const zones: Zone[] = [
-  {
-    zoneId: 1,
-    zoneNameKr: "차미리사관",
-    zoneNameUs: "Chamirisa",
-    totalStory: 10,
-    readStory: 4,
-  },
-  {
-    zoneId: 2,
-    zoneNameKr: "덕성여자대학교",
-    zoneNameUs: "Duksung's uni",
-    totalStory: 8,
-    readStory: 2,
-  },
-  {
-    zoneId: 3,
-    zoneNameKr: "대강의동",
-    zoneNameUs: "lecture",
-    totalStory: 10,
-    readStory: 6,
-  },
-  {
-    zoneId: 4,
-    zoneNameKr: "인사대",
-    zoneNameUs: "language&literature",
-    totalStory: 5,
-    readStory: 3,
-  },
-  {
-    zoneId: 5,
-    zoneNameKr: "자연관",
-    zoneNameUs: "science",
-    totalStory: 12,
-    readStory: 8,
-  },
-  {
-    zoneId: 6,
-    zoneNameKr: "종로운현캠퍼스",
-    zoneNameUs: "history",
-    totalStory: 7,
-    readStory: 4,
-  },
-];
-
 const Story: React.FC = () => {
   const navigate = useNavigate();
+  const [zones, setZones] = useState<Zone[]>([]);
+  const RequestURL = import.meta.env.VITE_REQUEST_URL;
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    const fetchZones = async () => {
+      try {
+        const response = await axios.get(`${RequestURL}/v1/story/progress`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        setZones(response.data.data.list);
+      } catch (error) {
+        console.error("Error fetching zones:", error);
+      }
+    };
+
+    fetchZones();
+  }, [RequestURL, token]);
 
   const handleZoneClick = (zoneId: number) => {
     navigate(`/zone/${zoneId}`);
   };
 
   return (
-    <div className="container">
+    <div className="container_story">
       <h1 className="Story_title">Duzzle 스토리</h1>
-      <img className="img" src="/src/pages/Story/story.jpg" />
-      <ul className="ul">
+      <img className="img_story" src="/src/pages/Story/story.jpg" />
+      <ul className="ul_story">
         {zones.map((zone) => (
-          <li className="li" key={zone.zoneId}>
+          <li className="li_story" key={zone.zoneId}>
             <span>
               {zone.zoneNameKr} ({zone.zoneNameUs})
             </span>
@@ -78,9 +55,9 @@ const Story: React.FC = () => {
             >
               선택
             </button>
-            <div className="progress-bar">
+            <div className="progress-bar_1">
               <div
-                className="progress-bar-inner"
+                className="progress-bar-inner_1"
                 style={{
                   width: `${(zone.readStory / zone.totalStory) * 100}%`,
                 }}

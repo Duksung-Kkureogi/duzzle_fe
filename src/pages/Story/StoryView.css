@@ -1,15 +1,16 @@
-.container_v {
+.container_view {
+  max-width: 500px;
   width: 90vw;
   text-align: center;
 }
 
-.title {
+.view_title {
   font-size: 30px;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.content {
+.content_view {
   font-size: 20px;
   margin-bottom: 300px;
   text-align: center;
@@ -33,6 +34,6 @@
   font-size: 14px;
   color: #666;
 }
-.current {
+.current_view {
   text-align: center;
 }

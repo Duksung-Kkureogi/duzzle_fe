@@ -1,4 +1,4 @@
-.container {
+.container_story {
   width: 90vw;
   max-width: 500px;
 }
@@ -8,16 +8,16 @@
   margin-bottom: 20px;
   text-align: center;
 }
-.img {
+.img_story {
   width: 90vw;
   max-width: 500px;
 }
-.ul {
+.ul_story {
   list-style: none;
   padding: 0;
 }
 
-.li {
+.li_story {
   border: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 15px;
@@ -42,7 +42,7 @@
 .button_b:hover {
   background-color: #a2ea10;
 }
-.progress-bar {
+.progress-bar_1 {
   width: 100%;
   background-color: #e0e0e0;
   height: 20px;
@@ -51,7 +51,7 @@
   overflow: hidden;
 }
 
-.progress-bar-inner {
+.progress-bar-inner_1 {
   height: 100%;
   background-color: #37a331;
   border-radius: 10px 0 0 10px;
