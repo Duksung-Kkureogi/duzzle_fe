@@ -35,11 +35,7 @@ function AcidPage() {
   });
 
   return (
-    <WebSocketProvider
-      token={
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwid2FsbGV0QWRkcmVzcyI6IjB4MWRjOTFmMTNkZTQ0YjdkNmY3YzdmOTViM2FhZGRjODczZjQzNmM5OSIsImlhdCI6MTcyMDQyNjEzNywiZXhwIjoxNzIwNTEyNTM3fQ.mPHkx7zge6cAk3328XKy93iUvVAn172JKpEaKb3zQbI"
-      }
-    >
+    <WebSocketProvider token={accessToken}>
       <Acid logId={logId} data={data} />
     </WebSocketProvider>
   );
