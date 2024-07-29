@@ -71,9 +71,10 @@ input[type="text"] {
 #help-div {
   justify-content: center;
   text-align: center;
-  width: 300vw;
+  width: 90vw;
   max-width: 500px;
   font-size: 18px;
+  padding: 10px;
   background-color: rgb(255, 255, 255);
 }
 
@@ -103,9 +104,6 @@ input[type="text"] {
   color: rgb(249, 11, 213);
 }
 
-#help-div .buttonstart {
-}
-
 #restart-btn,
 #help-btn,
 #start-btn {
@@ -126,7 +124,7 @@ input[type="text"] {
   box-shadow: 0 4px 15px 0 rgb(19, 222, 232);
   width: 210px;
   height: 90px;
-  font-size: 25px;
+  font-size: 31px;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -146,7 +144,7 @@ input[type="text"] {
   max-width: 400px;
   width: 90vw;
   padding: 60px;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
   text-align: center;
   background-color: rgb(255, 255, 255);
 }

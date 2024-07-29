@@ -19,7 +19,7 @@ function QuestSuccess() {
 
   return (
     <div className="Questsuccess">
-      <div className="text_suc">QUEST 성공</div>
+      <div className="text_suc">미션 성공</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="#FFC10A"
