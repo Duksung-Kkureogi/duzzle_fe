@@ -23,10 +23,10 @@ function AcidPage() {
 
   useEffect(() => {
     // 퀘스트 진행 페이지는 로그인 유저만 가능
-    if (!accessToken) {
-      if (confirm("로그인이 필요한 서비스입니다."))
-        document.location = "/login";
-    }
+    // if (!accessToken) {
+    //   if (confirm("로그인이 필요한 서비스입니다."))
+    //     document.location = "/login";
+    // }
     // 퀘스트시작버튼을 통해 넘어온 요청이 아닌, url 임의로 입력해서 온 접근 차단
     // url path parameter 의 logId 당 한번만 진행 가능
     if (!Object.values(data).every((e) => !!e)) {

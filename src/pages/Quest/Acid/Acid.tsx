@@ -248,10 +248,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   return (
     <div className="container-fluid">
       <div ref={gamePanelRef} id="game-panel" className="container"></div>
-      <div
-        className="d-flex justify-content-center align-items-center flex-column"
-        id="control-panel-frame"
-      >
+      <div id="control-panel-frame">
         <div
           id="control-panel"
           className="col-md-5 align-content-center container"
@@ -271,7 +268,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
           <input type="text" ref={inputRef} onKeyDown={handleKeyDown} />
         </div>
       </div>
-      <div id="board" className="d-flex align-items-center flex-column">
+      <div id="board">
         {showHelp && (
           <div id="help-div">
             <div id="help-title">산성비 게임💧</div>
@@ -285,9 +282,9 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
               ✔️ 총 <b>{passingScore}단어</b> 이상을 입력하면 <b>성공</b>
               <br />
               ✔️ <b>없는 단어</b> 입력 시 점수가 차감됩니다. <br />
-              ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료 됩니다.
+              ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료!
               <br />
-              ✔️ 게임이 종료되면 획득한 점수가 공개됩니다. <br />
+              ✔️ 게임이 종료되면 획득한 점수 공개 <br />
             </div>
             <button
               className="buttonstart"
@@ -322,5 +319,4 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
     </div>
   );
 };
-
 export default Acid;

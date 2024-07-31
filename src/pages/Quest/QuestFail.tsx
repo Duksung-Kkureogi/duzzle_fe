@@ -6,8 +6,8 @@ function QuestFail() {
   const nav = useNavigate();
   return (
     <div className="QuestFail">
-      <CanvasAnimation />
-      <div className="text_suc">QUEST 실패</div>
+      {/* <CanvasAnimation /> */}
+      <div className="text_suc">미션 실패</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="#FFC10A"

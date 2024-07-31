@@ -1,44 +1,40 @@
 .Quest {
   text-align: center;
-  width: 500px;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Quest .random {
-  padding-top: 80px;
-  font-size: 70px;
-  background: linear-gradient(150deg, rgba(52, 168, 83, 1), rgb(109, 236, 143));
+  background: linear-gradient(100deg, #00b5cc, rgb(26, 242, 249));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
   background-clip: text;
   font-size: 60px;
   font-weight: bold;
+  margin-top: 40px;
 }
-.btn-hover {
-  width: 260px;
-  height: 90px;
-  font-size: 25px;
+.quest_button {
+  width: 230px;
+  height: 85px;
+  font-size: 35px;
   font-weight: 600;
-  color: #fff;
   cursor: pointer;
   margin: 20px;
   text-align: center;
   border: none;
   background-size: 300% 100%;
   border-radius: 2.5rem;
+  color: hsl(0, 0%, 100%);
+  background-color: #00b5cc;
+  box-shadow: 0 4px 15px 0 rgb(121, 217, 217);
 }
 
-.btn-hover:focus {
+.quest_button:focus {
   outline: none;
 }
-
-.btn-hover.color-6 {
-  background-image: linear-gradient(
-    to right,
-    rgba(52, 168, 83, 1),
-    rgba(52, 168, 83, 1)
-  );
-  box-shadow: 0 4px 15px 0 rgba(52, 168, 83, 1);
+.quest_button:hover {
+  background-color: gray;
 }
 
 #wrap {

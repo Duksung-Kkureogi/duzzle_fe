@@ -29,7 +29,10 @@ const MyBottomNavBar = () => {
           </div>
           <div>
             <p>스토리</p>
-            <img src="/src/assets/images/story.png" />
+            <img
+              onClick={() => navigate("/story")}
+              src="/src/assets/images/story.png"
+            />
           </div>
         </nav>
       ) : null}
