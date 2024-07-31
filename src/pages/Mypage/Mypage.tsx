@@ -28,11 +28,11 @@ function Mypage() {
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
-  // useEffect(() => {
-  //   if (!web3auth) {
-  //     web3AuthInit();
-  //   }
-  // }, [web3auth, web3AuthInit]);
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
