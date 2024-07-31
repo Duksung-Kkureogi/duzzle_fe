@@ -53,12 +53,6 @@ function Mainpage() {
     getPuzzle();
   }, [RequestUrl, seasonId]);
 
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {
     setScale(event.instance.transformState.scale);
