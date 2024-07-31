@@ -12,7 +12,7 @@ function Quest() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest/start",
+        RequestURL + "/v1/quest/guest/start",
         {},
         {
           headers: {
@@ -48,7 +48,7 @@ function Quest() {
 
   return (
     <div className="Quest">
-      <div className="random"> 랜덤 게임</div>
+      <div className="random"> Mini Game</div>
       <div id="wrap">
         <div className="dice">
           <div>1</div>
@@ -59,7 +59,7 @@ function Quest() {
           <div>6</div>
         </div>
       </div>
-      <button className="btn-hover color-6" onClick={startQuiz}>
+      <button className="quest_button" onClick={startQuiz}>
         START
       </button>
       <MyBottomNavBar />

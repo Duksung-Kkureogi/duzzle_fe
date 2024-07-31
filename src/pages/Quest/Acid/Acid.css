@@ -19,7 +19,8 @@
 }
 
 #control-panel {
-  margin: 50px 5px;
+  margin: 5px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -35,7 +36,7 @@ input[type="text"] {
 }
 
 #game-panel {
-  height: 450px;
+  height: 600px;
   margin-top: 30px;
   border-style: solid;
   border-color: rgb(255, 255, 255);
@@ -43,7 +44,7 @@ input[type="text"] {
 }
 
 #control-panel-frame {
-  height: 40%;
+  height: 20%;
   border-style: solid;
   border-color: rgb(25, 185, 213);
 }
@@ -61,20 +62,22 @@ input[type="text"] {
   top: 0;
   left: 0;
   width: 100%;
-  height: 115%;
-  background-color: rgba(255, 255, 255, 0.9);
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 #help-div {
   justify-content: center;
   text-align: center;
-  width: 300vw;
+  width: 90vw;
   max-width: 500px;
   font-size: 18px;
+  padding: 10px;
+  margin-top: 50px;
   background-color: rgb(255, 255, 255);
 }
 
@@ -88,6 +91,7 @@ input[type="text"] {
 }
 
 #help-div > #help-title {
+  margin-top: 120px;
   margin-left: 10px;
   margin-bottom: 20px;
   display: block;
@@ -102,9 +106,6 @@ input[type="text"] {
 
 #help-div b {
   color: rgb(249, 11, 213);
-}
-
-#help-div .buttonstart {
 }
 
 #restart-btn,
@@ -127,7 +128,7 @@ input[type="text"] {
   box-shadow: 0 4px 15px 0 rgb(19, 222, 232);
   width: 210px;
   height: 90px;
-  font-size: 25px;
+  font-size: 31px;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -144,7 +145,11 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  max-width: 400px;
+  width: 90vw;
+  padding: 60px;
+  margin-top: 160px;
+  padding-bottom: 240px;
   text-align: center;
   background-color: rgb(255, 255, 255);
 }

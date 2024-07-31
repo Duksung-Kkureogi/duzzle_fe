@@ -78,6 +78,9 @@ button {
   margin: 0;
   padding: 0;
 }
+.buttons {
+  margin-bottom: 20px;
+}
 
 .buttons .submit.btn {
   color: #fff;
