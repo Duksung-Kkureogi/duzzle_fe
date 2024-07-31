@@ -7,6 +7,7 @@ import RPC from "../../ethersRPC";
 import { LoginRequest } from "../Data/DTOs/UserDTO";
 import { Web3AuthParameters } from "../constant/blockchain";
 import { Http } from "./Http";
+import DuzzleFav from "/src/assets/images/duzzle favicon.png";
 
 // Adapters
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
@@ -69,11 +70,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   });
 
   const web3AuthOptions: Web3AuthOptions = {
+    enableLogging: true,
+    storageKey: "session",
     uiConfig: {
+      appName: "Duzzle",
+      mode: "dark",
+      useLogoLoader: true,
+      logoDark: DuzzleFav,
       defaultLanguage: "ko",
       loginGridCol: 2,
       loginMethodsOrder: ["google", "kakao", "github"],
       primaryButton: "emailLogin",
+      theme: {
+        primary: "#00b5cc",
+        onPrimary: "#000000",
+      },
     },
     clientId,
     web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
