@@ -7,7 +7,7 @@ import { useAuth } from "../../services/AuthContext";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Mypage() {
-  const { web3auth, getDal, web3AuthInit, logout } = useAuth();
+  const { web3auth, web3AuthInit, getDal, logout } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
 
@@ -40,7 +40,6 @@ function Mypage() {
     const duzzleLoggedIn = localStorage.getItem("duzzleLoggedIn");
 
     const checkLoggedIn = async () => {
-      console.log("User data:", user);
       if (web3LoggedIn != "true" || duzzleLoggedIn != "true" || !token) {
         alert("로그인이 필요합니다.\n로그인 화면으로 이동합니다.");
         navigate("/login");
@@ -78,7 +77,7 @@ function Mypage() {
     };
 
     fetchData();
-  }, [RequestUrl, getDal]);
+  }, [RequestUrl, getDal, navigate]);
 
   const Logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {

@@ -9,8 +9,10 @@ function Login() {
   const [userDal, setUserDal] = useState(0);
 
   useEffect(() => {
-    web3AuthInit();
-  }, []);
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
     const fetchUserDal = async () => {
