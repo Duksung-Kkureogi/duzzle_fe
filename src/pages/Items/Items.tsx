@@ -29,7 +29,6 @@ function Items() {
             Authorization: "Bearer " + token,
           },
         });
-        console.log(response);
         if (response.data.result) {
           setTotalItems(response.data.data.totalItems);
           setItems(response.data.data.items);

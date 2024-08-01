@@ -2,7 +2,13 @@ import { IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import RPC from "../../ethersRPC";
 import { LoginRequest } from "../Data/DTOs/UserDTO";
 import { Web3AuthParameters } from "../constant/blockchain";
@@ -211,18 +217,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const getDal = async () => {
-    if (!web3auth?.provider) {
-      console.log("provider not initialized yet");
-    } else {
-      try {
-        const rpc = new RPC(web3auth.provider as IProvider);
-        const balance = await rpc.getDalBalance();
-        return balance;
-      } catch (error) {
-        console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
-      }
+    try {
+      const rpc = new RPC(web3auth.provider as IProvider);
+      const balance = await rpc.getDalBalance();
+      return balance;
+    } catch (error) {
+      console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
+      return 0;
     }
   };
+
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth]);
 
   return (
     <AuthContext.Provider

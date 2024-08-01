@@ -13,7 +13,7 @@ import Error from "../../components/Error/Error";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Store() {
-  const { web3auth, web3AuthInit, getDal } = useAuth();
+  const { web3auth, getDal } = useAuth();
   const [userDal, setUserDal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [enoughDal, setEnoughDal] = useState(false);
@@ -28,12 +28,6 @@ function Store() {
     item_name: string;
     item_img: string;
   }
-
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
     const fetchUserDal = async () => {

@@ -7,7 +7,7 @@ import { useAuth } from "../../services/AuthContext";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 function Mypage() {
-  const { web3auth, web3AuthInit, getDal, logout } = useAuth();
+  const { getDal, logout } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
 
@@ -27,12 +27,6 @@ function Mypage() {
   });
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
-
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -55,7 +49,6 @@ function Mypage() {
             "Content-Type": "application/json",
           },
         });
-        console.log(response);
         if (response.data.result) {
           setUser(response.data.data);
         } else {

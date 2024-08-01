@@ -37,7 +37,6 @@ function Mainpage() {
             },
           }
         );
-        console.log(response);
         if (response.data.result) {
           const pieceData = response.data.data.pieces;
           setPieces(pieceData);

@@ -4,15 +4,8 @@ import { useAuth } from "../../services/AuthContext";
 import "./Login.css";
 
 function Login() {
-  const { duzzleUser, logout, web3auth, web3AuthInit, duzzleLoggedIn, getDal } =
-    useAuth();
+  const { duzzleUser, logout, web3auth, duzzleLoggedIn, getDal } = useAuth();
   const [userDal, setUserDal] = useState(0);
-
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
 
   useEffect(() => {
     const fetchUserDal = async () => {
