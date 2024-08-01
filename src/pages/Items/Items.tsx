@@ -5,12 +5,10 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 
 import "./Items.css";
 import axios from "axios";
-import { useAuth } from "../../services/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Items() {
   const navigate = useNavigate();
-  const { web3auth, web3AuthInit } = useAuth();
   const [totalItems, setTotalItems] = useState(0);
   const [items, setItems] = useState<Item[]>([]);
 

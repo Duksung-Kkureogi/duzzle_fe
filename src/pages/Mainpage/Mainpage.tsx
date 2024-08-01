@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
   const navigate = useNavigate();
-  const { web3auth, web3AuthInit } = useAuth();
+  const { web3auth } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [pieces, setPieces] = useState<PieceDto[]>([]);
