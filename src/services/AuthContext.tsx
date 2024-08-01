@@ -37,7 +37,7 @@ interface AuthContextType {
   web3AuthInit: () => void;
 
   duzzleLogin: (params: LoginRequest) => void;
-  user: DuzzleUser | null;
+  duzzleUser: DuzzleUser | null;
   logout: () => void;
   showDalBalance: () => void;
   getDal: () => Promise<number>;
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [duzzleLoggedIn, setDuzzleLoggedIn] = useState(false);
   const [web3LoggedIn, setWeb3LoggedIn] = useState(false);
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [user, setUser] = useState<DuzzleUser | null>(null);
+  const [duzzleUser, setDuzzleUser] = useState<DuzzleUser | null>(null);
 
   const { clientId, chainConfig, openLoginAdapterOptions, modalConfig } =
     Web3AuthParameters;
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   });
 
   const web3AuthOptions: Web3AuthOptions = {
-    enableLogging: true,
+    // enableLogging: true,
     storageKey: "session",
     uiConfig: {
       appName: "Duzzle",
@@ -184,7 +184,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       setDuzzleLoggedIn(true);
       localStorage.setItem("duzzleLoggedIn", "true");
-      setUser(user);
+      setDuzzleUser(user);
     } catch (error) {
       console.log(error);
     }
@@ -236,7 +236,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         web3auth,
         setWeb3auth,
         web3AuthInit,
-        user,
+        duzzleUser,
         showDalBalance,
         getDal,
       }}
