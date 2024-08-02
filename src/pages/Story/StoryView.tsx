@@ -19,6 +19,7 @@ const StoryView: React.FC = () => {
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
   const zoneId = state?.zoneId as string;
+  const title = state?.title as string;
 
   useEffect(() => {
     const fetchStoryContent = async (page: number) => {
@@ -84,9 +85,9 @@ const StoryView: React.FC = () => {
 
   return (
     <div className="container_view">
-      <h1 className="view_title">책 내용</h1>
+      <h1 className="view_title">{title}</h1>
       <div className="content_view">
-        <p>{story.content}</p>
+        <p className="content">{story.content}</p>
       </div>
       {currentPage < story.totalPage - 1 && (
         <button className="button_next" onClick={handleNextPage}>

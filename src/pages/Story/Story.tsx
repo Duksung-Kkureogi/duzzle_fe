@@ -35,23 +35,23 @@ const Story: React.FC = () => {
     fetchZones();
   }, [RequestURL, token]);
 
-  const handleZoneClick = (zoneId: number) => {
-    navigate(`/zone/${zoneId}`);
+  const handleZoneClick = (zoneId: number, zoneNameKr: string) => {
+    navigate(`/zone/${zoneId}`, { state: { zoneNameKr } });
   };
 
   return (
     <div className="container_story">
-      <h1 className="Story_title">Duzzle 스토리</h1>
+      <h1 className="Story_title">Story</h1>
       <img className="img_story" src="/src/pages/Story/story.jpg" />
       <ul className="ul_story">
         {zones.map((zone) => (
           <li className="li_story" key={zone.zoneId}>
-            <span>
+            <span className="story_name">
               {zone.zoneNameKr} ({zone.zoneNameUs})
             </span>
             <button
               className="button_b"
-              onClick={() => handleZoneClick(zone.zoneId)}
+              onClick={() => handleZoneClick(zone.zoneId, zone.zoneNameKr)}
             >
               선택
             </button>
@@ -63,7 +63,7 @@ const Story: React.FC = () => {
                 }}
               ></div>
             </div>
-            <span>
+            <span className="readstory">
               {zone.readStory}/{zone.totalStory}
             </span>
           </li>

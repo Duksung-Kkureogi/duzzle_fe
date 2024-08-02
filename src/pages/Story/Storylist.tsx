@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Storylist.css";
 
@@ -12,6 +12,7 @@ interface Story {
 
 const Storylist: React.FC = () => {
   const { zoneId } = useParams<{ zoneId: string }>();
+  const { state } = useLocation<{ zoneNameKr: string }>();
   const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
@@ -38,20 +39,20 @@ const Storylist: React.FC = () => {
     fetchStories();
   }, [zoneId, RequestURL, token]);
 
-  const handleStoryClick = (storyId: number) => {
-    navigate(`/story/${storyId}`, { state: { zoneId } });
+  const handleStoryClick = (storyId: number, title: string) => {
+    navigate(`/story/${storyId}`, { state: { zoneId, title } });
   };
 
   return (
     <div className="container_list">
-      <h1 className="list_title">책 리스트</h1>
+      <h1 className="list_title">{state?.zoneNameKr} 스토리</h1>
       <ul className="ul_list">
         {stories.map((story) => (
           <li className="li_list" key={story.storyId}>
-            <span>{story.title}</span>
+            <span className="story_title">{story.title}</span>
             <button
               className="button_r"
-              onClick={() => handleStoryClick(story.storyId)}
+              onClick={() => handleStoryClick(story.storyId, story.title)}
             >
               읽기
             </button>
@@ -63,7 +64,7 @@ const Storylist: React.FC = () => {
                 }}
               ></div>
             </div>
-            <span>
+            <span className="readPage">
               {story.readPage}/{story.totalPage}
             </span>
           </li>
