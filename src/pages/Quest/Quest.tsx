@@ -12,7 +12,7 @@ function Quest() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest/start",
+        RequestURL + "/v1/quest/guest/start",
         {},
         {
           headers: {
@@ -21,28 +21,34 @@ function Quest() {
           },
         }
       );
-      console.log("POST 성공", response.data);
+      console.log("Quest POST 성공", response.data);
       if (response.data.data.type === "SPEED_QUIZ") {
         localStorage.setItem("logId", response.data.data.logId);
         localStorage.setItem("quest", response.data.data.quest);
         localStorage.setItem("timeLimit", response.data.data.timeLimit);
         nav("/questspeed");
+      } else if (response.data.data.type === "ACID_RAIN") {
+        const quest: AcidRainQuestData = JSON.parse(response.data.data.quest);
+        const queryParms = Object.entries(quest)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
+        nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
       }
-      // else if (response.data.data.type === "RAIN_QUIZ") {
-      //     nav("/questrain");
-      // }
       setQuizType(response.data.data.type);
     } catch (error) {
-      console.error("Error fetching random quiz:", error);
-      // API 연결이 안될 시
+      if (error.response && error.response.status === 409) {
+        console.error("모든 퀘스트 완료 => 409 오류");
+        alert("모든 퀘스트를 완료하였습니다. 최고에요!");
+      } else {
+        console.error("Error submitting result:", error);
+      }
       setQuizType("SPEED_QUIZ");
-      // nav("/questspeed");
     }
   };
 
   return (
     <div className="Quest">
-      <div className="random"> RANDOM QUEST</div>
+      <div className="random"> Mini Game</div>
       <div id="wrap">
         <div className="dice">
           <div>1</div>
@@ -53,7 +59,7 @@ function Quest() {
           <div>6</div>
         </div>
       </div>
-      <button className="btn-hover color-6" onClick={startQuiz}>
+      <button className="quest_button" onClick={startQuiz}>
         START
       </button>
       <MyBottomNavBar />

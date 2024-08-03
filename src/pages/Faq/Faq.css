@@ -1,12 +1,14 @@
 .Faq {
   height: 100%;
-  width: 500px;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Faq .Faq_wrapper {
-  overflow-y: auto;
-  max-height: calc(100vh - 120px);
+  width: 90vw;
+  max-width: 500px;
 }
+
 .Faq .Faq_wrapper::-webkit-scrollbar {
-  width: 12px; /* Chrome, Safari, Opera */
+  width: 12px;
 }

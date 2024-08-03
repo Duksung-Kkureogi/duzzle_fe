@@ -2,7 +2,8 @@
 .Mypage {
   font-family: "Noto Sans KR", sans-serif;
   cursor: default;
-  width: 500px;
+  width: 90vw;
+  max-width: 500px;
 }
 
 .Mypage .logout {
@@ -30,17 +31,17 @@
   flex-direction: column;
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 45px;
+  margin-bottom: 2vh;
 }
 
 .Mypage .user_name {
-  font-size: 30px;
+  font-size: larger;
   font-weight: bolder;
   margin: 0px 0px 5px 0px;
 }
 
 .Mypage .user_email {
-  font-size: 20px;
+  font-size: larger;
   font-weight: bold;
   color: #8c8c8c;
   margin: 0px 0px 0px 0px;
@@ -53,7 +54,6 @@
   background-color: #22bcbc;
   border-radius: 30px;
   padding: 3px;
-  padding-bottom: 5px;
   margin-left: auto;
   margin-right: 20px;
   margin-bottom: 10px;
@@ -61,7 +61,6 @@
     width: 20px;
     height: 20px;
     margin: 5px;
-    margin-top: 8px;
   }
   p {
     color: white;
@@ -77,16 +76,18 @@
   grid-template-rows: repeat(3, auto);
   gap: 5%;
   justify-content: center;
+  height: 30vh;
 
-  font-size: 20px;
+  font-size: large;
   font-weight: 700;
   color: #22bcbc;
 
   section {
-    width: 460px;
+    width: 80vw;
+    max-width: 460px;
     display: flex;
     border-radius: 20px;
-    padding: 20px;
+    padding: 16px;
     background-color: #ececec;
     justify-content: center;
     p {
@@ -103,8 +104,7 @@
   display: flex;
   flex-direction: row;
   img {
-    width: 100px;
-    height: 100px;
+    height: 8vh;
   }
 }
 
@@ -125,14 +125,4 @@
 
 .Mypage .user_setting {
   cursor: pointer;
-}
-
-/* PC (해상도 1024px)*/
-@media all and (min-width: 1024px) {
-}
-/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
-@media all and (min-width: 768px) and (max-width: 1023px) {
-}
-/* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/
-@media all and (max-width: 767px) {
 }

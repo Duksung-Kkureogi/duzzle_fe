@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./QuestFail.css";
-import CanvasAnimation from "./CanvasAnimation";
+import CanvasAnimation from "./Speed/CanvasAnimation";
 
 function QuestFail() {
   const nav = useNavigate();
   return (
     <div className="QuestFail">
-      <CanvasAnimation />
-      <div className="text_suc">QUEST 실패</div>
+      {/* <CanvasAnimation /> */}
+      <div className="text_suc">미션 실패</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="#FFC10A"
@@ -31,7 +31,7 @@ function QuestFail() {
         </button>
         <button
           className="btn2 btn-primary btn-jittery"
-          onClick={() => nav("/questspeed")}
+          onClick={() => nav("/quest")}
         >
           다시 도전하기
         </button>

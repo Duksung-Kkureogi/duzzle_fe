@@ -203,6 +203,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.clear();
     setDuzzleLoggedIn(false);
     setWeb3LoggedIn(false);
+    localStorage.clear();
   };
 
   const showDalBalance = async () => {

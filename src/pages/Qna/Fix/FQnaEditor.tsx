@@ -63,7 +63,7 @@ const FQnaEditor = ({ initData, onSubmit }) => {
   return (
     <div className="Editor">
       <section className="sort_section">
-        <div className="sort_title">🧩 문의 종류 ㅤㅤ</div>
+        <div className="sort_title">🧩 문의 종류</div>
         <div className="menu_bar">
           <select
             value={input.sortType}
@@ -103,7 +103,6 @@ const FQnaEditor = ({ initData, onSubmit }) => {
       </section>
       <section className="content_section">
         <div className="content_title">🌙 문의 사항</div>
-        <div>ㅤㅤ</div>
         <textarea
           name="content"
           value={input.content}

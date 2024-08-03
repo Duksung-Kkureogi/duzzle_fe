@@ -75,12 +75,14 @@ function Mainpage() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "300px",
-      height: "450px",
+      width: "65vw",
+      maxWidth: "300px",
+      height: "60vh",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#80DAE6",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
+      overflow: "hidden",
     },
   };
 
