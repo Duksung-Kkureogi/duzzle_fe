@@ -4,13 +4,8 @@ import { useAuth } from "../../services/AuthContext";
 import "./Login.css";
 
 function Login() {
-  const { user, logout, web3auth, web3AuthInit, duzzleLoggedIn, getDal } =
-    useAuth();
+  const { duzzleUser, logout, web3auth, duzzleLoggedIn, getDal } = useAuth();
   const [userDal, setUserDal] = useState(0);
-
-  useEffect(() => {
-    web3AuthInit();
-  }, []);
 
   useEffect(() => {
     const fetchUserDal = async () => {
@@ -36,15 +31,15 @@ function Login() {
           <tbody>
             <tr>
               <td>이메일</td>
-              <td>{user?.email}</td>
+              <td>{duzzleUser?.email}</td>
             </tr>
             <tr>
               <td>이름</td>
-              <td>{user?.name}</td>
+              <td>{duzzleUser?.name}</td>
             </tr>
             <tr>
               <td>지갑 주소</td>
-              <td>{user?.walletAddress}</td>
+              <td>{duzzleUser?.walletAddress}</td>
             </tr>
             <tr>
               <td>보유 DAL 확인</td>

@@ -5,12 +5,10 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 
 import "./Items.css";
 import axios from "axios";
-import { useAuth } from "../../services/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Items() {
   const navigate = useNavigate();
-  const { web3auth, web3AuthInit } = useAuth();
   const [totalItems, setTotalItems] = useState(0);
   const [items, setItems] = useState<Item[]>([]);
 
@@ -23,12 +21,6 @@ function Items() {
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
   useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
-
-  useEffect(() => {
     const getUserItem = async () => {
       try {
         const token = localStorage.getItem("accessToken");
@@ -37,7 +29,6 @@ function Items() {
             Authorization: "Bearer " + token,
           },
         });
-        console.log(response);
         if (response.data.result) {
           setTotalItems(response.data.data.totalItems);
           setItems(response.data.data.items);
