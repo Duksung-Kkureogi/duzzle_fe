@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
   const navigate = useNavigate();
-  const { web3auth, web3AuthInit } = useAuth();
+  const { web3auth } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [pieces, setPieces] = useState<PieceDto[]>([]);
@@ -37,7 +37,6 @@ function Mainpage() {
             },
           }
         );
-        console.log(response);
         if (response.data.result) {
           const pieceData = response.data.data.pieces;
           setPieces(pieceData);
@@ -52,12 +51,6 @@ function Mainpage() {
     };
     getPuzzle();
   }, [RequestUrl, seasonId]);
-
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {

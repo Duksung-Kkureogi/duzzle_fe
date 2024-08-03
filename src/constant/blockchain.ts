@@ -8,6 +8,8 @@ import { ModalConfig } from "@web3auth/modal";
 import { OpenloginAdapterOptions } from "@web3auth/openlogin-adapter";
 
 const rpcTarget = import.meta.env.VITE_RPC_TARGET;
+const clientId =
+  "BPbO-LorL6VnxrYGqX9WrY23EIN1cEEz9qR1Ir4npgxR8Yik9WfXh8_ic8o7en7yN7usdzHNYb8fEQxokEUzI_E";
 
 export const Web3AuthParameters: {
   clientId: string;
@@ -16,8 +18,7 @@ export const Web3AuthParameters: {
   openLoginAdapterOptions: OpenloginAdapterOptions;
   modalConfig: Record<string, ModalConfig>;
 } = {
-  clientId:
-    "BPbO-LorL6VnxrYGqX9WrY23EIN1cEEz9qR1Ir4npgxR8Yik9WfXh8_ic8o7en7yN7usdzHNYb8fEQxokEUzI_E", // get from https://dashboard.web3auth.io
+  clientId: clientId,
 
   chainConfig: {
     chainId: "0x13882", // Please use 0x1 for Mainnet
@@ -31,9 +32,12 @@ export const Web3AuthParameters: {
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   openLoginAdapterOptions: {
     loginSettings: {
-      mfaLevel: "optional",
+      mfaLevel: "none",
+      redirectUrl: window.location.origin,
     },
     adapterSettings: {
+      network: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
+      clientId: clientId,
       uxMode: "redirect", // "redirect" | "popup"
       mfaSettings: {
         deviceShareFactor: {
@@ -60,6 +64,21 @@ export const Web3AuthParameters: {
     },
   },
   modalConfig: {
+    [WALLET_ADAPTERS.METAMASK]: {
+      label: "METAMASK",
+      showOnModal: true,
+      showOnMobile: true,
+    },
+    [WALLET_ADAPTERS.WALLET_CONNECT_V2]: {
+      label: "WALLET_CONNECT_V2",
+      showOnModal: true,
+      showOnMobile: true,
+    },
+    [WALLET_ADAPTERS.TORUS_EVM]: {
+      label: "TORUS_EVM",
+      showOnModal: true,
+      showOnMobile: true,
+    },
     [WALLET_ADAPTERS.OPENLOGIN]: {
       label: "openlogin",
       loginMethods: {

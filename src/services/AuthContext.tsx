@@ -2,12 +2,26 @@ import { IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import RPC from "../../ethersRPC";
 import { LoginRequest } from "../Data/DTOs/UserDTO";
 import { Web3AuthParameters } from "../constant/blockchain";
 import { Http } from "./Http";
+import DuzzleFav from "/src/assets/images/duzzle favicon.png";
+
+// Adapters
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+import {
+  getWalletConnectV2Settings,
+  WalletConnectV2Adapter,
+} from "@web3auth/wallet-connect-v2-adapter";
+import { TorusWalletAdapter } from "@web3auth/torus-evm-adapter";
 
 interface DuzzleUser {
   accessToken: string;
@@ -29,7 +43,7 @@ interface AuthContextType {
   web3AuthInit: () => void;
 
   duzzleLogin: (params: LoginRequest) => void;
-  user: DuzzleUser | null;
+  duzzleUser: DuzzleUser | null;
   logout: () => void;
   showDalBalance: () => void;
   getDal: () => Promise<number>;
@@ -53,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [duzzleLoggedIn, setDuzzleLoggedIn] = useState(false);
   const [web3LoggedIn, setWeb3LoggedIn] = useState(false);
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [user, setUser] = useState<DuzzleUser | null>(null);
+  const [duzzleUser, setDuzzleUser] = useState<DuzzleUser | null>(null);
 
   const { clientId, chainConfig, openLoginAdapterOptions, modalConfig } =
     Web3AuthParameters;
@@ -62,11 +76,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   });
 
   const web3AuthOptions: Web3AuthOptions = {
+    // enableLogging: true,
+    storageKey: "session",
     uiConfig: {
+      appName: "Duzzle",
+      mode: "dark",
+      useLogoLoader: true,
+      logoDark: DuzzleFav,
       defaultLanguage: "ko",
       loginGridCol: 2,
       loginMethodsOrder: ["google", "kakao", "github"],
       primaryButton: "emailLogin",
+      theme: {
+        primary: "#00b5cc",
+        onPrimary: "#000000",
+      },
     },
     clientId,
     web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
@@ -79,14 +103,41 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const web3auth = new Web3Auth(web3AuthOptions);
       const openloginAdapter = new OpenloginAdapter(openLoginAdapterOptions);
       web3auth.configureAdapter(openloginAdapter);
-      web3auth.configureAdapter(new MetamaskAdapter());
+
+      // adding metamask adapter
+      const metamaskAdapter = new MetamaskAdapter({
+        clientId,
+        chainConfig: chainConfig,
+      });
+      web3auth.configureAdapter(metamaskAdapter);
+
+      // adding wallet connect v2 adapter
+      const defaultWcSettings = await getWalletConnectV2Settings(
+        "eip155",
+        ["1"],
+        "f4b1fc8eb521fdd13a9c05b403e69ed4"
+      );
+      const walletConnectV2Adapter = new WalletConnectV2Adapter({
+        adapterSettings: { ...defaultWcSettings.adapterSettings },
+        loginSettings: { ...defaultWcSettings.loginSettings },
+      });
+      web3auth.configureAdapter(walletConnectV2Adapter);
+
+      // adding torus evm adapter
+      const torusWalletAdapter = new TorusWalletAdapter({
+        clientId,
+      });
+      web3auth.configureAdapter(torusWalletAdapter);
+
       setWeb3auth(web3auth);
 
       await web3auth.initModal({
         modalConfig,
       });
+
       if (web3auth.connected) {
         setWeb3LoggedIn(true);
+        localStorage.setItem("web3LoggedIn", "true");
         const rpc = new RPC(web3auth!.provider as IProvider);
         const [openLoginUserInfo, web3AuthInfo, walletAddress] =
           await Promise.all([
@@ -101,6 +152,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           loginType: openLoginUserInfo.typeOfLogin?.toUpperCase()!,
           walletAddress,
         });
+        console.log("web3auth initialized");
       }
     } catch (error) {
       console.error(error);
@@ -137,14 +189,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         ...response.data.user,
       };
       setDuzzleLoggedIn(true);
-      setUser(user);
+      localStorage.setItem("duzzleLoggedIn", "true");
+      setDuzzleUser(user);
     } catch (error) {
       console.log(error);
     }
   };
 
   const logout = async () => {
-    await web3auth!.logout();
+    if (web3auth.connected) {
+      await web3auth.logout();
+    }
+    localStorage.clear();
     setDuzzleLoggedIn(false);
     setWeb3LoggedIn(false);
     localStorage.clear();
@@ -162,19 +218,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const getDal = async () => {
-    if (!web3auth?.provider) {
-      console.log("provider not initialized yet");
-    } else {
-      try {
-        const rpc = new RPC(web3auth.provider as IProvider);
-        const balance = await rpc.getDalBalance();
-        return balance;
-      } catch (error) {
-        console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
-        return 0;
-      }
+    try {
+      const rpc = new RPC(web3auth.provider as IProvider);
+      const balance = await rpc.getDalBalance();
+      return balance;
+    } catch (error) {
+      console.error("DAL 잔액을 가져오는 데 실패했습니다.", error);
+      return 0;
     }
   };
+
+  useEffect(() => {
+    if (!web3auth) {
+      web3AuthInit();
+    }
+  }, [web3auth]);
 
   return (
     <AuthContext.Provider
@@ -188,7 +246,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         web3auth,
         setWeb3auth,
         web3AuthInit,
-        user,
+        duzzleUser,
         showDalBalance,
         getDal,
       }}
