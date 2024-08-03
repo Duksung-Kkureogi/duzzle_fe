@@ -97,6 +97,40 @@
 .owner {
   color: #f47735;
 }
+#owner {
+  cursor: pointer;
+  width: fit-content;
+}
+#owner .tooltip_text {
+  visibility: hidden;
+  width: fit-content;
+  background-color: #f47735;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 4px 10px;
+  position: absolute;
+  z-index: 2;
+  bottom: 69.5%;
+  left: 15%;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+#owner:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+  &::after {
+    border-bottom: 9px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 9px solid #f47735;
+    border-top: 9px solid transparent;
+    content: "";
+    position: absolute;
+    right: 98%;
+    bottom: 4%;
+  }
+}
 .wallet {
   padding: 3px;
   font-size: 11px;

@@ -189,8 +189,15 @@ function Mainpage() {
                           <p className="info_title">조각 아이디</p>
                           <p className="info">{selectedPiece.pieceId}</p>
                           <p className="info_title">토큰 소유자</p>
-                          <p className="info owner">
+                          <p
+                            id="owner"
+                            className="info owner"
+                            onClick={() => navigate("otherprofile")}
+                          >
                             {(selectedPiece.data as Minted).owner.name}
+                            <span className="tooltip_text">
+                              사용자 프로필 보기
+                            </span>
                           </p>
                           <p className="info wallet">
                             (
