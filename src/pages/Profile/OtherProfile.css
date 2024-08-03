@@ -3,4 +3,101 @@
   font-family: "Noto Sans KR", sans-serif;
   width: 90vw;
   max-width: 500px;
+  background-image: url("/src/assets/images//mainImg.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.OtherProfile .profile_title {
+  margin: 10px;
+  text-align: center;
+  p {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 700;
+    color: #8c8c8c;
+  }
+}
+
+.OtherProfile .profile_img {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  img {
+    height: 15vh;
+    border-radius: 50%;
+  }
+}
+
+.OtherProfile .profile_list {
+  height: 50vh;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: repeat(4, auto);
+  justify-content: center;
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #8c8c8c;
+    font-weight: 700;
+  }
+}
+
+.OtherProfile section {
+  display: flex;
+  border-radius: 20px;
+  padding: 15px;
+  width: 45vw;
+  max-width: 300px;
+  background-color: #ececec;
+}
+
+.OtherProfile .profile_list .list_name {
+  color: #22bcbc;
+}
+
+.OtherProfile .profile_list .wallet {
+  display: flex;
+  align-items: center;
+  width: 30vw;
+  max-width: 150px;
+  margin-left: auto;
+  margin-right: 30px;
+  p {
+    font-size: 10px;
+    word-break: break-all;
+  }
+}
+
+.OtherProfile .profile_list .name {
+  margin-left: auto;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.OtherProfile .profile_list .email {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.OtherProfile .profile_list .level {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.OtherProfile .profile_list .achievement {
+  display: flex;
+  align-items: center;
+  width: 30vw;
+  max-width: 150px;
+  margin-left: auto;
+  margin-right: 30px;
+  p {
+    font-size: 10px;
+  }
 }
