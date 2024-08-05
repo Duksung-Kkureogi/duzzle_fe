@@ -5,7 +5,7 @@ import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
 import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { seasonList } from "../../util/season";
 import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
@@ -102,6 +102,33 @@ function Mainpage() {
     }
   };
 
+  const visitProfile = async (walletAddress: string) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        RequestUrl + `/v1/user/${walletAddress}`,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.result) {
+        navigate(`profile/${walletAddress}`);
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response.data.code == "LOGIN_REQUIRED") {
+          alert("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
+        } else if (error.response.data.code == "PROFILE_ACCESS_DENIED") {
+          alert("해당 사용자가 프로필 공개를 거부했습니다.");
+        } else if (error.response.data.code == "CONTENT_NOT_FOUND")
+          alert("해당 사용자가 존재하지 않습니다.");
+      }
+    }
+  };
+
   return (
     <div className="Mainpage">
       <div className="mainImg">
@@ -193,11 +220,9 @@ function Mainpage() {
                             id="owner"
                             className="info owner"
                             onClick={() =>
-                              navigate(
-                                `profile/${
-                                  (selectedPiece.data as Minted).owner
-                                    .walletAddress
-                                }`
+                              visitProfile(
+                                (selectedPiece.data as Minted).owner
+                                  .walletAddress
                               )
                             }
                           >

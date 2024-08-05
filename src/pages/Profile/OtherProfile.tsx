@@ -30,7 +30,6 @@ function OtherProfile() {
             },
           }
         );
-        console.log("GET 성공", response);
         setProfile(response);
       } catch (error) {
         console.error(error);
