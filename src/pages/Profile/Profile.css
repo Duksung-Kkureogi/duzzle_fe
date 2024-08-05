@@ -184,6 +184,45 @@
     width: 20px;
   }
 }
+.Profile .profile_list .tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  svg {
+    width: 20px;
+  }
+}
+.Profile .tooltip .tooltip_text {
+  visibility: hidden;
+  width: 170px;
+  background-color: #f47735;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: -70%;
+  left: -80%;
+  margin-left: -60px;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+.Profile .tooltip:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+  font-size: 12px;
+  &::after {
+    border-bottom: 10px solid #f47735;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: 45%;
+  }
+}
 
 @media all and (min-width: 540px) {
   .Profile .profile_img {
