@@ -69,12 +69,6 @@ function OtherProfile() {
             <p>{name}</p>
           </div>
         </section>
-        <section className="profile_email">
-          <p className="list_name">이메일</p>
-          <div className="email">
-            <p>{email}</p>
-          </div>
-        </section>
         <div className="profile_total">
           <div className="profile_items">
             <p className="list_name">총 아이템 개수</p>
