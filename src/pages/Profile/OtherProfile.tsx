@@ -4,27 +4,32 @@ import { useState, useEffect } from "react";
 import "./OtherProfile.css";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
+import { useParams } from "react-router-dom";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
 function OtherProfile() {
+  const { walletAddress } = useParams();
   const [image, setImage] = useState("");
   const [wallet, setWallet] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const level = "Lv.1";
-  const achievement = "2022 #Summer Duksung Lv.8";
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPieces, setTotalPieces] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await axios.get(RequestURL + "/v1/user", {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          RequestURL + `/v1/user/${walletAddress}`,
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("GET 성공", response);
         setProfile(response);
       } catch (error) {
@@ -32,13 +37,15 @@ function OtherProfile() {
       }
     };
     getData();
-  }, []);
+  }, [walletAddress]);
 
   async function setProfile(response: AxiosResponse) {
     setWallet(response.data["data"]["walletAddress"]);
     setName(response.data["data"]["name"] ?? "Anonymous");
     setEmail(response.data["data"]["email"]);
     setImage(response.data["data"]["image"]);
+    setTotalItems(response.data["data"]["totalItems"]);
+    setTotalPieces(response.data["data"]["totalPieces"]);
   }
 
   return (
@@ -69,18 +76,20 @@ function OtherProfile() {
             <p>{email}</p>
           </div>
         </section>
-        <section className="profile_grade">
-          <p className="list_name">등급</p>
-          <div className="level">
-            <p>{level}</p>
+        <div className="profile_total">
+          <div className="profile_items">
+            <p className="list_name">총 아이템 개수</p>
+            <div className="items">
+              <p>{totalItems}개</p>
+            </div>
           </div>
-        </section>
-        <section className="profile_achievement">
-          <p className="list_name">업적</p>
-          <div className="achievement">
-            <p>{achievement}</p>
+          <div className="profile_pieces">
+            <p className="list_name">총 조각 개수</p>
+            <div className="pieces">
+              <p>{totalPieces}개</p>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );

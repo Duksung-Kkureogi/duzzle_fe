@@ -192,7 +192,14 @@ function Mainpage() {
                           <p
                             id="owner"
                             className="info owner"
-                            onClick={() => navigate("otherprofile")}
+                            onClick={() =>
+                              navigate(
+                                `profile/${
+                                  (selectedPiece.data as Minted).owner
+                                    .walletAddress
+                                }`
+                              )
+                            }
                           >
                             {(selectedPiece.data as Minted).owner.name}
                             <span className="tooltip_text">

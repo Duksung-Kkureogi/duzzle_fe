@@ -35,7 +35,7 @@ function App() {
             <Route path="/mypage/items" element={<Items />} />
             <Route path="/mypage/pieces" element={<Pieces />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/otherprofile" element={<OtherProfile />} />
+            <Route path="/profile/:walletAddress" element={<OtherProfile />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/store" element={<Store />} />
             <Route path="/qna" element={<FQna />} />
