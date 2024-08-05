@@ -57,16 +57,16 @@ function OtherProfile() {
         <img src={image} />
       </div>
       <div className="profile_list">
-        <section className="profile_wallet">
-          <p className="list_name">지갑 주소</p>
-          <div className="wallet">
-            <p>{wallet}</p>
-          </div>
-        </section>
         <section className="profile_name">
           <p className="list_name">이름(닉네임)</p>
           <div className="name">
             <p>{name}</p>
+          </div>
+        </section>
+        <section className="profile_wallet">
+          <p className="list_name">지갑 주소</p>
+          <div className="wallet">
+            <p>{wallet}</p>
           </div>
         </section>
         <div className="profile_total">
