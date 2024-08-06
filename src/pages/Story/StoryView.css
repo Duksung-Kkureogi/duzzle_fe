@@ -15,6 +15,12 @@
   margin-bottom: 100px;
   text-align: center;
 }
+.LO {
+  max-width: 500px;
+  width: 90vw;
+  text-align: center;
+  margin-top: 300px;
+}
 .c3 .content {
   font-size: 18px;
   padding: 40px 11px;

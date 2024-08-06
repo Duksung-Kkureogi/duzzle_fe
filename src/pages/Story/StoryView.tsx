@@ -82,7 +82,7 @@ const StoryView: React.FC = () => {
   };
 
   if (!story) {
-    return <div>로딩 중...</div>;
+    return <div className="LO">스토리 불러오는 중...</div>;
   }
 
   return (
