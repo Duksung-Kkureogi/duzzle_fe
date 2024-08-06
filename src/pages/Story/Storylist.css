@@ -3,10 +3,6 @@
   max-width: 500px;
 }
 
-.c2 .list_title {
-  text-align: center;
-}
-
 .c2 .ul_list {
   list-style-type: none;
   padding: 0;
@@ -19,7 +15,7 @@
   border-radius: 5px;
 }
 .c2 .story_title {
-  font-size: 15px;
+  font-size: 17px;
 }
 .c2 .readPage {
   font-size: 15px;

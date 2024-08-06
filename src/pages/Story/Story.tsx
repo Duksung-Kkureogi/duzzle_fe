@@ -42,8 +42,8 @@ const Story: React.FC = () => {
   return (
     <div className="c1">
       <div className="container_story">
-        <h1 className="Story_title">Story</h1>
-        <img className="img_story" src="/src/pages/Story/story.jpg" />
+        <h1 className="Story_title">더즐 스토리</h1>
+        <img className="img_story" src="/src/pages/Story/mainImg.png" />
         <ul className="ul_story">
           {zones.map((zone) => (
             <li className="li_story" key={zone.zoneId}>
@@ -63,6 +63,14 @@ const Story: React.FC = () => {
                     width: `${(zone.readStory / zone.totalStory) * 100}%`,
                   }}
                 ></div>
+                <div
+                  className="star"
+                  style={{
+                    left: `${(zone.readStory / zone.totalStory) * 93}%`,
+                  }}
+                >
+                  ⭐
+                </div>
               </div>
               <span className="readstory">
                 {zone.readStory}/{zone.totalStory}

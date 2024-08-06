@@ -12,23 +12,29 @@
 
 .c3 .content_view {
   font-size: 20px;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
   text-align: center;
 }
 .c3 .content {
   font-size: 18px;
-  padding: 40px 2px;
+  padding: 40px 11px;
   border: 0.5px solid #eeeeee;
-  border-radius: 5px;
   margin: 23px;
   line-height: 1.84;
-  background-color: rgb(246, 250, 245);
+  background-color: #ececec;
+  border-radius: 10px;
+  font-weight: 400;
+  /* box-shadow: 0 4px 15px 0 rgb(230, 233, 233); */
+}
+.c3 .content_title {
+  font-size: 26px;
+  color: #00b5cc;
+  margin: 23px;
+  line-height: 1.84;
   border-radius: 10px;
   padding: 10px;
   font-weight: 400;
-  box-shadow: 0 4px 15px 0 rgb(230, 233, 233);
 }
-
 .c3 .button_next {
   padding: 10px 20px;
   background-color: #00b5cc;

@@ -1,14 +1,19 @@
 .c1 .container_story {
   width: 90vw;
   max-width: 500px;
+  align-items: center;
 }
 
 .c1 .Story_title {
+  margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
+  color: #00b5cc;
+  font-weight: 620;
+  font-size: 40px;
 }
 .c1 .img_story {
-  width: 90vw;
+  width: 86vw;
   max-width: 500px;
 }
 .c1 .ul_story {
@@ -23,7 +28,7 @@
   border-radius: 5px;
 }
 .c1 .story_name {
-  font-size: 15px;
+  font-size: 17px;
 }
 .c1 .readstory {
   font-size: 15px;

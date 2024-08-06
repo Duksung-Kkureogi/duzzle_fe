@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./StoryView.css";
+import MyHeader from "../../components/MyHeader/MyHeader";
+import MyButton from "../../components/MyButton/MyButton";
 
 interface StoryContent {
   storyId: number;
@@ -85,9 +87,11 @@ const StoryView: React.FC = () => {
 
   return (
     <div className="c3">
+      <MyHeader leftChild={<MyButton />} />
       <div className="container_view">
-        <h1 className="view_title">{title}</h1>
         <div className="content_view">
+          <p className="content_title">{title}</p>
+          <br />
           <p className="content">{story.content}</p>
         </div>
         {currentPage < story.totalPage - 1 && (

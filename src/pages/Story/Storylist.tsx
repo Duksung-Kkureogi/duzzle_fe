@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Storylist.css";
+import MyHeader from "../../components/MyHeader/MyHeader";
+import MyButton from "../../components/MyButton/MyButton";
 
 interface Story {
   storyId: number;
@@ -45,8 +47,8 @@ const Storylist: React.FC = () => {
 
   return (
     <div className="c2">
+      <MyHeader headerText={state?.zoneNameKr} leftChild={<MyButton />} />
       <div className="container_list">
-        <h1 className="list_title">{state?.zoneNameKr} 스토리</h1>
         <ul className="ul_list">
           {stories.map((story) => (
             <li className="li_list" key={story.storyId}>
