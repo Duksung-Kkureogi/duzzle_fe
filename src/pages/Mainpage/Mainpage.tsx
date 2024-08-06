@@ -127,6 +127,7 @@ function Mainpage() {
           alert("해당 사용자가 존재하지 않습니다.");
       }
     }
+  };
 
   const fillerStyles = {
     width: `${(mintedPieces / totalPieces) * 100}%`,
