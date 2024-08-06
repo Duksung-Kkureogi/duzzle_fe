@@ -44,32 +44,34 @@ const Storylist: React.FC = () => {
   };
 
   return (
-    <div className="container_list">
-      <h1 className="list_title">{state?.zoneNameKr} 스토리</h1>
-      <ul className="ul_list">
-        {stories.map((story) => (
-          <li className="li_list" key={story.storyId}>
-            <span className="story_title">{story.title}</span>
-            <button
-              className="button_r"
-              onClick={() => handleStoryClick(story.storyId, story.title)}
-            >
-              읽기
-            </button>
-            <div className="progress-bar-r">
-              <div
-                className="progress-bar-inner-r"
-                style={{
-                  width: `${(story.readPage / story.totalPage) * 100}%`,
-                }}
-              ></div>
-            </div>
-            <span className="readPage">
-              {story.readPage}/{story.totalPage}
-            </span>
-          </li>
-        ))}
-      </ul>
+    <div className="c2">
+      <div className="container_list">
+        <h1 className="list_title">{state?.zoneNameKr} 스토리</h1>
+        <ul className="ul_list">
+          {stories.map((story) => (
+            <li className="li_list" key={story.storyId}>
+              <span className="story_title">{story.title}</span>
+              <button
+                className="button_r"
+                onClick={() => handleStoryClick(story.storyId, story.title)}
+              >
+                읽기
+              </button>
+              <div className="progress-bar-r">
+                <div
+                  className="progress-bar-inner-r"
+                  style={{
+                    width: `${(story.readPage / story.totalPage) * 100}%`,
+                  }}
+                ></div>
+              </div>
+              <span className="readPage">
+                {story.readPage}/{story.totalPage}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

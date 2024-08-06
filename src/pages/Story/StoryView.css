@@ -1,28 +1,46 @@
-.container_view {
+.c3 .container_view {
   max-width: 500px;
   width: 90vw;
   text-align: center;
 }
 
-.view_title {
+.c3 .view_title {
   font-size: 30px;
   margin-bottom: 70px;
   text-align: center;
 }
 
-.content_view {
+.c3 .content_view {
   font-size: 20px;
   margin-bottom: 200px;
   text-align: center;
 }
-.content {
+.c3 .content {
   font-size: 18px;
   padding: 40px 2px;
-  border: 0.5px solid #000000;
+  border: 0.5px solid #eeeeee;
   border-radius: 5px;
+  margin: 23px;
+  line-height: 1.84;
+  background-color: rgb(246, 250, 245);
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 400;
+  box-shadow: 0 4px 15px 0 rgb(230, 233, 233);
 }
 
-.button_next {
+.c3 .button_next {
+  padding: 10px 20px;
+  background-color: #00b5cc;
+  box-shadow: 0 2px 10px 0 rgb(114, 196, 200);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.c3 .button_finish {
   padding: 10px 20px;
   background-color: #00b5cc;
   color: #fff;
@@ -31,27 +49,18 @@
   cursor: pointer;
   margin-right: 10px;
 }
-.button_finish {
-  padding: 10px 20px;
-  background-color: #00b5cc;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 10px;
-}
 
-.button_next:hover {
+.c3 .button_next:hover {
   background-color: #41423f;
 }
-.button_finish:hover {
+.c3 .button_finish:hover {
   background-color: #41423f;
 }
 
-.page-info {
+.c3 .page-info {
   font-size: 14px;
   color: #666;
 }
-.current_view {
+.c3 .current_view {
   text-align: center;
 }

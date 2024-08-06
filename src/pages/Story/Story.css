@@ -1,43 +1,44 @@
-.container_story {
+.c1 .container_story {
   width: 90vw;
   max-width: 500px;
 }
 
-.Story_title {
+.c1 .Story_title {
   margin-bottom: 20px;
   text-align: center;
 }
-.img_story {
+.c1 .img_story {
   width: 90vw;
   max-width: 500px;
 }
-.ul_story {
+.c1 .ul_story {
   list-style: none;
   padding: 0;
 }
 
-.li_story {
+.c1 .li_story {
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
 }
-.story_name {
+.c1 .story_name {
   font-size: 15px;
 }
-.readstory {
+.c1 .readstory {
   font-size: 15px;
 }
 
-.h2 {
+.c1 .h2 {
   font-size: 18px;
   margin: 0 0 10px 0;
 }
 
-.button_b {
+.c1 .button_b {
   margin: 5px;
   padding: 3px 5px;
   background-color: #00b5cc;
+
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -45,10 +46,10 @@
   font-size: 15px;
 }
 
-.button_b:hover {
+.c1 .button_b:hover {
   background-color: #41423f;
 }
-.progress-bar_1 {
+.c1 .progress-bar_1 {
   width: 100%;
   background-color: #e0e0e0;
   height: 15px;
@@ -57,13 +58,13 @@
   overflow: hidden;
 }
 
-.progress-bar-inner_1 {
+.c1 .progress-bar-inner_1 {
   height: 100%;
   background-color: #178593;
   border-radius: 10px 0 0 10px;
 }
 
-.page-info {
+.c1 .page-info {
   font-size: 14px;
   color: #666;
 }

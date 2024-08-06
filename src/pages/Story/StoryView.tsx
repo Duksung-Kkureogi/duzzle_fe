@@ -84,25 +84,27 @@ const StoryView: React.FC = () => {
   }
 
   return (
-    <div className="container_view">
-      <h1 className="view_title">{title}</h1>
-      <div className="content_view">
-        <p className="content">{story.content}</p>
-      </div>
-      {currentPage < story.totalPage - 1 && (
-        <button className="button_next" onClick={handleNextPage}>
-          다음 페이지
-        </button>
-      )}
-      {currentPage >= story.totalPage - 1 && (
-        <button className="button_finish" onClick={handleFinish}>
-          끝내기
-        </button>
-      )}
-      <div>
-        <span className="current_view">
-          {currentPage + 1}/{story.totalPage}
-        </span>
+    <div className="c3">
+      <div className="container_view">
+        <h1 className="view_title">{title}</h1>
+        <div className="content_view">
+          <p className="content">{story.content}</p>
+        </div>
+        {currentPage < story.totalPage - 1 && (
+          <button className="button_next" onClick={handleNextPage}>
+            다음 페이지
+          </button>
+        )}
+        {currentPage >= story.totalPage - 1 && (
+          <button className="button_finish" onClick={handleFinish}>
+            끝내기
+          </button>
+        )}
+        <div>
+          <span className="current_view">
+            {currentPage + 1}/{story.totalPage}
+          </span>
+        </div>
       </div>
     </div>
   );

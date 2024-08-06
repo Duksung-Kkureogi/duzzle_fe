@@ -40,35 +40,37 @@ const Story: React.FC = () => {
   };
 
   return (
-    <div className="container_story">
-      <h1 className="Story_title">Story</h1>
-      <img className="img_story" src="/src/pages/Story/story.jpg" />
-      <ul className="ul_story">
-        {zones.map((zone) => (
-          <li className="li_story" key={zone.zoneId}>
-            <span className="story_name">
-              {zone.zoneNameKr} ({zone.zoneNameUs})
-            </span>
-            <button
-              className="button_b"
-              onClick={() => handleZoneClick(zone.zoneId, zone.zoneNameKr)}
-            >
-              선택
-            </button>
-            <div className="progress-bar_1">
-              <div
-                className="progress-bar-inner_1"
-                style={{
-                  width: `${(zone.readStory / zone.totalStory) * 100}%`,
-                }}
-              ></div>
-            </div>
-            <span className="readstory">
-              {zone.readStory}/{zone.totalStory}
-            </span>
-          </li>
-        ))}
-      </ul>
+    <div className="c1">
+      <div className="container_story">
+        <h1 className="Story_title">Story</h1>
+        <img className="img_story" src="/src/pages/Story/story.jpg" />
+        <ul className="ul_story">
+          {zones.map((zone) => (
+            <li className="li_story" key={zone.zoneId}>
+              <span className="story_name">
+                {zone.zoneNameKr} ({zone.zoneNameUs})
+              </span>
+              <button
+                className="button_b"
+                onClick={() => handleZoneClick(zone.zoneId, zone.zoneNameKr)}
+              >
+                선택
+              </button>
+              <div className="progress-bar_1">
+                <div
+                  className="progress-bar-inner_1"
+                  style={{
+                    width: `${(zone.readStory / zone.totalStory) * 100}%`,
+                  }}
+                ></div>
+              </div>
+              <span className="readstory">
+                {zone.readStory}/{zone.totalStory}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
