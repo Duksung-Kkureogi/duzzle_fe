@@ -21,7 +21,11 @@ import Items from "./pages/Items/Items";
 import Pieces from "./pages/Pieces/Pieces";
 import NotFound from "./pages/NotFound/NotFound";
 import Mainpage from "./pages/Mainpage/Mainpage";
+import Story from "./pages/Story/Story";
+import StoryView from "./pages/Story/StoryView";
+import Storylist from "./pages/Story/Storylist";
 import OtherProfile from "./pages/Profile/OtherProfile";
+
 
 function App() {
   return (
@@ -47,6 +51,9 @@ function App() {
             <Route path="/questsuccess" element={<QuestSuccess />} />
             <Route path="/questfail" element={<QuestFail />} />
             <Route path="/questspeed" element={<QuestSpeed />} />
+            <Route path="/story" element={<Story />} />
+            <Route path="/zone/:zoneId" element={<Storylist />} />
+            <Route path="/story/:storyId" element={<StoryView />} />
             <Route
               path="/questacid/:logId?"
               element={
