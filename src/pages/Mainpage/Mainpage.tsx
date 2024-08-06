@@ -127,6 +127,28 @@ function Mainpage() {
           alert("해당 사용자가 존재하지 않습니다.");
       }
     }
+
+  const fillerStyles = {
+    width: `${(mintedPieces / totalPieces) * 100}%`,
+  };
+
+  // 사용자 지갑 주소 중간 생략
+  const WalletComponent: React.FC<{ wallet: string }> = ({ wallet }) => {
+    const { start, end } = truncateWallet(wallet);
+
+    return (
+      <>
+        <span>({start}</span>
+        <span>...</span>
+        <span>{end})</span>
+      </>
+    );
+  };
+
+  const truncateWallet = (wallet: string): { start: string; end: string } => {
+    const start = wallet.slice(0, 6);
+    const end = wallet.slice(-4);
+    return { start, end };
   };
 
   return (
@@ -141,12 +163,15 @@ function Mainpage() {
         >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <React.Fragment>
-              {/* <div>
+              <div className="minted_pieces">
+                <div className="container">
+                  <div className="filler" style={fillerStyles}></div>
+                </div>
                 <p>
-                  발행된 NFT: <b>{mintedPieces}</b> / {totalPieces} <br />
-                  남은 NFT: <b>{totalPieces - mintedPieces}</b>
+                  발행된 NFT: {mintedPieces} / {totalPieces} <br />
+                  남은 NFT: {totalPieces - mintedPieces}
                 </p>
-              </div> */}
+              </div>
               <div className="tools">
                 <button onClick={() => zoomIn()}>
                   <svg
@@ -232,9 +257,12 @@ function Mainpage() {
                             </span>
                           </p>
                           <p className="info wallet">
-                            (
-                            {(selectedPiece.data as Minted).owner.walletAddress}
-                            )
+                            <WalletComponent
+                              wallet={
+                                (selectedPiece.data as Minted).owner
+                                  .walletAddress
+                              }
+                            />
                           </p>
                           <div className="piece_img">
                             <img
