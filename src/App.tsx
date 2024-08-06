@@ -24,6 +24,8 @@ import Mainpage from "./pages/Mainpage/Mainpage";
 import Story from "./pages/Story/Story";
 import StoryView from "./pages/Story/StoryView";
 import Storylist from "./pages/Story/Storylist";
+import OtherProfile from "./pages/Profile/OtherProfile";
+
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
             <Route path="/mypage/items" element={<Items />} />
             <Route path="/mypage/pieces" element={<Pieces />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:walletAddress" element={<OtherProfile />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/store" element={<Store />} />
             <Route path="/qna" element={<FQna />} />

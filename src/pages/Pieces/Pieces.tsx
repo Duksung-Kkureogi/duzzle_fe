@@ -54,7 +54,6 @@ function Pieces() {
           },
           params: params,
         });
-        console.log(response);
         if (response.data.result) {
           setTotalPieces(response.data.data.total);
           setPieces(response.data.data.list);

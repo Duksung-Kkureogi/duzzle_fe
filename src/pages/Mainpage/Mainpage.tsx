@@ -5,7 +5,7 @@ import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
 import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { seasonList } from "../../util/season";
 import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function Mainpage() {
   const navigate = useNavigate();
-  const { web3auth, web3AuthInit } = useAuth();
+  const { web3auth } = useAuth();
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [pieces, setPieces] = useState<PieceDto[]>([]);
@@ -37,7 +37,6 @@ function Mainpage() {
             },
           }
         );
-        console.log(response);
         if (response.data.result) {
           const pieceData = response.data.data.pieces;
           setPieces(pieceData);
@@ -52,12 +51,6 @@ function Mainpage() {
     };
     getPuzzle();
   }, [RequestUrl, seasonId]);
-
-  useEffect(() => {
-    if (!web3auth) {
-      web3AuthInit();
-    }
-  }, [web3auth, web3AuthInit]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {
@@ -109,6 +102,56 @@ function Mainpage() {
     }
   };
 
+  const visitProfile = async (walletAddress: string) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        RequestUrl + `/v1/user/${walletAddress}`,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.result) {
+        navigate(`profile/${walletAddress}`);
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response.data.code == "LOGIN_REQUIRED") {
+          alert("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
+        } else if (error.response.data.code == "PROFILE_ACCESS_DENIED") {
+          alert("해당 사용자가 프로필 공개를 거부했습니다.");
+        } else if (error.response.data.code == "CONTENT_NOT_FOUND")
+          alert("해당 사용자가 존재하지 않습니다.");
+      }
+    }
+  };
+
+  const fillerStyles = {
+    width: `${(mintedPieces / totalPieces) * 100}%`,
+  };
+
+  // 사용자 지갑 주소 중간 생략
+  const WalletComponent: React.FC<{ wallet: string }> = ({ wallet }) => {
+    const { start, end } = truncateWallet(wallet);
+
+    return (
+      <>
+        <span>({start}</span>
+        <span>...</span>
+        <span>{end})</span>
+      </>
+    );
+  };
+
+  const truncateWallet = (wallet: string): { start: string; end: string } => {
+    const start = wallet.slice(0, 6);
+    const end = wallet.slice(-4);
+    return { start, end };
+  };
+
   return (
     <div className="Mainpage">
       <div className="mainImg">
@@ -121,12 +164,15 @@ function Mainpage() {
         >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <React.Fragment>
-              {/* <div>
+              <div className="minted_pieces">
+                <div className="container">
+                  <div className="filler" style={fillerStyles}></div>
+                </div>
                 <p>
-                  발행된 NFT: <b>{mintedPieces}</b> / {totalPieces} <br />
-                  남은 NFT: <b>{totalPieces - mintedPieces}</b>
+                  발행된 NFT: {mintedPieces} / {totalPieces} <br />
+                  남은 NFT: {totalPieces - mintedPieces}
                 </p>
-              </div> */}
+              </div>
               <div className="tools">
                 <button onClick={() => zoomIn()}>
                   <svg
@@ -196,13 +242,28 @@ function Mainpage() {
                           <p className="info_title">조각 아이디</p>
                           <p className="info">{selectedPiece.pieceId}</p>
                           <p className="info_title">토큰 소유자</p>
-                          <p className="info owner">
+                          <p
+                            id="owner"
+                            className="info owner"
+                            onClick={() =>
+                              visitProfile(
+                                (selectedPiece.data as Minted).owner
+                                  .walletAddress
+                              )
+                            }
+                          >
                             {(selectedPiece.data as Minted).owner.name}
+                            <span className="tooltip_text">
+                              사용자 프로필 보기
+                            </span>
                           </p>
                           <p className="info wallet">
-                            (
-                            {(selectedPiece.data as Minted).owner.walletAddress}
-                            )
+                            <WalletComponent
+                              wallet={
+                                (selectedPiece.data as Minted).owner
+                                  .walletAddress
+                              }
+                            />
                           </p>
                           <div className="piece_img">
                             <img
