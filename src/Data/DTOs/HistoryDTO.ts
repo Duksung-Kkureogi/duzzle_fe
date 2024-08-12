@@ -1,4 +1,4 @@
-import { PieceDto } from "./PieceDto";
+import { PieceDto } from "./PieceDTO";
 
 export type SeasonHistoryResponse = {
   id: number;
@@ -8,11 +8,11 @@ export type SeasonHistoryResponse = {
   mintedPieces: number;
 };
 
-export type PuzzleHistoryResponse = {
+export interface PuzzleHistoryResponse {
   total: number;
   minted: number;
   pieces: PieceDto[];
-};
+}
 
 export type Rankings = {
   rank: number;
