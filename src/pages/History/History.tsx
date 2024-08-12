@@ -4,8 +4,10 @@ import "./History.css";
 import axios from "axios";
 import { SeasonHistoryResponse } from "../../Data/DTOs/HistoryDTO";
 import { seasonHistoryData } from "./HistoyData";
+import { useNavigate } from "react-router-dom";
 
 function History() {
+  const navigate = useNavigate();
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
 
   const [historySeasons, setHistorySeasons] = useState<SeasonHistoryResponse[]>(
@@ -35,7 +37,11 @@ function History() {
       <p className="history_title">시즌 히스토리</p>
       <div className="historySeason_main">
         {historySeasons.map((season) => (
-          <div className="historySeason" key={season.id}>
+          <div
+            className="historySeason"
+            key={season.id}
+            onClick={() => navigate(`/history/${season.id}`)}
+          >
             <img src={season.thumbnailUrl} alt={season.title} />
             <div className="season_info">
               <p className="season_title">{season.title}</p>
