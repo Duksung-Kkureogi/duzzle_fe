@@ -15,7 +15,6 @@ function Store() {
   const [userDal, setUserDal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [enoughDal, setEnoughDal] = useState(false);
-  const [boughtNFT, setBoughtNFT] = useState(false);
 
   const [metadataUrl, setMetadataUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,9 +58,6 @@ function Store() {
     try {
       const response = await fetch(metadataUrl);
       console.log(response);
-      if (response.type === "cors") {
-        setBoughtNFT(true);
-      }
       const data = await response.json();
       const foundNFTItem = itemList.find(
         (it) => it.metadata_name === data.name
@@ -133,7 +129,7 @@ function Store() {
         {enoughDal ? (
           loading ? (
             <Loading />
-          ) : boughtNFT ? (
+          ) : (
             <div className="modal_dalO">
               <div className="dal_btn_X">
                 <button onClick={closeModal}>X</button>
@@ -152,8 +148,6 @@ function Store() {
                 </button>
               </div>
             </div>
-          ) : (
-            <Error />
           )
         ) : (
           <div className="modal_dalX">
