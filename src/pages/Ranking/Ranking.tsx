@@ -150,15 +150,23 @@ const Ranking: React.FC = () => {
 
   return (
     <div className="c_ranking">
-      <h1 className="title">순위표</h1>
+      <h1 className="title">시즌 순위</h1>
       <div className="top-ranking">
-        {rankings.slice(0, 3).map((user, index) => (
-          <div key={index} className={`podium-rank rank-${index + 1}`}>
-            <img src="/src/pages/Ranking/duk.png" alt="덕새" />
-            <div className="podium-name">{user.name}</div>
-            <div className="podium-position">{index + 1}위</div>
-          </div>
-        ))}
+        {rankings.slice(0, 3).map((user, index) => {
+          const imageSrc = [
+            "/src/pages/Ranking/duk1.png",
+            "/src/pages/Ranking/duk2.png",
+            "/src/pages/Ranking/duk3.png",
+          ][index];
+
+          return (
+            <div key={index} className={`podium-rank rank-${index + 1}`}>
+              <img src={imageSrc} alt={`순위 ${index + 1}`} />
+              <div className="podium-name">{user.name}</div>
+              <div className="podium-position">{index + 1}위</div>
+            </div>
+          );
+        })}
       </div>
       {myRank && (
         <div className="my-ranking">

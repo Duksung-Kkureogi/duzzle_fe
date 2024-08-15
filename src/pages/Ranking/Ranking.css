@@ -10,7 +10,7 @@
 }
 .c_ranking .title {
   font-size: 50px;
-  color: #333;
+  color: #000000;
   margin-bottom: 100px;
 }
 .c_ranking .top-ranking {
@@ -31,11 +31,11 @@
 }
 
 .c_ranking .podium-rank img {
-  width: 50px;
-  height: 75px;
-  border-radius: 50%;
+  width: 85px;
+  height: 85px;
+  border-radius: 150%;
   position: absolute;
-  top: -60px;
+  top: -76px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -43,19 +43,19 @@
 .c_ranking .podium-rank.rank-1 {
   height: 150px;
   width: 120px;
-  background-color: #ffe66d;
+  background-color: #41b7bf;
 }
 
 .c_ranking .podium-rank.rank-2 {
   height: 120px;
   width: 100px;
-  background-color: #c0c0c0;
+  background-color: #41b7bf;
 }
 
 .c_ranking .podium-rank.rank-3 {
   height: 100px;
   width: 100px;
-  background-color: #cd7f32;
+  background-color: #41b7bf;
 }
 
 .c_ranking .podium-name {
@@ -140,5 +140,5 @@
 }
 
 .c_ranking .my-ranking button:hover {
-  background-color: #ffdd33;
+  background-color: #f9eb50;
 }

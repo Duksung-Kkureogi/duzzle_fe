@@ -306,9 +306,9 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
             >
               결과 확인
             </button>
-            <button className="explain" onClick={showHelpScreen}>
+            {/* <button className="explain" onClick={showHelpScreen}>
               게임 설명
-            </button>
+            </button> */}
           </div>
         )}
       </div>
