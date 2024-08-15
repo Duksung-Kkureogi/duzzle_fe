@@ -1,8 +1,8 @@
+import "./HistoryRanking.css";
+
 import { useParams } from "react-router-dom";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
-
-import "./HistoryRanking.css";
 
 function HistoryRanking() {
   const { seasonId } = useParams();
