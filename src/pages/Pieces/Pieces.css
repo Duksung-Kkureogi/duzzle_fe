@@ -130,6 +130,17 @@
   grid-template-rows: 1fr 1fr;
   column-gap: 10px;
   row-gap: 5%;
+  overflow: auto;
+}
+
+.Pieces .pieces_main::-webkit-scrollbar {
+  width: 6px;
+  background-color: #ececec;
+  border-radius: 10px;
+}
+.Pieces .pieces_main::-webkit-scrollbar-thumb {
+  background-color: #34a853;
+  border-radius: 10px;
 }
 
 .Pieces .piece {
