@@ -11,13 +11,16 @@ function HistorySeason() {
   return (
     <div className="HistorySeason">
       <MyHeader headerText="히스토리" leftChild={<MyButton />} />
-      <p>{seasonId}</p>
-      <button onClick={() => navigate(`/history/${seasonId}/puzzle`)}>
-        퍼즐 히스토리
-      </button>
-      <button onClick={() => navigate(`/history/${seasonId}/ranking`)}>
-        랭킹 히스토리
-      </button>
+      <div className="hs_puzzle">
+        <button onClick={() => navigate(`/history/${seasonId}/puzzle`)}>
+          퍼즐 히스토리
+        </button>
+      </div>
+      <div className="hs_ranking">
+        <button onClick={() => navigate(`/history/${seasonId}/ranking`)}>
+          랭킹 히스토리
+        </button>
+      </div>
     </div>
   );
 }
