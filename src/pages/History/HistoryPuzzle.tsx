@@ -5,7 +5,7 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { Minted, PieceDto, Unminted } from "../../Data/DTOs/PieceDTO";
+import { Minted, PieceDto } from "../../Data/DTOs/PieceDTO";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Modal from "react-modal";
 
@@ -60,6 +60,7 @@ function HistoryPuzzle() {
 
   // 발행된 조각 모달창
   const openModal = useCallback((piece: PieceDto) => {
+    if (!piece.minted) return;
     setSelectedPiece(piece);
     setModalOpen(true);
   }, []);
@@ -182,6 +183,7 @@ function HistoryPuzzle() {
                       top: `${piece.coordinates.split(",")[1]}%`,
                       transform: `scale(${1 / scale})`,
                       backgroundColor: piece.minted ? "#f47735" : "#8C8C8C",
+                      cursor: piece.minted ? "pointer" : "grab",
                     }}
                   >
                     {piece.zoneNameKr}
