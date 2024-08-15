@@ -3,7 +3,6 @@ import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import "./History.css";
 import axios from "axios";
 import { SeasonHistoryResponse } from "../../Data/DTOs/HistoryDTO";
-import { seasonHistoryData } from "./HistoyData";
 import { useNavigate } from "react-router-dom";
 
 function History() {
@@ -20,7 +19,7 @@ function History() {
         const response = await axios.get(RequestUrl + "/v1/season-history", {});
         if (response.data.result) {
           console.log(response.data.data);
-          setHistorySeasons(seasonHistoryData);
+          setHistorySeasons(response.data.data.list);
         } else {
           console.error("Failed to fetch items");
         }

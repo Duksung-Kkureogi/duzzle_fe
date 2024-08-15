@@ -5,8 +5,6 @@ import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { PuzzleHistoryResponse } from "../../Data/DTOs/HistoryDTO";
-import { historyPuzzleData } from "./HistoyData";
 import { Minted, PieceDto, Unminted } from "../../Data/DTOs/PieceDTO";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Modal from "react-modal";
@@ -25,8 +23,6 @@ function HistoryPuzzle() {
   const [totalPieces, setTotalPieces] = useState(0);
   const [mintedPieces, setMintedPieces] = useState(0);
 
-  const [historyPuzzles, setHistoryPuzzles] = useState<PuzzleHistoryResponse>();
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -43,26 +39,20 @@ function HistoryPuzzle() {
         );
         if (response.data.result) {
           console.log(response.data.data);
-          //   setHistoryPuzzles(historyPuzzleData);
-          // setPieces(historyPuzzles["pieces"]);
-          // setTotalPieces(historyPuzzles["total"]);
-          // setMintedPieces(historyPuzzles["minted"]);
+          setPieces(response.data.data.pieces);
+          setTotalPieces(response.data.data.total);
+          setMintedPieces(response.data.data.minted);
         } else {
           console.error("Failed to fetch items");
         }
       } catch (error) {
         console.error(error);
-        setHistoryPuzzles(historyPuzzleData);
-        setPieces(historyPuzzles["pieces"]);
-        setTotalPieces(historyPuzzles["total"]);
-        setMintedPieces(historyPuzzles["minted"]);
       }
     };
 
     getData();
-  }, [RequestUrl, historyPuzzles, seasonId]);
+  }, [RequestUrl, seasonId]);
 
-  //
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleScaleChange(event: any) {
     setScale(event.instance.transformState.scale);
@@ -141,7 +131,6 @@ function HistoryPuzzle() {
                 </div>
                 <p>
                   발행된 NFT: {mintedPieces} / {totalPieces} <br />
-                  남은 NFT: {totalPieces - mintedPieces}
                 </p>
               </div>
               <div className="tools">
@@ -205,63 +194,34 @@ function HistoryPuzzle() {
                     style={customStyles}
                     shouldCloseOnOverlayClick={false}
                   >
-                    {selectedPiece.minted ? (
-                      <div className="modal_mintedO">
-                        <div className="mintedO_piece">
-                          <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
-                          <p className="info_title">조각 아이디</p>
-                          <p className="info">{selectedPiece.pieceId}</p>
-                          <p className="info_title">토큰 소유자</p>
-                          <p className="info owner">
-                            {(selectedPiece.data as Minted).owner.name}
-                          </p>
-                          <p className="info wallet">
-                            <WalletComponent
-                              wallet={
-                                (selectedPiece.data as Minted).owner
-                                  .walletAddress
-                              }
-                            />
-                          </p>
-                          <div className="piece_img">
-                            <img
-                              src={
-                                (selectedPiece.data as Minted).nftThumbnailUrl
-                              }
-                            ></img>
-                          </div>
-                        </div>
-                        <div className="mintedO_btn">
-                          <button onClick={closeModal}>닫기</button>
-                          <button>NFT 상세</button>
+                    <div className="modal_mintedO">
+                      <div className="mintedO_piece">
+                        <p className="info_title">NFT 컬렉션</p>
+                        <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                        <p className="info_title">조각 아이디</p>
+                        <p className="info">{selectedPiece.pieceId}</p>
+                        <p className="info_title">토큰 소유자</p>
+                        <p className="info owner">
+                          {(selectedPiece.data as Minted).owner.name}
+                        </p>
+                        <p className="info wallet">
+                          <WalletComponent
+                            wallet={
+                              (selectedPiece.data as Minted).owner.walletAddress
+                            }
+                          />
+                        </p>
+                        <div className="piece_img">
+                          <img
+                            src={(selectedPiece.data as Minted).nftThumbnailUrl}
+                          ></img>
                         </div>
                       </div>
-                    ) : (
-                      <div className="modal_mintedX">
-                        <div className="mintedX_piece">
-                          <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
-                          <p className="info_title">조각 위치</p>
-                          <p className="info">{selectedPiece.zoneNameKr}</p>
-                          <p className="info_title">재료</p>
-                          {(selectedPiece.data as Unminted).requiredItems.map(
-                            (item, index) => (
-                              <div className="required_items" key={index}>
-                                <img src={item.image} />
-                                <p className="info items">
-                                  {item.name} X {item.count}
-                                </p>
-                              </div>
-                            )
-                          )}
-                        </div>
-                        <div className="mintedX_btn">
-                          <button onClick={closeModal}>닫기</button>
-                          <button>NFT 발행하기</button>
-                        </div>
+                      <div className="mintedO_btn">
+                        <button onClick={closeModal}>닫기</button>
+                        <button>NFT 상세</button>
                       </div>
-                    )}
+                    </div>
                   </Modal>
                 )}
               </TransformComponent>

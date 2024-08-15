@@ -7,7 +7,7 @@
   max-width: 500px;
 }
 
-.mainImg .minted_pieces {
+.HistoryPuzzle .mainImg .minted_pieces {
   width: 90vw;
   max-width: 500px;
   display: flex;
@@ -28,7 +28,7 @@
   }
 }
 
-.minted_pieces .container {
+.HistoryPuzzle .minted_pieces .container {
   margin-top: 20px;
   margin-left: auto;
   margin-right: 20px;
@@ -41,7 +41,7 @@
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
-.minted_pieces .filler {
+.HistoryPuzzle .minted_pieces .filler {
   height: 100%;
   background-color: #00b5cc;
   border-radius: inherit;
@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 
-.modal_mintedO {
+.HistoryPuzzle .modal_mintedO {
   height: 60vh;
   font-family: "Nanum Gothic", sans-serif;
   p {
@@ -97,14 +97,14 @@
   }
 }
 
-.mintedO_piece .piece_img {
+.HistoryPuzzle .mintedO_piece .piece_img {
   text-align: center;
   img {
     height: 20vh;
   }
 }
 
-.modal_mintedO .info_title {
+.HistoryPuzzle .modal_mintedO .info_title {
   width: 100px;
   padding: 5px;
   padding-left: 10px;
@@ -114,21 +114,21 @@
   font-weight: bold;
 }
 
-.modal_mintedO .info {
+.HistoryPuzzle .modal_mintedO .info {
   padding: 5px;
   font-size: 13px;
   font-weight: bold;
 }
-.modal_mintedO .owner {
+.HistoryPuzzle .modal_mintedO .owner {
   color: #f47735;
 }
-.modal_mintedO .wallet {
+.HistoryPuzzle .modal_mintedO .wallet {
   padding: 3px;
   font-size: 12px;
   word-break: break-all;
 }
 
-.mintedO_btn {
+.HistoryPuzzle .mintedO_btn {
   width: 65vw;
   height: 5vh;
   max-width: 300px;
