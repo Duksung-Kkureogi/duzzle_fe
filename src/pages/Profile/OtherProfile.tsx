@@ -14,8 +14,6 @@ function OtherProfile() {
   const [wallet, setWallet] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPieces, setTotalPieces] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -43,8 +41,6 @@ function OtherProfile() {
     setName(response.data["data"]["name"] ?? "Anonymous");
     setEmail(response.data["data"]["email"]);
     setImage(response.data["data"]["image"]);
-    setTotalItems(response.data["data"]["totalItems"]);
-    setTotalPieces(response.data["data"]["totalPieces"]);
   }
 
   return (
@@ -69,17 +65,17 @@ function OtherProfile() {
             <p>{wallet}</p>
           </div>
         </section>
-        <div className="profile_total">
+        <div className="profile_nft">
           <div className="profile_items">
-            <p className="list_name">총 아이템 개수</p>
+            <p className="list_name">보유 아이템 NFT</p>
             <div className="items">
-              <p>{totalItems}개</p>
+              <p></p>
             </div>
           </div>
           <div className="profile_pieces">
-            <p className="list_name">총 조각 개수</p>
+            <p className="list_name">보유 조각 NFT</p>
             <div className="pieces">
-              <p>{totalPieces}개</p>
+              <p></p>
             </div>
           </div>
         </div>
