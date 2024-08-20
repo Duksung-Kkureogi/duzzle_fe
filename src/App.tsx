@@ -25,7 +25,7 @@ import Story from "./pages/Story/Story";
 import StoryView from "./pages/Story/StoryView";
 import Storylist from "./pages/Story/Storylist";
 import OtherProfile from "./pages/Profile/OtherProfile";
-
+import Deal from "./pages/Deal/Deal";
 
 function App() {
   return (
@@ -54,6 +54,7 @@ function App() {
             <Route path="/story" element={<Story />} />
             <Route path="/zone/:zoneId" element={<Storylist />} />
             <Route path="/story/:storyId" element={<StoryView />} />
+            <Route path="/deal" element={<Deal />} />
             <Route
               path="/questacid/:logId?"
               element={
