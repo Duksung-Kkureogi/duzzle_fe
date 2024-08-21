@@ -1,19 +1,25 @@
-import axios, { AxiosResponse } from "axios";
-import { useState, useEffect } from "react";
-
 import "./OtherProfile.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
 import { useParams } from "react-router-dom";
+import { OtherUserDto } from "../../Data/DTOs/OtherUserDTO";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
 function OtherProfile() {
+  const [User, setUser] = useState<OtherUserDto>({
+    name: "",
+    image: "",
+    walletAddress: "",
+    rankedFirst: 0,
+    rankedThird: 0,
+    questStreak: 0,
+    items: [{ count: 0, name: "", image: "" }],
+    puzzles: [{ count: 0, zone: "", image: "" }],
+  });
   const { walletAddress } = useParams();
-  const [image, setImage] = useState("");
-  const [wallet, setWallet] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -28,7 +34,7 @@ function OtherProfile() {
             },
           }
         );
-        setProfile(response);
+        setUser(response.data.data);
       } catch (error) {
         console.error(error);
       }
@@ -36,12 +42,24 @@ function OtherProfile() {
     getData();
   }, [walletAddress]);
 
-  async function setProfile(response: AxiosResponse) {
-    setWallet(response.data["data"]["walletAddress"]);
-    setName(response.data["data"]["name"] ?? "Anonymous");
-    setEmail(response.data["data"]["email"]);
-    setImage(response.data["data"]["image"]);
-  }
+  // 사용자 지갑 주소 중간 생략
+  const WalletComponent: React.FC<{ wallet: string }> = ({ wallet }) => {
+    const { start, end } = truncateWallet(wallet);
+
+    return (
+      <>
+        <span>{start}</span>
+        <span>...</span>
+        <span>{end}</span>
+      </>
+    );
+  };
+
+  const truncateWallet = (wallet: string): { start: string; end: string } => {
+    const start = wallet.slice(0, 6);
+    const end = wallet.slice(-4);
+    return { start, end };
+  };
 
   return (
     <div className="OtherProfile">
@@ -50,35 +68,56 @@ function OtherProfile() {
         <p>사용자 정보</p>
       </div>
       <div className="profile_img">
-        <img src={image} />
+        <img src={User.image} />
       </div>
       <div className="profile_list">
-        <section className="profile_name">
-          <p className="list_name">이름(닉네임)</p>
-          <div className="name">
-            <p>{name}</p>
-          </div>
-        </section>
-        <section className="profile_wallet">
-          <p className="list_name">지갑 주소</p>
-          <div className="wallet">
-            <p>{wallet}</p>
-          </div>
-        </section>
-        <div className="profile_nft">
-          <div className="profile_items">
-            <p className="list_name">보유 아이템 NFT</p>
-            <div className="items">
-              <p></p>
+        <div className="profile_info">
+          <div className="profile_name">
+            <p className="list_name">이름(닉네임)</p>
+            <div className="name">
+              <p>{User.name}</p>
             </div>
           </div>
-          <div className="profile_pieces">
-            <p className="list_name">보유 조각 NFT</p>
-            <div className="pieces">
-              <p></p>
+          <div className="profile_wallet">
+            <p className="list_name">지갑 주소</p>
+            <div className="wallet">
+              <p>
+                <WalletComponent wallet={User.walletAddress} />
+              </p>
             </div>
           </div>
         </div>
+        <section>
+          <div className="profile_record">
+            <p className="list_name">전적</p>
+            <div className="items">
+              <p>시즌 랭킹 1위: {User.rankedFirst}</p>
+              <p>시즌 랭킹 상위 3위: {User.rankedThird}</p>
+              <p>시즌 랭킹 퀘스트 연승: {User.questStreak}</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="profile_nft">
+            <p className="list_name">보유 아이템 NFT</p>
+            {User.items.map((item) => (
+              <div className="items">
+                <p>{item.name}</p>
+                <p>{item.count}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section>
+          <div className="profile_nft">
+            <p className="list_name">보유 조각 NFT</p>
+            {User.puzzles.map((puzzle) => (
+              <div className="pieces">
+                <p>{puzzle.zone}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
