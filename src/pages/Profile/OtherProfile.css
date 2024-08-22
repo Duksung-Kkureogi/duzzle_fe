@@ -27,12 +27,12 @@
     height: 15vh;
     width: 15vh;
     border-radius: 50%;
-    border: #22bcbc 5px solid;
+    border: #00b5cc 5px solid;
   }
 }
 
 .OtherProfile .profile_list {
-  height: 50vh;
+  height: 53vh;
   display: grid;
   grid-template-rows: repeat(4, auto);
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .OtherProfile .profile_list .list_name {
-  color: #22bcbc;
+  color: #00b5cc;
   word-break: keep-all;
 }
 
@@ -64,7 +64,6 @@
   height: fit-content;
   max-width: 330px;
   display: flex;
-  gap: 10%;
 }
 
 .OtherProfile .profile_name,
@@ -75,4 +74,77 @@
   border-radius: 20px;
   padding: 15px;
   background-color: #ececec;
+  word-break: break-all;
+}
+
+.OtherProfile .profile_name {
+  margin-right: 10%;
+}
+
+.OtherProfile .record {
+  display: flex;
+}
+
+.OtherProfile .record .record_title {
+  margin-right: 8px;
+}
+
+.OtherProfile .record .record_number {
+  margin-left: auto;
+}
+
+.OtherProfile .record .record_title_1 {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #f16d9a;
+}
+.OtherProfile .record .record_number_1 {
+  margin-left: auto;
+  font-size: 14px;
+  color: #f16d9a;
+}
+
+.OtherProfile .profile_nft {
+  width: 100%;
+}
+
+.OtherProfile .items,
+.OtherProfile .puzzles {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 8%;
+}
+
+.OtherProfile .items::-webkit-scrollbar,
+.OtherProfile .puzzles::-webkit-scrollbar {
+  height: 8px;
+  background-color: #ececec;
+  border-radius: 10px;
+}
+.OtherProfile .items::-webkit-scrollbar-thumb,
+.OtherProfile .puzzles::-webkit-scrollbar-thumb {
+  background-color: #00b5cc;
+  border-radius: 10px;
+}
+
+.OtherProfile .item,
+.OtherProfile .puzzle {
+  flex: 0 0 auto;
+  text-align: center;
+  img {
+    width: 10vw;
+    max-width: 55px;
+  }
+  p {
+    width: 15vw;
+    max-width: 65px;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+  }
 }

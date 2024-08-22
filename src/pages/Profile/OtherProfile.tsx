@@ -17,7 +17,7 @@ function OtherProfile() {
     rankedThird: 0,
     questStreak: 0,
     items: [{ count: 0, name: "", image: "" }],
-    puzzles: [{ count: 0, zone: "", image: "" }],
+    puzzles: [{ zone: "", image: "" }],
   });
   const { walletAddress } = useParams();
 
@@ -90,32 +90,45 @@ function OtherProfile() {
         <section>
           <div className="profile_record">
             <p className="list_name">전적</p>
-            <div className="items">
-              <p>시즌 랭킹 1위: {User.rankedFirst}</p>
-              <p>시즌 랭킹 상위 3위: {User.rankedThird}</p>
-              <p>시즌 랭킹 퀘스트 연승: {User.questStreak}</p>
+            <div className="record">
+              <p className="record_title_1">시즌 랭킹 1위:</p>
+              <p className="record_number_1">{User.rankedFirst}</p>
+            </div>
+            <div className="record">
+              <p className="record_title">시즌 랭킹 상위 3위:</p>
+              <p className="record_number">{User.rankedThird}</p>
+            </div>
+            <div className="record">
+              <p className="record_title">시즌 랭킹 퀘스트 연승:</p>
+              <p className="record_number">{User.questStreak}</p>
             </div>
           </div>
         </section>
         <section>
           <div className="profile_nft">
             <p className="list_name">보유 아이템 NFT</p>
-            {User.items.map((item) => (
-              <div className="items">
-                <p>{item.name}</p>
-                <p>{item.count}</p>
-              </div>
-            ))}
+            <div className="items">
+              {User.items.map((item) => (
+                <div className="item" key={item.name}>
+                  <img src={item.image} alt={item.name} />
+                  <p>{item.name}</p>
+                  <p>{item.count}개</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
         <section>
           <div className="profile_nft">
             <p className="list_name">보유 조각 NFT</p>
-            {User.puzzles.map((puzzle) => (
-              <div className="pieces">
-                <p>{puzzle.zone}</p>
-              </div>
-            ))}
+            <div className="puzzles">
+              {User.puzzles.map((puzzle) => (
+                <div className="puzzle" key={puzzle.zone}>
+                  <img src={puzzle.image} alt={puzzle.zone} />
+                  <p>{puzzle.zone}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </div>
