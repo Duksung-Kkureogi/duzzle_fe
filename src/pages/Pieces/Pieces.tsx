@@ -39,7 +39,7 @@ function Pieces() {
             : null;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const params: any = {
-          count: 4,
+          count: 20,
           page: 0,
         };
         if (season) {
