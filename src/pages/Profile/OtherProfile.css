@@ -27,14 +27,13 @@
     height: 15vh;
     width: 15vh;
     border-radius: 50%;
-    border: #22bcbc 5px solid;
+    border: #00b5cc 5px solid;
   }
 }
 
 .OtherProfile .profile_list {
-  height: 50vh;
+  height: 53vh;
   display: grid;
-  gap: 10px;
   grid-template-rows: repeat(4, auto);
   justify-content: center;
   p {
@@ -46,6 +45,7 @@
 }
 
 .OtherProfile section {
+  height: fit-content;
   display: flex;
   border-radius: 20px;
   padding: 15px;
@@ -55,59 +55,96 @@
 }
 
 .OtherProfile .profile_list .list_name {
-  color: #22bcbc;
+  color: #00b5cc;
   word-break: keep-all;
 }
 
-.OtherProfile .profile_list .wallet {
-  display: flex;
-  align-items: center;
-  width: 30vw;
-  max-width: 150px;
-  margin-left: auto;
-  margin-right: 2vw;
-  p {
-    font-size: 10px;
-    word-break: break-all;
-  }
-}
-
-.OtherProfile .profile_list .name {
-  margin-left: auto;
-  margin-right: 2vw;
-  display: flex;
-  align-items: center;
-}
-
-.OtherProfile .profile_total {
+.OtherProfile .profile_list .profile_info {
   width: calc(30px + 45vw);
   height: fit-content;
   max-width: 330px;
   display: flex;
-  gap: 10%;
 }
 
-.OtherProfile .profile_items,
-.OtherProfile .profile_pieces {
+.OtherProfile .profile_name,
+.OtherProfile .profile_wallet {
   width: calc(45vw / 2);
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   padding: 15px;
   background-color: #ececec;
+  word-break: break-all;
 }
 
-.OtherProfile .profile_list .items {
-  margin-left: auto;
-  margin-top: auto;
-  margin-right: 2vw;
-  margin-bottom: 0.3vh;
+.OtherProfile .profile_name {
+  margin-right: 10%;
 }
 
-.OtherProfile .profile_list .pieces {
+.OtherProfile .record {
+  display: flex;
+}
+
+.OtherProfile .record .record_title {
+  margin-right: 8px;
+}
+
+.OtherProfile .record .record_number {
   margin-left: auto;
-  margin-top: auto;
-  padding-top: 1vh;
-  margin-right: 2vw;
-  margin-bottom: 0.3vh;
+}
+
+.OtherProfile .record .record_title_1 {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #f16d9a;
+}
+.OtherProfile .record .record_number_1 {
+  margin-left: auto;
+  font-size: 14px;
+  color: #f16d9a;
+}
+
+.OtherProfile .profile_nft {
+  width: 100%;
+}
+
+.OtherProfile .items,
+.OtherProfile .puzzles {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 8%;
+}
+
+.OtherProfile .items::-webkit-scrollbar,
+.OtherProfile .puzzles::-webkit-scrollbar {
+  height: 8px;
+  background-color: #ececec;
+  border-radius: 10px;
+}
+.OtherProfile .items::-webkit-scrollbar-thumb,
+.OtherProfile .puzzles::-webkit-scrollbar-thumb {
+  background-color: #34a853;
+  border-radius: 10px;
+}
+
+.OtherProfile .item,
+.OtherProfile .puzzle {
+  flex: 0 0 auto;
+  text-align: center;
+  img {
+    width: 10vw;
+    max-width: 55px;
+  }
+  p {
+    width: 15vw;
+    max-width: 65px;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+  }
 }
