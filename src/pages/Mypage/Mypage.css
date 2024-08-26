@@ -51,7 +51,7 @@
   flex-direction: row;
   display: flex;
   width: fit-content;
-  background-color: #22bcbc;
+  background-color: #00b5cc;
   border-radius: 30px;
   padding: 3px;
   margin-left: auto;
@@ -80,7 +80,7 @@
 
   font-size: large;
   font-weight: 700;
-  color: #22bcbc;
+  color: #00b5cc;
 
   section {
     width: 80vw;
