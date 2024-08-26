@@ -162,3 +162,57 @@
 .c_ranking .my-ranking button:hover {
   background-color: #fbff03;
 }
+
+/* 모달 */
+.c_ranking .profile-modal {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.c_ranking .profile-modal {
+  position: absolute;
+  margin-left: 170px;
+  background: #f47735;
+  border: 0px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  cursor: pointer;
+}
+
+.c_ranking .profile-modal.visible {
+  visibility: visible;
+  opacity: 1;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.c_ranking .profile-modal::after {
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid #f47735;
+  border-top: 12px solid transparent;
+  content: "";
+  position: absolute;
+  right: 97%;
+  bottom: 9%;
+  transform: translateX(-13%);
+  cursor: pointer;
+}
+.c_ranking .name {
+  cursor: pointer;
+}

@@ -14,6 +14,7 @@ interface UserRanking {
 const Ranking: React.FC = () => {
   const [rankings, setRankings] = useState<UserRanking[]>([]);
   const [myRank, setMyRank] = useState<UserRanking | null>(null);
+  const [hoveredUser, setHoveredUser] = useState<UserRanking | null>(null);
   const navigate = useNavigate();
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
@@ -21,7 +22,6 @@ const Ranking: React.FC = () => {
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        // API 호출
         // const response = await axios.get(
         //   `${RequestURL}/v1/rankings/current-season`,
         //   {
@@ -34,12 +34,10 @@ const Ranking: React.FC = () => {
 
         const list = response.data.data.list;
 
-        // 보유량 기준 순위
         list.sort(
           (a: UserRanking, b: UserRanking) => b.nftHoldings - a.nftHoldings
         );
 
-        // 순위 부여, 동일 순위 부여
         let currentRank = 1;
         list.forEach((item: UserRanking, index: number) => {
           if (index > 0 && list[index - 1].nftHoldings === item.nftHoldings) {
@@ -49,9 +47,8 @@ const Ranking: React.FC = () => {
           }
           currentRank++;
         });
-
-        // const myWalletAddress = localStorage.getItem("walletAddress");
         const myWalletAddress = "MY_WALLET_ADDRESS";
+        // const myWalletAddress = localStorage.getItem("walletAddress");
         const myRanking =
           list.find((item) => item.walletAddress === myWalletAddress) || null;
 
@@ -126,9 +123,8 @@ const Ranking: React.FC = () => {
             nftHoldingsPercentage: 0.02,
           },
         ];
-
-        //const myWalletAddress = localStorage.getItem("walletAddress");
         const myWalletAddress = "MY_WALLET_ADDRESS";
+        // const myWalletAddress = localStorage.getItem("walletAddress");
         const myRanking =
           mockRankings.find((item) => item.walletAddress === myWalletAddress) ||
           null;
@@ -148,6 +144,10 @@ const Ranking: React.FC = () => {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }
+  };
+
+  const handleProfileClick = (walletAddress: string) => {
+    navigate(`/profile/${walletAddress}`);
   };
 
   return (
@@ -171,8 +171,21 @@ const Ranking: React.FC = () => {
                   className="podium-image"
                 />
               </div>
-              <div className="podium-name">{user.name}</div>
-              <div className="podium-position">{index + 1}위</div>
+
+              <div
+                className="podium-name"
+                onClick={() => handleProfileClick(user.walletAddress)}
+                style={{ cursor: "pointer" }}
+              >
+                {user.name}
+              </div>
+              <div
+                className="podium-position"
+                onClick={() => handleProfileClick(user.walletAddress)}
+                style={{ cursor: "pointer" }}
+              >
+                {index + 1}위
+              </div>
             </div>
           );
         })}
@@ -180,7 +193,7 @@ const Ranking: React.FC = () => {
       {myRank && (
         <div className="my-ranking">
           <button onClick={handleMyRankClick}>
-            내 순위: {myRank.rank}위 ({myRank.name})
+            내순위: {myRank.rank}위 ({myRank.name})
           </button>
         </div>
       )}
@@ -189,13 +202,14 @@ const Ranking: React.FC = () => {
           <span className="rank_t">순위</span>
           <span className="name_t">닉네임</span>
           <span className="nft-holdings_t">NFT 개수</span>
-          <span className="nft-percentage_t"></span>
         </div>
         {rankings.map((user) => (
           <div
             key={user.rank}
             id={`rank-${user.rank}`}
             className="ranking-item"
+            onMouseEnter={() => setHoveredUser(user)}
+            onMouseLeave={() => setHoveredUser(null)}
           >
             <span className="rank">{user.rank}위</span>
             <span className="name">{user.name}</span>
@@ -205,6 +219,16 @@ const Ranking: React.FC = () => {
                 ? `${user.nftHoldingsPercentage}%`
                 : `${user.nftHoldingsPercentage.toFixed(2)}%`}
             </span>
+            {hoveredUser === user && (
+              <div className="profile-modal visible">
+                <div
+                  onClick={() => handleProfileClick(user.walletAddress)}
+                  style={{ cursor: "pointer" }}
+                >
+                  사용자 프로필 보기
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
