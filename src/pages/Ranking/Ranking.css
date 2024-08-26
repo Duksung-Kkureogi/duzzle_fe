@@ -10,8 +10,9 @@
 }
 .c_ranking .title {
   font-size: 50px;
-  color: #000000;
-  margin-bottom: 100px;
+  color: #00b5cc;
+  margin-bottom: 140px;
+  font-weight: bold;
 }
 .c_ranking .top-ranking {
   display: flex;
@@ -21,21 +22,35 @@
   position: relative;
 }
 
+.c_ranking .image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.c_ranking .crown {
+  position: absolute;
+  top: -115px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  z-index: 10;
+}
+
 .c_ranking .podium-rank {
   text-align: center;
   padding: 0.7vw;
   position: relative;
-  background-color: #e7c56a;
   border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 15px 0 rgb(192, 191, 191);
   margin: 0 5px;
 }
 
 .c_ranking .podium-rank img {
-  width: 85px;
+  width: 88px;
   height: 85px;
-  border-radius: 150%;
+  border-radius: 100%;
   position: absolute;
-  top: -76px;
+  top: -92px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -43,24 +58,25 @@
 .c_ranking .podium-rank.rank-1 {
   height: 150px;
   width: 120px;
-  background-color: #41b7bf;
+  background-color: #25bfbc;
 }
 
 .c_ranking .podium-rank.rank-2 {
   height: 120px;
   width: 100px;
-  background-color: #41b7bf;
+  background-color: #25bfbc;
 }
 
 .c_ranking .podium-rank.rank-3 {
   height: 100px;
   width: 100px;
-  background-color: #41b7bf;
+  background-color: #25bfbc;
 }
 
 .c_ranking .podium-name {
   font-size: 16px;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .c_ranking .podium-position {
@@ -73,7 +89,8 @@
   width: 100%;
   max-width: 400px;
   margin-bottom: 20px;
-  background-color: #444;
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 15px 0 rgb(82, 82, 82);
   border-radius: 10px;
   padding: 15px;
 }
@@ -90,23 +107,23 @@
 .name,
 .nft-holdings,
 .nft-percentage {
-  font-size: 14px;
+  font-size: 15px;
+}
+.c_ranking .rank_t,
+.nft-percentage_t,
+.nft-holdings_t {
+  margin-right: 10%;
+  font-weight: bold;
+}
+.c_ranking .name_t {
+  margin-right: 24%;
+  font-weight: bold;
 }
 
 .c_ranking .rank {
   width: 15%;
   display: flex;
   align-items: center;
-}
-
-.c_ranking .rank::before {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: #ffcc00;
-  border-radius: 50%;
-  margin-right: 5px;
 }
 
 .c_ranking .name {
@@ -121,6 +138,7 @@
 .c_ranking .nft-percentage {
   width: 25%;
   text-align: right;
+  color: rgb(242, 100, 100);
 }
 
 .c_ranking .my-ranking {
@@ -129,8 +147,10 @@
 }
 
 .c_ranking .my-ranking button {
-  background-color: #ffcc00;
+  background-color: rgb(255, 230, 6);
+  box-shadow: 0 4px 15px 0 rgb(246, 236, 149);
   border: none;
+  margin-bottom: 10px;
   border-radius: 5px;
   padding: 10px 20px;
   color: #333;
@@ -140,5 +160,5 @@
 }
 
 .c_ranking .my-ranking button:hover {
-  background-color: #f9eb50;
+  background-color: #fbff03;
 }

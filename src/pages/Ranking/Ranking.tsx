@@ -21,7 +21,7 @@ const Ranking: React.FC = () => {
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        // api 임시 주석처리
+        // API 호출
         // const response = await axios.get(
         //   `${RequestURL}/v1/rankings/current-season`,
         //   {
@@ -39,18 +39,19 @@ const Ranking: React.FC = () => {
           (a: UserRanking, b: UserRanking) => b.nftHoldings - a.nftHoldings
         );
 
-        // 순위부여, 동일순위 부여
+        // 순위 부여, 동일 순위 부여
         let currentRank = 1;
         list.forEach((item: UserRanking, index: number) => {
           if (index > 0 && list[index - 1].nftHoldings === item.nftHoldings) {
-            item.rank = list[index - 1].rank; // 동일 순위 부여
+            item.rank = list[index - 1].rank;
           } else {
             item.rank = currentRank;
           }
           currentRank++;
         });
 
-        const myWalletAddress = "MY_WALLET_ADDRESS"; //내 지갑 주소
+        // const myWalletAddress = localStorage.getItem("walletAddress");
+        const myWalletAddress = "MY_WALLET_ADDRESS";
         const myRanking =
           list.find((item) => item.walletAddress === myWalletAddress) || null;
 
@@ -126,7 +127,8 @@ const Ranking: React.FC = () => {
           },
         ];
 
-        const myWalletAddress = "MY_WALLET_ADDRESS"; //내 지갑 주소
+        //const myWalletAddress = localStorage.getItem("walletAddress");
+        const myWalletAddress = "MY_WALLET_ADDRESS";
         const myRanking =
           mockRankings.find((item) => item.walletAddress === myWalletAddress) ||
           null;
@@ -150,7 +152,7 @@ const Ranking: React.FC = () => {
 
   return (
     <div className="c_ranking">
-      <h1 className="title">시즌 순위</h1>
+      <h1 className="title">RANKING</h1>
       <div className="top-ranking">
         {rankings.slice(0, 3).map((user, index) => {
           const imageSrc = [
@@ -161,7 +163,14 @@ const Ranking: React.FC = () => {
 
           return (
             <div key={index} className={`podium-rank rank-${index + 1}`}>
-              <img src={imageSrc} alt={`순위 ${index + 1}`} />
+              <div className="image-container">
+                <div className="crown">👑</div>
+                <img
+                  src={imageSrc}
+                  alt={`순위 ${index + 1}`}
+                  className="podium-image"
+                />
+              </div>
               <div className="podium-name">{user.name}</div>
               <div className="podium-position">{index + 1}위</div>
             </div>
@@ -176,6 +185,12 @@ const Ranking: React.FC = () => {
         </div>
       )}
       <div className="ranking-chart">
+        <div className="ranking-header">
+          <span className="rank_t">순위</span>
+          <span className="name_t">닉네임</span>
+          <span className="nft-holdings_t">NFT 개수</span>
+          <span className="nft-percentage_t"></span>
+        </div>
         {rankings.map((user) => (
           <div
             key={user.rank}
