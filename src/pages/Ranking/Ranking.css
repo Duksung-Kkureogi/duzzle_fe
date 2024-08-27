@@ -4,13 +4,14 @@
   align-items: center;
   color: #fff;
   font-family: Arial, sans-serif;
-  padding: 20px;
-  width: 85vw;
+  padding: 10px;
+  width: 95vw;
   max-width: 500px;
 }
 .c_ranking .title {
   font-size: 50px;
   color: #00b5cc;
+  margin-top: 0px;
   margin-bottom: 140px;
   font-weight: bold;
 }
@@ -202,17 +203,31 @@
 }
 
 .c_ranking .profile-modal::after {
-  border-bottom: 12px solid transparent;
-  border-left: 12px solid transparent;
-  border-right: 12px solid #f47735;
-  border-top: 12px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 14px solid transparent;
+  border-right: 14px solid #f47735;
+  border-top: 12.8px solid transparent;
   content: "";
   position: absolute;
   right: 97%;
-  bottom: 9%;
-  transform: translateX(-13%);
+  bottom: 0.5%;
+  transform: translateX(-5%);
   cursor: pointer;
 }
 .c_ranking .name {
   cursor: pointer;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgb(238, 238, 133);
+  }
+}
+
+.highlighted {
+  animation: flash 1s ease-in-out;
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Ranking.css";
+import MyHeader from "../../components/MyHeader/MyHeader";
+import MyButton from "../../components/MyButton/MyButton";
 
 interface UserRanking {
   rank: number;
@@ -142,6 +144,12 @@ const Ranking: React.FC = () => {
       const element = document.getElementById(`rank-${myRank.rank}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        element.classList.add("highlighted");
+
+        setTimeout(() => {
+          element.classList.remove("highlighted");
+        }, 1000);
       }
     }
   };
@@ -151,86 +159,89 @@ const Ranking: React.FC = () => {
   };
 
   return (
-    <div className="c_ranking">
-      <h1 className="title">RANKING</h1>
-      <div className="top-ranking">
-        {rankings.slice(0, 3).map((user, index) => {
-          const imageSrc = [
-            "/src/pages/Ranking/duk1.png",
-            "/src/pages/Ranking/duk2.png",
-            "/src/pages/Ranking/duk3.png",
-          ][index];
+    <div>
+      <MyHeader headerText="" leftChild={<MyButton />} />
+      <div className="c_ranking">
+        <h1 className="title">RANKING</h1>
+        <div className="top-ranking">
+          {rankings.slice(0, 3).map((user, index) => {
+            const imageSrc = [
+              "/src/pages/Ranking/duk1.png",
+              "/src/pages/Ranking/duk2.png",
+              "/src/pages/Ranking/duk3.png",
+            ][index];
 
-          return (
-            <div key={index} className={`podium-rank rank-${index + 1}`}>
-              <div className="image-container">
-                <div className="crown">👑</div>
-                <img
-                  src={imageSrc}
-                  alt={`순위 ${index + 1}`}
-                  className="podium-image"
-                />
-              </div>
+            return (
+              <div key={index} className={`podium-rank rank-${index + 1}`}>
+                <div className="image-container">
+                  <div className="crown">👑</div>
+                  <img
+                    src={imageSrc}
+                    alt={`순위 ${index + 1}`}
+                    className="podium-image"
+                  />
+                </div>
 
-              <div
-                className="podium-name"
-                onClick={() => handleProfileClick(user.walletAddress)}
-                style={{ cursor: "pointer" }}
-              >
-                {user.name}
-              </div>
-              <div
-                className="podium-position"
-                onClick={() => handleProfileClick(user.walletAddress)}
-                style={{ cursor: "pointer" }}
-              >
-                {index + 1}위
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      {myRank && (
-        <div className="my-ranking">
-          <button onClick={handleMyRankClick}>
-            내순위: {myRank.rank}위 ({myRank.name})
-          </button>
-        </div>
-      )}
-      <div className="ranking-chart">
-        <div className="ranking-header">
-          <span className="rank_t">순위</span>
-          <span className="name_t">닉네임</span>
-          <span className="nft-holdings_t">NFT 개수</span>
-        </div>
-        {rankings.map((user) => (
-          <div
-            key={user.rank}
-            id={`rank-${user.rank}`}
-            className="ranking-item"
-            onMouseEnter={() => setHoveredUser(user)}
-            onMouseLeave={() => setHoveredUser(null)}
-          >
-            <span className="rank">{user.rank}위</span>
-            <span className="name">{user.name}</span>
-            <span className="nft-holdings">{user.nftHoldings}개</span>
-            <span className="nft-percentage">
-              {user.nftHoldingsPercentage >= 1
-                ? `${user.nftHoldingsPercentage}%`
-                : `${user.nftHoldingsPercentage.toFixed(2)}%`}
-            </span>
-            {hoveredUser === user && (
-              <div className="profile-modal visible">
                 <div
+                  className="podium-name"
                   onClick={() => handleProfileClick(user.walletAddress)}
                   style={{ cursor: "pointer" }}
                 >
-                  사용자 프로필 보기
+                  {user.name}
+                </div>
+                <div
+                  className="podium-position"
+                  onClick={() => handleProfileClick(user.walletAddress)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {index + 1}위
                 </div>
               </div>
-            )}
+            );
+          })}
+        </div>
+        {myRank && (
+          <div className="my-ranking">
+            <button onClick={handleMyRankClick}>
+              내순위: {myRank.rank}위 ({myRank.name})
+            </button>
           </div>
-        ))}
+        )}
+        <div className="ranking-chart">
+          <div className="ranking-header">
+            <span className="rank_t">순위</span>
+            <span className="name_t">닉네임</span>
+            <span className="nft-holdings_t">NFT 개수</span>
+          </div>
+          {rankings.map((user) => (
+            <div
+              key={user.rank}
+              id={`rank-${user.rank}`}
+              className="ranking-item"
+              onMouseEnter={() => setHoveredUser(user)}
+              onMouseLeave={() => setHoveredUser(null)}
+            >
+              <span className="rank">{user.rank}위</span>
+              <span className="name">{user.name}</span>
+              <span className="nft-holdings">{user.nftHoldings}개</span>
+              <span className="nft-percentage">
+                {user.nftHoldingsPercentage >= 1
+                  ? `${user.nftHoldingsPercentage}%`
+                  : `${user.nftHoldingsPercentage.toFixed(2)}%`}
+              </span>
+              {hoveredUser === user && (
+                <div className="profile-modal visible">
+                  <div
+                    onClick={() => handleProfileClick(user.walletAddress)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    사용자 프로필 보기
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
