@@ -5,6 +5,53 @@
   max-width: 500px;
 }
 
-.Deal p {
-  margin: 0;
+.Deal .deal_button {
+  display: flex;
+  padding: 0 10px;
+  padding-top: 30px;
+  button {
+    background-color: #ececec;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: medium;
+  }
+}
+.Deal .postBtn {
+  margin-left: auto;
+}
+
+.Deal .list_title {
+  font-size: large;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.Deal .deal {
+  display: flex;
+  margin: 6px 10px;
+  padding: 10px 10px;
+  background-color: #ececec;
+  border-radius: 10px;
+  img {
+    margin-right: auto;
+    margin-left: 2vw;
+    width: 13vw;
+    height: 13vw;
+    max-width: 50px;
+    max-height: 50px;
+  }
+}
+
+.Deal .deal_trade {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 40px;
+  margin-right: 50px;
+  img {
+    margin: 0px 10px;
+  }
 }
