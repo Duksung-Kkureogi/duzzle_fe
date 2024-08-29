@@ -184,6 +184,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         )
       ).data;
       localStorage.setItem("accessToken", response.data["accessToken"]);
+
+      localStorage.setItem("walletAddress", params.walletAddress);
+
       const user: DuzzleUser = {
         ...response.data,
         ...response.data.user,
