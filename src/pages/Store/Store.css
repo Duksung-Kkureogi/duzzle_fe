@@ -10,7 +10,7 @@
 .store_title {
   padding-top: 50px;
   text-align: center;
-  font-size: 25px;
+  font-size: 40px;
   font-weight: 700;
   margin-block-start: 0;
 }
@@ -22,7 +22,7 @@
   border-radius: 30px;
   padding: 3px;
   padding-bottom: 5px;
-  margin-top: 60px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: 20px;
   margin-bottom: 10px;
