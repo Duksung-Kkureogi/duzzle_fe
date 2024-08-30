@@ -25,6 +25,10 @@ import Story from "./pages/Story/Story";
 import StoryView from "./pages/Story/StoryView";
 import Storylist from "./pages/Story/Storylist";
 import OtherProfile from "./pages/Profile/OtherProfile";
+import History from "./pages/History/History";
+import HistorySeason from "./pages/History/HistorySeason";
+import HistoryPuzzle from "./pages/History/HistoryPuzzle";
+import HistoryRanking from "./pages/History/HistoryRanking";
 import Deal from "./pages/Deal/Deal";
 import Ranking from "./pages/Ranking/Ranking";
 
@@ -55,6 +59,16 @@ function App() {
             <Route path="/story" element={<Story />} />
             <Route path="/zone/:zoneId" element={<Storylist />} />
             <Route path="/story/:storyId" element={<StoryView />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/history/:seasonId" element={<HistorySeason />} />
+            <Route
+              path="/history/:seasonId/puzzle"
+              element={<HistoryPuzzle />}
+            />
+            <Route
+              path="/history/:seasonId/ranking"
+              element={<HistoryRanking />}
+            />
             <Route path="/deal" element={<Deal />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route

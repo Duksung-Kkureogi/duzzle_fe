@@ -17,7 +17,10 @@ const MyBottomNavBar = () => {
         <nav className="plusNavBar">
           <div>
             <p>시즌 히스토리</p>
-            <img src="/src/assets/images/history.png" />
+            <img
+              onClick={() => navigate("/history")}
+              src="/src/assets/images/history.png"
+            />
           </div>
           <div>
             <p>랭킹</p>
