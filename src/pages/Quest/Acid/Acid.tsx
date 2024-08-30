@@ -151,9 +151,20 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
 
   const dropWord = () => {
     const word = waitWords.shift()!;
+
+    const boardElement = document.getElementById("board");
+    const boardWidth = boardElement?.offsetWidth || 0;
+
+    const maxWidth = 400;
+
+    console.log("boardWidth:", boardWidth);
+
+    const xOffset = (boardWidth - maxWidth) / 2;
+    const xPosition = xOffset + Math.random() * Math.min(boardWidth, maxWidth);
+
     const wordInstance = {
       word,
-      x: Math.random() * gamePanelRef.current.offsetWidth,
+      x: xPosition,
       y: 0,
       interval: setInterval(() => {
         setActiveWordObjs((prev) => {
@@ -166,6 +177,7 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
         });
       }, dropIntervalMs),
     };
+
     setActiveWordObjs((prev) => [...prev, wordInstance]);
   };
 
