@@ -24,7 +24,10 @@ const MyBottomNavBar = () => {
           </div>
           <div>
             <p>랭킹</p>
-            <img src="/src/assets/images/ranking.png" />
+            <img
+              onClick={() => navigate("/ranking")}
+              src="/src/assets/images/ranking.png"
+            />
           </div>
           <div>
             <p>거래</p>

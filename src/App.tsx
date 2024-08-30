@@ -29,6 +29,7 @@ import History from "./pages/History/History";
 import HistorySeason from "./pages/History/HistorySeason";
 import HistoryPuzzle from "./pages/History/HistoryPuzzle";
 import HistoryRanking from "./pages/History/HistoryRanking";
+import Ranking from "./pages/Ranking/Ranking";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
               path="/history/:seasonId/ranking"
               element={<HistoryRanking />}
             />
+            <Route path="/ranking" element={<Ranking />} />
             <Route
               path="/questacid/:logId?"
               element={

@@ -113,7 +113,9 @@ export default class EthereumRpc {
       signer
     );
 
-    const tx = await contract.unlockPuzzlePiece(pieceId);
+    const tx = await contract.unlockPuzzlePiece(pieceId, {
+      gasLimit: 300000,
+    });
     const receipt = await tx.wait();
     const mintEvent = receipt?.logs.find(
       (e: any) => e.topics[0] === EventTopic.Mint
