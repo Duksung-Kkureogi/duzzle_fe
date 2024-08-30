@@ -4,9 +4,9 @@
   align-items: center;
   color: #fff;
   font-family: Arial, sans-serif;
-  padding: 10px;
-  width: 95vw;
+  width: 90vw;
   max-width: 500px;
+  padding-top: 60px;
 }
 .c_ranking .title {
   font-size: 50px;

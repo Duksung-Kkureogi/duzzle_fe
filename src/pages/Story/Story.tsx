@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Story.css";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 interface Zone {
   zoneId: number;
@@ -43,7 +44,6 @@ const Story: React.FC = () => {
 
   return (
     <div className="c1">
-      <MyHeader headerText="" leftChild={<MyButton />} />
       <div className="container_story">
         <h1 className="Story_title">DUZZLE STORY</h1>
         <img className="img_story" src="/src/pages/Story/mainImg.png" />
@@ -82,6 +82,7 @@ const Story: React.FC = () => {
           ))}
         </ul>
       </div>
+      <MyBottomNavBar />
     </div>
   );
 };

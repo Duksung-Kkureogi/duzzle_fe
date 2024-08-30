@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Ranking.css";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
+import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 interface UserRanking {
   rank: number;
@@ -160,7 +161,6 @@ const Ranking: React.FC = () => {
 
   return (
     <div>
-      <MyHeader headerText="" leftChild={<MyButton />} />
       <div className="c_ranking">
         <h1 className="title">RANKING</h1>
         <div className="top-ranking">
@@ -243,6 +243,7 @@ const Ranking: React.FC = () => {
           ))}
         </div>
       </div>
+      <MyBottomNavBar />
     </div>
   );
 };
