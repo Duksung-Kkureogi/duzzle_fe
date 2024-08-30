@@ -4,12 +4,11 @@
   align-items: center;
   color: #fff;
   font-family: Arial, sans-serif;
-  padding: 10px;
-  width: 95vw;
+  width: 90vw;
   max-width: 500px;
 }
 .c_ranking .title {
-  font-size: 50px;
+  font-size: 40px;
   color: #00b5cc;
   margin-top: 0px;
   margin-bottom: 140px;
@@ -58,7 +57,7 @@
 
 .c_ranking .podium-rank.rank-1 {
   height: 150px;
-  width: 120px;
+  width: 100px;
   background-color: #25bfbc;
 }
 
@@ -87,7 +86,7 @@
 }
 
 .c_ranking .ranking-chart {
-  width: 100%;
+  width: 90%;
   max-width: 400px;
   margin-bottom: 20px;
   background-color: #1e1e1e;
@@ -205,10 +204,10 @@
 }
 
 .c_ranking .profile-modal::after {
-  border-bottom: 14px solid transparent;
-  border-left: 14px solid transparent;
-  border-right: 14px solid #f47735;
-  border-top: 13.4px solid transparent;
+  border-bottom: 13.6px solid transparent;
+  border-left: 13px solid transparent;
+  border-right: 14.3px solid #f47735;
+  border-top: 12.2px solid transparent;
   content: "";
   position: absolute;
   right: 97%;
