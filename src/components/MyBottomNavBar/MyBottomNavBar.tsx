@@ -31,7 +31,10 @@ const MyBottomNavBar = () => {
           </div>
           <div>
             <p>거래</p>
-            <img src="/src/assets/images/deal.png" />
+            <img
+              onClick={() => navigate("/deal")}
+              src="/src/assets/images/deal.png"
+            />
           </div>
           <div>
             <p>스토리</p>
