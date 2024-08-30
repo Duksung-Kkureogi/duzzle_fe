@@ -225,7 +225,7 @@ const Ranking: React.FC = () => {
               <span className="name">{user.name}</span>
               <span className="nft-holdings">{user.nftHoldings}개</span>
               <span className="nft-percentage">
-                {user.nftHoldingsPercentage >= 1
+                {Number.isInteger(user.nftHoldingsPercentage)
                   ? `${user.nftHoldingsPercentage}%`
                   : `${user.nftHoldingsPercentage.toFixed(2)}%`}
               </span>
