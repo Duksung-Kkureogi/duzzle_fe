@@ -33,7 +33,6 @@ function HistoryPuzzle() {
             headers: {
               Authorization: "Bearer " + token,
             },
-
             params: { seasonId: seasonId },
           }
         );
@@ -43,7 +42,7 @@ function HistoryPuzzle() {
           setTotalPieces(response.data.data.total);
           setMintedPieces(response.data.data.minted);
         } else {
-          console.error("Failed to fetch items");
+          console.error("Failed to fetch puzzles");
         }
       } catch (error) {
         console.error(error);

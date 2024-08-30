@@ -24,15 +24,15 @@ const Ranking: React.FC = () => {
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        // const response = await axios.get(
-        //   `${RequestURL}/v1/rankings/current-season`,
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //       "Content-Type": "application/json",
-        //     },
-        //   }
-        // );
+        const response = await axios.get(
+          `${RequestURL}/v1/rankings/current-season`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         const list = response.data.data.list;
 
@@ -49,8 +49,8 @@ const Ranking: React.FC = () => {
           }
           currentRank++;
         });
-        const myWalletAddress = "MY_WALLET_ADDRESS";
-        // const myWalletAddress = localStorage.getItem("walletAddress");
+        //const myWalletAddress = "MY_WALLET_ADDRESS";
+        const myWalletAddress = localStorage.getItem("walletAddress");
         const myRanking =
           list.find((item) => item.walletAddress === myWalletAddress) || null;
 
@@ -125,8 +125,8 @@ const Ranking: React.FC = () => {
             nftHoldingsPercentage: 0.02,
           },
         ];
-        const myWalletAddress = "MY_WALLET_ADDRESS";
-        // const myWalletAddress = localStorage.getItem("walletAddress");
+        // const myWalletAddress = "MY_WALLET_ADDRESS";
+        const myWalletAddress = localStorage.getItem("walletAddress");
         const myRanking =
           mockRankings.find((item) => item.walletAddress === myWalletAddress) ||
           null;
