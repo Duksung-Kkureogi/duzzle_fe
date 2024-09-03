@@ -1,0 +1,87 @@
+.QuestJump {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.game-panel {
+  position: relative;
+  width: 550px;
+  height: 200px;
+  background-color: #fff;
+  background-image: url("../Jump/Background.jpg");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  animation: move-background 5s linear infinite; /* 배경 움직임 */
+}
+
+@keyframes move-background {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -550px 0;
+  }
+}
+
+.dino {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background-image: url("../Jump/character.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: bottom 0.2s;
+}
+
+.dino.jump {
+  bottom: 100px; /* 점프 시 위로 올라감 */
+}
+
+.obstacle {
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: obstacleMove 2s linear infinite;
+}
+
+/* 각 장애물의 스타일을 정의 */
+.obstacle.tree {
+  background-image: url("../Jump/obstacle1.png");
+}
+
+.obstacle.rock {
+  background-image: url("../Jump/D.png");
+}
+
+.obstacle.bird {
+  background-image: url("../Jump/obstacle2.png");
+}
+
+@keyframes obstacleMove {
+  from {
+    right: 0px;
+  }
+  to {
+    right: 550px;
+  }
+}

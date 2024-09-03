@@ -8,11 +8,12 @@ function Quest() {
   const nav = useNavigate();
   const [type, setQuizType] = useState("");
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
+
   const startQuiz = async () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest/start",
+        `${RequestURL}/v1/quest/demo/duksae-jump/start`,
         {},
         {
           headers: {
@@ -22,18 +23,23 @@ function Quest() {
         }
       );
       console.log("Quest POST 성공", response.data);
+
       if (response.data.data.type === "SPEED_QUIZ") {
         localStorage.setItem("logId", response.data.data.logId);
         localStorage.setItem("quest", response.data.data.quest);
         localStorage.setItem("timeLimit", response.data.data.timeLimit);
         nav("/questspeed");
       } else if (response.data.data.type === "ACID_RAIN") {
-        const quest: AcidRainQuestData = JSON.parse(response.data.data.quest);
+        const quest = JSON.parse(response.data.data.quest);
         const queryParms = Object.entries(quest)
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
         nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
+      } else if (response.data.data.type === "DUKSAE_JUMP") {
+        const quest = JSON.parse(response.data.data.quest);
+        nav(`/questjump/${response.data.data.logId}`, { state: quest });
       }
+
       setQuizType(response.data.data.type);
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -48,7 +54,7 @@ function Quest() {
 
   return (
     <div className="Quest">
-      <div className="random"> Mini Game</div>
+      <div className="random"> 랜덤 게임</div>
       <div id="wrap">
         <div className="dice">
           <div>1</div>
