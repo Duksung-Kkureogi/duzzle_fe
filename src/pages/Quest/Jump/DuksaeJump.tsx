@@ -107,7 +107,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
         const newSpeed = prevSpeed + speedIncreaseRate;
-        console.log("속도 증가:", newSpeed);
+        // console.log("속도 증가:", newSpeed);
         return Math.min(newSpeed, objectMaxSpeed);
       });
     }, speedIncreaseInterval);
@@ -139,8 +139,8 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const dinoRect = dinoRef.current.getBoundingClientRect();
     const obstacleRect = obstacleRef.current.getBoundingClientRect();
 
-    console.log("캐릭터 위치:", dinoRect);
-    console.log("장애물 위치:", obstacleRect);
+    // console.log("캐릭터 위치:", dinoRect);
+    // console.log("장애물 위치:", obstacleRect);
 
     const buffer = 10;
 
@@ -167,16 +167,18 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const handleJump = (event: KeyboardEvent) => {
       if (event.code === "Space" && !jumping && !gameover) {
         console.log("점프 시작");
+
         setJumping(true);
         setObstaclePassed(false);
 
         setTimeout(() => {
           const isCollided = detectCollision();
-          if (!isCollided) {
+          if (!isCollided && !obstaclePassed) {
             console.log("장애물 넘기 성공, 점수 증가");
             setScore((prevScore) => prevScore + 1);
+            setObstaclePassed(true);
             socket.emit("quest:duksae-jump:success");
-          } else {
+          } else if (isCollided) {
             console.log("장애물 충돌, 점수 감소");
             setScore((prevScore) => Math.max(0, prevScore - 1));
           }
@@ -189,7 +191,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     return () => {
       window.removeEventListener("keydown", handleJump);
     };
-  }, [jumping, gameover, socket]);
+  }, [jumping, gameover, obstaclePassed, socket]);
 
   return (
     <div className="QuestJump">
