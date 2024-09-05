@@ -92,7 +92,19 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       showToast(`Success! Score: ${result.score}`, ToastType.Success);
     });
 
-    const interval = setInterval(() => {
+    const collisionInterval = setInterval(() => {
+      if (!gameover && detectCollision()) {
+        console.log("충돌 발생! 점수 감소");
+        setScore((prevScore) => Math.max(0, prevScore - 1));
+        setHealth((prevHealth) => Math.max(0, prevHealth - 1));
+        if (health <= 0) {
+          setGameover(true);
+          socket.emit("quest:duksae-jump:gameover", score);
+        }
+      }
+    }, 100);
+
+    const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
         const newSpeed = prevSpeed + speedIncreaseRate;
         console.log("속도 증가:", newSpeed);
@@ -102,7 +114,8 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
 
     return () => {
       console.log("WebSocket 연결 해제");
-      clearInterval(interval);
+      clearInterval(collisionInterval);
+      clearInterval(speedInterval);
       socket.disconnect();
     };
   }, [
@@ -112,12 +125,15 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     objectMaxSpeed,
     speedIncreaseInterval,
     showToast,
+    gameover,
+    health,
+    score,
   ]);
 
   const detectCollision = () => {
     if (!obstacleRef.current || !dinoRef.current) {
       console.log("장애물 또는 캐릭터를 찾지 못함");
-      return;
+      return false;
     }
 
     const dinoRect = dinoRef.current.getBoundingClientRect();
@@ -126,17 +142,25 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     console.log("캐릭터 위치:", dinoRect);
     console.log("장애물 위치:", obstacleRect);
 
-    if (
-      dinoRect.right > obstacleRect.left &&
-      dinoRect.left < obstacleRect.right &&
-      dinoRect.bottom > obstacleRect.top &&
-      dinoRect.top < obstacleRect.bottom
-    ) {
-      console.log("충돌 감지됨");
-      return true;
-    }
-    console.log("충돌 없음");
-    return false;
+    const buffer = 10;
+
+    const dinoLeft = dinoRect.left + buffer;
+    const dinoRight = dinoRect.right - buffer;
+    const dinoTop = dinoRect.top + buffer;
+    const dinoBottom = dinoRect.bottom - buffer;
+
+    const obstacleLeft = obstacleRect.left + buffer;
+    const obstacleRight = obstacleRect.right - buffer;
+    const obstacleTop = obstacleRect.top + buffer;
+    const obstacleBottom = obstacleRect.bottom - buffer;
+
+    const isCollision =
+      dinoRight > obstacleLeft &&
+      dinoLeft < obstacleRight &&
+      dinoBottom > obstacleTop &&
+      dinoTop < obstacleBottom;
+
+    return isCollision;
   };
 
   useEffect(() => {
@@ -184,7 +208,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           <button
             className="restart"
             id="restart"
-            onClick={handleResultPageNavigation}
+            onClick={() => navigate("/result")}
           >
             결과 확인
           </button>
