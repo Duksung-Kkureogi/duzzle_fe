@@ -12,6 +12,7 @@
   justify-content: space-between;
   width: 80%;
   margin-bottom: 20px;
+  font-size: 18px;
 }
 
 .game-panel {
@@ -25,7 +26,7 @@
   border: 2px solid #ddd;
   overflow: hidden;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  animation: move-background 5s linear infinite; /* 배경 움직임 */
+  animation: move-background 5s linear infinite;
 }
 
 @keyframes move-background {
@@ -50,7 +51,7 @@
 }
 
 .dino.jump {
-  bottom: 100px; /* 점프 시 위로 올라감 */
+  bottom: 100px;
 }
 
 .obstacle {
@@ -64,7 +65,6 @@
   animation: obstacleMove 2s linear infinite;
 }
 
-/* 각 장애물의 스타일을 정의 */
 .obstacle.tree {
   background-image: url("../Jump/obstacle1.png");
 }
@@ -84,4 +84,61 @@
   to {
     right: 550px;
   }
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.score #end-score {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+.restart {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restart:hover {
+  background-color: #4cae4c;
+}
+
+/* 토스트 메시지 */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.toast.success {
+  background-color: #5cb85c;
+}
+
+.toast.error {
+  background-color: #d9534f;
+}
+
+.toast.warning {
+  background-color: #f0ad4e;
+}
+
+.toast.info {
+  background-color: #5bc0de;
 }

@@ -37,7 +37,10 @@ function Quest() {
         nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
       } else if (response.data.data.type === "DUKSAE_JUMP") {
         const quest = JSON.parse(response.data.data.quest);
-        nav(`/questjump/${response.data.data.logId}`, { state: quest });
+        const queryParams = Object.entries(quest)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
+        nav(`/duksaejump/${response.data.data.logId}?`.concat(queryParams));
       }
 
       setQuizType(response.data.data.type);
