@@ -29,6 +29,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [toast, setToast] = useState<ToastProps | null>(null);
   const [obstaclePassed, setObstaclePassed] = useState(false);
+  const [distance, setDistance] = useState(0);
 
   const obstacleRef = useRef<HTMLDivElement>(null);
   const dinoRef = useRef<HTMLDivElement>(null);
@@ -107,15 +108,21 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
         const newSpeed = prevSpeed + speedIncreaseRate;
-        // console.log("속도 증가:", newSpeed);
         return Math.min(newSpeed, objectMaxSpeed);
       });
     }, speedIncreaseInterval);
+
+    const distanceInterval = setInterval(() => {
+      if (!gameover) {
+        setDistance((prevDistance) => prevDistance + speed / 10);
+      }
+    }, 100);
 
     return () => {
       console.log("WebSocket 연결 해제");
       clearInterval(collisionInterval);
       clearInterval(speedInterval);
+      clearInterval(distanceInterval);
       socket.disconnect();
     };
   }, [
@@ -128,6 +135,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     gameover,
     health,
     score,
+    speed,
   ]);
 
   const detectCollision = () => {
@@ -138,9 +146,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
 
     const dinoRect = dinoRef.current.getBoundingClientRect();
     const obstacleRect = obstacleRef.current.getBoundingClientRect();
-
-    // console.log("캐릭터 위치:", dinoRect);
-    // console.log("장애물 위치:", obstacleRect);
 
     const buffer = 10;
 
@@ -164,15 +169,23 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   };
 
   useEffect(() => {
+    let spacePressed = false;
+    let isJumping = false;
+
     const handleJump = (event: KeyboardEvent) => {
-      if (event.code === "Space" && !jumping && !gameover) {
+      if (event.code === "Space" && !isJumping && !gameover && !spacePressed) {
         console.log("점프 시작");
 
         setJumping(true);
         setObstaclePassed(false);
+        isJumping = true;
+        spacePressed = true;
+
+        const jumpDuration = 500;
 
         setTimeout(() => {
           const isCollided = detectCollision();
+
           if (!isCollided && !obstaclePassed) {
             console.log("장애물 넘기 성공, 점수 증가");
             setScore((prevScore) => prevScore + 1);
@@ -182,14 +195,25 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
             console.log("장애물 충돌, 점수 감소");
             setScore((prevScore) => Math.max(0, prevScore - 1));
           }
+
           setJumping(false);
-        }, 500);
+          isJumping = false;
+        }, jumpDuration);
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        spacePressed = false;
       }
     };
 
     window.addEventListener("keydown", handleJump);
+    window.addEventListener("keyup", handleKeyUp);
+
     return () => {
       window.removeEventListener("keydown", handleJump);
+      window.removeEventListener("keyup", handleKeyUp);
     };
   }, [jumping, gameover, obstaclePassed, socket]);
 
@@ -199,6 +223,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         <div>Health: {new Array(health).fill("❤️").join("")}</div>
         <div>Score: {score}</div>
         <div>Speed: {speed.toFixed(2)}</div>
+        <div>Distance: {distance.toFixed(2)} m</div> {/* 거리 표시 */}
       </div>
       <div className="game-panel">
         <div className={`dino ${jumping ? "jump" : ""}`} ref={dinoRef} />
@@ -207,6 +232,8 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       {gameover && (
         <div className="score">
           <div id="end-score">Score: {score}</div>
+          <div id="distance">Total Distance: {distance.toFixed(2)} m</div>{" "}
+          {/* 최종 거리 표시 */}
           <button
             className="restart"
             id="restart"

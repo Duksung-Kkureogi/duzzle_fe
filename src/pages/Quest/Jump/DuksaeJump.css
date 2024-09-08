@@ -142,3 +142,12 @@
 .toast.info {
   background-color: #5bc0de;
 }
+.info div {
+  margin-right: 20px;
+}
+
+.score #distance {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #5cb85c;
+}
