@@ -207,7 +207,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         spacePressed = false;
       }
     };
-
     window.addEventListener("keydown", handleJump);
     window.addEventListener("keyup", handleKeyUp);
 
@@ -216,6 +215,14 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [jumping, gameover, obstaclePassed, socket]);
+
+  const handleResultPageNavigation = () => {
+    if (isSucceeded) {
+      navigate("/questsuccess");
+    } else {
+      navigate("/questfail");
+    }
+  };
 
   return (
     <div className="QuestJump">
@@ -237,7 +244,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           <button
             className="restart"
             id="restart"
-            onClick={() => navigate("/result")}
+            onClick={handleResultPageNavigation}
           >
             결과 확인
           </button>
