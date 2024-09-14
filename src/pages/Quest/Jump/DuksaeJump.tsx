@@ -17,12 +17,10 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     speedIncreaseRate,
     speedIncreaseInterval,
     gameoverLimit,
-    passingScore,
   } = data;
 
   const [speed, setSpeed] = useState(objectSpeed);
   const [health, setHealth] = useState(Math.max(0, gameoverLimit || 0));
-  const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
   const [obstacleType, setObstacleType] = useState("tree");
   const [gameover, setGameover] = useState(false);
@@ -30,6 +28,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const [toast, setToast] = useState<ToastProps | null>(null);
   const [obstaclePassed, setObstaclePassed] = useState(false);
   const [distance, setDistance] = useState(0);
+  const [canJump, setCanJump] = useState(true);
 
   const obstacleRef = useRef<HTMLDivElement>(null);
   const dinoRef = useRef<HTMLDivElement>(null);
@@ -65,12 +64,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       );
     });
 
-    socket.on("score", (newScore) => {
-      console.log("WebSocket: 'score' 이벤트 수신", newScore);
-      setScore(newScore);
-      showToast(`Score: ${newScore}`, ToastType.Info);
-    });
-
     socket.on("object", (newObstacleType) => {
       console.log("WebSocket: 'object' 이벤트 수신", newObstacleType);
       setObstacleType(newObstacleType);
@@ -80,41 +73,38 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     socket.on("gameover", (finalScore) => {
       console.log("WebSocket: 'gameover' 이벤트 수신", finalScore);
       setGameover(true);
-      setScore(finalScore);
       setIsSucceeded(false);
-      showToast(`Game Over! Score: ${finalScore}`, ToastType.Error);
+      showToast(`Game Over!`, ToastType.Error);
     });
 
     socket.on("result", (result) => {
       console.log("WebSocket: 'result' 이벤트 수신", result);
-      setScore(result.score);
       setGameover(true);
       setIsSucceeded(result.result);
-      showToast(`Success! Score: ${result.score}`, ToastType.Success);
+      showToast(`Success!`, ToastType.Success);
     });
 
     const collisionInterval = setInterval(() => {
       if (!gameover && detectCollision()) {
-        console.log("충돌 발생! 점수 감소");
-        setScore((prevScore) => Math.max(0, prevScore - 1));
+        console.log("충돌 발생!");
         setHealth((prevHealth) => Math.max(0, prevHealth - 1));
         if (health <= 0) {
           setGameover(true);
-          socket.emit("quest:duksae-jump:gameover", score);
+          socket.emit("quest:duksae-jump:gameover");
         }
       }
     }, 100);
 
     const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
-        const newSpeed = prevSpeed + speedIncreaseRate;
-        return Math.min(newSpeed, objectMaxSpeed);
+        const newSpeed = prevSpeed * speedIncreaseRate;
+        return Math.max(newSpeed, objectMaxSpeed);
       });
     }, speedIncreaseInterval);
 
     const distanceInterval = setInterval(() => {
       if (!gameover) {
-        setDistance((prevDistance) => prevDistance + speed / 10);
+        setDistance((prevDistance) => prevDistance + 1000 / speed);
       }
     }, 100);
 
@@ -134,7 +124,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     showToast,
     gameover,
     health,
-    score,
     speed,
   ]);
 
@@ -169,17 +158,13 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   };
 
   useEffect(() => {
-    let spacePressed = false;
-    let isJumping = false;
-
     const handleJump = (event: KeyboardEvent) => {
-      if (event.code === "Space" && !isJumping && !gameover && !spacePressed) {
+      if (event.code === "Space" && canJump && !gameover) {
         console.log("점프 시작");
 
         setJumping(true);
         setObstaclePassed(false);
-        isJumping = true;
-        spacePressed = true;
+        setCanJump(false);
 
         const jumpDuration = 500;
 
@@ -187,26 +172,24 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           const isCollided = detectCollision();
 
           if (!isCollided && !obstaclePassed) {
-            console.log("장애물 넘기 성공, 점수 증가");
-            setScore((prevScore) => prevScore + 1);
+            console.log("장애물 넘기 성공");
             setObstaclePassed(true);
             socket.emit("quest:duksae-jump:success");
           } else if (isCollided) {
-            console.log("장애물 충돌, 점수 감소");
-            setScore((prevScore) => Math.max(0, prevScore - 1));
+            console.log("장애물 충돌");
           }
 
           setJumping(false);
-          isJumping = false;
         }, jumpDuration);
       }
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
       if (event.code === "Space") {
-        spacePressed = false;
+        setCanJump(true);
       }
     };
+
     window.addEventListener("keydown", handleJump);
     window.addEventListener("keyup", handleKeyUp);
 
@@ -214,7 +197,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       window.removeEventListener("keydown", handleJump);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [jumping, gameover, obstaclePassed, socket]);
+  }, [jumping, gameover, obstaclePassed, socket, canJump]);
 
   const handleResultPageNavigation = () => {
     if (isSucceeded) {
@@ -228,8 +211,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     <div className="QuestJump">
       <div className="info">
         <div>Health: {new Array(health).fill("❤️").join("")}</div>
-        <div>Score: {score}</div>
-        <div>Speed: {speed.toFixed(2)}</div>
+        <div>Speed: {(1000 / speed).toFixed(2)}</div> {/* 속도 표시 */}
         <div>Distance: {distance.toFixed(2)} m</div> {/* 거리 표시 */}
       </div>
       <div className="game-panel">
@@ -238,7 +220,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       </div>
       {gameover && (
         <div className="score">
-          <div id="end-score">Score: {score}</div>
           <div id="distance">Total Distance: {distance.toFixed(2)} m</div>{" "}
           {/* 최종 거리 표시 */}
           <button
