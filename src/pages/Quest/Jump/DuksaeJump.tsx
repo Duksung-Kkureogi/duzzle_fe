@@ -222,7 +222,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   return (
     <div className="QuestJump">
       <div className="info">
-        <div>Health: {new Array(health).fill("❤️").join("")}</div>
+        <div> {new Array(health).fill("❤️").join("")}</div>
         <div>Speed: {(1000 / speed).toFixed(2)}</div> {/* 속도 표시 */}
         <div>Distance: {distance.toFixed(2)} m</div> {/* 거리 표시 */}
       </div>

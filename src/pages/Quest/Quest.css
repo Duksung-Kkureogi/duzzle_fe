@@ -2,39 +2,112 @@
   text-align: center;
   width: 90vw;
   max-width: 500px;
+  height: 50vh;
+  margin: 0 auto;
+  position: relative;
 }
-
+.Quest .Tree {
+  max-width: 400px;
+  height: 360px;
+  width: 80vw;
+  display: block;
+  z-index: 1;
+  margin: 0 auto;
+}
 .Quest .random {
-  background: linear-gradient(100deg, #00b5cc, rgb(26, 242, 249));
+  background: linear-gradient(100deg, #d23232, #d23232);
   -webkit-background-clip: text;
+  text-shadow: 0px 1px 2px #d23232;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
   background-clip: text;
   font-size: 60px;
-  font-weight: bold;
-  padding-top: 40px;
+  font-weight: 750;
+  padding-top: 30px;
+  position: relative;
 }
+.snowflakes {
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  width: 80%;
+  height: 85%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  font-size: 1.5em;
+  color: white;
+  animation: snow-fall 9s linear infinite;
+  opacity: 0.8;
+}
+
+.snowflake:nth-child(2) {
+  left: 20%;
+  animation-duration: 8s;
+}
+
+.snowflake:nth-child(3) {
+  left: 80%;
+  animation-duration: 12s;
+  animation-delay: 2s;
+}
+
+.snowflake:nth-child(4) {
+  left: 30%;
+  animation-duration: 14s;
+  animation-delay: 4s;
+}
+
+.snowflake:nth-child(5) {
+  left: 60%;
+  animation-duration: 6s;
+  animation-delay: 1s;
+}
+
+.snowflake:nth-child(6) {
+  left: 10%;
+  animation-duration: 11s;
+  animation-delay: 3s;
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
 .quest_button {
-  width: 230px;
-  height: 85px;
+  width: 210px;
+  height: 75px;
   font-size: 35px;
   font-weight: 600;
   cursor: pointer;
-  margin: 20px;
   text-align: center;
   border: none;
+  margin-top: 30px;
   background-size: 300% 100%;
   border-radius: 2.5rem;
   color: hsl(0, 0%, 100%);
-  background-color: #00b5cc;
-  box-shadow: 0 4px 15px 0 rgb(121, 217, 217);
+  background-color: #d23232;
+  box-shadow: 0 4px 15px 0 #d23232;
 }
 
 .quest_button:focus {
   outline: none;
 }
 .quest_button:hover {
-  background-color: gray;
+  background-color: rgb(210, 77, 77);
 }
 
 #wrap {

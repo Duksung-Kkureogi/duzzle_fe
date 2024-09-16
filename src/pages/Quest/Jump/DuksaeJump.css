@@ -89,17 +89,23 @@
   }
 }
 
-.restart {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.QuestJump .restart {
+  width: 210px;
+  height: 75px;
+  font-size: 25px;
+  font-weight: 600;
   cursor: pointer;
+  text-align: center;
+  border: none;
+  margin-top: 30px;
+  background-size: 300% 100%;
+  border-radius: 2.5rem;
+  color: hsl(0, 0%, 100%);
+  background-color: #445886;
+  box-shadow: 0 4px 15px 0 #366788;
 }
 
-.restart:hover {
+.QuestJump .restart:hover {
   background-color: #4cae4c;
 }
 

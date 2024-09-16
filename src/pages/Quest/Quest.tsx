@@ -57,8 +57,17 @@ function Quest() {
 
   return (
     <div className="Quest">
-      <div className="random"> 랜덤 게임</div>
-      <div id="wrap">
+      <div className="random"> Mini Game</div>
+      <img src="/src/pages/Quest/Tree.gif" alt="Tree" className="Tree" />
+      <div className="snowflakes" aria-hidden="true">
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+      </div>
+      {/* <div id="wrap">
         <div className="dice">
           <div>1</div>
           <div>2</div>
@@ -67,7 +76,7 @@ function Quest() {
           <div>5</div>
           <div>6</div>
         </div>
-      </div>
+      </div> */}
       <button className="quest_button" onClick={startQuiz}>
         START
       </button>
