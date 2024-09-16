@@ -17,6 +17,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     speedIncreaseRate,
     speedIncreaseInterval,
     gameoverLimit,
+    passingScore,
   } = data;
 
   const [speed, setSpeed] = useState(objectSpeed);
@@ -24,7 +25,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const [jumping, setJumping] = useState(false);
   const [obstacleType, setObstacleType] = useState("tree");
   const [gameover, setGameover] = useState(false);
-  const [isSucceeded, setIsSucceeded] = useState(false);
   const [toast, setToast] = useState<ToastProps | null>(null);
   const [obstaclePassed, setObstaclePassed] = useState(false);
   const [distance, setDistance] = useState(0);
@@ -48,12 +48,10 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       gamePanelOffsetWidth: 550,
     });
     console.log("WebSocket: 'quest:duksae-jump:start' 이벤트 송신");
-
-    socket.on("speed", (speed) => {
-      console.log("WebSocket: 'speed' 이벤트 수신", speed);
-      setSpeed(speed);
+    socket.on("speed", (newSpeed) => {
+      console.log("WebSocket: 'speed' 이벤트 수신", newSpeed);
+      setSpeed(newSpeed);
     });
-
     socket.on("health", (newHealth) => {
       const validHealth = Math.max(0, newHealth || 0);
       console.log("WebSocket: 'health' 이벤트 수신", validHealth);
@@ -70,18 +68,24 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       setObstaclePassed(false);
     });
 
-    socket.on("gameover", (finalScore) => {
-      console.log("WebSocket: 'gameover' 이벤트 수신", finalScore);
+    socket.on("gameover", () => {
+      console.log("WebSocket: 'gameover' 이벤트 수신");
       setGameover(true);
-      setIsSucceeded(false);
-      showToast(`Game Over!`, ToastType.Error);
+      showToast(
+        `Game Over! Total Distance: ${distance.toFixed(2)} m`,
+        ToastType.Error
+      );
+      handleResultPageNavigation();
     });
 
     socket.on("result", (result) => {
       console.log("WebSocket: 'result' 이벤트 수신", result);
       setGameover(true);
-      setIsSucceeded(result.result);
-      showToast(`Success!`, ToastType.Success);
+      showToast(
+        `Success! Final Distance: ${distance.toFixed(2)} m`,
+        result.score >= passingScore ? ToastType.Success : ToastType.Error
+      );
+      handleResultPageNavigation();
     });
 
     const collisionInterval = setInterval(() => {
@@ -98,7 +102,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
         const newSpeed = prevSpeed * speedIncreaseRate;
-        return Math.max(newSpeed, objectMaxSpeed);
+        return Math.min(newSpeed, objectMaxSpeed);
       });
     }, speedIncreaseInterval);
 
@@ -125,6 +129,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     gameover,
     health,
     speed,
+    passingScore,
   ]);
 
   const detectCollision = () => {
@@ -212,7 +217,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   }, [jumping, gameover, obstaclePassed, socket, canJump]);
 
   const handleResultPageNavigation = () => {
-    if (isSucceeded) {
+    if (distance >= passingScore) {
       navigate("/questsuccess");
     } else {
       navigate("/questfail");
