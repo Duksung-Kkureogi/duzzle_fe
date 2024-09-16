@@ -158,8 +158,12 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   };
 
   useEffect(() => {
-    const handleJump = (event: KeyboardEvent) => {
-      if (event.code === "Space" && canJump && !gameover) {
+    const handleJump = (event: KeyboardEvent | TouchEvent) => {
+      const isTouchEvent = event.type === "touchstart";
+      const isSpaceKey =
+        !isTouchEvent && (event as KeyboardEvent).code === "Space";
+
+      if ((isTouchEvent || isSpaceKey) && canJump && !gameover) {
         console.log("점프 시작");
 
         setJumping(true);
@@ -184,18 +188,26 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       }
     };
 
-    const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
+    const handleKeyUp = (event: KeyboardEvent | TouchEvent) => {
+      const isTouchEvent = event.type === "touchend";
+      const isSpaceKey =
+        !isTouchEvent && (event as KeyboardEvent).code === "Space";
+
+      if (isTouchEvent || isSpaceKey) {
         setCanJump(true);
       }
     };
 
     window.addEventListener("keydown", handleJump);
     window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("touchstart", handleJump);
+    window.addEventListener("touchend", handleKeyUp);
 
     return () => {
       window.removeEventListener("keydown", handleJump);
       window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("touchstart", handleJump);
+      window.removeEventListener("touchend", handleKeyUp);
     };
   }, [jumping, gameover, obstaclePassed, socket, canJump]);
 
