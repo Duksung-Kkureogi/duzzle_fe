@@ -31,6 +31,7 @@ import HistoryPuzzle from "./pages/History/HistoryPuzzle";
 import HistoryRanking from "./pages/History/HistoryRanking";
 import Deal from "./pages/Deal/Deal";
 import Ranking from "./pages/Ranking/Ranking";
+import DealRegist from "./pages/Deal/DealRegist";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               element={<HistoryRanking />}
             />
             <Route path="/deal" element={<Deal />} />
+            <Route path="/deal/regist" element={<DealRegist />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route
               path="/questacid/:logId?"
