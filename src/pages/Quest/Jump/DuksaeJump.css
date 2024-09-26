@@ -6,10 +6,11 @@
   height: 100vh;
   width: 90vw;
   max-width: 500px;
+  margin-top: 10px;
   background-color: #ffffff;
 }
 
-.info {
+.QuestJump .info {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -17,7 +18,27 @@
   font-size: 18px;
 }
 
-.game-panel {
+.QuestJump .info2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.QuestJump .heart1 {
+  background-color: rgb(255, 255, 255, 0);
+  margin: 10px 1px;
+  font-size: 25px;
+}
+.QuestJump .heart2 {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.QuestJump .game-panel {
   position: relative;
   width: 90vw;
   height: 280px;
@@ -26,7 +47,8 @@
   background-image: url("../Jump/christmas.jpg");
   background-size: cover;
   background-position: center;
-  border: 2px solid #ddd;
+  border-radius: 5px;
+  border: 2px solid #ffffff;
   overflow: hidden;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   animation: move-background 5s linear infinite;
@@ -41,7 +63,7 @@
   }
 }
 
-.dino {
+.QuestJump .dino {
   position: absolute;
   bottom: 10px;
   left: 20px;
@@ -53,11 +75,11 @@
   transition: bottom 0.2s;
 }
 
-.dino.jump {
+.QuestJump .jump {
   bottom: 100px;
 }
 
-.obstacle {
+.QuestJump .obstacle {
   position: absolute;
   bottom: 10px;
   right: 0px;
@@ -89,7 +111,7 @@
   }
 }
 
-.QuestJump .restart {
+.QuestJump .restart4 {
   width: 210px;
   height: 75px;
   font-size: 25px;
@@ -101,12 +123,26 @@
   background-size: 300% 100%;
   border-radius: 2.5rem;
   color: hsl(0, 0%, 100%);
-  background-color: #445886;
-  box-shadow: 0 4px 15px 0 #366788;
+  background-color: #d23232;
+  box-shadow: 0 4px 15px 0 #d23232;
 }
 
-.QuestJump .restart:hover {
-  background-color: #4cae4c;
+.QuestJump .restart4:hover {
+  background-color: #fb4141;
+}
+
+.QuestJump .score {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  width: 90vw;
+  padding: 0px;
+  margin-top: 120px;
+  padding-bottom: 200px;
+  text-align: center;
 }
 
 /* 토스트 메시지 */
