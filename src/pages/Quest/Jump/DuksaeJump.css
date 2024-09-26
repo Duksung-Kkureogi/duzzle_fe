@@ -23,7 +23,7 @@
   height: 280px;
   max-width: 500px;
   background-color: #fff;
-  background-image: url("../Jump/bababa.png");
+  background-image: url("../Jump/christmas.jpg");
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -45,8 +45,8 @@
   position: absolute;
   bottom: 10px;
   left: 20px;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   background-image: url("../Jump/dukduk.gif");
   background-size: cover;
   background-repeat: no-repeat;
@@ -61,15 +61,15 @@
   position: absolute;
   bottom: 10px;
   right: 0px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-size: cover;
   background-repeat: no-repeat;
   animation: obstacleMove 2s linear infinite;
 }
 
 .obstacle.tree {
-  background-image: url("../Jump/obstacle1.png");
+  background-image: url("../Jump/snow.png");
 }
 
 .obstacle.rock {

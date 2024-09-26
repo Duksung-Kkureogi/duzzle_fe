@@ -29,6 +29,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const [obstaclePassed, setObstaclePassed] = useState(false);
   const [distance, setDistance] = useState(0);
   const [canJump, setCanJump] = useState(true);
+  const [isColliding, setIsColliding] = useState(false);
 
   const obstacleRef = useRef<HTMLDivElement>(null);
   const dinoRef = useRef<HTMLDivElement>(null);
@@ -48,10 +49,12 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       gamePanelOffsetWidth: 550,
     });
     console.log("WebSocket: 'quest:duksae-jump:start' 이벤트 송신");
+
     socket.on("speed", (newSpeed) => {
       console.log("WebSocket: 'speed' 이벤트 수신", newSpeed);
       setSpeed(newSpeed);
     });
+
     socket.on("health", (newHealth) => {
       const validHealth = Math.max(0, newHealth || 0);
       console.log("WebSocket: 'health' 이벤트 수신", validHealth);
@@ -89,26 +92,46 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     });
 
     const collisionInterval = setInterval(() => {
-      if (!gameover && detectCollision()) {
+      if (!gameover && !isColliding && detectCollision()) {
         console.log("충돌 발생!");
-        setHealth((prevHealth) => Math.max(0, prevHealth - 1));
-        if (health <= 0) {
-          setGameover(true);
-          socket.emit("quest:duksae-jump:gameover");
-        }
+
+        setIsColliding(true);
+        setHealth((prevHealth) => {
+          const newHealth = Math.max(0, prevHealth - 1);
+          console.log(`Health: ${newHealth}`);
+
+          if (newHealth === 0) {
+            if (prevHealth === 0) {
+              setGameover(true);
+              socket.emit("quest:duksae-jump:gameover");
+              console.log("게임 종료");
+            }
+          }
+
+          return newHealth;
+        });
+
+        setTimeout(() => {
+          setIsColliding(false);
+        }, 500);
       }
     }, 100);
 
     const speedInterval = setInterval(() => {
       setSpeed((prevSpeed) => {
         const newSpeed = prevSpeed * speedIncreaseRate;
+        console.log(`Speed increased to: ${newSpeed}`);
         return Math.min(newSpeed, objectMaxSpeed);
       });
     }, speedIncreaseInterval);
 
     const distanceInterval = setInterval(() => {
       if (!gameover) {
-        setDistance((prevDistance) => prevDistance + 1000 / speed);
+        setDistance((prevDistance) => {
+          const newDistance = prevDistance + 1000 / speed;
+          console.log(`Distance updated: ${newDistance}`);
+          return newDistance;
+        });
       }
     }, 100);
 
@@ -130,6 +153,8 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     health,
     speed,
     passingScore,
+    isColliding,
+    distance,
   ]);
 
   const detectCollision = () => {
@@ -228,7 +253,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     <div className="QuestJump">
       <div className="info">
         <div> {new Array(health).fill("❤️").join("")}</div>
-        <div>Speed: {(1000 / speed).toFixed(2)}</div> {/* 속도 표시 */}
+        <div>Speed: {speed.toFixed(2)}</div> {/* 속도 표시 */}
         <div>Distance: {distance.toFixed(2)} m</div> {/* 거리 표시 */}
       </div>
       <div className="game-panel">
