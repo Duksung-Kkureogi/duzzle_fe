@@ -145,7 +145,6 @@
   text-align: center;
 }
 
-/* 토스트 메시지 */
 .toast {
   position: fixed;
   top: 20px;
