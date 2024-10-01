@@ -175,7 +175,14 @@
   margin-right: 20px;
 }
 
-.score #distance {
+.score #distance1 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #5cb85c;
+  font-size: 38px;
+  /* text-shadow: 0px 1px 2px #5cb85c; */
+}
+.score #distance2 {
   margin-bottom: 15px;
   font-weight: bold;
   color: #5cb85c;

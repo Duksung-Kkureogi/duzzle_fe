@@ -54,9 +54,9 @@ button {
   background-color: #00b5cc;
   color: #fff;
   border: 0;
-  font-size: 1.9rem;
-  font-weight: 400;
-  width: 280px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  width: 230px;
   height: 100px;
   padding: 0.5em 1.25em;
   border-radius: 1.5em;
@@ -67,6 +67,9 @@ button {
   align-items: center;
   gap: 0.5em;
   box-shadow: 0 4px 15px 0 #1f5760;
+}
+.btn:hover {
+  background-color: #019cb1;
 }
 
 .btn-jittery {

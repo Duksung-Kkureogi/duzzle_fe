@@ -26,7 +26,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const [obstacleType, setObstacleType] = useState("tree");
   const [gameover, setGameover] = useState(false);
   const [toast, setToast] = useState<ToastProps | null>(null);
-  const [distance, setDistance] = useState(0);
+  const [score, setScore] = useState(0); // score => distance 값
   const [isColliding, setIsColliding] = useState(false);
   const [canJump, setCanJump] = useState(true);
   const obstacleRef = useRef<HTMLDivElement>(null);
@@ -60,6 +60,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       const obstacle = obstacleRef.current;
       let obstacleX = obstacle.offsetLeft;
       if (obstacleX <= 0) {
+        // showToast("점프 성공!", ToastType.Success);
         obstacleX = window.innerWidth;
       }
 
@@ -80,6 +81,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           }
           return newHealth;
         });
+        showToast("충돌!", ToastType.Error);
         setTimeout(() => {
           setIsColliding(false);
         }, 500);
@@ -123,7 +125,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     socket.on("gameover", (finalScore: number) => {
       console.log("게임 오버, 최종 점수:", finalScore);
       setGameover(true);
-      showToast(`Game Over! Total Distance: ${finalScore} m`, ToastType.Error);
+      showToast(`Game Over! Total Score: ${finalScore} m`, ToastType.Error);
       handleResultPageNavigation();
     });
 
@@ -164,15 +166,15 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       );
     }, speedIncreaseInterval);
 
-    const distanceInterval = setInterval(() => {
+    const scoreInterval = setInterval(() => {
       if (!gameover) {
-        setDistance((prevDistance) => prevDistance + 1000 / speed);
+        setScore((prevScore) => prevScore + 1000 / speed);
       }
     }, 100);
 
     return () => {
       clearInterval(speedInterval);
-      clearInterval(distanceInterval);
+      clearInterval(scoreInterval);
     };
   }, [
     logId,
@@ -187,19 +189,19 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   // 게임 종료 후 결과 처리
   useEffect(() => {
     if (gameover) {
-      if (distance >= passingScore) {
+      if (score >= passingScore) {
         console.log("게임 종료 - 성공 조건 충족");
-        socket.emit("quest:duksae-jump:success", { logId, distance }, () => {
+        socket.emit("quest:duksae-jump:success", { score }, () => {
           console.log("Success 메시지가 서버로 전송되었습니다.");
         });
       } else {
         console.log("게임 종료 - 실패 조건 충족");
-        socket.emit("quest:duksae-jump:fail", { logId, distance }, () => {
+        socket.emit("quest:duksae-jump:fail", { score }, () => {
           console.log("Fail 메시지가 서버로 전송되었습니다.");
         });
       }
     }
-  }, [gameover, distance, passingScore, logId, socket]);
+  }, [gameover, score, passingScore, logId, socket]);
 
   // 점프 및 스페이스바 이벤트 핸들러
   useEffect(() => {
@@ -212,12 +214,16 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         setJumping(true);
         setCanJump(false);
 
-        const jumpDuration = 500;
+        const jumpDuration = 320;
 
         setTimeout(() => {
           setJumping(false);
-          setCanJump(true);
+          // setCanJump(true);
         }, jumpDuration);
+
+        setTimeout(() => {
+          setCanJump(true);
+        }, jumpDuration + 100);
       }
     };
 
@@ -231,7 +237,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   }, [jumping, gameover, canJump]);
 
   const handleResultPageNavigation = () => {
-    if (distance >= passingScore) {
+    if (score >= passingScore) {
       navigate("/questsuccess");
     } else {
       navigate("/questfail");
@@ -245,7 +251,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       </div>
       <div className="game-panel">
         <span className="heart1">{new Array(health).fill("💛").join("")}</span>
-        <span className="heart2"> {distance.toFixed(2)} m</span>
+        <span className="heart2"> {score.toFixed(2)} m</span>{" "}
         <div className={`dino ${jumping ? "jump" : ""}`} ref={dinoRef} />
         <div className={`obstacle ${obstacleType}`} ref={obstacleRef} />
       </div>
@@ -253,11 +259,12 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
 
       {gameover && (
         <div className="score">
-          <div id="distance">Total Distance: {distance.toFixed(2)} m</div>
+          <div id="distance1">Total Distance:</div>
+          <div id="distance2">{score.toFixed(2)} m</div>
           <button
-            className="restart"
-            id="restart"
-            onClick={handleResultPageNavigation} // 결과 확인 버튼 클릭 시 페이지 이동
+            className="restart4"
+            id="restart4"
+            onClick={handleResultPageNavigation}
           >
             결과 확인
           </button>

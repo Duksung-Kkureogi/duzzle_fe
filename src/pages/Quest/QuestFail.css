@@ -42,8 +42,8 @@ button {
   background-color: #00b5cc;
   color: #fff;
   border: 0;
-  font-size: 1.8rem;
-  font-weight: 400;
+  font-size: 1.7rem;
+  font-weight: 600;
   width: 230px;
   height: 90px;
   padding: 0.5em 1.25em;
@@ -56,13 +56,16 @@ button {
   box-shadow: 0 4px 15px 0 #26616b;
   z-index: 1;
 }
+.btn1:hover {
+  background-color: #019cb1;
+}
 
 .btn2 {
   background-color: #ff66bd;
   color: #fff;
   border: 0;
   font-size: 1.7rem;
-  font-weight: 400;
+  font-weight: 600;
   width: 230px;
   height: 90px;
   padding: 0.2em 1.25em;
@@ -74,6 +77,9 @@ button {
   gap: 0.5em;
   box-shadow: 0 4px 15px 0 #732e55;
   z-index: 1;
+}
+.btn2:hover {
+  background-color: #e15aa7;
 }
 
 .btn-jittery {
