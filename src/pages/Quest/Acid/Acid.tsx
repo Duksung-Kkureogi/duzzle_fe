@@ -144,6 +144,21 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   }, [gameover, showHelp, waitWords, socket, dropIntervalMs]);
 
   useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket.io 연결 성공", socket.id);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Socket.io 연결이 끊겼습니다.");
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+    };
+  }, [socket]);
+
+  useEffect(() => {
     if (waitWords.length !== 0) {
       dropWord();
     }

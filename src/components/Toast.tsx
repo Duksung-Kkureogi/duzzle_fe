@@ -17,7 +17,7 @@ export const ToastComponent: React.FC<ToastProps> = ({ message, type }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearTimeout(timer);

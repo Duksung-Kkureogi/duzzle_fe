@@ -139,7 +139,7 @@ input[type="text"] {
   border-radius: 2.5rem;
 }
 
-.score {
+.container-fluid .score {
   text-align: center;
   display: flex;
   flex-direction: column;

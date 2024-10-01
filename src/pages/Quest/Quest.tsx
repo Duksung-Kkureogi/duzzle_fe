@@ -8,11 +8,13 @@ function Quest() {
   const nav = useNavigate();
   const [type, setQuizType] = useState("");
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
+
   const startQuiz = async () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        RequestURL + "/v1/quest/start",
+        `${RequestURL}/v1/quest/demo/duksae-jump/start`,
+        // `${RequestURL}/v1/quest/demo/acidrain-speed/start`,
         {},
         {
           headers: {
@@ -22,18 +24,26 @@ function Quest() {
         }
       );
       console.log("Quest POST 성공", response.data);
+
       if (response.data.data.type === "SPEED_QUIZ") {
         localStorage.setItem("logId", response.data.data.logId);
         localStorage.setItem("quest", response.data.data.quest);
         localStorage.setItem("timeLimit", response.data.data.timeLimit);
         nav("/questspeed");
       } else if (response.data.data.type === "ACID_RAIN") {
-        const quest: AcidRainQuestData = JSON.parse(response.data.data.quest);
+        const quest = JSON.parse(response.data.data.quest);
         const queryParms = Object.entries(quest)
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
         nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
+      } else if (response.data.data.type === "DUKSAE_JUMP") {
+        const quest = JSON.parse(response.data.data.quest);
+        const queryParams = Object.entries(quest)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
+        nav(`/duksaejump/${response.data.data.logId}?`.concat(queryParams));
       }
+
       setQuizType(response.data.data.type);
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -48,8 +58,17 @@ function Quest() {
 
   return (
     <div className="Quest">
-      <div className="random"> 랜덤 게임</div>
-      <div id="wrap">
+      <div className="random"> Mini Game</div>
+      <img src="/src/pages/Quest/Tree.gif" alt="Tree" className="Tree" />
+      <div className="snowflakes" aria-hidden="true">
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+        <div className="snowflake">❄️</div>
+      </div>
+      {/* <div id="wrap">
         <div className="dice">
           <div>1</div>
           <div>2</div>
@@ -58,7 +77,7 @@ function Quest() {
           <div>5</div>
           <div>6</div>
         </div>
-      </div>
+      </div> */}
       <button className="quest_button" onClick={startQuiz}>
         START
       </button>

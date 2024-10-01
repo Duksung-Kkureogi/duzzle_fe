@@ -1,0 +1,190 @@
+.QuestJump {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 90vw;
+  max-width: 500px;
+  margin-top: 10px;
+  background-color: #ffffff;
+}
+
+.QuestJump .info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.QuestJump .info2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.QuestJump .heart1 {
+  background-color: rgb(255, 255, 255, 0);
+  margin: 10px 1px;
+  font-size: 25px;
+}
+.QuestJump .heart2 {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.QuestJump .game-panel {
+  position: relative;
+  width: 90vw;
+  height: 280px;
+  max-width: 500px;
+  background-color: #fff;
+  background-image: url("../Jump/christmas.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  border: 2px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  animation: move-background 5s linear infinite;
+}
+
+@keyframes move-background {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -550px 0;
+  }
+}
+
+.QuestJump .dino {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background-image: url("../Jump/dukduk.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: bottom 0.2s;
+}
+
+.QuestJump .jump {
+  bottom: 100px;
+}
+
+.QuestJump .obstacle {
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: obstacleMove 2s linear infinite;
+}
+
+.obstacle.tree {
+  background-image: url("../Jump/snow.png");
+}
+
+.obstacle.rock {
+  background-image: url("../Jump/D.png");
+}
+
+.obstacle.bird {
+  background-image: url("../Jump/obstacle2.png");
+}
+
+@keyframes obstacleMove {
+  from {
+    right: 0px;
+  }
+  to {
+    right: 550px;
+  }
+}
+
+.QuestJump .restart4 {
+  width: 210px;
+  height: 75px;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  margin-top: 30px;
+  background-size: 300% 100%;
+  border-radius: 2.5rem;
+  color: hsl(0, 0%, 100%);
+  background-color: #d23232;
+  box-shadow: 0 4px 15px 0 #d23232;
+}
+
+.QuestJump .restart4:hover {
+  background-color: #fb4141;
+}
+
+.QuestJump .score {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  width: 90vw;
+  padding: 0px;
+  margin-top: 120px;
+  padding-bottom: 200px;
+  text-align: center;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.toast.success {
+  background-color: #5cb85c;
+}
+
+.toast.error {
+  background-color: #d9534f;
+}
+
+.toast.warning {
+  background-color: #f0ad4e;
+}
+
+.toast.info {
+  background-color: #5bc0de;
+}
+.info div {
+  margin-right: 20px;
+}
+
+.score #distance1 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #5cb85c;
+  font-size: 38px;
+  /* text-shadow: 0px 1px 2px #5cb85c; */
+}
+.score #distance2 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #5cb85c;
+  font-size: 38px;
+}

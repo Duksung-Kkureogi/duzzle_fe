@@ -32,6 +32,7 @@ import HistoryRanking from "./pages/History/HistoryRanking";
 import Deal from "./pages/Deal/Deal";
 import Ranking from "./pages/Ranking/Ranking";
 import DealRegist from "./pages/Deal/DealRegist";
+import DuksaeJumpPage from "./pages/Quest/Jump/DuksaeJumpPage";
 
 function App() {
   return (
@@ -73,6 +74,14 @@ function App() {
             <Route path="/deal" element={<Deal />} />
             <Route path="/deal/regist" element={<DealRegist />} />
             <Route path="/ranking" element={<Ranking />} />
+            <Route
+              path="/duksaejump/:logId"
+              element={
+                <AuthGuardLayout>
+                  <DuksaeJumpPage />
+                </AuthGuardLayout>
+              }
+            />
             <Route
               path="/questacid/:logId?"
               element={
