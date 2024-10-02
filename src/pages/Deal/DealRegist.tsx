@@ -21,12 +21,28 @@ function DealRegist() {
     AvailableNft[]
   >([]);
 
+  const NftInfo = (nft: AvailableNft) => {
+    let id: { contractId?: number; seasonZoneId?: number };
+
+    if (nft.type === "material") {
+      id = { contractId: (nft.nftInfo as MaterialNft).contractId };
+    } else {
+      id = { seasonZoneId: (nft.nftInfo as BlueprintOrPuzzleNft).seasonZoneId };
+    }
+
+    return {
+      type: nft.type,
+      ...id,
+      quantity: nft.nftInfo.availableQuantity,
+    };
+  };
+
   const nftExchange = async () => {
     try {
       const token = localStorage.getItem("accessToken");
       const params = {
-        offeredNfts: selectedOfferNfts,
-        requestNfts: selectedRequestNfts,
+        offeredNfts: selectedOfferNfts.map(NftInfo),
+        requestNfts: selectedRequestNfts.map(NftInfo),
       };
       const response = await axios.post(
         `${RequestUrl}/v1/nft-exchange`,
