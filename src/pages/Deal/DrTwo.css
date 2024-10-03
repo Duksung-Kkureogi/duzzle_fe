@@ -1,22 +1,21 @@
-/* DealRegist */
-.DealRegist {
+/* DrTwo */
+.DrTwo {
   font-family: "Noto Sans KR", sans-serif;
   width: 90vw;
   max-width: 500px;
 }
 
-.DealRegist .dr_title {
+.DrTwo .dr_title {
   font-size: 20px;
   margin: 0;
 }
 
-.DealRegist .nftOffer_main,
-.DealRegist .nftRequest_main {
+.DrTwo .nftRequest_main {
   height: 35vh;
   overflow: auto;
 }
 
-.DealRegist .nft-item {
+.DrTwo .nft-item {
   cursor: pointer;
   padding: 10px;
   border: 1px solid #ccc;
@@ -24,7 +23,7 @@
   border-radius: 5px;
 }
 
-.DealRegist .nft-item.selected {
-  background-color: #b3d9ff;
+.DrTwo .nft-item.selected {
+  background-color: #f0c4f6;
   border-color: #3399ff;
 }

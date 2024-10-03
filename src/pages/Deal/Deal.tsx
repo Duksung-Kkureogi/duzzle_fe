@@ -31,7 +31,10 @@ function Deal() {
     <div className="Deal">
       <div className="deal_button">
         <button className="searchBtn">검색</button>
-        <button className="postBtn" onClick={() => navigate("/deal/regist")}>
+        <button
+          className="postBtn"
+          onClick={() => navigate("/deal/regist/stepOne")}
+        >
           거래등록
         </button>
       </div>

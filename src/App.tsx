@@ -31,8 +31,10 @@ import HistoryPuzzle from "./pages/History/HistoryPuzzle";
 import HistoryRanking from "./pages/History/HistoryRanking";
 import Deal from "./pages/Deal/Deal";
 import Ranking from "./pages/Ranking/Ranking";
-import DealRegist from "./pages/Deal/DealRegist";
 import DuksaeJumpPage from "./pages/Quest/Jump/DuksaeJumpPage";
+import DrOne from "./pages/Deal/DrOne";
+import DrTwo from "./pages/Deal/DrTwo";
+import DrThree from "./pages/Deal/DrThree";
 
 function App() {
   return (
@@ -72,7 +74,9 @@ function App() {
               element={<HistoryRanking />}
             />
             <Route path="/deal" element={<Deal />} />
-            <Route path="/deal/regist" element={<DealRegist />} />
+            <Route path="/deal/regist/stepOne" element={<DrOne />} />
+            <Route path="/deal/regist/stepTwo" element={<DrTwo />} />
+            <Route path="/deal/regist/stepThree" element={<DrThree />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route
               path="/duksaejump/:logId"

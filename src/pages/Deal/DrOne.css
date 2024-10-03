@@ -1,0 +1,29 @@
+/* DrOne */
+.DrOne {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 90vw;
+  max-width: 500px;
+}
+
+.DrOne .dr_title {
+  font-size: 20px;
+  margin: 0;
+}
+
+.DrOne .nftOffer_main {
+  height: 35vh;
+  overflow: auto;
+}
+
+.DrOne .nft-item {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.DrOne .nft-item.selected {
+  background-color: #a9fbd1;
+  border-color: #3399ff;
+}
