@@ -42,7 +42,7 @@ function DealRegist() {
       const token = localStorage.getItem("accessToken");
       const params = {
         offeredNfts: selectedOfferNfts.map(NftInfo),
-        requestNfts: selectedRequestNfts.map(NftInfo),
+        requestedNfts: selectedRequestNfts.map(NftInfo),
       };
       const response = await axios.post(
         `${RequestUrl}/v1/nft-exchange`,
