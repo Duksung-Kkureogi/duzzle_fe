@@ -34,7 +34,13 @@ function DrOne() {
 
         if (responseOffer.data.result) {
           console.log("Response nftOffer", responseOffer.data.data);
-          setNftsOffer(responseOffer.data.data.list);
+          const updatedNftsOffer = responseOffer.data.data.list.map(
+            (nft: AvailableNft) => ({
+              ...nft,
+              quantity: nft.nftInfo.availableQuantity,
+            })
+          );
+          setNftsOffer(updatedNftsOffer);
         } else {
           console.error("Failed to fetch items");
         }
@@ -53,33 +59,83 @@ function DrOne() {
     );
   };
 
+  const updateQuantity = (nft: AvailableNft, newQuantity: number) => {
+    setNftsOffer((prevNftsOffer) =>
+      prevNftsOffer.map((item) =>
+        item === nft ? { ...item, quantity: newQuantity } : item
+      )
+    );
+    setSelectedOfferNfts((prevSelected) =>
+      prevSelected.map((item) =>
+        item === nft ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const increaseQuantity = (nft: AvailableNft) => {
+    const newQuantity = Math.min(
+      nft.quantity + 1,
+      nft.nftInfo.availableQuantity
+    );
+    updateQuantity(nft, newQuantity);
+  };
+
+  const decreaseQuantity = (nft: AvailableNft) => {
+    const newQuantity = Math.max(nft.quantity - 1, 1);
+    updateQuantity(nft, newQuantity);
+  };
+
   const renderNfts = (
     nfts: AvailableNft[],
     selectedNfts: AvailableNft[],
     handleClick: (nft: AvailableNft) => void
   ) => {
-    return nfts.map((nft, index) => (
-      <div
-        key={index}
-        className={`nft-item ${selectedNfts.includes(nft) ? "selected" : ""}`}
-        onClick={() => handleClick(nft)}
-      >
-        <p>
-          {setNftName(nft)} - {nft.nftInfo.availableQuantity}개
-        </p>
-      </div>
-    ));
+    return nfts.map((nft, index) => {
+      const isSelected = selectedNfts.includes(nft);
+      return (
+        <div
+          key={index}
+          className={`nft-item ${isSelected ? "selected" : ""}`}
+          onClick={() => handleClick(nft)}
+        >
+          <p>{setNftName(nft)}</p>
+          <div className="quantity-controls">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                decreaseQuantity(nft);
+              }}
+              disabled={isSelected}
+              className={isSelected ? "disabled" : ""}
+            >
+              -
+            </button>
+            <span>{nft.quantity}</span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                increaseQuantity(nft);
+              }}
+              disabled={isSelected}
+              className={isSelected ? "disabled" : ""}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      );
+    });
   };
 
   const setNftName = (nft: AvailableNft): string => {
     if (nft.type === "material") {
       return (nft.nftInfo as MaterialNft).name;
     } else if (nft.type === "blueprint") {
-      return `설계도면 ${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName} 
-        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}] 
+        설계도면(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
     } else {
-      return `조각 ${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName} 
-        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
+      조각(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
     }
   };
 
@@ -96,7 +152,7 @@ function DrOne() {
         <h3>선택된 NFT:</h3>
         {selectedOfferNfts.map((nft, index) => (
           <p key={index}>
-            {setNftName(nft)} - {nft.nftInfo.availableQuantity}개
+            {index + 1}. {setNftName(nft)} (수량: {nft.quantity})
           </p>
         ))}
       </div>

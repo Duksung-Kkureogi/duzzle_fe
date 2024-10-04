@@ -27,3 +27,7 @@
   background-color: #a9fbd1;
   border-color: #3399ff;
 }
+
+.DrOne .nft-item .quantity-controls button.disabled {
+  opacity: 0.5;
+}

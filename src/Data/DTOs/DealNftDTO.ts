@@ -1,6 +1,7 @@
 export type AvailableNft = {
   type: string;
   nftInfo: MaterialNft | BlueprintOrPuzzleNft;
+  quantity: number;
 };
 
 export type MaterialNft = {

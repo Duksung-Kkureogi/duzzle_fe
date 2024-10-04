@@ -30,7 +30,7 @@ function DrThree() {
     return {
       type: nft.type,
       ...id,
-      quantity: nft.nftInfo.availableQuantity,
+      quantity: nft.quantity,
     };
   };
 
@@ -65,11 +65,11 @@ function DrThree() {
     if (nft.type === "material") {
       return (nft.nftInfo as MaterialNft).name;
     } else if (nft.type === "blueprint") {
-      return `설계도면 ${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName} 
-        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}] 
+        설계도면(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
     } else {
-      return `조각 ${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName} 
-        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
+      조각(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
     }
   };
 
@@ -84,7 +84,7 @@ function DrThree() {
           <h3>제공할 NFT:</h3>
           {selectedOfferNfts.map((nft, index) => (
             <p key={index}>
-              {setNftName(nft)} - {nft.nftInfo.availableQuantity}개
+              {setNftName(nft)} (수량: {nft.quantity})
             </p>
           ))}
         </div>
@@ -92,7 +92,7 @@ function DrThree() {
           <h3>받고 싶은 NFT:</h3>
           {selectedRequestNfts.map((nft, index) => (
             <p key={index}>
-              {setNftName(nft)} - {nft.nftInfo.availableQuantity}개
+              {setNftName(nft)} (수량: {nft.quantity})
             </p>
           ))}
         </div>

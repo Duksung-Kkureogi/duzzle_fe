@@ -27,3 +27,7 @@
   background-color: #f0c4f6;
   border-color: #3399ff;
 }
+
+.DrTwo .nft-item .quantity-controls button.disabled {
+  opacity: 0.5;
+}
