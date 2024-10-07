@@ -6,8 +6,9 @@ import {
   BlueprintOrPuzzleNft,
   MaterialNft,
 } from "../../Data/DTOs/DealNftDTO";
-import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import { useNavigate } from "react-router-dom";
+import MyButton from "../../components/MyButton/MyButton";
+import MyHeader from "../../components/MyHeader/MyHeader";
 
 function DrOne() {
   const navigate = useNavigate();
@@ -50,6 +51,10 @@ function DrOne() {
     };
     getData();
   }, [RequestUrl]);
+
+  const fillerStyles = {
+    width: `33%`,
+  };
 
   const handleOfferNftClick = (nft: AvailableNft) => {
     setSelectedOfferNfts((prevSelected) =>
@@ -95,11 +100,13 @@ function DrOne() {
       return (
         <div
           key={index}
-          className={`nft-item ${isSelected ? "selected" : ""}`}
+          className={`offer-nft ${isSelected ? "selected" : ""}`}
           onClick={() => handleClick(nft)}
         >
+          <img src={nft.nftInfo.imageUrl} />
           <p>{setNftName(nft)}</p>
           <div className="quantity-controls">
+            <span>수량: {nft.quantity}</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -110,7 +117,6 @@ function DrOne() {
             >
               -
             </button>
-            <span>{nft.quantity}</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -132,7 +138,7 @@ function DrOne() {
       return (nft.nftInfo as MaterialNft).name;
     } else if (nft.type === "blueprint") {
       return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}] 
-        설계도면(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
+        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
     } else {
       return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
       조각(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
@@ -141,30 +147,32 @@ function DrOne() {
 
   return (
     <div className="DrOne">
-      <p className="dr_title">NFT 교환 제안</p>
-      <div className="dr_nftOffer">
-        <h3>1단계: 제공할 NFT 선택</h3>
-        <div className="nftOffer_main">
-          {renderNfts(nftsOffer, selectedOfferNfts, handleOfferNftClick)}
+      <MyHeader headerText="NFT 교환 제안" leftChild={<MyButton />} />
+      <div className="dr_stepbar">
+        <div className="container">
+          <div className="filler" style={fillerStyles}></div>
         </div>
+        <p>1단계: 제공할 NFT 선택</p>
       </div>
-      <div>
-        <h3>선택된 NFT:</h3>
+      <div className="offerNfts_main">
+        {renderNfts(nftsOffer, selectedOfferNfts, handleOfferNftClick)}
+      </div>
+      <div className="selected-nfts">
+        <p className="snTxt">선택된 NFT:</p>
         {selectedOfferNfts.map((nft, index) => (
           <p key={index}>
             {index + 1}. {setNftName(nft)} (수량: {nft.quantity})
           </p>
         ))}
       </div>
-
       <button
+        className="dr1_btn"
         onClick={() =>
           navigate("/deal/regist/stepTwo", { state: selectedOfferNfts })
         }
       >
         다음: 받고 싶은 NFT 선택
       </button>
-      <MyBottomNavBar />
     </div>
   );
 }
