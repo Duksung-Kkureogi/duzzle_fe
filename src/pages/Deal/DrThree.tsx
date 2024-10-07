@@ -1,7 +1,6 @@
 import "./DrThree.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import {
   AvailableNft,
   MaterialNft,
@@ -53,6 +52,7 @@ function DrThree() {
       );
       if (response.data.result) {
         console.log(response.data);
+        navigate("/deal");
       } else {
         console.log("Exchange failed");
       }
@@ -99,7 +99,6 @@ function DrThree() {
       </div>
       <button onClick={() => navigate(-1)}>이전</button>
       <button onClick={nftExchange}>교환하기</button>
-      <MyBottomNavBar />
     </div>
   );
 }

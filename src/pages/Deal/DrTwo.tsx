@@ -6,7 +6,6 @@ import {
   BlueprintOrPuzzleNft,
   MaterialNft,
 } from "../../Data/DTOs/DealNftDTO";
-import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function DrTwo() {
@@ -173,7 +172,6 @@ function DrTwo() {
       >
         선택 완료
       </button>
-      <MyBottomNavBar />
     </div>
   );
 }
