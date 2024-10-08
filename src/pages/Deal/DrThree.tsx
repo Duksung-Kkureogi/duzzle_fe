@@ -17,6 +17,10 @@ function DrThree() {
     selectedRequestNfts: AvailableNft[];
   };
 
+  const fillerStyles = {
+    width: `100%`,
+  };
+
   const NftInfo = (nft: AvailableNft) => {
     let id: { contractId?: number; seasonZoneId?: number };
 
@@ -76,20 +80,23 @@ function DrThree() {
   return (
     <div className="DrThree">
       <p className="dr_title">NFT 교환 제안</p>
-      <div className="dr_nftExchange">
-        <h3>3단계: 제안 검토 및 생성</h3>
+      <div className="dr_stepbar">
+        <div className="container">
+          <div className="filler" style={fillerStyles}></div>
+        </div>
+        <p>3단계: 제안 검토 및 생성</p>
       </div>
-      <div>
-        <div>
-          <h3>제공할 NFT:</h3>
+      <div className="exchangeNfts_main">
+        <div className="offerNft">
+          <p className="enTxt">제공할 NFT:</p>
           {selectedOfferNfts.map((nft, index) => (
             <p key={index}>
               {setNftName(nft)} (수량: {nft.quantity})
             </p>
           ))}
         </div>
-        <div>
-          <h3>받고 싶은 NFT:</h3>
+        <div className="requestNft">
+          <p className="enTxt">받고 싶은 NFT:</p>
           {selectedRequestNfts.map((nft, index) => (
             <p key={index}>
               {setNftName(nft)} (수량: {nft.quantity})
@@ -97,8 +104,14 @@ function DrThree() {
           ))}
         </div>
       </div>
-      <button onClick={() => navigate(-1)}>이전</button>
-      <button onClick={nftExchange}>교환하기</button>
+      <div className="dr3Buttons">
+        <button className="dr3_btn back" onClick={() => navigate(-1)}>
+          이전
+        </button>
+        <button className="dr3_btn exchange" onClick={nftExchange}>
+          완료
+        </button>
+      </div>
     </div>
   );
 }
