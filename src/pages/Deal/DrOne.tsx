@@ -53,7 +53,7 @@ function DrOne() {
   }, [RequestUrl]);
 
   const fillerStyles = {
-    width: `33%`,
+    width: `33.3%`,
   };
 
   const handleOfferNftClick = (nft: AvailableNft) => {
@@ -136,9 +136,18 @@ function DrOne() {
   const setNftName = (nft: AvailableNft): string => {
     if (nft.type === "material") {
       return (nft.nftInfo as MaterialNft).name;
+    } else {
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
+      ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+    }
+  };
+
+  const setNftName2 = (nft: AvailableNft): string => {
+    if (nft.type === "material") {
+      return (nft.nftInfo as MaterialNft).name;
     } else if (nft.type === "blueprint") {
       return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}] 
-        ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+        설계도면(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
     } else {
       return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
       조각(${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName})`;
@@ -161,7 +170,7 @@ function DrOne() {
         <p className="snTxt">선택된 NFT:</p>
         {selectedOfferNfts.map((nft, index) => (
           <p key={index}>
-            {index + 1}. {setNftName(nft)} (수량: {nft.quantity})
+            {index + 1}. {setNftName2(nft)} (수량: {nft.quantity})
           </p>
         ))}
       </div>
