@@ -1,57 +1,121 @@
-/* Deal */
 .Deal {
-  font-family: "Noto Sans KR", sans-serif;
   width: 90vw;
   max-width: 500px;
-}
-
-.Deal .deal_button {
+  margin: 0 auto;
   display: flex;
-  padding: 0 10px;
-  padding-top: 30px;
-  button {
-    background-color: #ececec;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    padding-left: 13px;
-    padding-right: 13px;
-    font-size: medium;
-  }
-}
-.Deal .postBtn {
-  margin-left: auto;
+  flex-direction: column;
+  align-items: center;
 }
 
-.Deal .list_title {
-  font-size: large;
+.Deal .trade-list,
+.user-trade-list {
+  margin: 10px;
+}
+
+.Deal .search-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.Deal .search-section input {
+  flex-grow: 1;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 30%;
+}
+
+.Deal .search-section select {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 25%;
+}
+
+.Deal .search-section button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  min-width: 15%;
+}
+
+.Deal .search-section button:hover {
+  background-color: #45a049;
+}
+
+.Deal .trade-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.Deal .user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Deal .user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.Deal .user-info p {
+  margin: 0;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.Deal .nft-info {
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.Deal .nft-info p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.Deal .status {
+  text-align: right;
+  font-size: 0.8em;
+  color: #555;
+}
+
+.Deal .status p {
   font-weight: bold;
-  margin: 15px;
+  margin: 0;
 }
 
-.Deal .deal {
-  display: flex;
-  margin: 6px 10px;
-  padding: 10px 10px;
-  background-color: #ececec;
-  border-radius: 10px;
-  img {
-    margin-right: auto;
-    margin-left: 2vw;
-    width: 13vw;
-    height: 13vw;
-    max-width: 50px;
-    max-height: 50px;
-  }
+.Deal .user-trade-list h3,
+.trade-list h3 {
+  margin: 20px 0 10px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
-.Deal .deal_trade {
-  display: flex;
-  background-color: white;
-  border-radius: 10px;
-  padding: 5px 40px;
-  margin-right: 50px;
-  img {
-    margin: 0px 10px;
-  }
+.Deal .trade-item {
+  margin: 10px 0;
 }
