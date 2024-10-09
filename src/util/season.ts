@@ -10,7 +10,7 @@ export const seasonList = [
     createdAt: "2024-06-15T09:52:21.784Z",
     updatedAt: "2024-06-15T09:52:21.784Z",
     id: 1,
-    title: "christmas",
+    title: "spring",
     totalPieces: 20,
   },
 ];
