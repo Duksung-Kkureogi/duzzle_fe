@@ -18,6 +18,8 @@ function DrTwo() {
   const [selectedRequestNfts, setSelectedRequestNfts] = useState<
     AvailableNft[]
   >([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
 
   const fillerStyles = {
     width: `66.6%`,
@@ -27,10 +29,14 @@ function DrTwo() {
     const getData = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const params = {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const params: any = {
           count: 50,
           page: 0,
         };
+        if (search) {
+          params.name = search;
+        }
         const responseRequest = await axios.get(
           `${RequestUrl}/v1/nft-exchange/available-nfts-to-request`,
           {
@@ -59,7 +65,11 @@ function DrTwo() {
       }
     };
     getData();
-  }, [RequestUrl]);
+  }, [RequestUrl, search]);
+
+  const onSearch = () => {
+    setSearch(searchTerm);
+  };
 
   const handleRequestNftClick = (nft: AvailableNft) => {
     setSelectedRequestNfts((prevSelected) =>
@@ -171,6 +181,14 @@ function DrTwo() {
           <div className="filler" style={fillerStyles}></div>
         </div>
         <p>2단계: 받고 싶은 NFT 선택</p>
+      </div>
+      <div className="rn-search">
+        <textarea
+          placeholder="NFT 검색.."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button onClick={onSearch}>검색</button>
       </div>
       <div className="requestNfts_main">
         {renderNfts(nftsRequest, selectedRequestNfts, handleRequestNftClick)}

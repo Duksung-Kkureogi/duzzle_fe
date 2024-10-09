@@ -40,7 +40,7 @@
 .DrOne .offerNfts_main {
   background-color: #ececec;
   border-radius: 5px;
-  height: 50vh;
+  height: 45vh;
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

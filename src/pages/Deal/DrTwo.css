@@ -14,6 +14,39 @@
   font-weight: 700;
 }
 
+.DrTwo .rn-search {
+  margin: 0px 10px;
+  display: flex;
+  border: gray solid 2px;
+  border-radius: 20px;
+  textarea {
+    width: 85%;
+    resize: none;
+    padding: 1em 0 0 25px;
+    border: none;
+    border-radius: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: "Noto Sans KR", sans-serif;
+    line-height: 1;
+    &::placeholder {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    width: 15%;
+    border: none;
+    border-radius: inherit;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
 .DrTwo .requestNfts_main {
   background-color: #ececec;
   border-radius: 5px;
@@ -67,7 +100,6 @@
 
 .DrTwo .request-nft .quantity-controls {
   width: 60%;
-  margin-top: 5px;
   display: flex;
   align-items: center;
   background-color: #80dae667;
