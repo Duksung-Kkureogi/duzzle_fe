@@ -19,6 +19,10 @@ function DrTwo() {
     AvailableNft[]
   >([]);
 
+  const fillerStyles = {
+    width: `66.6%`,
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -101,32 +105,37 @@ function DrTwo() {
       return (
         <div
           key={index}
-          className={`nft-item ${isSelected ? "selected" : ""}`}
+          className={`request-nft ${isSelected ? "selected" : ""}`}
           onClick={() => handleClick(nft)}
         >
-          <p>{setNftName(nft)}</p>
-          <div className="quantity-controls">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                decreaseQuantity(nft);
-              }}
-              disabled={isSelected}
-              className={isSelected ? "disabled" : ""}
-            >
-              -
-            </button>
-            <span>{nft.quantity}</span>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                increaseQuantity(nft);
-              }}
-              disabled={isSelected}
-              className={isSelected ? "disabled" : ""}
-            >
-              +
-            </button>
+          <div className="rn-img">
+            <img src={nft.nftInfo.imageUrl} />
+          </div>
+          <div className="rn-info">
+            <p>{setNftName(nft)}</p>
+            <div className="quantity-controls">
+              <span>수량: {nft.quantity}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  decreaseQuantity(nft);
+                }}
+                disabled={isSelected}
+                className={isSelected ? "disabled" : ""}
+              >
+                -
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  increaseQuantity(nft);
+                }}
+                disabled={isSelected}
+                className={isSelected ? "disabled" : ""}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
       );
@@ -134,6 +143,15 @@ function DrTwo() {
   };
 
   const setNftName = (nft: AvailableNft): string => {
+    if (nft.type === "material") {
+      return (nft.nftInfo as MaterialNft).name;
+    } else {
+      return `[${(nft.nftInfo as BlueprintOrPuzzleNft).seasonName}]
+      ${(nft.nftInfo as BlueprintOrPuzzleNft).zoneName}`;
+    }
+  };
+
+  const setNftName2 = (nft: AvailableNft): string => {
     if (nft.type === "material") {
       return (nft.nftInfo as MaterialNft).name;
     } else if (nft.type === "blueprint") {
@@ -148,30 +166,38 @@ function DrTwo() {
   return (
     <div className="DrTwo">
       <p className="dr_title">NFT 교환 제안</p>
-      <div className="dr_nftRequest">
-        <h3>2단계: 받고 싶은 NFT 선택</h3>
-        <div className="nftRequest_main">
-          {renderNfts(nftsRequest, selectedRequestNfts, handleRequestNftClick)}
+      <div className="dr_stepbar">
+        <div className="container">
+          <div className="filler" style={fillerStyles}></div>
         </div>
+        <p>2단계: 받고 싶은 NFT 선택</p>
       </div>
-      <div>
-        <h3>선택된 NFT:</h3>
+      <div className="requestNfts_main">
+        {renderNfts(nftsRequest, selectedRequestNfts, handleRequestNftClick)}
+      </div>
+      <div className="selected-nfts">
+        <p className="snTxt">선택된 NFT:</p>
         {selectedRequestNfts.map((nft, index) => (
           <p key={index}>
-            {index + 1}. {setNftName(nft)} (수량: {nft.quantity})
+            {index + 1}. {setNftName2(nft)} (수량: {nft.quantity})
           </p>
         ))}
       </div>
-      <button onClick={() => navigate(-1)}>이전</button>
-      <button
-        onClick={() =>
-          navigate("/deal/regist/stepThree", {
-            state: { selectedOfferNfts, selectedRequestNfts },
-          })
-        }
-      >
-        선택 완료
-      </button>
+      <div className="dr2Buttons">
+        <button className="dr2_btn back" onClick={() => navigate(-1)}>
+          이전
+        </button>
+        <button
+          className="dr2_btn"
+          onClick={() =>
+            navigate("/deal/regist/stepThree", {
+              state: { selectedOfferNfts, selectedRequestNfts },
+            })
+          }
+        >
+          선택 완료
+        </button>
+      </div>
     </div>
   );
 }
