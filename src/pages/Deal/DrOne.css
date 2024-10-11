@@ -164,3 +164,8 @@
   border: none;
   border-radius: 20px;
 }
+
+.DrOne .dr1_btn.disabled {
+  background-color: #a2a2a2;
+  cursor: default;
+}

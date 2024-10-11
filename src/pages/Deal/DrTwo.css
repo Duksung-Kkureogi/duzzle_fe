@@ -170,6 +170,11 @@
   font-weight: 500;
 }
 
+.DrTwo .dr2_btn.disabled {
+  background-color: #a2a2a2;
+  cursor: default;
+}
+
 .DrTwo .dr2_btn.back {
   background-color: #a2a2a2;
 }

@@ -206,12 +206,15 @@ function DrTwo() {
           이전
         </button>
         <button
-          className="dr2_btn"
+          className={`dr2_btn ${
+            selectedRequestNfts.length > 0 ? "" : "disabled"
+          }`}
           onClick={() =>
             navigate("/deal/regist/stepThree", {
               state: { selectedOfferNfts, selectedRequestNfts },
             })
           }
+          disabled={selectedRequestNfts.length === 0}
         >
           선택 완료
         </button>

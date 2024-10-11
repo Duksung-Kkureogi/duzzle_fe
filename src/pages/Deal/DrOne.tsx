@@ -175,10 +175,11 @@ function DrOne() {
         ))}
       </div>
       <button
-        className="dr1_btn"
+        className={`dr1_btn ${selectedOfferNfts.length > 0 ? "" : "disabled"}`}
         onClick={() =>
           navigate("/deal/regist/stepTwo", { state: selectedOfferNfts })
         }
+        disabled={selectedOfferNfts.length === 0}
       >
         다음: 받고 싶은 NFT 선택
       </button>
