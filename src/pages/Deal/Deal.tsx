@@ -5,8 +5,10 @@ import { DealList, myDealList } from "./Deal_data";
 
 // 이미지
 import tradeImg from "./trade.png";
+import { useNavigate } from "react-router-dom";
 
 function Deal() {
+  const navigate = useNavigate();
   const [deals, setDeals] = useState<Deal[]>([
     { userImg: "", myItem: "", yourItem: "" },
   ]);
@@ -29,7 +31,12 @@ function Deal() {
     <div className="Deal">
       <div className="deal_button">
         <button className="searchBtn">검색</button>
-        <button className="postBtn">거래등록</button>
+        <button
+          className="postBtn"
+          onClick={() => navigate("/deal/regist/stepOne")}
+        >
+          거래등록
+        </button>
       </div>
       <p className="list_title">거래 목록</p>
       <div className="deals_main">

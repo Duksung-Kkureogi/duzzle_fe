@@ -4,13 +4,6 @@
   max-width: 500px;
 }
 
-.Questsuccess .w-6.h-6 {
-  width: 200px;
-  height: 200px;
-  margin-top: 50px;
-  margin-bottom: 40px;
-}
-
 .Questsuccess .text_suc {
   background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);
   background-size: 200% auto;
@@ -20,6 +13,7 @@
   font-size: 60px;
   font-weight: bold;
   margin-top: 40px;
+  text-shadow: 0px 1px 2px #00b5cc;
 }
 .Questsuccess .text_dal {
   background-image: linear-gradient(to right, #ff66bd, #ff66bd, #ff66bd);
@@ -40,6 +34,15 @@
   font-weight: bold;
 }
 
+.Questsuccess .happy {
+  max-width: 400px;
+  height: 60%;
+  width: 60%;
+  display: block;
+  z-index: 1;
+  margin: 0 auto;
+}
+
 button {
   cursor: pointer;
   font: inherit;
@@ -51,9 +54,9 @@ button {
   background-color: #00b5cc;
   color: #fff;
   border: 0;
-  font-size: 1.9rem;
-  font-weight: 400;
-  width: 280px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  width: 230px;
   height: 100px;
   padding: 0.5em 1.25em;
   border-radius: 1.5em;
@@ -63,11 +66,14 @@ button {
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  box-shadow: 0 4px 15px 0 #5daeba;
+  box-shadow: 0 4px 15px 0 #1f5760;
+}
+.btn:hover {
+  background-color: #019cb1;
 }
 
 .btn-jittery {
-  animation: jittery 1.5s infinite;
+  animation: jittery 0.5s infinite;
 }
 
 @keyframes jittery {
