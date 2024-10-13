@@ -13,4 +13,14 @@ export const seasonList = [
     title: "spring",
     totalPieces: 20,
   },
+  {
+    createdAt: "2024-10-13T11:38:45.376Z",
+    updatedAt: "2024-10-13T11:38:45.376Z",
+    id: 3,
+    title: "Spring",
+    titleKr: "봄",
+    thumbnailUrl:
+      "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/crop.png",
+    totalPieces: 20,
+  },
 ];

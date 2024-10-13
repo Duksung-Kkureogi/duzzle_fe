@@ -1,14 +1,14 @@
 export class ContractAddress {
   static get Dal(): string {
-    return "0x66EEc699AF7F9586A3cEF7F18abB3D4a3b279c71";
+    return "0x8f1cCE8ab1ee34d3C27B7384e8Dc6E639F920da4";
   }
 
   static get PlayDuzzle(): string {
-    return "0x4d03c07248f3ee253bf0Fa426Eb453a1317659D6";
+    return "0xcC8e834ED0fbF077Ac1544ccdBFa6F7b7cB0b958";
   }
 
   static get BlueprintItem(): string {
-    return "0xa07b3f7F489013558F56b77a17a664421fefc5Df";
+    return "0xA138d98d502478012CBDf1Ec95294d982EfE356b";
   }
 }
 
