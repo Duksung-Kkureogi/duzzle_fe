@@ -6,7 +6,7 @@ import hammerImg from "../assets/images/hammer.png";
 
 export const itemList = [
   {
-    metadata_name: "설계도",
+    metadata_name: "설계도면",
     item_name: "설계도",
     item_img: blueprintImg,
   },
