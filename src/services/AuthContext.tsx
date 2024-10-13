@@ -169,20 +169,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const duzzleLogin = async (params: LoginRequest) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response: any = (
-        await Http.post(
-          "/v1/auth",
-          {
-            loginType: checkLoginType(params.loginType),
-            walletAddress: params.walletAddress,
-          },
-          {
-            headers: {
-              Authorization: params.idToken,
-            },
-          }
-        )
-      ).data;
+      const response: any = await Http.post(
+        "/v1/auth",
+        {
+          loginType: checkLoginType(params.loginType),
+          walletAddress: params.walletAddress,
+        },
+        {
+          Authorization: params.idToken,
+        }
+      );
       localStorage.setItem("accessToken", response.data["accessToken"]);
 
       localStorage.setItem("walletAddress", params.walletAddress);
