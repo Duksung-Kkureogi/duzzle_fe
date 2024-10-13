@@ -20,6 +20,9 @@ const DealPage = () => {
     requestedNft: "",
   });
   const [mockMode, setMockMode] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [myCurrentPage, setMyCurrentPage] = useState(1);
+  const tradesPerPage = 3;
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
   const loggedInWalletAddress = localStorage.getItem("walletAddress");
@@ -142,12 +145,26 @@ const DealPage = () => {
 
   const fetchTrades = async () => {
     try {
-      const response = await axios.get(`${RequestURL}/v1/deal`, {
+      const params = {
+        count: tradesPerPage,
+        page: currentPage - 1,
+      };
+
+      if (status) params.status = status;
+      if (searchQuery.requestedNft)
+        params.requestedNfts = searchQuery.requestedNft;
+      if (searchQuery.providedNft) params.offeredNfts = searchQuery.providedNft;
+      if (searchQuery.user) params.offerorUser = searchQuery.user;
+
+      const response = await axios.get(`${RequestURL}/v1/nft-exchange`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        params: params,
       });
+
+      console.log("API 응답 데이터:", response.data);
       const trades = response.data.data.list;
       setRegisteredTrades(trades);
       setMockMode(false);
@@ -168,7 +185,7 @@ const DealPage = () => {
 
   useEffect(() => {
     fetchTrades();
-  }, []);
+  }, [currentPage, status, searchQuery]);
 
   const filterTrades = (trades) => {
     let filteredTrades = trades;
@@ -181,28 +198,69 @@ const DealPage = () => {
 
     if (searchQuery.user) {
       filteredTrades = filteredTrades.filter((trade) =>
-        trade.offerorUser.name.includes(searchQuery.user)
+        trade.offerorUser && trade.offerorUser.name
+          ? trade.offerorUser.name.includes(searchQuery.user)
+          : false
       );
     }
 
     if (searchQuery.providedNft) {
       filteredTrades = filteredTrades.filter((trade) =>
-        trade.offeredNfts.some((nft) =>
-          nft.name.includes(searchQuery.providedNft)
-        )
+        trade.offeredNfts
+          ? trade.offeredNfts.some((nft) =>
+              nft.name ? nft.name.includes(searchQuery.providedNft) : false
+            )
+          : false
       );
     }
 
     if (searchQuery.requestedNft) {
       filteredTrades = filteredTrades.filter((trade) =>
-        trade.requestedNfts.some((nft) =>
-          nft.name.includes(searchQuery.requestedNft)
-        )
+        trade.requestedNfts
+          ? trade.requestedNfts.some((nft) =>
+              nft.name ? nft.name.includes(searchQuery.requestedNft) : false
+            )
+          : false
       );
     }
 
     return filteredTrades;
   };
+
+  const indexOfLastTrade = currentPage * tradesPerPage;
+  const indexOfFirstTrade = indexOfLastTrade - tradesPerPage;
+  const currentTrades = filterTrades(
+    mockMode ? mockData : registeredTrades
+  ).slice(indexOfFirstTrade, indexOfLastTrade);
+
+  const indexOfMyLastTrade = myCurrentPage * tradesPerPage;
+  const indexOfMyFirstTrade = indexOfMyLastTrade - tradesPerPage;
+  const currentMyTrades = filterTrades(myTrades).slice(
+    indexOfMyFirstTrade,
+    indexOfMyLastTrade
+  );
+
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      filterTrades(mockMode ? mockData : registeredTrades).length /
+        tradesPerPage
+    );
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
+
+  const myPageNumbers = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(filterTrades(myTrades).length / tradesPerPage);
+    i++
+  ) {
+    myPageNumbers.push(i);
+  }
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
@@ -237,10 +295,7 @@ const DealPage = () => {
           placeholder="요청 NFT 검색..."
           value={searchParams.requestedNft}
           onChange={(e) =>
-            setSearchParams({
-              ...searchParams,
-              requestedNft: e.target.value,
-            })
+            setSearchParams({ ...searchParams, requestedNft: e.target.value })
           }
         />
         <button onClick={handleSearch}>🔍</button>
@@ -255,7 +310,7 @@ const DealPage = () => {
       {/* 등록된 거래 목록 */}
       <div className="trade-list">
         <h3>등록된 거래 목록</h3>
-        {filterTrades(mockMode ? mockData : registeredTrades).map((trade) => (
+        {currentTrades.map((trade) => (
           <div key={trade.nftExchangeOfferId} className="trade-item">
             <div className="user-info">
               <img
@@ -305,11 +360,18 @@ const DealPage = () => {
             </div>
           </div>
         ))}
+        <div className="pagination">
+          {pageNumbers.map((number) => (
+            <button key={number} onClick={() => setCurrentPage(number)}>
+              {number}
+            </button>
+          ))}
+        </div>
       </div>
       {/* 내가 등록한 거래 목록 */}
       <div className="my-trade-list">
         <h3>내가 등록한 거래</h3>
-        {filterTrades(myTrades).map((trade) => (
+        {currentMyTrades.map((trade) => (
           <div key={trade.nftExchangeOfferId} className="trade-item">
             <div className="user-info">
               <img
@@ -359,6 +421,13 @@ const DealPage = () => {
             </div>
           </div>
         ))}
+        <div className="pagination">
+          {myPageNumbers.map((number) => (
+            <button key={number} onClick={() => setMyCurrentPage(number)}>
+              {number}
+            </button>
+          ))}
+        </div>
       </div>
       <MyBottomNavBar />
     </div>

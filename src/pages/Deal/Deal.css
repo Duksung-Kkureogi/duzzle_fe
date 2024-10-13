@@ -119,3 +119,21 @@
 .Deal .trade-item {
   margin: 10px 0;
 }
+.Deal .pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.Deal .pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.Deal .pagination button:hover {
+  background-color: #eee;
+}
