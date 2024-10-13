@@ -25,7 +25,6 @@ const DealPage = () => {
   const tradesPerPage = 3;
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
-  const loggedInWalletAddress = localStorage.getItem("walletAddress");
 
   // mock 데이터
   const mockData = [
@@ -164,28 +163,51 @@ const DealPage = () => {
         params: params,
       });
 
-      console.log("API 응답 데이터:", response.data);
       const trades = response.data.data.list;
       setRegisteredTrades(trades);
       setMockMode(false);
-      const myRegisteredTrades = trades.filter(
-        (trade) => trade.offerorUser.walletAddress === loggedInWalletAddress
-      );
-      setMyTrades(myRegisteredTrades);
+      console.log("Registered trades: ", trades);
     } catch (error) {
       console.error("Error fetching trades:", error);
       setMockMode(true);
+    }
+  };
 
-      const myMockTrades = mockData.filter(
-        (trade) => trade.offerorUser.walletAddress === loggedInWalletAddress
-      );
-      setMyTrades(myMockTrades);
+  const fetchMyTrades = async () => {
+    try {
+      const params = {
+        count: tradesPerPage,
+        page: myCurrentPage - 1,
+      };
+
+      if (status) params.status = status;
+      if (searchQuery.requestedNft)
+        params.requestedNfts = searchQuery.requestedNft;
+      if (searchQuery.providedNft) params.offeredNfts = searchQuery.providedNft;
+      if (searchQuery.user) params.offerorUser = searchQuery.user;
+
+      const response = await axios.get(`${RequestURL}/v1/nft-exchange/my`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: params,
+      });
+
+      const trades = response.data.data.list;
+      setMyTrades(trades);
+      setMockMode(false);
+      console.log("My trades: ", trades);
+    } catch (error) {
+      console.error("Error fetching my trades:", error);
+      setMockMode(true);
     }
   };
 
   useEffect(() => {
     fetchTrades();
-  }, [currentPage, status, searchQuery]);
+    fetchMyTrades();
+  }, [currentPage, myCurrentPage, status, searchQuery]);
 
   const filterTrades = (trades) => {
     let filteredTrades = trades;
@@ -240,27 +262,21 @@ const DealPage = () => {
     indexOfMyLastTrade
   );
 
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <=
+  // 전체 페이지 수 계산
+  const totalPages = Math.max(
     Math.ceil(
       filterTrades(mockMode ? mockData : registeredTrades).length /
         tradesPerPage
-    );
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
+    ),
+    1
+  ); // 최소 1 페이지는 보장
+  const totalMyPages = Math.max(
+    Math.ceil(filterTrades(myTrades).length / tradesPerPage),
+    1
+  );
 
-  const myPageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(filterTrades(myTrades).length / tradesPerPage);
-    i++
-  ) {
-    myPageNumbers.push(i);
-  }
+  console.log("Total pages: ", totalPages);
+  console.log("Total my pages: ", totalMyPages);
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
@@ -302,9 +318,9 @@ const DealPage = () => {
         <button onClick={() => navigate("/deal/regist")}>등록</button>
         <select value={status} onChange={handleStatusChange}>
           <option value="">상태</option>
-          <option value="dealing">대기중</option>
-          <option value="dealdone">거래완료</option>
-          <option value="dealcancel">거래취소</option>
+          <option value="list">대기중</option>
+          <option value="listdone">거래완료</option>
+          <option value="listed">거래취소</option>
         </select>
       </div>
       {/* 등록된 거래 목록 */}
@@ -313,38 +329,40 @@ const DealPage = () => {
         {currentTrades.map((trade) => (
           <div key={trade.nftExchangeOfferId} className="trade-item">
             <div className="user-info">
-              <img
-                src={trade.offerorUser.image}
-                alt={trade.offerorUser.name}
-                style={{ width: "50px", height: "50px" }}
-              />
-              <p>{trade.offerorUser.name}</p>
-              <p>{trade.createdAt}</p>
+              <img src={trade.offerorUser.image} alt={trade.offerorUser.name} />
+              <p className="userT">{trade.offerorUser.name}</p>
+              <p className="userT1">
+                {new Date(trade.createdAt).toLocaleString()}
+              </p>
             </div>
             <div className="nft-info">
               <div className="offered">
-                <p>제공:</p>
+                <p className="off1">제공:</p>
                 {trade.offeredNfts.map((nft, index) => (
-                  <div key={index}>
-                    <img
-                      src={nft.imageUrl}
-                      alt={nft.name}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                    <p>{nft.name}</p>
+                  <div key={index} className="nft-item">
+                    <img src={nft.imageUrl} alt={nft.name || nft.seasonName} />
+                    <p className="off2">
+                      {nft.type === "material" && nft.name}
+                      {nft.type === "blueprint" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                      {nft.type === "puzzlePiece" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                    </p>
                   </div>
                 ))}
               </div>
               <div className="requested">
-                <p>요청:</p>
+                <p className="ree1">요청:</p>
                 {trade.requestedNfts.map((nft, index) => (
-                  <div key={index}>
-                    <img
-                      src={nft.imageUrl}
-                      alt={nft.name}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                    <p>{nft.name}</p>
+                  <div key={index} className="nft-item">
+                    <img src={nft.imageUrl} alt={nft.name || nft.seasonName} />
+                    <p className="ree2">
+                      {nft.type === "material" && nft.name}
+                      {nft.type === "blueprint" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                      {nft.type === "puzzlePiece" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -361,9 +379,9 @@ const DealPage = () => {
           </div>
         ))}
         <div className="pagination">
-          {pageNumbers.map((number) => (
-            <button key={number} onClick={() => setCurrentPage(number)}>
-              {number}
+          {[...Array(totalPages)].map((_, i) => (
+            <button key={i} onClick={() => setCurrentPage(i + 1)}>
+              {i + 1}
             </button>
           ))}
         </div>
@@ -386,26 +404,38 @@ const DealPage = () => {
               <div className="offered">
                 <p>제공:</p>
                 {trade.offeredNfts.map((nft, index) => (
-                  <div key={index}>
+                  <div key={index} className="nft-item">
                     <img
                       src={nft.imageUrl}
-                      alt={nft.name}
+                      alt={nft.name || nft.seasonName}
                       style={{ width: "50px", height: "50px" }}
                     />
-                    <p>{nft.name}</p>
+                    <p>
+                      {nft.type === "material" && nft.name}
+                      {nft.type === "blueprint" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                      {nft.type === "puzzlePiece" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                    </p>
                   </div>
                 ))}
               </div>
               <div className="requested">
                 <p>요청:</p>
                 {trade.requestedNfts.map((nft, index) => (
-                  <div key={index}>
+                  <div key={index} className="nft-item">
                     <img
                       src={nft.imageUrl}
-                      alt={nft.name}
+                      alt={nft.name || nft.seasonName}
                       style={{ width: "50px", height: "50px" }}
                     />
-                    <p>{nft.name}</p>
+                    <p>
+                      {nft.type === "material" && nft.name}
+                      {nft.type === "blueprint" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                      {nft.type === "puzzlePiece" &&
+                        `${nft.seasonName} - ${nft.zoneName}`}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -422,9 +452,9 @@ const DealPage = () => {
           </div>
         ))}
         <div className="pagination">
-          {myPageNumbers.map((number) => (
-            <button key={number} onClick={() => setMyCurrentPage(number)}>
-              {number}
+          {[...Array(totalMyPages)].map((_, i) => (
+            <button key={i} onClick={() => setMyCurrentPage(i + 1)}>
+              {i + 1}
             </button>
           ))}
         </div>
