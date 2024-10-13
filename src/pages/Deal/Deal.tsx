@@ -269,7 +269,7 @@ const DealPage = () => {
         tradesPerPage
     ),
     1
-  ); // 최소 1 페이지는 보장
+  );
   const totalMyPages = Math.max(
     Math.ceil(filterTrades(myTrades).length / tradesPerPage),
     1

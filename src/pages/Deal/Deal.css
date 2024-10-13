@@ -7,10 +7,6 @@
   align-items: center;
 }
 
-.Deal .trade-list,
-.user-trade-list {
-}
-
 .Deal .search-section {
   display: flex;
   flex-wrap: wrap;
@@ -99,7 +95,7 @@
 }
 .nft-info {
   display: flex;
-  width: 70%;
+  width: 65%;
 }
 .Deal .nft-info img {
   width: 30px;
@@ -147,12 +143,15 @@
   margin: 20px 0 10px 20px;
   font-size: 1.1em;
   font-weight: bold;
+  text-align: left;
+}
+.Deal .my-trade-list h3 {
+  margin: 20px 0 10px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: left;
 }
 
-.Deal .trade-item {
-  margin: 10px 0;
-  max-width: 500px;
-}
 .Deal .pagination {
   display: flex;
   justify-content: center;
