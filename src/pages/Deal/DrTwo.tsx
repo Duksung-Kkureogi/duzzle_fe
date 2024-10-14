@@ -210,7 +210,7 @@ function DrTwo() {
             selectedRequestNfts.length > 0 ? "" : "disabled"
           }`}
           onClick={() =>
-            navigate("/deal/regist/stepThree", {
+            navigate("/nft-exchange/regist/stepThree", {
               state: { selectedOfferNfts, selectedRequestNfts },
             })
           }

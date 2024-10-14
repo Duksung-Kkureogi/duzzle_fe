@@ -73,10 +73,13 @@ function App() {
               path="/history/:seasonId/ranking"
               element={<HistoryRanking />}
             />
-            <Route path="/deal" element={<Deal />} />
-            <Route path="/deal/regist/stepOne" element={<DrOne />} />
-            <Route path="/deal/regist/stepTwo" element={<DrTwo />} />
-            <Route path="/deal/regist/stepThree" element={<DrThree />} />
+            <Route path="/nft-exchange" element={<Deal />} />
+            <Route path="/nft-exchange/regist/stepOne" element={<DrOne />} />
+            <Route path="/nft-exchange/regist/stepTwo" element={<DrTwo />} />
+            <Route
+              path="/nft-exchange/regist/stepThree"
+              element={<DrThree />}
+            />
             <Route path="/ranking" element={<Ranking />} />
             <Route
               path="/duksaejump/:logId"

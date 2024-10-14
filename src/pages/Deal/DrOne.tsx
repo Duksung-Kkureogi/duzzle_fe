@@ -177,7 +177,7 @@ function DrOne() {
       <button
         className={`dr1_btn ${selectedOfferNfts.length > 0 ? "" : "disabled"}`}
         onClick={() =>
-          navigate("/deal/regist/stepTwo", { state: selectedOfferNfts })
+          navigate("/nft-exchange/regist/stepTwo", { state: selectedOfferNfts })
         }
         disabled={selectedOfferNfts.length === 0}
       >

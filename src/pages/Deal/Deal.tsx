@@ -33,7 +33,7 @@ function Deal() {
         <button className="searchBtn">검색</button>
         <button
           className="postBtn"
-          onClick={() => navigate("/deal/regist/stepOne")}
+          onClick={() => navigate("/nft-exchange/regist/stepOne")}
         >
           거래등록
         </button>
