@@ -7,6 +7,7 @@ import {
   NftExchangeOfferStatus,
 } from "../../Data/DTOs/Deal";
 import "./DealList.css";
+import { useNavigate } from "react-router-dom";
 
 interface DealListProps {
   title: string;
@@ -23,6 +24,12 @@ const DealList: React.FC<DealListProps> = ({
   setCurrentPage,
   totalPages,
 }) => {
+  const navigate = useNavigate();
+
+  const handleDealClick = (id: number) => {
+    navigate(`/nft-exchange/${id}`);
+  };
+
   const getSeasonEmoji = (seasonName: string) => {
     switch (seasonName) {
       case "봄":
@@ -40,11 +47,12 @@ const DealList: React.FC<DealListProps> = ({
     if (nft["seasonName"]) {
       return (
         <p className="ree2">
-          [{getSeasonEmoji(nft["seasonName"])}] {nft["zoneName"]}
+          [{getSeasonEmoji(nft["seasonName"])}] {nft["zoneName"]} X{" "}
+          {nft.quantity}
         </p>
       );
     }
-    return <p className="ree2">{nft["name"]}</p>;
+    return <p className="ree2">{`${nft["name"]} X ${nft.quantity}`}</p>;
   };
 
   const getStatusText = (status: NftExchangeOfferStatus) => {
@@ -68,7 +76,11 @@ const DealList: React.FC<DealListProps> = ({
       <h3>{title}</h3>
       {deals &&
         deals.map((Deal) => (
-          <div key={Deal.id} className="deal-item">
+          <div
+            key={Deal.id}
+            className="deal-item"
+            onClick={() => handleDealClick(Deal.id)}
+          >
             <div className="deal-content">
               <div className="user-info">
                 <img src={Deal.offerorUser.image} alt={Deal.offerorUser.name} />
