@@ -1,0 +1,102 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.approval-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.approval-item:last-child {
+    border-bottom: none;
+}
+
+.token-name {
+    font-weight: bold;
+    color: #555;
+}
+
+.approval-status {
+    font-weight: bold;
+}
+
+.approval-status.approved {
+    color: #4CAF50;
+}
+
+.approval-status.not-approved {
+    color: #F44336;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.button-approve {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-approve:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.button-revoke {
+    background-color: #F44336;
+    color: white;
+}
+
+.button-revoke:hover:not(:disabled) {
+    background-color: #D32F2F;
+}
+
+.submit-button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #2196F3;
+    color: white;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #1E88E5;
+}

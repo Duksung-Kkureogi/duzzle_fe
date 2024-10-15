@@ -6,9 +6,11 @@ import { DealApis, GetDealQueryParams } from "../../services/api/deal.api";
 import { Deal, NftExchangeOfferStatus } from "../../Data/DTOs/Deal";
 import DealList from "./DealList";
 import SearchSection from "./SearchSectionComponent";
-import RPC from "../../../ethersRPC";
+import RPC, { ApprovalStatus } from "../../../ethersRPC";
 import { useAuth } from "../../services/AuthContext";
 import { IProvider } from "@web3auth/base";
+import ApprovalModal from "../../components/Modal/ApprovalModal";
+import LoginModal from "../../components/Modal/LoginModal";
 interface SearchParams {
   user: string;
   providedNft: string;
@@ -16,31 +18,14 @@ interface SearchParams {
 }
 
 const DealPage = () => {
-  const { web3auth } = useAuth();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    // TODO: 로그인 상태 확인
-    const checkAuthStatus = async () => {
-      const authStatus = !!localStorage.getItem("accessToken");
-      setIsAuthenticated(authStatus);
-    };
-
-    checkAuthStatus();
-  }, []);
-
-  const handleNewTrade = async () => {
-    if (isAuthenticated) {
-      const rpc = new RPC(web3auth?.provider as IProvider);
-      await rpc.getDuzzleTokenApproval();
-
-      navigate("/nft-exchange/regist/stepOne");
-    } else {
-      // 로그인 후에만 거래 등록 가능(로그인 페이지로 이동)
-      alert("거래를 등록하려면 로그인이 필요합니다."); // TODO: alert -> modal
-    }
-  };
-
+  const { web3auth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [approvalStatus, setApprovalStatus] = useState<ApprovalStatus>({});
+  const [isApprovalLoading, setIsApprovalLoading] = useState(false);
+
   const [registeredTrades, setRegisteredTrades] = useState<Deal[]>([]);
   const [registeredTradesTotal, setRegisteredTradesTotal] = useState(0);
   const [myTrades, setMyTrades] = useState<Deal[]>([]);
@@ -55,6 +40,82 @@ const DealPage = () => {
   const [myCurrentPage, setMyCurrentPage] = useState(1);
   const tradesPerPage = 2;
 
+  const checkApprovalStatus = useCallback(async () => {
+    if (isAuthenticated && web3auth?.provider) {
+      const rpc = new RPC(web3auth.provider as IProvider);
+      const status = await rpc.checkApprovalStatus();
+
+      setApprovalStatus(status);
+      const allApproved = Object.values(status).every((item) => item.approved);
+      setIsApproved(allApproved);
+    }
+  }, [isAuthenticated, web3auth]);
+
+  useEffect(() => {
+    checkApprovalStatus();
+  }, [checkApprovalStatus]);
+
+  const handleNewTrade = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+    } else if (!isApproved) {
+      setShowApprovalModal(true);
+    } else {
+      navigate("/nft-exchange/regist/stepOne");
+    }
+  };
+
+  const handleApprove = async (contractAddress: string) => {
+    if (web3auth?.provider && !isApprovalLoading) {
+      setIsApprovalLoading(true);
+      try {
+        const rpc = new RPC(web3auth.provider as IProvider);
+        const success = await rpc.setApprovalForAll(contractAddress, true);
+        if (success) {
+          // 즉시 상태 업데이트
+          setApprovalStatus((prevStatus) => ({
+            ...prevStatus,
+            [contractAddress]: {
+              ...prevStatus[contractAddress],
+              approved: true,
+            },
+          }));
+        } else {
+          console.error("Approval failed");
+        }
+      } catch (error) {
+        console.error("Approval error:", error);
+      } finally {
+        setIsApprovalLoading(false);
+      }
+    }
+  };
+
+  const handleRevoke = async (contractAddress: string) => {
+    if (web3auth?.provider && !isApprovalLoading) {
+      setIsApprovalLoading(true);
+      try {
+        const rpc = new RPC(web3auth.provider as IProvider);
+        const success = await rpc.revokeApproval(contractAddress);
+        if (success) {
+          setApprovalStatus((prevStatus) => ({
+            ...prevStatus,
+            [contractAddress]: {
+              ...prevStatus[contractAddress],
+              approved: false,
+            },
+          }));
+        } else {
+          console.error("Revocation failed");
+        }
+      } catch (error) {
+        console.error("Revocation error:", error);
+      } finally {
+        setIsApprovalLoading(false);
+      }
+    }
+  };
+
   const fetchTrades = useCallback(
     async (isMyTrades: boolean) => {
       try {
@@ -67,9 +128,10 @@ const DealPage = () => {
           offerorUser: searchParams.user,
         };
 
-        const response = isMyTrades
-          ? await DealApis.getMyOffers(params)
-          : await DealApis.getNftExchangeOffers(params);
+        const response =
+          isMyTrades && isAuthenticated()
+            ? await DealApis.getMyOffers(params)
+            : await DealApis.getNftExchangeOffers(params);
 
         if (isMyTrades) {
           setMyTrades(response.list);
@@ -97,16 +159,6 @@ const DealPage = () => {
     fetchTrades(true);
   }, [fetchTrades]);
 
-  // // 전체 페이지 수 계산
-  // const totalPages = Math.max(
-  //   Math.ceil(registeredTradesTotal / tradesPerPage),
-  //   1
-  // );
-  // const totalMyPages = Math.max(
-  //   Math.ceil(myTradesTotal / tradesPerPage) || 1,
-  //   1
-  // );
-
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
@@ -125,7 +177,7 @@ const DealPage = () => {
         handleStatusChange={handleStatusChange}
         status={status}
         navigate={navigate}
-        isAuthenticated={isAuthenticated}
+        isAuthenticated={isAuthenticated()}
         handleNewTrade={handleNewTrade}
       />
       <DealList
@@ -143,6 +195,19 @@ const DealPage = () => {
         totalPages={myTradesTotal}
       />
       <MyBottomNavBar />
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onLogin={() => navigate("/login")}
+      />
+      <ApprovalModal
+        isOpen={showApprovalModal}
+        onClose={() => setShowApprovalModal(false)}
+        approvalStatus={approvalStatus}
+        onApprove={handleApprove}
+        onRevoke={handleRevoke}
+        isLoading={isApprovalLoading}
+      />
     </div>
   );
 };
