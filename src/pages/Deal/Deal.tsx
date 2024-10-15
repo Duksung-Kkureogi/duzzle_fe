@@ -36,7 +36,7 @@ const DealPage = () => {
         true
       );
 
-      navigate("/nft-exchange/regist");
+      navigate("/nft-exchange/regist/stepOne");
     } else {
       // 로그인 후에만 거래 등록 가능(로그인 페이지로 이동)
       alert("거래를 등록하려면 로그인이 필요합니다."); // TODO: alert -> modal
