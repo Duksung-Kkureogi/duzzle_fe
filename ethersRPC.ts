@@ -15,6 +15,146 @@ export default class EthereumRpc {
     this.provider = provider;
   }
 
+  async getDuzzleTokenApproval(): Promise<boolean> {
+    try {
+      const ethersProvider = new ethers.BrowserProvider(this.provider);
+      const address = await (await ethersProvider.getSigner()).getAddress();
+
+      if (!address) {
+        console.error("No address found for signer");
+        return false;
+      }
+
+      const nftAddresses = [
+        ContractAddress.PuzzlePiece,
+        ContractAddress.BlueprintItem,
+        ...ContractAddress.MaterialItems,
+      ];
+
+      try {
+        for (const nftAddress of nftAddresses) {
+          await this.setApprovalForAll(
+            ethersProvider,
+            address,
+            nftAddress,
+            true
+          );
+        }
+      } catch (error) {
+        console.error("Error in Promise.all:", error);
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error setting approval for all:", error);
+      return false;
+    }
+  }
+
+  private async setApprovalForAll(
+    ethersProvider: ethers.BrowserProvider,
+    userAddress: string,
+    nftAddress: string,
+    approved: boolean
+  ) {
+    try {
+      const isApproved = await this.isApprovedForAll(nftAddress, userAddress);
+      if (isApproved === approved) {
+        console.log(
+          `Approval for all already set to ${approved} for user ${nftAddress}`
+        );
+        return;
+      }
+    } catch (error) {
+      console.error(`Approval 확인 실패 ${nftAddress}`, error);
+    }
+
+    try {
+      const nftContract = new ethers.Contract(
+        nftAddress,
+        [
+          "function setApprovalForAll(address operator, bool approved) external",
+        ],
+        ethersProvider
+      );
+
+      const data = nftContract.interface.encodeFunctionData(
+        "setApprovalForAll",
+        [ContractAddress.NFTSwap, approved]
+      );
+
+      // 가스 관련 데이터 가져오기
+      const feeData = await ethersProvider.getFeeData();
+
+      // maxPriorityFeePerGas와 maxFeePerGas 설정
+      const maxPriorityFeePerGas =
+        feeData.maxPriorityFeePerGas || ethers.parseUnits("1", "gwei");
+      const maxFeePerGas =
+        feeData.maxFeePerGas ||
+        (feeData.gasPrice
+          ? feeData.gasPrice * BigInt(2)
+          : ethers.parseUnits("20", "gwei"));
+
+      const transactionParameters = {
+        to: nftAddress,
+        from: userAddress,
+        data: data,
+        // nonce: nonce,
+        maxPriorityFeePerGas: maxPriorityFeePerGas,
+        maxFeePerGas: maxFeePerGas,
+      };
+
+      const txHash = await this.provider.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+      console.log(
+        `Approval for all set to ${approved} successfully, transaction hash: ${txHash}`
+      );
+    } catch (error) {
+      console.error(`Approval 설정 실패 ${nftAddress}`, error);
+      if (error.message) {
+        console.error("Error message:", error.message);
+      }
+      if (error.code) {
+        console.error("Error code:", error.code);
+      }
+      if (error.data) {
+        console.error("Error data:", error.data);
+      }
+    }
+  }
+
+  private async isApprovedForAll(
+    nftAddress: string,
+    ownerAddress: string
+  ): Promise<boolean> {
+    try {
+      const ethersProvider = new ethers.BrowserProvider(this.provider);
+
+      // NFT 컨트랙트의 ABI에서 isApprovedForAll 함수만 사용
+      const nftContractABI = [
+        "function isApprovedForAll(address owner, address operator) view returns (bool)",
+      ];
+
+      const nftContract = new ethers.Contract(
+        nftAddress,
+        nftContractABI,
+        ethersProvider
+      );
+
+      return await nftContract.isApprovedForAll(
+        ownerAddress,
+        ContractAddress.NFTSwap
+      );
+    } catch (error) {
+      console.error("Error checking approval status:", error);
+      throw error;
+    }
+  }
+
   async getChainId(): Promise<any> {
     try {
       // For ethers v5

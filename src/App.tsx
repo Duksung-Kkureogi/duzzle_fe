@@ -35,6 +35,7 @@ import DuksaeJumpPage from "./pages/Quest/Jump/DuksaeJumpPage";
 import DrOne from "./pages/Deal/DrOne";
 import DrTwo from "./pages/Deal/DrTwo";
 import DrThree from "./pages/Deal/DrThree";
+import DealDetail from "./pages/Deal/DealDetail";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
               element={<HistoryRanking />}
             />
             <Route path="/nft-exchange" element={<Deal />} />
+            <Route path="/nft-exchange/:id" element={<DealDetail />} />
             <Route path="/nft-exchange/regist/stepOne" element={<DrOne />} />
             <Route path="/nft-exchange/regist/stepTwo" element={<DrTwo />} />
             <Route

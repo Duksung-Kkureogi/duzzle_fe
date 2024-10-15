@@ -31,10 +31,7 @@ const DealPage = () => {
   const handleNewTrade = async () => {
     if (isAuthenticated) {
       const rpc = new RPC(web3auth?.provider as IProvider);
-      await rpc.setApprovalForAll(
-        "0x235014C8eBBc1a0E94C68d65adAAA9408A013A35",
-        true
-      );
+      await rpc.getDuzzleTokenApproval();
 
       navigate("/nft-exchange/regist/stepOne");
     } else {
