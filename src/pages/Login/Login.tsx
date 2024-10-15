@@ -4,13 +4,22 @@ import { useAuth } from "../../services/AuthContext";
 import "./Login.css";
 
 function Login() {
-  const { duzzleUser, logout, web3auth, duzzleLoggedIn, getDal } = useAuth();
+  const {
+    duzzleUser,
+    logout,
+    web3auth,
+    duzzleLoggedIn,
+    getDal,
+    isAuthenticated,
+  } = useAuth();
   const [userDal, setUserDal] = useState(0);
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      const balance = await getDal();
-      setUserDal(balance);
+      if (isAuthenticated()) {
+        const balance = await getDal();
+        setUserDal(balance);
+      }
     };
     fetchUserDal();
   }, [getDal]);
