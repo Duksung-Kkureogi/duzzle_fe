@@ -32,7 +32,7 @@ const MyBottomNavBar = () => {
           <div>
             <p>거래</p>
             <img
-              onClick={() => navigate("/deal")}
+              onClick={() => navigate("/nft-exchange")}
               src="/src/assets/images/deal.png"
             />
           </div>
