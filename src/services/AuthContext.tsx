@@ -47,7 +47,7 @@ interface AuthContextType {
   logout: () => void;
   showDalBalance: () => void;
   getDal: () => Promise<number>;
-  isAuthenticated: () => boolean;
+  isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -228,9 +228,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const isAuthenticated = () => {
-    return duzzleLoggedIn || web3LoggedIn;
-  };
+  const isAuthenticated = duzzleLoggedIn || web3LoggedIn;
 
   useEffect(() => {
     if (!web3auth) {

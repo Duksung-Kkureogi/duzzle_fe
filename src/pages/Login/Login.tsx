@@ -16,7 +16,7 @@ function Login() {
 
   useEffect(() => {
     const fetchUserDal = async () => {
-      if (isAuthenticated()) {
+      if (isAuthenticated) {
         const balance = await getDal();
         setUserDal(balance);
       }

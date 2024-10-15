@@ -6,11 +6,9 @@ import { DealApis, GetDealQueryParams } from "../../services/api/deal.api";
 import { Deal, NftExchangeOfferStatus } from "../../Data/DTOs/Deal";
 import DealList from "./DealList";
 import SearchSection from "./SearchSectionComponent";
-import RPC, { ApprovalStatus } from "../../../ethersRPC";
 import { useAuth } from "../../services/AuthContext";
-import { IProvider } from "@web3auth/base";
-import ApprovalModal from "../../components/Modal/ApprovalModal";
 import LoginModal from "../../components/Modal/LoginModal";
+import ApprovalManager from "./ApprovalManager";
 interface SearchParams {
   user: string;
   providedNft: string;
@@ -20,11 +18,8 @@ interface SearchParams {
 const DealPage = () => {
   const { web3auth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [showApprovalManager, setShowApprovalManager] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showApprovalModal, setShowApprovalModal] = useState(false);
-  const [isApproved, setIsApproved] = useState(false);
-  const [approvalStatus, setApprovalStatus] = useState<ApprovalStatus>({});
-  const [isApprovalLoading, setIsApprovalLoading] = useState(false);
 
   const [registeredTrades, setRegisteredTrades] = useState<Deal[]>([]);
   const [registeredTradesTotal, setRegisteredTradesTotal] = useState(0);
@@ -40,80 +35,26 @@ const DealPage = () => {
   const [myCurrentPage, setMyCurrentPage] = useState(1);
   const tradesPerPage = 2;
 
-  const checkApprovalStatus = useCallback(async () => {
-    if (isAuthenticated && web3auth?.provider) {
-      const rpc = new RPC(web3auth.provider as IProvider);
-      const status = await rpc.checkApprovalStatus();
-
-      setApprovalStatus(status);
-      const allApproved = Object.values(status).every((item) => item.approved);
-      setIsApproved(allApproved);
-    }
-  }, [isAuthenticated, web3auth]);
-
-  useEffect(() => {
-    checkApprovalStatus();
-  }, [checkApprovalStatus]);
-
-  const handleNewTrade = async () => {
-    if (!isAuthenticated) {
-      setShowLoginModal(true);
-    } else if (!isApproved) {
-      setShowApprovalModal(true);
+  const handleNewTrade = () => {
+    console.log("isAuthenticated: :", isAuthenticated);
+    if (isAuthenticated) {
+      setShowApprovalManager(true);
     } else {
-      navigate("/nft-exchange/regist/stepOne");
+      console.log("isAuthenticated: :", isAuthenticated);
+      setShowLoginModal(true);
     }
   };
 
-  const handleApprove = async (contractAddress: string) => {
-    if (web3auth?.provider && !isApprovalLoading) {
-      setIsApprovalLoading(true);
-      try {
-        const rpc = new RPC(web3auth.provider as IProvider);
-        const success = await rpc.setApprovalForAll(contractAddress, true);
-        if (success) {
-          // 즉시 상태 업데이트
-          setApprovalStatus((prevStatus) => ({
-            ...prevStatus,
-            [contractAddress]: {
-              ...prevStatus[contractAddress],
-              approved: true,
-            },
-          }));
-        } else {
-          console.error("Approval failed");
-        }
-      } catch (error) {
-        console.error("Approval error:", error);
-      } finally {
-        setIsApprovalLoading(false);
-      }
-    }
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
   };
 
-  const handleRevoke = async (contractAddress: string) => {
-    if (web3auth?.provider && !isApprovalLoading) {
-      setIsApprovalLoading(true);
-      try {
-        const rpc = new RPC(web3auth.provider as IProvider);
-        const success = await rpc.revokeApproval(contractAddress);
-        if (success) {
-          setApprovalStatus((prevStatus) => ({
-            ...prevStatus,
-            [contractAddress]: {
-              ...prevStatus[contractAddress],
-              approved: false,
-            },
-          }));
-        } else {
-          console.error("Revocation failed");
-        }
-      } catch (error) {
-        console.error("Revocation error:", error);
-      } finally {
-        setIsApprovalLoading(false);
-      }
-    }
+  const handleAllApproved = () => {
+    navigate("/nft-exchange/regist/stepOne");
+  };
+
+  const handleApprovalCancel = () => {
+    setShowApprovalManager(false);
   };
 
   const fetchTrades = useCallback(
@@ -129,7 +70,7 @@ const DealPage = () => {
         };
 
         const response =
-          isMyTrades && isAuthenticated()
+          isMyTrades && isAuthenticated
             ? await DealApis.getMyOffers(params)
             : await DealApis.getNftExchangeOffers(params);
 
@@ -176,8 +117,6 @@ const DealPage = () => {
         handleSearch={handleSearch}
         handleStatusChange={handleStatusChange}
         status={status}
-        navigate={navigate}
-        isAuthenticated={isAuthenticated()}
         handleNewTrade={handleNewTrade}
       />
       <DealList
@@ -195,18 +134,21 @@ const DealPage = () => {
         totalPages={myTradesTotal}
       />
       <MyBottomNavBar />
+      {showApprovalManager && (
+        <ApprovalManager
+          web3auth={web3auth}
+          onAllApproved={handleAllApproved}
+          onCancel={handleApprovalCancel}
+        />
+      )}
       <LoginModal
         isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-        onLogin={() => navigate("/login")}
-      />
-      <ApprovalModal
-        isOpen={showApprovalModal}
-        onClose={() => setShowApprovalModal(false)}
-        approvalStatus={approvalStatus}
-        onApprove={handleApprove}
-        onRevoke={handleRevoke}
-        isLoading={isApprovalLoading}
+        onClose={handleLoginModalClose}
+        onLogin={() => {
+          navigate("/login");
+          setShowLoginModal(false);
+          setShowApprovalManager(true);
+        }}
       />
     </div>
   );

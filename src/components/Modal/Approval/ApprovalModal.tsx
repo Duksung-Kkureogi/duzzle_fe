@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import "./Modal.css";
-import { ApprovalStatus } from "../../../ethersRPC";
+import "../Modal.css";
+import { ApprovalStatus } from "../../../../ethersRPC";
+import ApprovalItem from "./ApprovalItem";
 
 interface ApprovalModalProps {
   isOpen: boolean;
@@ -42,29 +43,15 @@ const ApprovalModal: React.FC<ApprovalModalProps> = ({
       <div className="modal-content">
         <h2 className="modal-title">토큰 승인 상태</h2>
         {Object.entries(approvalStatus).map(([address, { name, approved }]) => (
-          <div key={address} className="approval-item">
-            <div>
-              <span className="token-name">{name}</span>
-              <span
-                className={`approval-status ${
-                  approved ? "approved" : "not-approved"
-                }`}
-              >
-                {approved ? " (승인됨)" : " (미승인)"}
-              </span>
-            </div>
-            <button
-              className={`button ${
-                approved ? "button-revoke" : "button-approve"
-              }`}
-              onClick={() =>
-                approved ? onRevoke(address) : onApprove(address)
-              }
-              disabled={isLoading}
-            >
-              {isLoading ? "처리 중..." : approved ? "승인 취소" : "승인하기"}
-            </button>
-          </div>
+          <ApprovalItem
+            key={address}
+            contractAddress={address}
+            name={name}
+            approved={approved}
+            onApprove={onApprove}
+            onRevoke={onRevoke}
+            isLoading={isLoading}
+          />
         ))}
         {allApproved ? (
           <button
@@ -75,7 +62,9 @@ const ApprovalModal: React.FC<ApprovalModalProps> = ({
             거래 등록하기
           </button>
         ) : (
-          <p>모든 토큰을 승인해야 거래를 등록할 수 있습니다.</p>
+          <p>
+            모든 토큰을 승인해야 거래를 등록할 수 있습니다.(최초 1회만 필요)
+          </p>
         )}
       </div>
     </div>
