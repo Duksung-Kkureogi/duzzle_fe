@@ -19,6 +19,8 @@ interface SearchSectionProps {
   handleStatusChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   status: NftExchangeOfferStatus;
   navigate: NavigateFunction;
+  isAuthenticated: boolean;
+  handleNewTrade: () => void;
 }
 
 const SearchSection: React.FC<SearchSectionProps> = ({
@@ -28,6 +30,8 @@ const SearchSection: React.FC<SearchSectionProps> = ({
   handleStatusChange,
   status,
   navigate,
+  isAuthenticated,
+  handleNewTrade,
 }) => {
   return (
     <div className="search-section">
@@ -56,7 +60,9 @@ const SearchSection: React.FC<SearchSectionProps> = ({
         }
       />
       <button onClick={handleSearch}>🔍 검색</button>
-      <button onClick={() => navigate("/deal/regist")}>+ 새 거래</button>
+      <button onClick={handleNewTrade}>
+        {isAuthenticated ? "+ 새 거래" : "로그인하여 거래 등록"}
+      </button>
       <select value={status} onChange={handleStatusChange}>
         <option value="">상태</option>
         <option value="listed">대기중</option>

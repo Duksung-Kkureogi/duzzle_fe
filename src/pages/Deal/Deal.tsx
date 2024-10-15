@@ -6,7 +6,9 @@ import { DealApis, GetDealQueryParams } from "../../services/api/deal.api";
 import { Deal, NftExchangeOfferStatus } from "../../Data/DTOs/Deal";
 import DealList from "./DealList";
 import SearchSection from "./SearchSectionComponent";
-
+import RPC from "../../../ethersRPC";
+import { useAuth } from "../../services/AuthContext";
+import { IProvider } from "@web3auth/base";
 interface SearchParams {
   user: string;
   providedNft: string;
@@ -14,6 +16,33 @@ interface SearchParams {
 }
 
 const DealPage = () => {
+  const { web3auth } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    // TODO: 로그인 상태 확인
+    const checkAuthStatus = async () => {
+      const authStatus = !!localStorage.getItem("accessToken");
+      setIsAuthenticated(authStatus);
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  const handleNewTrade = async () => {
+    if (isAuthenticated) {
+      const rpc = new RPC(web3auth?.provider as IProvider);
+      await rpc.setApprovalForAll(
+        "0x235014C8eBBc1a0E94C68d65adAAA9408A013A35",
+        true
+      );
+
+      navigate("/nft-exchange/regist");
+    } else {
+      // 로그인 후에만 거래 등록 가능(로그인 페이지로 이동)
+      alert("거래를 등록하려면 로그인이 필요합니다."); // TODO: alert -> modal
+    }
+  };
+
   const navigate = useNavigate();
   const [registeredTrades, setRegisteredTrades] = useState<Deal[]>([]);
   const [registeredTradesTotal, setRegisteredTradesTotal] = useState(0);
@@ -99,6 +128,8 @@ const DealPage = () => {
         handleStatusChange={handleStatusChange}
         status={status}
         navigate={navigate}
+        isAuthenticated={isAuthenticated}
+        handleNewTrade={handleNewTrade}
       />
       <DealList
         title="등록된 거래 목록"
