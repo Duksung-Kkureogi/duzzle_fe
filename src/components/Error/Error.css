@@ -9,3 +9,25 @@
   border-radius: 30px;
   width: 130px;
 }
+
+
+.error-message {
+  background-color: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 20px;
+  color: #c62828;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-message button {
+  background: none;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  font-weight: bold;
+}
