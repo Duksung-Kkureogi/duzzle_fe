@@ -39,33 +39,40 @@ const ApprovalModal: React.FC<ApprovalModalProps> = ({
   );
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2 className="modal-title">토큰 승인 상태</h2>
-        {Object.entries(approvalStatus).map(([address, { name, approved }]) => (
-          <ApprovalItem
-            key={address}
-            contractAddress={address}
-            name={name}
-            approved={approved}
-            onApprove={onApprove}
-            onRevoke={onRevoke}
-            isLoading={isLoading}
-          />
-        ))}
-        {allApproved ? (
-          <button
-            className="button submit-button"
-            onClick={onClose}
-            disabled={isLoading}
-          >
-            거래 등록하기
+    <div className="approval-modal">
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h2 className="modal-title">토큰 승인 상태</h2>
+          {Object.entries(approvalStatus).map(
+            ([address, { name, approved }]) => (
+              <ApprovalItem
+                key={address}
+                contractAddress={address}
+                name={name}
+                approved={approved}
+                onApprove={onApprove}
+                onRevoke={onRevoke}
+                isLoading={isLoading}
+              />
+            )
+          )}
+          {allApproved ? (
+            <button
+              className="button submit-button"
+              onClick={onClose}
+              disabled={isLoading}
+            >
+              거래 등록하기
+            </button>
+          ) : (
+            <p>
+              모든 토큰을 승인해야 거래를 등록할 수 있습니다.(최초 1회만 필요)
+            </p>
+          )}
+          <button className="button cancel-button" onClick={onClose}>
+            닫기
           </button>
-        ) : (
-          <p>
-            모든 토큰을 승인해야 거래를 등록할 수 있습니다.(최초 1회만 필요)
-          </p>
-        )}
+        </div>
       </div>
     </div>
   );

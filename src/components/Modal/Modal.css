@@ -1,102 +1,115 @@
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+.approval-modal .modal-overlay,
+.login-modal .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 500px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
+.approval-modal .modal-content,
+.login-modal .modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 450px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.modal-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
+.approval-modal .modal-title,
+.login-modal .modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
-.approval-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+.approval-modal .approval-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
 }
 
-.approval-item:last-child {
-    border-bottom: none;
+.approval-modal .approval-item:last-child {
+  border-bottom: none;
 }
 
-.token-name {
-    font-weight: bold;
-    color: #555;
+.approval-modal .token-name {
+  font-weight: bold;
+  color: #555;
 }
 
-.approval-status {
-    font-weight: bold;
+.approval-modal .approval-status {
+  font-weight: bold;
 }
 
-.approval-status.approved {
-    color: #4CAF50;
+.approval-modal .approval-status.approved {
+  color: #4caf50;
 }
 
-.approval-status.not-approved {
-    color: #F44336;
+.approval-modal .approval-status.not-approved {
+  color: #f44336;
 }
 
-.button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.approval-modal .button,
+.login-modal .button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.approval-modal .button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.button-approve {
-    background-color: #4CAF50;
-    color: white;
+.approval-modal .button-approve {
+  background-color: #4caf50;
+  color: white;
 }
 
-.button-approve:hover:not(:disabled) {
-    background-color: #45a049;
+.approval-modal .button-approve:hover:not(:disabled) {
+  background-color: #45a049;
 }
 
-.button-revoke {
-    background-color: #F44336;
-    color: white;
+.approval-modal .button-revoke {
+  background-color: #f44336;
+  color: white;
 }
 
-.button-revoke:hover:not(:disabled) {
-    background-color: #D32F2F;
+.approval-modal .button-revoke:hover:not(:disabled) {
+  background-color: #d32f2f;
 }
 
-.submit-button {
-    margin-top: 1rem;
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    background-color: #2196F3;
-    color: white;
+.approval-modal .submit-button,
+.login-modal .submit-button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #2196f3;
+  color: white;
 }
 
-.submit-button:hover:not(:disabled) {
-    background-color: #1E88E5;
+.approval-modal .submit-button:hover:not(:disabled),
+.login-modal .submit-button:hover:not(:disabled) {
+  background-color: #1e88e5;
+}
+
+.approval-modal .cancel-button,
+.login-modal .cancel-button {
+  padding: 0.75rem;
 }
