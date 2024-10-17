@@ -50,3 +50,20 @@
   background-color: #178593;
   border-radius: 10px 0 0 10px;
 }
+
+.c2 .back-button {
+  border: none;
+  border-radius: 20px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  font-size: 18px;
+  white-space: nowrap;
+  background-color: #00b5cc;
+  svg {
+    width: 20px;
+    color: white;
+  }
+}
