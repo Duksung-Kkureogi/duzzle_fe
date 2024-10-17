@@ -30,16 +30,6 @@ function Mypage() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const web3LoggedIn = localStorage.getItem("web3LoggedIn");
-    const duzzleLoggedIn = localStorage.getItem("duzzleLoggedIn");
-
-    const checkLoggedIn = async () => {
-      if (web3LoggedIn != "true" || duzzleLoggedIn != "true" || !token) {
-        alert("로그인이 필요합니다.\n로그인 화면으로 이동합니다.");
-        navigate("/login");
-        return;
-      }
-    };
 
     const getUserInfo = async () => {
       try {
@@ -65,7 +55,6 @@ function Mypage() {
     };
 
     const fetchData = async () => {
-      await checkLoggedIn();
       await Promise.all([getUserInfo(), fetchUserDal()]);
     };
 

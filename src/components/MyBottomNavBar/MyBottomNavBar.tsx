@@ -2,13 +2,22 @@ import { useNavigate } from "react-router-dom";
 
 import "./MyBottomNavBar.css";
 import { useState } from "react";
+import { useAuth } from "../../services/AuthContext";
+import LoginModal from "../Modal/LoginModal";
 
 const MyBottomNavBar = () => {
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [clickedplus, setClickedplus] = useState(false);
 
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const plusButton = () => {
     setClickedplus(!clickedplus);
+  };
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
   };
 
   return (
@@ -91,7 +100,12 @@ const MyBottomNavBar = () => {
           <button
             type="button"
             onClick={() => {
-              navigate("/mypage");
+              console.log("isAuthenticated: :", isAuthenticated);
+              if (isAuthenticated) {
+                navigate("/mypage");
+              } else {
+                setShowLoginModal(true);
+              }
             }}
           >
             <img src="/src/assets/images/my.png" />
@@ -99,6 +113,15 @@ const MyBottomNavBar = () => {
           </button>
         </div>
       </nav>
+      <LoginModal
+        isOpen={showLoginModal}
+        content="마이페이지를 확인하려면 로그인이 필요합니다."
+        onClose={handleLoginModalClose}
+        onLogin={() => {
+          navigate("/login");
+          setShowLoginModal(false);
+        }}
+      />
     </>
   );
 };

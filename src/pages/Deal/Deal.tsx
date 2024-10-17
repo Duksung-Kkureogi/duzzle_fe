@@ -143,6 +143,7 @@ const DealPage = () => {
       )}
       <LoginModal
         isOpen={showLoginModal}
+        content="거래를 등록하려면 로그인이 필요합니다."
         onClose={handleLoginModalClose}
         onLogin={() => {
           navigate("/login");
