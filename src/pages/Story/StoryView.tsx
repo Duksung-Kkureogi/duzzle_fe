@@ -61,11 +61,18 @@ const StoryView: React.FC = () => {
     }
   };
 
+  const handlePreviousPage = async () => {
+    if (story && currentPage > 0) {
+      const newPage = currentPage - 1;
+      await updateStoryProgress(story.storyId, newPage + 1);
+      setCurrentPage(newPage);
+    }
+  };
+
   const handleNextPage = async () => {
     if (story && currentPage < story.totalPage - 1) {
       const newPage = currentPage + 1;
-      await updateStoryProgress(story.storyId, newPage);
-
+      await updateStoryProgress(story.storyId, newPage + 1);
       setCurrentPage(newPage);
     }
   };
@@ -78,7 +85,15 @@ const StoryView: React.FC = () => {
   };
 
   if (!story) {
-    return <div className="LO">스토리 불러오는 중...</div>;
+    return (
+      <div className="LO">
+        <p>스토리 불러오는데 오류가 발생했습니다.</p>
+        <p>다시 시도해주세요.</p>
+        <button className="button_error" onClick={() => navigate(-1)}>
+          목록으로 돌아가기
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -86,11 +101,15 @@ const StoryView: React.FC = () => {
       <MyHeader leftChild={<MyButton />} headerText={""} />
       <div className="container_view">
         <div className="content_view">
-          {story.image && <img className="content_image" src={story.image} />}
           <p className="content_title">{title}</p>
-          <br />
+          <img className="content_image" src={story.image} />
           <p className="content">{story.content}</p>
         </div>
+        {currentPage > 0 && (
+          <button className="button_previous" onClick={handlePreviousPage}>
+            이전 페이지
+          </button>
+        )}
         {currentPage < story.totalPage - 1 && (
           <button className="button_next" onClick={handleNextPage}>
             다음 페이지
