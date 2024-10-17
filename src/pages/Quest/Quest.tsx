@@ -31,13 +31,19 @@ function Quest() {
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
         nav(`/duksaejump/${response.logId}?`.concat(queryParams));
-      } else if (response.type === "PICTURE_QUIZ") {
+      } else if (response.type === QuestType.PictureQuiz) {
         localStorage.setItem("logId", response.logId.toString());
         localStorage.setItem("quest", response.quest);
         localStorage.setItem("timeLimit", response.timeLimit.toString());
         nav(`/picturequiz/${response.logId}`);
+      } else if (response.type === QuestType.MusicQuiz) {
+        const quest = JSON.parse(response.quest);
+        localStorage.setItem("logId", response.logId.toString());
+        localStorage.setItem("lyrics", quest.lyrics);
+        localStorage.setItem("audioUrl", quest.audioUrl);
+        localStorage.setItem("timeLimit", response.timeLimit.toString());
+        nav(`/musicquiz/${response.logId}`);
       }
-
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error("모든 퀘스트 완료 => 409 오류");
