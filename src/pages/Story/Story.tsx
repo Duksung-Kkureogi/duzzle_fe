@@ -23,12 +23,14 @@ const Story: React.FC = () => {
   useEffect(() => {
     const fetchZones = async () => {
       try {
-        const response = await axios.get(`${RequestURL}/v1/story/progress`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = token
+          ? await axios.get(`${RequestURL}/v1/story/progress`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            })
+          : await axios.get(`${RequestURL}/v1/story/all`);
         setZones(response.data.data.list);
       } catch (error) {
         console.error("Error fetching zones:", error);

@@ -23,15 +23,14 @@ const Storylist: React.FC = () => {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const response = await axios.get(
-          `${RequestURL}/v1/story/progress/${zoneId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = token
+          ? await axios.get(`${RequestURL}/v1/story/progress/${zoneId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            })
+          : await axios.get(`${RequestURL}/v1/story/all/${zoneId}`);
         setStories(response.data.data.list);
       } catch (error) {
         console.error("Error fetching stories:", error);

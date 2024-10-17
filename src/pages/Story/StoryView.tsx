@@ -10,6 +10,7 @@ interface StoryContent {
   currentPage: number;
   totalPage: number;
   content: string;
+  image?: string;
 }
 
 const StoryView: React.FC = () => {
@@ -17,7 +18,7 @@ const StoryView: React.FC = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [story, setStory] = useState<StoryContent | null>(null);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
   const zoneId = state?.zoneId as string;
@@ -27,10 +28,6 @@ const StoryView: React.FC = () => {
     const fetchStoryContent = async (page: number) => {
       try {
         const response = await axios.get(`${RequestURL}/v1/story`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
           params: { storyId, page },
         });
         const storyData = response.data.data;
@@ -45,17 +42,19 @@ const StoryView: React.FC = () => {
 
   const updateStoryProgress = async (storyId: number, readPage: number) => {
     try {
-      const response = await axios.patch(
-        `${RequestURL}/v1/story/progress`,
-        { storyId, readPage },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
+      if (token) {
+        const response = await axios.patch(
+          `${RequestURL}/v1/story/progress`,
+          { storyId, readPage },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        return response.data;
+      }
     } catch (error) {
       console.error("진행 상태 업데이트 오류:", error);
     }
@@ -87,9 +86,10 @@ const StoryView: React.FC = () => {
 
   return (
     <div className="c3">
-      <MyHeader leftChild={<MyButton />} />
+      <MyHeader leftChild={<MyButton />} headerText={""} />
       <div className="container_view">
         <div className="content_view">
+          {story.image && <img className="content_image" src={story.image} />}
           <p className="content_title">{title}</p>
           <br />
           <p className="content">{story.content}</p>
