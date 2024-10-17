@@ -3,7 +3,6 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Storylist.css";
 import MyHeader from "../../components/MyHeader/MyHeader";
-import MyButton from "../../components/MyButton/MyButton";
 
 interface Story {
   storyId: number;
@@ -14,7 +13,7 @@ interface Story {
 
 const Storylist: React.FC = () => {
   const { zoneId } = useParams<{ zoneId: string }>();
-  const { state } = useLocation<{ zoneNameKr: string }>();
+  const { zoneNameKr } = useLocation().state;
   const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
@@ -23,15 +22,14 @@ const Storylist: React.FC = () => {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const response = await axios.get(
-          `${RequestURL}/v1/story/progress/${zoneId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = token
+          ? await axios.get(`${RequestURL}/v1/story/progress/${zoneId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            })
+          : await axios.get(`${RequestURL}/v1/story/all/${zoneId}`);
         setStories(response.data.data.list);
       } catch (error) {
         console.error("Error fetching stories:", error);
@@ -42,12 +40,31 @@ const Storylist: React.FC = () => {
   }, [zoneId, RequestURL, token]);
 
   const handleStoryClick = (storyId: number, title: string) => {
-    navigate(`/story/${storyId}`, { state: { zoneId, title } });
+    navigate(`/story/${storyId}`, { state: { zoneId, title, zoneNameKr } });
+  };
+
+  const BackButton = () => {
+    return (
+      <button className="back-button" onClick={() => navigate("/story")}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            clipRule="evenodd"
+            fillRule="evenodd"
+            d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+          ></path>
+        </svg>
+      </button>
+    );
   };
 
   return (
     <div className="c2">
-      <MyHeader headerText={state?.zoneNameKr} leftChild={<MyButton />} />
+      <MyHeader headerText={zoneNameKr} leftChild={<BackButton />} />
       <div className="container_list">
         <ul className="ul_list">
           {stories.map((story) => (

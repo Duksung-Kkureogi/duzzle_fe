@@ -10,6 +10,7 @@ interface StoryContent {
   currentPage: number;
   totalPage: number;
   content: string;
+  image?: string;
 }
 
 const StoryView: React.FC = () => {
@@ -22,15 +23,12 @@ const StoryView: React.FC = () => {
   const token = localStorage.getItem("accessToken");
   const zoneId = state?.zoneId as string;
   const title = state?.title as string;
+  const zoneNameKr = state?.zoneNameKr as string;
 
   useEffect(() => {
     const fetchStoryContent = async (page: number) => {
       try {
         const response = await axios.get(`${RequestURL}/v1/story`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
           params: { storyId, page },
         });
         const storyData = response.data.data;
@@ -45,55 +43,73 @@ const StoryView: React.FC = () => {
 
   const updateStoryProgress = async (storyId: number, readPage: number) => {
     try {
-      const response = await axios.patch(
-        `${RequestURL}/v1/story/progress`,
-        { storyId, readPage },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
+      if (token) {
+        const response = await axios.patch(
+          `${RequestURL}/v1/story/progress`,
+          { storyId, readPage },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        return response.data;
+      }
     } catch (error) {
       console.error("진행 상태 업데이트 오류:", error);
+    }
+  };
+
+  const handlePreviousPage = async () => {
+    if (story && currentPage > 0) {
+      const newPage = currentPage - 1;
+      await updateStoryProgress(story.storyId, newPage + 1);
+      setCurrentPage(newPage);
     }
   };
 
   const handleNextPage = async () => {
     if (story && currentPage < story.totalPage - 1) {
       const newPage = currentPage + 1;
-      const result = await updateStoryProgress(story.storyId, newPage);
-
-      if (result?.result) {
-        setCurrentPage(newPage);
-      }
+      await updateStoryProgress(story.storyId, newPage + 1);
+      setCurrentPage(newPage);
     }
   };
 
   const handleFinish = async () => {
     if (story && zoneId) {
-      const result = await updateStoryProgress(story.storyId, story.totalPage);
-      if (result?.result) {
-        navigate(`/zone/${zoneId}`);
-      }
+      await updateStoryProgress(story.storyId, story.totalPage);
+      navigate(`/zone/${zoneId}`, { state: { zoneNameKr } });
     }
   };
 
   if (!story) {
-    return <div className="LO">스토리 불러오는 중...</div>;
+    return (
+      <div className="LO">
+        <p>스토리 불러오는데 오류가 발생했습니다.</p>
+        <p>다시 시도해주세요.</p>
+        <button className="button_error" onClick={() => navigate(-1)}>
+          목록으로 돌아가기
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="c3">
-      <MyHeader leftChild={<MyButton />} />
+      <MyHeader leftChild={<MyButton />} headerText={""} />
       <div className="container_view">
         <div className="content_view">
           <p className="content_title">{title}</p>
-          <br />
+          <img className="content_image" src={story.image} />
           <p className="content">{story.content}</p>
         </div>
+        {currentPage > 0 && (
+          <button className="button_previous" onClick={handlePreviousPage}>
+            이전 페이지
+          </button>
+        )}
         {currentPage < story.totalPage - 1 && (
           <button className="button_next" onClick={handleNextPage}>
             다음 페이지
