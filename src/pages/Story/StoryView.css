@@ -4,25 +4,13 @@
   text-align: center;
 }
 
-.c3 .view_title {
-  font-size: 30px;
-  margin-bottom: 70px;
-  text-align: center;
-}
-
 .c3 .content_view {
   font-size: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   text-align: center;
-}
-.LO {
-  max-width: 500px;
-  width: 90vw;
-  text-align: center;
-  padding-top: 300px;
 }
 .c3 .content {
-  font-size: 18px;
+  font-size: 1rem;
   padding: 40px 11px;
   border: 0.5px solid #eeeeee;
   margin: 23px;
@@ -30,17 +18,27 @@
   background-color: #ececec;
   border-radius: 10px;
   font-weight: 400;
-  /* box-shadow: 0 4px 15px 0 rgb(230, 233, 233); */
 }
 .c3 .content_title {
-  font-size: 26px;
+  font-size: 1.5rem;
   color: #00b5cc;
-  margin: 23px;
+  margin: 20px 0;
   line-height: 1.84;
   border-radius: 10px;
-  padding: 10px;
   font-weight: 400;
 }
+.c3 .content_image {
+  max-width: 100%;
+  max-height: 30vh;
+}
+
+.LO {
+  max-width: 500px;
+  width: 90vw;
+  text-align: center;
+  padding-top: 300px;
+}
+
 .LO .button_error,
 .c3 .button_previous,
 .c3 .button_next,
@@ -61,10 +59,9 @@
 .c3 .button_finish:hover {
   background-color: #41423f;
 }
-.c3 .page-info {
-  font-size: 14px;
-  color: #666;
-}
+
 .c3 .current_view {
   text-align: center;
+  font-size: 1rem;
+  color: #666;
 }
