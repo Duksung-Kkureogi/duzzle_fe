@@ -40,7 +40,7 @@ const Storylist: React.FC = () => {
   }, [zoneId, RequestURL, token]);
 
   const handleStoryClick = (storyId: number, title: string) => {
-    navigate(`/story/${storyId}`, { state: { zoneId, title } });
+    navigate(`/story/${storyId}`, { state: { zoneId, title, zoneNameKr } });
   };
 
   const BackButton = () => {

@@ -23,6 +23,7 @@ const StoryView: React.FC = () => {
   const token = localStorage.getItem("accessToken");
   const zoneId = state?.zoneId as string;
   const title = state?.title as string;
+  const zoneNameKr = state?.zoneNameKr as string;
 
   useEffect(() => {
     const fetchStoryContent = async (page: number) => {
@@ -72,7 +73,7 @@ const StoryView: React.FC = () => {
   const handleFinish = async () => {
     if (story && zoneId) {
       await updateStoryProgress(story.storyId, story.totalPage);
-      navigate(`/zone/${zoneId}`);
+      navigate(`/zone/${zoneId}`, { state: { zoneNameKr } });
     }
   };
 
