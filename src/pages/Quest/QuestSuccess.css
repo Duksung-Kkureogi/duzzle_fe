@@ -15,6 +15,7 @@
   margin-top: 40px;
   text-shadow: 0px 1px 2px #00b5cc;
 }
+
 .Questsuccess .text_dal {
   background-image: linear-gradient(to right, #ff66bd, #ff66bd, #ff66bd);
   background-size: 200% auto;
@@ -24,6 +25,7 @@
   font-size: 40px;
   font-weight: bold;
 }
+
 .Questsuccess .text_done {
   background-image: linear-gradient(to right, #00b5cc, #00b5cc, #02cae5);
   background-size: 200% auto;
@@ -68,6 +70,7 @@ button {
   gap: 0.5em;
   box-shadow: 0 4px 15px 0 #1f5760;
 }
+
 .btn:hover {
   background-color: #019cb1;
 }
@@ -77,28 +80,36 @@ button {
 }
 
 @keyframes jittery {
+
   5%,
   50% {
     transform: scale(1);
   }
+
   10% {
     transform: scale(0.9);
   }
+
   15% {
     transform: scale(1.15);
   }
+
   20% {
     transform: scale(1.15) rotate(-5deg);
   }
+
   25% {
     transform: scale(1.15) rotate(5deg);
   }
+
   30% {
     transform: scale(1.15) rotate(-3deg);
   }
+
   35% {
     transform: scale(1.15) rotate(2deg);
   }
+
   40% {
     transform: scale(1.15) rotate(0);
   }
@@ -108,4 +119,25 @@ button {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.Questsuccess .text_guest {
+  background-image: linear-gradient(to right, #ff66bd, #ff66bd, #ff66bd);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn {
+  /* 기존 스타일 유지 */
+  font-size: 1.2rem;
+  /* 버튼 텍스트 크기 조정 */
+  width: 250px;
+  /* 버튼 너비 조정 */
+  height: 80px;
+  /* 버튼 높이 조정 */
 }
