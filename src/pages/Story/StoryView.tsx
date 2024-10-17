@@ -18,7 +18,7 @@ const StoryView: React.FC = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [story, setStory] = useState<StoryContent | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const RequestURL = import.meta.env.VITE_REQUEST_URL;
   const token = localStorage.getItem("accessToken");
   const zoneId = state?.zoneId as string;
@@ -63,20 +63,16 @@ const StoryView: React.FC = () => {
   const handleNextPage = async () => {
     if (story && currentPage < story.totalPage - 1) {
       const newPage = currentPage + 1;
-      const result = await updateStoryProgress(story.storyId, newPage);
+      await updateStoryProgress(story.storyId, newPage);
 
-      if (result?.result) {
-        setCurrentPage(newPage);
-      }
+      setCurrentPage(newPage);
     }
   };
 
   const handleFinish = async () => {
     if (story && zoneId) {
-      const result = await updateStoryProgress(story.storyId, story.totalPage);
-      if (result?.result) {
-        navigate(`/zone/${zoneId}`);
-      }
+      await updateStoryProgress(story.storyId, story.totalPage);
+      navigate(`/zone/${zoneId}`);
     }
   };
 
