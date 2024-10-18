@@ -25,12 +25,12 @@ export const QuestApis = {
   /**
    * 퀘스트 시작하기
    */
-  startQuest: async (): Promise<StartRandomQuestResponse> => {
+  startQuest: async (header): Promise<StartRandomQuestResponse> => {
     try {
       const response = await Http.post<{
         result: boolean;
         data: StartRandomQuestResponse;
-      }>("/v1/quest/start");
+      }>("/v1/quest/start", header);
 
       return response.data;
     } catch (error) {
@@ -59,12 +59,12 @@ export const QuestApis = {
   /**
    * 결과 제출하기
    */
-  getResult: async (data: GetResultRequest) => {
+  getResult: async (data: GetResultRequest, header) => {
     try {
       const response = await Http.post<{
         result: boolean;
         data: boolean;
-      }>("/v1/quest/result", data);
+      }>("/v1/quest/result", data, header);
 
       return response.data;
     } catch (error) {
