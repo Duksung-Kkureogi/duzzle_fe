@@ -92,17 +92,18 @@ export const QuestApis = {
   },
 };
 
+// TODO: 개발용 API(실제 환경에서는 삭제)
 export const QuestApisForTest = {
   /**
    * 퀘스트 시작하기
-   * - 산성비-스피드퀴즈 번갈아 나오는 퀘스트
+   * - 산성비만 나옴
    */
-  startAcidRainSpeedQuest: async (): Promise<StartRandomQuestResponse> => {
+  startAcidRain: async (): Promise<StartRandomQuestResponse> => {
     try {
       const response = await Http.post<{
         result: boolean;
         data: StartRandomQuestResponse;
-      }>("/v1/quest/demo/acidrain-speed/start");
+      }>("/v1/quest/demo/acidrain/start");
 
       return response.data;
     } catch (error) {
@@ -115,12 +116,66 @@ export const QuestApisForTest = {
    * 퀘스트 시작하기
    * - 덕새점프만 나옴
    */
-  startDuksaeJumpQuest: async (): Promise<StartRandomQuestResponse> => {
+  startDuksaeJump: async (): Promise<StartRandomQuestResponse> => {
     try {
       const response = await Http.post<{
         result: boolean;
         data: StartRandomQuestResponse;
       }>("/v1/quest/demo/duksae-jump/start");
+
+      return response.data;
+    } catch (error) {
+      console.error(error?.response.data.code);
+      console.error(error?.response?.data.message);
+      throw error;
+    }
+  },
+  /**
+   * 퀘스트 시작하기
+   * - 스피드 퀴즈만 나옴
+   */
+  startSpeedQuiz: async (): Promise<StartRandomQuestResponse> => {
+    try {
+      const response = await Http.post<{
+        result: boolean;
+        data: StartRandomQuestResponse;
+      }>("/v1/quest/demo/speed-quiz/start");
+
+      return response.data;
+    } catch (error) {
+      console.error(error?.response.data.code);
+      console.error(error?.response?.data.message);
+      throw error;
+    }
+  },
+  /**
+   * 퀘스트 시작하기
+   * - 음악 퀴즈만 나옴
+   */
+  startMusicQuiz: async (): Promise<StartRandomQuestResponse> => {
+    try {
+      const response = await Http.post<{
+        result: boolean;
+        data: StartRandomQuestResponse;
+      }>("/v1/quest/demo/music-quiz/start");
+
+      return response.data;
+    } catch (error) {
+      console.error(error?.response.data.code);
+      console.error(error?.response?.data.message);
+      throw error;
+    }
+  },
+  /**
+   * 퀘스트 시작하기
+   * - 그림퀴즈만 나옴
+   */
+  startPictureQuiz: async (): Promise<StartRandomQuestResponse> => {
+    try {
+      const response = await Http.post<{
+        result: boolean;
+        data: StartRandomQuestResponse;
+      }>("/v1/quest/demo/picture-quiz/start");
 
       return response.data;
     } catch (error) {
