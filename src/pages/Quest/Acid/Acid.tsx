@@ -40,7 +40,9 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   const [gameover, setGameover] = useState(false);
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [showHelp, setShowHelp] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputRef = useRef<any>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const gamePanelRef = useRef<any>();
   const { socket } = useWebSocket();
   const [toast, setToast] = useState<ToastProps | null>(null);
