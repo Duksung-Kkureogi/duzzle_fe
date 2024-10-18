@@ -6,24 +6,24 @@
   height: 100vh;
   width: 90vw;
   max-width: 500px;
-  margin-top: 10px;
   background-color: #ffffff;
 }
 
-.QuestJump .info {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
+.QuestJump .info,
 .QuestJump .info2 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  margin-bottom: 20px;
-  font-size: 18px;
+  margin-bottom: 10px;
+}
+.QuestJump .info_t {
+  text-align: center;
+  background-color: #ececec;
+  padding: 10px 20px;
+  width: 90%;
+  border-radius: 10px;
+  font-size: 20px;
+  margin: 0;
 }
 .QuestJump .heart1 {
   background-color: rgb(255, 255, 255, 0);
@@ -81,7 +81,7 @@
 
 .QuestJump .obstacle {
   position: absolute;
-  bottom: 10px;
+  bottom: 22px;
   right: 0px;
   width: 40px;
   height: 40px;
@@ -112,8 +112,8 @@
 }
 
 .QuestJump .restart4 {
-  width: 210px;
-  height: 75px;
+  width: 200px;
+  height: 70px;
   font-size: 25px;
   font-weight: 600;
   cursor: pointer;
@@ -145,46 +145,16 @@
   text-align: center;
 }
 
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  color: white;
-  font-size: 14px;
-  z-index: 1000;
-}
-
-.toast.success {
-  background-color: #5cb85c;
-}
-
-.toast.error {
-  background-color: #d9534f;
-}
-
-.toast.warning {
-  background-color: #f0ad4e;
-}
-
-.toast.info {
-  background-color: #5bc0de;
-}
-.info div {
-  margin-right: 20px;
-}
-
 .score #distance1 {
   margin-bottom: 15px;
   font-weight: bold;
   color: #5cb85c;
-  font-size: 38px;
+  font-size: 30px;
   /* text-shadow: 0px 1px 2px #5cb85c; */
 }
 .score #distance2 {
   margin-bottom: 15px;
   font-weight: bold;
   color: #5cb85c;
-  font-size: 38px;
+  font-size: 30px;
 }

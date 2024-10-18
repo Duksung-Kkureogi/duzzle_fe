@@ -37,7 +37,7 @@ input[type="text"] {
 
 #game-panel {
   height: 600px;
-  margin-top: 30px;
+  padding-top: 30px;
   border-style: solid;
   border-color: rgb(255, 255, 255);
   position: relative;
