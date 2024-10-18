@@ -7,6 +7,7 @@ import {
   ToastProps,
   ToastType,
 } from "../../../components/Toast";
+import { DuksaeJumpProps } from "./DuksaeJump.types";
 
 const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   const navigate = useNavigate();
@@ -247,7 +248,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   return (
     <div className="QuestJump">
       <div className="info">
-        {/* <div className="info_t">{passingScore}m를 달성하라</div> */}
+        <p className="info_t">{passingScore}m를 달성하세요!</p>
       </div>
       <div className="game-panel">
         <span className="heart1">{new Array(health).fill("💛").join("")}</span>
@@ -255,7 +256,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         <div className={`dino ${jumping ? "jump" : ""}`} ref={dinoRef} />
         <div className={`obstacle ${obstacleType}`} ref={obstacleRef} />
       </div>
-      <div className="info2">{/* <div>속도: {speed.toFixed(2)}</div> */}</div>
+      <div className="info2">{/* <p>속도: {speed.toFixed(2)}</p> */}</div>
 
       {gameover && (
         <div className="score">
