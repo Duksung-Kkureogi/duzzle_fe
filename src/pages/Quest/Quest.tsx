@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import "./Quest.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
-import { QuestApis, QuestType } from "../../services/api/quest.api";
+import {
+  QuestApis,
+  QuestApisForTest,
+  QuestType,
+} from "../../services/api/quest.api";
 
 function Quest() {
   const nav = useNavigate();
@@ -9,10 +13,14 @@ function Quest() {
   const startQuiz = async () => {
     try {
       const token = localStorage.getItem("accessToken");
+      const header = {
+        Authorization: token,
+      };
       const response = token
-        ? await QuestApis.startQuest()
-        : await QuestApis.startForGuest();
-      console.log("Quest POST 성공", response);
+        ? await QuestApis.startQuest(header)
+        : //await QuestApisForTest.startSpeedQuiz()
+          await QuestApis.startForGuest();
+      // console.log("Quest POST 성공", response);
 
       if (response.type === QuestType.SpeedQuiz) {
         localStorage.setItem("logId", response.logId.toString());

@@ -1,10 +1,11 @@
+import "./PictureQuizPage.css";
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuestApis } from "../../../services/api/quest.api";
 
 const PictureQuizPage: React.FC = () => {
   //   const { isAuthenticated } = useAuth(); TODO: dev 에 반영되면 주석 해제
-  const isAuthenticated = !!localStorage.getItem("accessToken");
+  const isAuthenticated = localStorage.getItem("accessToken");
   const nav = useNavigate();
   const logId = useParams()?.logId;
   const [answer, setAnswer] = useState<string>("");
@@ -47,7 +48,12 @@ const PictureQuizPage: React.FC = () => {
 
   const handleSubmit = useCallback(async () => {
     const result = isAuthenticated
-      ? await QuestApis.getResult({ logId: Number(logId), answer: [answer] })
+      ? await QuestApis.getResult(
+          { logId: Number(logId), answer: [answer] },
+          {
+            Authorization: isAuthenticated,
+          }
+        )
       : await QuestApis.getResultForGuest({
           logId: Number(logId),
           answer: [answer],
@@ -68,24 +74,15 @@ const PictureQuizPage: React.FC = () => {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>이 장소의 이름은?</h1>
-      <div style={{ fontSize: "24px", margin: "20px 0" }}>
-        남은 시간: {formatTime(timeLeft)}
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+    <div className="quiz-picture">
+      <p className="qp-title">이 장소의 이름은?</p>
+      <div className="qp-time">남은 시간: {formatTime(timeLeft)}</div>
+      <div className="qp-img">
         {images.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt={`퀴즈 이미지 ${index + 1}`}
-            style={{ width: "150px", height: "150px" }}
-          />
+          <img key={index} src={src} alt={`퀴즈 이미지 ${index + 1}`} />
         ))}
       </div>
-
-      <div style={{ marginTop: "20px" }}>
+      <div className="qp-answer">
         <input
           type="text"
           value={answer}

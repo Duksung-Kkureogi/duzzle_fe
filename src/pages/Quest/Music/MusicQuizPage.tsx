@@ -5,7 +5,7 @@ import { useAudio } from "../../../services/useAudio";
 import { LyricsInput } from "../../../components/LyricsInput";
 
 const MusicQuizPage: React.FC = () => {
-  const isAuthenticated = !!localStorage.getItem("accessToken");
+  const isAuthenticated = localStorage.getItem("accessToken");
   const nav = useNavigate();
   const { logId } = useParams<{ logId: string }>();
   const lyrics = localStorage.getItem("lyrics") || "";
@@ -67,9 +67,14 @@ const MusicQuizPage: React.FC = () => {
 
     try {
       const result = isAuthenticated
-        ? await QuestApis.getResult({ logId: parseInt(logId), answer: answers })
+        ? await QuestApis.getResult(
+            { logId: Number(logId), answer: answers },
+            {
+              Authorization: isAuthenticated,
+            }
+          )
         : await QuestApis.getResultForGuest({
-            logId: parseInt(logId),
+            logId: Number(logId),
             answer: answers,
           });
 
