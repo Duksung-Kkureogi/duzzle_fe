@@ -42,7 +42,11 @@ export const LyricsInput: React.FC<LyricsInputProps> = ({
 
   return (
     <div
-      style={{ fontSize: "18px", lineHeight: "1.6", whiteSpace: "pre-wrap" }}
+      style={{
+        fontSize: "20px",
+        lineHeight: "2",
+        whiteSpace: "break-spaces",
+      }}
     >
       {parts.map((part, index) => (
         <React.Fragment key={index}>
@@ -58,11 +62,14 @@ export const LyricsInput: React.FC<LyricsInputProps> = ({
               style={{
                 width: "80px",
                 margin: "0 5px",
-                padding: "5px",
-                border: "2px solid #007bff",
-                borderRadius: "4px",
-                fontSize: "16px",
+                padding: "5px 5px 5px 8px",
+                border: "none",
+                backgroundColor: "rgb(233, 233, 233)",
+                borderRadius: "5px",
+                fontSize: "18px",
+                lineHeight: "1.6",
                 display: "inline-block",
+                outline: "none",
               }}
             />
           )}

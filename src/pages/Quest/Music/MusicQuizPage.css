@@ -1,12 +1,12 @@
-/* quiz-picture */
-.quiz-picture {
+/* quiz-music */
+.quiz-music {
   font-family: "Noto Sans KR", sans-serif;
   width: 90vw;
   max-width: 500px;
   text-align: center;
 }
 
-.quiz-picture .qp-title {
+.quiz-music .qm-title {
   margin: 0;
   color: #00b5cc;
   font-size: 50px;
@@ -14,7 +14,37 @@
   padding-top: 40px;
 }
 
-.quiz-picture .qp-time-info {
+.quiz-music .qm-info {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bolder;
+  padding-top: 140px;
+}
+
+.quiz-music .btn.start {
+  margin-top: 50px;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 1rem 60px;
+  background-color: #f16d9a;
+  box-shadow: 0 4px 15px 0 #f8b6cd;
+  &:hover {
+    background-color: #cd5e83;
+  }
+}
+
+.quiz-music .qm-question {
+  margin: 0 0 10px 0;
+  padding-top: 80px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #00b5cc;
+}
+
+.quiz-music .qm-time-info {
   justify-content: center;
   display: flex;
   flex-direction: row;
@@ -25,52 +55,20 @@
     margin: 0;
   }
 }
-.quiz-picture .time-second {
+.quiz-music .time-second {
   color: #f16d9a;
   padding-left: 10px;
 }
 
-.quiz-picture .qp-question {
-  margin: 0 0 10px 0;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.quiz-picture .qp-img {
-  justify-items: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px;
-  background-color: #ececec;
-  padding: 20px 20px;
-  border-radius: 20px;
-  img {
-    width: 25vw;
-    max-width: 140px;
-  }
-}
-
-.quiz-picture .qp-answer {
-  margin-top: 20px;
-}
-.quiz-picture input {
-  width: 50%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #f16d9a;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.quiz-picture .qp-buttons {
-  margin-top: 20px;
+.quiz-music .qm-buttons {
+  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.quiz-picture .btn {
+.quiz-music .btn.submit,
+.quiz-music .btn.quit {
   color: #fff;
   border: none;
   font-size: 18px;
@@ -85,7 +83,7 @@
     background-color: #019cb1;
   }
 }
-.quiz-picture .btn.quit {
+.quiz-music .btn.quit {
   background-color: #9a9c9d;
   box-shadow: 0 4px 15px 0 #828282;
   &:hover {

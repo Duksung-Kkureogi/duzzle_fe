@@ -65,18 +65,22 @@ const PictureQuizPage: React.FC = () => {
     }
   }, [isAuthenticated, logId, answer, nav]);
 
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
+  // const formatTime = (seconds: number): string => {
+  //   const minutes = Math.floor(seconds / 60);
+  //   const remainingSeconds = seconds % 60;
+  //   return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+  //     .toString()
+  //     .padStart(2, "0")}`;
+  // };
 
   return (
     <div className="quiz-picture">
-      <p className="qp-title">이 장소의 이름은?</p>
-      <div className="qp-time">남은 시간: {formatTime(timeLeft)}</div>
+      <p className="qp-title">그림 퀴즈</p>
+      <div className="qp-time-info">
+        <p>제한시간: </p>
+        <p className="time-second"> {timeLeft}초</p>
+      </div>
+      <p className="qp-question">이 장소의 이름은?</p>
       <div className="qp-img">
         {images.map((src, index) => (
           <img key={index} src={src} alt={`퀴즈 이미지 ${index + 1}`} />
@@ -87,9 +91,16 @@ const PictureQuizPage: React.FC = () => {
           type="text"
           value={answer}
           onChange={handleInputChange}
-          placeholder="장소 이름을 입력하세요"
+          placeholder="답을 입력하세요"
         />
-        <button onClick={handleSubmit}>정답 확인</button>
+      </div>
+      <div className="qp-buttons">
+        <button className="btn submit" onClick={handleSubmit}>
+          제출하기
+        </button>
+        <button className="btn quit" onClick={() => nav("/questfail")}>
+          그만하기
+        </button>
       </div>
     </div>
   );

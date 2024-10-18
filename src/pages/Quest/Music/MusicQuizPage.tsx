@@ -1,3 +1,4 @@
+import "./MusicQuizPage.css";
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuestApis } from "../../../services/api/quest.api";
@@ -85,61 +86,50 @@ const MusicQuizPage: React.FC = () => {
     }
   }, [isAuthenticated, logId, answers, nav, stopAudio]);
 
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
+  // const formatTime = (seconds: number): string => {
+  //   const minutes = Math.floor(seconds / 60);
+  //   const remainingSeconds = seconds % 60;
+  //   return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+  //     .toString()
+  //     .padStart(2, "0")}`;
+  // };
 
   if (!isStarted) {
     return (
-      <div style={{ textAlign: "center", padding: "20px" }}>
-        <h2>가사 빈칸 채우기 퀴즈</h2>
-        <p>시작 버튼을 누르면 음악이 재생되고 퀴즈가 시작됩니다.</p>
+      <div className="quiz-music">
+        <p className="qm-title">음악 퀴즈</p>
+        <p className="qm-info">
+          시작 버튼을 누르면 음악이 재생되고 퀴즈가 시작됩니다
+        </p>
         <button
+          className="btn start"
           onClick={handleStart}
           disabled={!audioLoaded}
           style={{
-            padding: "10px 20px",
-            fontSize: "16px",
             cursor: audioLoaded ? "pointer" : "not-allowed",
           }}
         >
           {audioLoaded ? "시작하기" : "오디오 로딩 중..."}
         </button>
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {error && <p style={{ color: "red", margin: "10px 0 0 0" }}>{error}</p>}
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{ textAlign: "center" }}>가사 빈칸 채우기 퀴즈</h2>
-      <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-        남은 시간: {formatTime(timeLeft)}
-      </p>
+    <div className="quiz-music">
+      <p className="qm-question">가사 받아쓰기</p>
+      <p className="qm-question">노래를 듣고 빈칸에 알맞은 가사를 입력하세요</p>
+      <div className="qm-time-info">
+        <p>제한시간: </p>
+        <p className="time-second"> {timeLeft}초</p>
+      </div>
       <LyricsInput lyrics={lyrics} answers={answers} setAnswers={setAnswers} />
-      <div
-        style={{
-          marginTop: "20px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <button
-          className="submit btn"
-          onClick={handleSubmit}
-          style={{ padding: "10px 20px", fontSize: "16px" }}
-        >
+      <div className="qm-buttons">
+        <button className="btn submit" onClick={handleSubmit}>
           제출하기
         </button>
-        <button
-          className="quit btn"
-          onClick={handleQuit}
-          style={{ padding: "10px 20px", fontSize: "16px" }}
-        >
+        <button className="btn quit" onClick={handleQuit}>
           그만하기
         </button>
       </div>

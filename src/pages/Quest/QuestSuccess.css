@@ -45,14 +45,14 @@
   margin: 0 auto;
 }
 
-button {
+.Questsuccess button {
   cursor: pointer;
   font: inherit;
   margin: 0;
   padding: 0;
 }
 
-.btn {
+.Questsuccess .btn {
   background-color: #00b5cc;
   color: #fff;
   border: 0;
@@ -71,12 +71,12 @@ button {
   box-shadow: 0 4px 15px 0 #1f5760;
 }
 
-.btn:hover {
+.Questsuccess .btn:hover {
   background-color: #019cb1;
 }
 
-.btn-jittery {
-  animation: jittery 0.5s infinite;
+.Questsuccess .btn-jittery {
+  animation: jittery 4s infinite;
 }
 
 @keyframes jittery {
@@ -114,7 +114,7 @@ button {
   }
 }
 
-.buttons {
+.Questsuccess .buttons {
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -131,7 +131,7 @@ button {
   margin-bottom: 20px;
 }
 
-.btn {
+.Questsuccess .btn {
   /* 기존 스타일 유지 */
   font-size: 1.2rem;
   /* 버튼 텍스트 크기 조정 */

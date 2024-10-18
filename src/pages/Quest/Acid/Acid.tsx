@@ -275,76 +275,78 @@ const Acid: React.FC<AcidRainProps> = ({ logId, data }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div ref={gamePanelRef} id="game-panel" className="container"></div>
-      <div id="control-panel-frame">
-        <div
-          id="control-panel"
-          className="col-md-5 align-content-center container"
-        >
-          <div>
-            <label className="my-score">점수 : </label>
-            <label className="my-score" id="score-1">
-              {score}
-            </label>
-          </div>
-          <div>
-            <label className="my-score">실패 : </label>
-            <label className="my-score" id="failed">
-              {failed}
-            </label>
-          </div>
-          <input type="text" ref={inputRef} onKeyDown={handleKeyDown} />
-        </div>
-      </div>
-      <div id="board">
-        {showHelp && (
-          <div id="help-div">
-            <div id="help-title">산성비 게임💧</div>
-            <div id="de">
-              💙HOW TO?
-              <br />
-              위에서 비처럼 떨어지는 단어가 <b>바닥에 닿기 전</b> 단어를{" "}
-              <b>입력</b>하여 점수를 획득하세요.
-              <br />
-              <br />
-              ✔️ 총 <b>{passingScore}단어</b> 이상을 입력하면 <b>성공</b>
-              <br />
-              ✔️ <b>없는 단어</b> 입력 시 점수가 차감됩니다. <br />
-              ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료!
-              <br />
-              ✔️ 게임이 종료되면 획득한 점수 공개 <br />
+    <div className="QuestAcid">
+      <div className="container-fluid">
+        <div ref={gamePanelRef} id="game-panel" className="container"></div>
+        <div id="control-panel-frame">
+          <div
+            id="control-panel"
+            className="col-md-5 align-content-center container"
+          >
+            <div>
+              <label className="my-score">점수 : </label>
+              <label className="my-score" id="score-1">
+                {score}
+              </label>
             </div>
-            <button
-              className="buttonstart"
-              role="button"
-              id="start"
-              onClick={startGame}
-            >
-              게임 시작
-            </button>
+            <div>
+              <label className="my-score">실패 : </label>
+              <label className="my-score" id="failed">
+                {failed}
+              </label>
+            </div>
+            <input type="text" ref={inputRef} onKeyDown={handleKeyDown} />
           </div>
-        )}
-        {gameover && !showHelp && (
-          <div className="score">
-            <div id="end-score">점수: {score}</div>
-            <button
-              className="restart"
-              id="restart"
-              onClick={handleResultPageNavigation}
-            >
-              결과 확인
-            </button>
-            {/* <button className="explain" onClick={showHelpScreen}>
+        </div>
+        <div id="board">
+          {showHelp && (
+            <div id="help-div">
+              <div id="help-title">산성비 게임💧</div>
+              <div id="de">
+                💙HOW TO?
+                <br />
+                위에서 비처럼 떨어지는 단어가 <b>바닥에 닿기 전</b> 단어를{" "}
+                <b>입력</b>하여 점수를 획득하세요.
+                <br />
+                <br />
+                ✔️ 총 <b>{passingScore}단어</b> 이상을 입력하면 <b>성공</b>
+                <br />
+                ✔️ <b>없는 단어</b> 입력 시 점수가 차감됩니다. <br />
+                ✔️ <b>{gameoverLimit}개</b>가 바닥에 떨어지면 게임은 종료!
+                <br />
+                ✔️ 게임이 종료되면 획득한 점수 공개 <br />
+              </div>
+              <button
+                className="buttonstart"
+                role="button"
+                id="start"
+                onClick={startGame}
+              >
+                게임 시작
+              </button>
+            </div>
+          )}
+          {gameover && !showHelp && (
+            <div className="score">
+              <div id="end-score">점수: {score}</div>
+              <button
+                className="restart"
+                id="restart"
+                onClick={handleResultPageNavigation}
+              >
+                결과 확인
+              </button>
+              {/* <button className="explain" onClick={showHelpScreen}>
               게임 설명
             </button> */}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
+        {activeWordObjs.map((wordObj, index) => (
+          <Word key={index} word={wordObj.word} x={wordObj.x} y={wordObj.y} />
+        ))}
+        {toast && <ToastComponent message={toast.message} type={toast.type} />}
       </div>
-      {activeWordObjs.map((wordObj, index) => (
-        <Word key={index} word={wordObj.word} x={wordObj.x} y={wordObj.y} />
-      ))}
-      {toast && <ToastComponent message={toast.message} type={toast.type} />}
     </div>
   );
 };
