@@ -1,15 +1,16 @@
+import "./Mypage.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import "./Mypage.css";
 import { useAuth } from "../../services/AuthContext";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
+import LogoutModal from "../../components/Modal/LogoutModal";
 
 function Mypage() {
   const { getDal, logout } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   interface UserInfo {
     email: string;
@@ -61,17 +62,18 @@ function Mypage() {
     fetchData();
   }, [RequestUrl, getDal, navigate]);
 
-  const Logout = () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      logout();
-      navigate("/");
-    }
-    console.log("logged out");
+  const handleLogoutModalClose = () => {
+    setShowLogoutModal(false);
   };
 
   return (
     <div className="Mypage">
-      <p className="logout" onClick={Logout}>
+      <p
+        className="logout"
+        onClick={() => {
+          setShowLogoutModal(true);
+        }}
+      >
         로그아웃
       </p>
       <div className="user_image">
@@ -107,6 +109,16 @@ function Mypage() {
           <p>설정</p>
         </section>
       </div>
+      <LogoutModal
+        isOpen={showLogoutModal}
+        content="정말 로그아웃 하시겠습니까?"
+        onClose={handleLogoutModalClose}
+        onLogout={() => {
+          logout();
+          navigate("/");
+          setShowLogoutModal(false);
+        }}
+      />
       <MyBottomNavBar />
     </div>
   );
