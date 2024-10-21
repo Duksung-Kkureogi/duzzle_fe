@@ -35,6 +35,8 @@ import DuksaeJumpPage from "./pages/Quest/Jump/DuksaeJumpPage";
 import DrOne from "./pages/Deal/DrOne";
 import DrTwo from "./pages/Deal/DrTwo";
 import DrThree from "./pages/Deal/DrThree";
+import PictureQuizPage from "./pages/Quest/Picture/PictureQuizPage";
+import MusicQuizPage from "./pages/Quest/Music/MusicQuizPage";
 import DealDetail from "./pages/Deal/DealDetail";
 
 function App() {
@@ -99,6 +101,8 @@ function App() {
                 </AuthGuardLayout>
               }
             />
+            <Route path="/picturequiz/:logId" element={<PictureQuizPage />} />
+            <Route path="/musicquiz/:logId" element={<MusicQuizPage />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>

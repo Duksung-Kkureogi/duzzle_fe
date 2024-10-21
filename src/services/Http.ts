@@ -19,7 +19,7 @@ const api = (axios: AxiosInstance) => {
   }
 
   return {
-    async get<T>(uri: string, params: object): Promise<T> {
+    async get<T>(uri: string, params: object = {}): Promise<T> {
       const url: string = `${uri}?${Object.entries(params)
         .filter(
           ([_, value]) => value !== null && value !== undefined && value !== ""
@@ -41,7 +41,7 @@ const api = (axios: AxiosInstance) => {
 
     async post<T>(
       url: string,
-      body: object,
+      body: object = {},
       headers?: RawAxiosRequestHeaders
     ): Promise<T> {
       const data = (await axios.post(url, body, { headers })).data;

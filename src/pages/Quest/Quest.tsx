@@ -1,50 +1,57 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./Quest.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
+import {
+  QuestApis,
+  QuestApisForTest,
+  QuestType,
+} from "../../services/api/quest.api";
 
 function Quest() {
   const nav = useNavigate();
-  const [type, setQuizType] = useState("");
-  const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
   const startQuiz = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.post(
-        `${RequestURL}/v1/quest/demo/duksae-jump/start`,
-        // `${RequestURL}/v1/quest/demo/acidrain-speed/start`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Quest POST 성공", response.data);
+      const header = {
+        Authorization: token,
+      };
+      const response = token
+        ? await QuestApis.startQuest(header)
+        : //await QuestApisForTest.startSpeedQuiz();
+          await QuestApis.startForGuest();
+      // console.log("Quest POST 성공", response);
 
-      if (response.data.data.type === "SPEED_QUIZ") {
-        localStorage.setItem("logId", response.data.data.logId);
-        localStorage.setItem("quest", response.data.data.quest);
-        localStorage.setItem("timeLimit", response.data.data.timeLimit);
+      if (response.type === QuestType.SpeedQuiz) {
+        localStorage.setItem("logId", response.logId.toString());
+        localStorage.setItem("quest", response.quest);
+        localStorage.setItem("timeLimit", response.timeLimit.toString());
         nav("/questspeed");
-      } else if (response.data.data.type === "ACID_RAIN") {
-        const quest = JSON.parse(response.data.data.quest);
+      } else if (response.type === QuestType.AcidRain) {
+        const quest = JSON.parse(response.quest);
         const queryParms = Object.entries(quest)
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
-        nav(`/questacid/${response.data.data.logId}?`.concat(queryParms));
-      } else if (response.data.data.type === "DUKSAE_JUMP") {
-        const quest = JSON.parse(response.data.data.quest);
+        nav(`/questacid/${response.logId}?`.concat(queryParms));
+      } else if (response.type === QuestType.DuksaeJump) {
+        const quest = JSON.parse(response.quest);
         const queryParams = Object.entries(quest)
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
-        nav(`/duksaejump/${response.data.data.logId}?`.concat(queryParams));
+        nav(`/duksaejump/${response.logId}?`.concat(queryParams));
+      } else if (response.type === QuestType.PictureQuiz) {
+        localStorage.setItem("logId", response.logId.toString());
+        localStorage.setItem("quest", response.quest);
+        localStorage.setItem("timeLimit", response.timeLimit.toString());
+        nav(`/picturequiz/${response.logId}`);
+      } else if (response.type === QuestType.MusicQuiz) {
+        const quest = JSON.parse(response.quest);
+        localStorage.setItem("logId", response.logId.toString());
+        localStorage.setItem("lyrics", quest.lyrics);
+        localStorage.setItem("audioUrl", quest.audioUrl);
+        localStorage.setItem("timeLimit", response.timeLimit.toString());
+        nav(`/musicquiz/${response.logId}`);
       }
-
-      setQuizType(response.data.data.type);
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error("모든 퀘스트 완료 => 409 오류");
@@ -52,7 +59,6 @@ function Quest() {
       } else {
         console.error("Error submitting result:", error);
       }
-      setQuizType("SPEED_QUIZ");
     }
   };
 

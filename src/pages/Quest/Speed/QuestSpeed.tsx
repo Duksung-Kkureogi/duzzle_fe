@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./QuestSpeed.css";
+import { QuestApis } from "../../../services/api/quest.api";
 
 function QuestSpeed() {
   const nav = useNavigate();
@@ -11,7 +11,6 @@ function QuestSpeed() {
   const [questData, setQuestData] = useState(null);
   const [logId, setLogId] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-  const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
   useEffect(() => {
     getRandomSpeedQuest();
@@ -37,38 +36,26 @@ function QuestSpeed() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      const filteredAnswers = answers.filter((answer) => answer.trim() !== "");
-      const response = await axios.post(
-        RequestURL + "/v1/quest/demo/duksae-jump/start",
-        {
-          logId: Number(localStorage.getItem("logId")),
-          answer: filteredAnswers,
-        },
-        {
-          headers: {
+    const token = localStorage.getItem("accessToken");
+    const filteredAnswers = answers.filter((answer) => answer.trim() !== "");
+    const result = token
+      ? await QuestApis.getResult(
+          { logId: Number(logId), answer: filteredAnswers },
+          {
             Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Result Submitted:", response);
-      setIsCompleted(true);
-      setIsTimerRunning(false);
-      if (response.data.data) {
-        nav("/questsuccess");
-      } else {
-        nav("/questfail");
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 409) {
-        console.error("모든 퀘스트를 이미 완료했습니다.");
-      } else {
-        console.error("Error submitting result:", error);
-        nav("/questfail");
-      }
+          }
+        )
+      : await QuestApis.getResultForGuest({
+          logId: Number(logId),
+          answer: filteredAnswers,
+        });
+    if (result) {
+      nav("/questsuccess");
+    } else {
+      nav("/questfail");
     }
+    setIsCompleted(true);
+    setIsTimerRunning(false);
   };
 
   const getRandomSpeedQuest = async () => {
