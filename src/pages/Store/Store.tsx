@@ -203,7 +203,7 @@ function Store() {
       )}
       <LoginModal
         isOpen={showLoginModal}
-        content="마이페이지를 확인하려면 로그인이 필요합니다."
+        content="아이템을 구매하려면 로그인이 필요합니다."
         onClose={handleLoginModalClose}
         onLogin={() => {
           navigate("/login");
