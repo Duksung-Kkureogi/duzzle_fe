@@ -13,7 +13,6 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileType, setProfileType] = useState("");
-  const level = "Lv.4";
   const achievement = `2022 #Summer Duksung Lv.8
     2023 #Spring Duksung Lv.9 
     2023 #Autumn Duksung Lv.10`;
@@ -25,6 +24,8 @@ function Profile() {
   const ImgInput = useRef<HTMLInputElement | null>(null);
 
   const [isEditingType, setEditingType] = useState(false);
+
+  const toastRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -166,6 +167,33 @@ function Profile() {
     }
   }
 
+  // 유저 지갑 주소 복사
+  const onCopyClick = () => {
+    navigator.clipboard
+      .writeText(wallet)
+      .then(() => {
+        showToast("복사되었습니다!");
+      })
+      .catch((err) => {
+        console.error("Could not copy text: ", err);
+      });
+  };
+
+  const showToast = (message: string) => {
+    if (toastRef.current) {
+      toastRef.current.textContent = message;
+      toastRef.current.className = "toast show";
+      setTimeout(() => {
+        if (toastRef.current) {
+          toastRef.current.className = toastRef.current.className.replace(
+            "show",
+            ""
+          );
+        }
+      }, 1000);
+    }
+  };
+
   return (
     <div className="Profile">
       <MyHeader headerText="프로필" leftChild={<MyButton />} />
@@ -208,6 +236,24 @@ function Profile() {
           <p className="list_name">지갑 주소</p>
           <div className="wallet">
             <p>{wallet}</p>
+            <button onClick={onCopyClick}>
+              <svg
+                data-slot="icon"
+                fill="none"
+                stroke-width="2.0"
+                stroke="rgba(0, 0, 0, 0.3)"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 6.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0 0 15 2.25h-1.5a2.251 2.251 0 0 0-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 0 0-9-9Z"
+                ></path>
+              </svg>
+              <div ref={toastRef} className="toast"></div>
+            </button>
           </div>
         </section>
         <section className="profile_name">
@@ -279,18 +325,14 @@ function Profile() {
             )}
           </div>
         </section>
-        <section className="profile_email">
-          <p className="list_name">이메일</p>
-          <div className="email">
-            <p>{email}</p>
-          </div>
-        </section>
-        <section className="profile_grade">
-          <p className="list_name">등급</p>
-          <div className="level">
-            <p>{level}</p>
-          </div>
-        </section>
+        {email && (
+          <section className="profile_email">
+            <p className="list_name">이메일</p>
+            <div className="email">
+              <p>{email}</p>
+            </div>
+          </section>
+        )}
         <section className="profile_achievement">
           <p className="list_name">업적</p>
           <div className="achievement">
