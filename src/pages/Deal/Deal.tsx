@@ -119,20 +119,23 @@ const DealPage = () => {
         status={status}
         handleNewTrade={handleNewTrade}
       />
-      <DealList
-        title="등록된 거래 목록"
-        deals={registeredTrades}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={registeredTradesTotal}
-      />
-      <DealList
-        title="내가 등록한 거래"
-        deals={myTrades}
-        currentPage={myCurrentPage}
-        setCurrentPage={setMyCurrentPage}
-        totalPages={myTradesTotal}
-      />
+      <div className="con">
+        <DealList
+          title="등록된 거래 목록"
+          deals={registeredTrades}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={registeredTradesTotal}
+        />
+        <DealList
+          title="내가 등록한 거래"
+          deals={myTrades}
+          currentPage={myCurrentPage}
+          setCurrentPage={setMyCurrentPage}
+          totalPages={myTradesTotal}
+        />
+      </div>
+
       <MyBottomNavBar />
       {showApprovalManager && (
         <ApprovalManager

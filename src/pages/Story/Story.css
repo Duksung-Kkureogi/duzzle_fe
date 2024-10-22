@@ -2,6 +2,7 @@
   width: 90vw;
   max-width: 500px;
   align-items: center;
+  text-align: center;
 }
 
 .c1 .Story_title {
@@ -14,12 +15,16 @@
   padding-top: 30px;
 }
 .c1 .img_story {
-  width: 86vw;
+  width: 330px;
   max-width: 500px;
 }
 .c1 .ul_story {
   list-style: none;
   padding: 0;
+  max-width: 500px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .c1 .li_story {

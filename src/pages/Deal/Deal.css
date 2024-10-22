@@ -7,7 +7,6 @@
   align-items: center;
 }
 
-
 .Deal .search-section {
   display: flex;
   flex-wrap: wrap;
@@ -20,7 +19,6 @@
   border-radius: 10px;
   margin-bottom: 20px;
 }
-
 
 .Deal .search-section input {
   flex: 1 1 calc(33.333% - 10px);
@@ -58,7 +56,6 @@
 }
 
 @media (max-width: 600px) {
-
   .Deal .search-section input,
   .Deal .search-section select,
   .Deal .search-section button {

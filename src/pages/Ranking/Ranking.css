@@ -6,13 +6,12 @@
   font-family: Arial, sans-serif;
   width: 90vw;
   max-width: 500px;
-  padding-top: 60px;
 }
 .c_ranking .title {
   font-size: 40px;
   color: #00b5cc;
-  margin-top: 0px;
-  margin-bottom: 140px;
+  margin-top: 50px;
+  margin-bottom: 100px;
   font-weight: bold;
 }
 .c_ranking .top-ranking {
@@ -94,6 +93,8 @@
   box-shadow: 0 4px 15px 0 rgb(82, 82, 82);
   border-radius: 10px;
   padding: 15px;
+  max-height: 210px;
+  overflow-y: auto;
 }
 
 .c_ranking .ranking-item {
@@ -163,32 +164,18 @@
 }
 
 .c_ranking .my-ranking button:hover {
+  border-radius: 10px;
   background-color: #fbff03;
 }
 
-/* 모달 */
 .c_ranking .profile-modal {
   position: absolute;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  white-space: nowrap;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-.c_ranking .profile-modal {
-  position: absolute;
-  margin-left: 170px;
+  margin-left: 180px;
   background: #f47735;
   border: 0px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 3.5px 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   white-space: nowrap;
   visibility: hidden;
@@ -205,10 +192,10 @@
 }
 
 .c_ranking .profile-modal::after {
-  border-bottom: 13.6px solid transparent;
-  border-left: 13px solid transparent;
-  border-right: 14.3px solid #f47735;
-  border-top: 12.2px solid transparent;
+  border-bottom: 14.6px solid transparent;
+  border-left: 45px solid transparent;
+  border-right: 15px solid #f47735;
+  border-top: 10px solid transparent;
   content: "";
   position: absolute;
   right: 97%;
@@ -216,6 +203,7 @@
   transform: translateX(-5%);
   cursor: pointer;
 }
+
 .c_ranking .name {
   cursor: pointer;
 }
