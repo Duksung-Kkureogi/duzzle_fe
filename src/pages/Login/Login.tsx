@@ -1,70 +1,35 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "../../services/AuthContext";
-
 import "./Login.css";
+import { useAuth } from "../../services/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { duzzleUser, logout, web3auth, duzzleLoggedIn, getDal } = useAuth();
-  const [userDal, setUserDal] = useState(0);
-
-  useEffect(() => {
-    const fetchUserDal = async () => {
-      const balance = await getDal();
-      setUserDal(balance);
-    };
-    fetchUserDal();
-  }, [getDal]);
+  const { web3auth, duzzleLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const login = async (): Promise<void> => {
     if (!web3auth) {
       console.log("web3auth not initialized yet");
     } else {
       await web3auth.connect();
+      window.location.replace("/login");
     }
   };
 
   const LoggedInView = (
-    <>
-      <div className="flex-container">
-        <table border={1}>
-          <thead></thead>
-          <tbody>
-            <tr>
-              <td>이메일</td>
-              <td>{duzzleUser?.email}</td>
-            </tr>
-            <tr>
-              <td>이름</td>
-              <td>{duzzleUser?.name}</td>
-            </tr>
-            <tr>
-              <td>지갑 주소</td>
-              <td>{duzzleUser?.walletAddress}</td>
-            </tr>
-            <tr>
-              <td>보유 DAL 확인</td>
-              <td>{userDal}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <button onClick={logout} className="card">
-            Log Out
-          </button>
-        </div>
-      </div>
-    </>
+    <button onClick={() => navigate("/")} className="login-buttons">
+      홈으로 이동
+    </button>
   );
 
   const UnloggedInView = (
-    <button onClick={login} className="card">
-      Login
+    <button onClick={login} className="login-buttons">
+      로그인
     </button>
   );
 
   return (
     <div className="Login">
-      <img src="/src/assets/images/duzzle logo.png" />
+      <img className="duzzle-logo" src="/src/assets/images/duzzle logo.png" />
       <div className="grid">
         {duzzleLoggedIn ? LoggedInView : UnloggedInView}
       </div>

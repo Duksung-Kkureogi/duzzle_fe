@@ -6,9 +6,9 @@ import { DealApis, GetDealQueryParams } from "../../services/api/deal.api";
 import { Deal, NftExchangeOfferStatus } from "../../Data/DTOs/Deal";
 import DealList from "./DealList";
 import SearchSection from "./SearchSectionComponent";
-import RPC from "../../../ethersRPC";
 import { useAuth } from "../../services/AuthContext";
-import { IProvider } from "@web3auth/base";
+import LoginModal from "../../components/Modal/LoginModal";
+import ApprovalManager from "./ApprovalManager";
 interface SearchParams {
   user: string;
   providedNft: string;
@@ -16,34 +16,11 @@ interface SearchParams {
 }
 
 const DealPage = () => {
-  const { web3auth } = useAuth();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    // TODO: 로그인 상태 확인
-    const checkAuthStatus = async () => {
-      const authStatus = !!localStorage.getItem("accessToken");
-      setIsAuthenticated(authStatus);
-    };
-
-    checkAuthStatus();
-  }, []);
-
-  const handleNewTrade = async () => {
-    if (isAuthenticated) {
-      const rpc = new RPC(web3auth?.provider as IProvider);
-      await rpc.setApprovalForAll(
-        "0x235014C8eBBc1a0E94C68d65adAAA9408A013A35",
-        true
-      );
-
-      navigate("/nft-exchange/regist/stepOne");
-    } else {
-      // 로그인 후에만 거래 등록 가능(로그인 페이지로 이동)
-      alert("거래를 등록하려면 로그인이 필요합니다."); // TODO: alert -> modal
-    }
-  };
-
+  const { web3auth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [showApprovalManager, setShowApprovalManager] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const [registeredTrades, setRegisteredTrades] = useState<Deal[]>([]);
   const [registeredTradesTotal, setRegisteredTradesTotal] = useState(0);
   const [myTrades, setMyTrades] = useState<Deal[]>([]);
@@ -58,6 +35,28 @@ const DealPage = () => {
   const [myCurrentPage, setMyCurrentPage] = useState(1);
   const tradesPerPage = 2;
 
+  const handleNewTrade = () => {
+    console.log("isAuthenticated: :", isAuthenticated);
+    if (isAuthenticated) {
+      setShowApprovalManager(true);
+    } else {
+      console.log("isAuthenticated: :", isAuthenticated);
+      setShowLoginModal(true);
+    }
+  };
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleAllApproved = () => {
+    navigate("/nft-exchange/regist/stepOne");
+  };
+
+  const handleApprovalCancel = () => {
+    setShowApprovalManager(false);
+  };
+
   const fetchTrades = useCallback(
     async (isMyTrades: boolean) => {
       try {
@@ -70,9 +69,10 @@ const DealPage = () => {
           offerorUser: searchParams.user,
         };
 
-        const response = isMyTrades
-          ? await DealApis.getMyOffers(params)
-          : await DealApis.getNftExchangeOffers(params);
+        const response =
+          isMyTrades && isAuthenticated
+            ? await DealApis.getMyOffers(params)
+            : await DealApis.getNftExchangeOffers(params);
 
         if (isMyTrades) {
           setMyTrades(response.list);
@@ -100,16 +100,6 @@ const DealPage = () => {
     fetchTrades(true);
   }, [fetchTrades]);
 
-  // // 전체 페이지 수 계산
-  // const totalPages = Math.max(
-  //   Math.ceil(registeredTradesTotal / tradesPerPage),
-  //   1
-  // );
-  // const totalMyPages = Math.max(
-  //   Math.ceil(myTradesTotal / tradesPerPage) || 1,
-  //   1
-  // );
-
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
@@ -127,8 +117,6 @@ const DealPage = () => {
         handleSearch={handleSearch}
         handleStatusChange={handleStatusChange}
         status={status}
-        navigate={navigate}
-        isAuthenticated={isAuthenticated}
         handleNewTrade={handleNewTrade}
       />
       <DealList
@@ -146,6 +134,23 @@ const DealPage = () => {
         totalPages={myTradesTotal}
       />
       <MyBottomNavBar />
+      {showApprovalManager && (
+        <ApprovalManager
+          web3auth={web3auth}
+          onAllApproved={handleAllApproved}
+          onCancel={handleApprovalCancel}
+        />
+      )}
+      <LoginModal
+        isOpen={showLoginModal}
+        content="거래를 등록하려면 로그인이 필요합니다."
+        onClose={handleLoginModalClose}
+        onLogin={() => {
+          navigate("/login");
+          setShowLoginModal(false);
+          setShowApprovalManager(true);
+        }}
+      />
     </div>
   );
 };

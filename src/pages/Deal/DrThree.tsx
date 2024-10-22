@@ -45,7 +45,7 @@ function DrThree() {
         requestedNfts: selectedRequestNfts.map(NftInfo),
       };
       const response = await axios.post(
-        `${RequestUrl}/v1/nft-exchange`,
+        `${RequestUrl}/v1/nft-exchange/register`,
         params,
         {
           headers: {

@@ -58,7 +58,7 @@ const DealDetail: React.FC = () => {
     try {
       await DealApis.acceptNftExchangeOffer(id);
       // 성공 처리 (예: 성공 메시지 표시, 페이지 리다이렉트 등)
-      navigate("/exchanges", {
+      navigate("/nft-exchange", {
         state: { message: "교환이 성공적으로 완료되었습니다." },
       });
     } catch (err) {

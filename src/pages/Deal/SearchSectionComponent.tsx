@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigateFunction } from "react-router-dom";
 import { NftExchangeOfferStatus } from "../../Data/DTOs/Deal";
 
 interface SearchSectionProps {
@@ -18,8 +17,6 @@ interface SearchSectionProps {
   handleSearch: () => void;
   handleStatusChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   status: NftExchangeOfferStatus;
-  navigate: NavigateFunction;
-  isAuthenticated: boolean;
   handleNewTrade: () => void;
 }
 
@@ -29,8 +26,6 @@ const SearchSection: React.FC<SearchSectionProps> = ({
   handleSearch,
   handleStatusChange,
   status,
-  navigate,
-  isAuthenticated,
   handleNewTrade,
 }) => {
   return (
@@ -60,9 +55,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({
         }
       />
       <button onClick={handleSearch}>🔍 검색</button>
-      <button onClick={handleNewTrade}>
-        {isAuthenticated ? "+ 새 거래" : "로그인하여 거래 등록"}
-      </button>
+      <button onClick={handleNewTrade}>+ 새 거래</button>
       <select value={status} onChange={handleStatusChange}>
         <option value="">상태</option>
         <option value="listed">대기중</option>

@@ -1,15 +1,16 @@
+import "./Mypage.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import "./Mypage.css";
 import { useAuth } from "../../services/AuthContext";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
+import LogoutModal from "../../components/Modal/LogoutModal";
 
 function Mypage() {
   const { getDal, logout } = useAuth();
   const navigate = useNavigate();
   const [userDal, setUserDal] = useState(0);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   interface UserInfo {
     email: string;
@@ -30,16 +31,6 @@ function Mypage() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const web3LoggedIn = localStorage.getItem("web3LoggedIn");
-    const duzzleLoggedIn = localStorage.getItem("duzzleLoggedIn");
-
-    const checkLoggedIn = async () => {
-      if (web3LoggedIn != "true" || duzzleLoggedIn != "true" || !token) {
-        alert("로그인이 필요합니다.\n로그인 화면으로 이동합니다.");
-        navigate("/login");
-        return;
-      }
-    };
 
     const getUserInfo = async () => {
       try {
@@ -65,23 +56,24 @@ function Mypage() {
     };
 
     const fetchData = async () => {
-      await checkLoggedIn();
       await Promise.all([getUserInfo(), fetchUserDal()]);
     };
 
     fetchData();
   }, [RequestUrl, getDal, navigate]);
 
-  const Logout = () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      logout();
-    }
-    console.log("logged out");
+  const handleLogoutModalClose = () => {
+    setShowLogoutModal(false);
   };
 
   return (
     <div className="Mypage">
-      <p className="logout" onClick={Logout}>
+      <p
+        className="logout"
+        onClick={() => {
+          setShowLogoutModal(true);
+        }}
+      >
         로그아웃
       </p>
       <div className="user_image">
@@ -117,6 +109,16 @@ function Mypage() {
           <p>설정</p>
         </section>
       </div>
+      <LogoutModal
+        isOpen={showLogoutModal}
+        content="정말 로그아웃 하시겠습니까?"
+        onClose={handleLogoutModalClose}
+        onLogout={() => {
+          logout();
+          navigate("/");
+          setShowLogoutModal(false);
+        }}
+      />
       <MyBottomNavBar />
     </div>
   );

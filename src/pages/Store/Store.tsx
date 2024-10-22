@@ -9,15 +9,20 @@ import { itemList } from "../../util/item";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
+import { useNavigate } from "react-router-dom";
+import LoginModal from "../../components/Modal/LoginModal";
 
 function Store() {
-  const { web3auth, getDal } = useAuth();
+  const navigate = useNavigate();
+  const { web3auth, getDal, isAuthenticated } = useAuth();
   const [userDal, setUserDal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [enoughDal, setEnoughDal] = useState(false);
 
   const [metadataUrl, setMetadataUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [curNFTItem, setCurNFTItem] = useState<NFTItem | null>(null);
 
   interface NFTItem {
@@ -26,12 +31,13 @@ function Store() {
     item_img: string;
   }
 
+  const fetchUserDal = async () => {
+    const balance = await getDal();
+    setUserDal(balance);
+    //setUserDal(0);
+  };
+
   useEffect(() => {
-    const fetchUserDal = async () => {
-      const balance = await getDal();
-      setUserDal(balance);
-      //setUserDal(0);
-    };
     fetchUserDal();
   }, [getDal]);
 
@@ -47,8 +53,11 @@ function Store() {
     try {
       const itemMetadataUrl = await rpc.getRandomItem();
       setMetadataUrl(itemMetadataUrl);
+      await fetchUserDal();
     } catch (error) {
       console.log(error);
+      closeModal();
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -74,12 +83,19 @@ function Store() {
   };
 
   function buyItem() {
-    if (userDal >= 2) {
-      setEnoughDal(true);
-      getRandomItem();
-      getNFTItem();
+    if (error) {
+      setError(false);
     }
-    setModalOpen(true);
+    if (isAuthenticated) {
+      if (userDal >= 2) {
+        setEnoughDal(true);
+        getRandomItem();
+        //getNFTItem();
+      }
+      setModalOpen(true);
+    } else {
+      setShowLoginModal(true);
+    }
   }
 
   function closeModal() {
@@ -102,6 +118,10 @@ function Store() {
       backgroundColor: "#F69EBB",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
     },
+  };
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
   };
 
   return (
@@ -142,8 +162,10 @@ function Store() {
                 <p>{curNFTItem?.item_name}</p>
               </div>
               <div className="dalO_btn">
-                <button>보유 NFT 확인</button>
-                <button>
+                <button onClick={() => navigate("/mypage")}>
+                  보유 NFT 확인
+                </button>
+                <button onClick={() => navigate("/")}>
                   잠금해제<br></br> 하러 가기
                 </button>
               </div>
@@ -160,11 +182,34 @@ function Store() {
               <p>획득해보세요.</p>
             </div>
             <div className="dalX_btn">
-              <button>퀘스트 하러가기</button>
+              <button
+                onClick={() => {
+                  navigate("/quest");
+                }}
+              >
+                퀘스트 하러가기
+              </button>
             </div>
           </div>
         )}
       </Modal>
+      {error && (
+        <Error
+          message="아이템을 뽑는데 오류가 발생했습니다. 다시 시도해주세요."
+          onClose={() => {
+            setError(false);
+          }}
+        />
+      )}
+      <LoginModal
+        isOpen={showLoginModal}
+        content="아이템을 구매하려면 로그인이 필요합니다."
+        onClose={handleLoginModalClose}
+        onLogin={() => {
+          navigate("/login");
+          setShowLoginModal(false);
+        }}
+      />
       <MyBottomNavBar />
     </div>
   );
