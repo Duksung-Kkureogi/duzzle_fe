@@ -11,6 +11,7 @@ import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { useNavigate } from "react-router-dom";
+import ThreeDScene from "../../components/3dModel/ThreeDScene";
 
 function Mainpage() {
   const navigate = useNavigate();
@@ -265,12 +266,21 @@ function Mainpage() {
                               }
                             />
                           </p>
-                          <div className="piece_img">
-                            <img
-                              src={
-                                (selectedPiece.data as Minted).nftThumbnailUrl
+                          <div className="piece_3d">
+                            <ThreeDScene
+                              width="100%"
+                              height="300px"
+                              url={
+                                // (selectedPiece.data as Minted).nftThumbnailUrl
+                                "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/3dmodels/llibrary_spring.gltf"
                               }
-                            ></img>
+                              nftInfo={{
+                                owner: (selectedPiece.data as Minted).owner
+                                  .name,
+                                creationDate: new Date().toLocaleDateString(), // You might want to get this from your data
+                                uniqueId: selectedPiece.pieceId.toString(),
+                              }}
+                            />
                           </div>
                         </div>
                         <div className="mintedO_btn">
