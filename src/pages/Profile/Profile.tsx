@@ -1,9 +1,9 @@
+import "./Profile.css";
 import { useEffect, useRef, useState } from "react";
 import MyButton from "../../components/MyButton/MyButton";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import axios, { AxiosResponse, isAxiosError } from "axios";
-
-import "./Profile.css";
+import ConfirmCancelModal from "../../components/Modal/ConfirmCancelModal";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
@@ -19,13 +19,16 @@ function Profile() {
 
   const [isEditingName, setEditingName] = useState(false);
   const [editedName, setEditedName] = useState("");
-
   const [isEditingImg, setEditingImg] = useState(false);
   const ImgInput = useRef<HTMLInputElement | null>(null);
-
   const [isEditingType, setEditingType] = useState(false);
 
   const toastRef = useRef<HTMLDivElement>(null);
+
+  const [showCCModal, setShowCCModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
+  const [confirmAction, setConfirmAction] = useState<() => void>(() => {});
 
   useEffect(() => {
     const getData = async () => {
@@ -61,15 +64,29 @@ function Profile() {
   };
 
   const onEditName = async () => {
-    const ok = confirm("이름을 바꾸시겠습니까?");
-    if (!ok) return;
-    try {
-      await patchName(editedName);
-    } catch (error) {
-      console.error(error);
-    }
-    setEditingName(false);
-    setEditedName("");
+    openConfirmCancelModal(
+      "변경",
+      "이름(닉네임)을 바꾸시겠습니까?",
+      async () => {
+        try {
+          await patchName(editedName);
+          setEditingName(false);
+          setEditedName("");
+        } catch (error) {
+          console.error(error);
+        }
+        setShowCCModal(false);
+      }
+    );
+    // const ok = confirm("이름을 바꾸시겠습니까?");
+    // if (!ok) return;
+    // try {
+    //   await patchName(editedName);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    // setEditingName(false);
+    // setEditedName("");
   };
 
   async function patchName(new_name: string) {
@@ -146,25 +163,49 @@ function Profile() {
 
   // 유저 프로필 공개여부 설정
   async function patchProfileType(type: string) {
-    const ok = confirm("프로필 공개여부를 바꾸시겠습니까?");
-    if (!ok) return;
-    try {
-      const token = localStorage.getItem("accessToken");
-      const response = await axios.patch(
-        RequestURL + "/v1/user/profileType",
-        { profileType: type },
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
+    openConfirmCancelModal(
+      "변경",
+      "프로필 공개여부를 바꾸시겠습니까?",
+      async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const response = await axios.patch(
+            RequestURL + "/v1/user/profileType",
+            { profileType: type },
+            {
+              headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log("PATCH 성공", response);
+          setEditingType(false);
+        } catch (error) {
+          console.error(error);
         }
-      );
-      console.log("PATCH 성공", response);
-      setEditingType(false);
-    } catch (error) {
-      console.error(error);
-    }
+        setShowCCModal(false);
+      }
+    );
+    // const ok = confirm("프로필 공개여부를 바꾸시겠습니까?");
+    // if (!ok) return;
+    // try {
+    //   const token = localStorage.getItem("accessToken");
+    //   const response = await axios.patch(
+    //     RequestURL + "/v1/user/profileType",
+    //     { profileType: type },
+    //     {
+    //       headers: {
+    //         Authorization: token,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   console.log("PATCH 성공", response);
+    //   setEditingType(false);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   // 유저 지갑 주소 복사
@@ -192,6 +233,21 @@ function Profile() {
         }
       }, 1000);
     }
+  };
+
+  // 이름, 공개여부 변경 모달 컨트롤
+  const openConfirmCancelModal = (
+    title: string,
+    content: string,
+    onConfirm: () => void
+  ) => {
+    setModalTitle(title);
+    setModalContent(content);
+    setConfirmAction(() => onConfirm);
+    setShowCCModal(true);
+  };
+  const handleModalClose = () => {
+    setShowCCModal(false);
   };
 
   return (
@@ -428,6 +484,15 @@ function Profile() {
           </div>
         </section>
       </div>
+      {showCCModal && (
+        <ConfirmCancelModal
+          isOpen={showCCModal}
+          title={modalTitle}
+          content={modalContent}
+          onConfirm={confirmAction}
+          onCancel={handleModalClose}
+        />
+      )}
     </div>
   );
 }

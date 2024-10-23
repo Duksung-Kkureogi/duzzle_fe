@@ -196,6 +196,7 @@
   padding: 3px;
   font-size: 10px;
   margin-right: 5px;
+  cursor: pointer;
 }
 .Profile .profile_list .type .edit {
   border: none;
