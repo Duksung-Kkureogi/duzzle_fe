@@ -81,7 +81,8 @@ function Mainpage() {
       height: "60vh",
       borderRadius: "20px",
       justifyContent: "center",
-      backgroundColor: "#80DAE6",
+      // backgroundColor: "#80DAE6",
+      backgroundColor: "#f4f1e3",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
       overflow: "hidden",
     },
@@ -272,7 +273,7 @@ function Mainpage() {
                               height="300px"
                               url={
                                 // (selectedPiece.data as Minted).nftThumbnailUrl
-                                "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/3dmodels/llibrary_spring.gltf"
+                                "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/3dmodels/zz.gltf"
                               }
                               nftInfo={{
                                 owner: (selectedPiece.data as Minted).owner
