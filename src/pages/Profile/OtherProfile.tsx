@@ -75,7 +75,7 @@ function OtherProfile() {
           <div className="profile_name">
             <p className="list_name">이름(닉네임)</p>
             <div className="name">
-              <p>{User.name}</p>
+              <p>{User.name || "Unknown"}</p>
             </div>
           </div>
           <div className="profile_wallet">
@@ -108,13 +108,17 @@ function OtherProfile() {
           <div className="profile_nft">
             <p className="list_name">보유 아이템 NFT</p>
             <div className="items">
-              {User.items.map((item) => (
-                <div className="item" key={item.name}>
-                  <img src={item.image} alt={item.name} />
-                  <p>{item.name}</p>
-                  <p>{item.count}개</p>
-                </div>
-              ))}
+              {User.items && User.items.length > 0 ? (
+                User.items.map((item) => (
+                  <div className="item" key={item.name}>
+                    <img src={item.image} alt={item.name} />
+                    <p>{item.name}</p>
+                    <p>{item.count}개</p>
+                  </div>
+                ))
+              ) : (
+                <p>아이템이 없습니다.</p>
+              )}
             </div>
           </div>
         </section>
