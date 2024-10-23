@@ -25,6 +25,7 @@ function Mainpage() {
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
   const seasonId = seasonList[seasonList.length - 1].id;
+  const seasonName = seasonList[seasonList.length - 1].title;
 
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -250,7 +251,7 @@ function Mainpage() {
                       <div className="modal_mintedO">
                         <div className="mintedO_piece">
                           <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                          <p className="info">{seasonName}</p>
                           <p className="info_title">조각 아이디</p>
                           <p className="info">{selectedPiece.pieceId}</p>
                           <p className="info_title">토큰 소유자</p>
@@ -294,7 +295,7 @@ function Mainpage() {
                       <div className="modal_mintedX">
                         <div className="mintedX_piece">
                           <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                          <p className="info">{seasonName}</p>
                           <p className="info_title">조각 위치</p>
                           <p className="info">{selectedPiece.zoneNameKr}</p>
                           <p className="info_title">재료</p>
