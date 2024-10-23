@@ -10,6 +10,7 @@ export type Minted = {
   season: string;
   owner: { name: string; walletAddress: string };
   nftThumbnailUrl: string;
+  threeDModelUrl: string;
 };
 
 export type Unminted = {

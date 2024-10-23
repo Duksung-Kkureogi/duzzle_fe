@@ -123,7 +123,7 @@ function Mainpage() {
       if (isAxiosError(error)) {
         if (error.response.data.code == "LOGIN_REQUIRED") {
           alert("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
-        } else if (error.response.data.code == "PROFILE_ACCESS_DENIED") {
+        } else if (error.response.data.code == "ACCESS_DENIED") {
           alert("해당 사용자가 프로필 공개를 거부했습니다.");
         } else if (error.response.data.code == "CONTENT_NOT_FOUND")
           alert("해당 사용자가 존재하지 않습니다.");
@@ -272,15 +272,8 @@ function Mainpage() {
                               width="100%"
                               height="300px"
                               url={
-                                // (selectedPiece.data as Minted).nftThumbnailUrl
-                                "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/3dmodels/zz.gltf"
+                                (selectedPiece.data as Minted).threeDModelUrl
                               }
-                              nftInfo={{
-                                owner: (selectedPiece.data as Minted).owner
-                                  .name,
-                                creationDate: new Date().toLocaleDateString(), // You might want to get this from your data
-                                uniqueId: selectedPiece.pieceId.toString(),
-                              }}
                             />
                           </div>
                         </div>

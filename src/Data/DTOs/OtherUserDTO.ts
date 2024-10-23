@@ -6,5 +6,5 @@ export interface OtherUserDto {
   rankedThird: number;
   questStreak: number;
   items: [{ count: number; name: string; image: string }];
-  puzzles: [{ zone: string; image: string }];
+  puzzles: [{ zone: string; image: string; season: string }];
 }
