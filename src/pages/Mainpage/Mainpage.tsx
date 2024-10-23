@@ -88,6 +88,10 @@ function Mainpage() {
     },
   };
 
+  const goToNFTDetail = () => {
+    navigate("nft-detail", { state: { data: selectedPiece } });
+  };
+
   const unlockPuzzlePiece = async (pieceId: number) => {
     const rpc = new RPC(web3auth?.provider as IProvider);
     try {
@@ -279,7 +283,9 @@ function Mainpage() {
                         </div>
                         <div className="mintedO_btn">
                           <button onClick={closeModal}>닫기</button>
-                          <button>NFT 상세</button>
+                          <button onClick={() => goToNFTDetail()}>
+                            NFT 상세
+                          </button>
                         </div>
                       </div>
                     ) : (

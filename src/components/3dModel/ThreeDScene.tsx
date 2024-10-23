@@ -1,11 +1,17 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas, extend } from "@react-three/fiber";
-import { OrbitControls, useGLTF, PerspectiveCamera } from "@react-three/drei";
-
+import {
+  OrbitControls,
+  useGLTF,
+  PerspectiveCamera,
+  Text,
+  Plane,
+} from "@react-three/drei";
 import * as THREE from "three";
 
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
-import { FontLoader, Font } from "three/examples/jsm/loaders/FontLoader.js";
+import { Minted, PieceDto } from "../../Data/DTOs/PieceDTO";
+import { ContractAddress } from "../../constant/contract";
 
 extend({ TextGeometry });
 
@@ -17,53 +23,160 @@ declare module "@react-three/fiber" {
   }
 }
 
-interface NFTInfo {
-  owner: string;
-  creationDate: string;
-  uniqueId: string;
-}
-
 function NFTInfoText({
   info,
   position,
 }: {
-  info: NFTInfo;
+  info: PieceDto;
   position: [number, number, number];
 }) {
-  const [font, setFont] = useState<Font | null>(null);
+  const { zoneNameKr, zoneNameUs } = info;
+  const { season, owner, nftThumbnailUrl, tokenId, description, architect } =
+    info.data as Minted;
+
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  useEffect(() => {
+    const loader = new THREE.TextureLoader();
+    loader.load(nftThumbnailUrl, (loadedTexture) => {
+      setTexture(loadedTexture);
+    });
+  }, [nftThumbnailUrl]);
+
+  const formatWalletAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
+  const textProps = {
+    fontSize: 7,
+    color: "black",
+    anchorX: "center" as const,
+    anchorY: "middle" as const,
+    font: "/fonts/SingleDay-Regular.ttf",
+    material: new THREE.MeshStandardMaterial({
+      metalness: 0,
+      roughness: 0.5,
+      side: THREE.DoubleSide,
+    }),
+    letterSpacing: 0.1,
+    resolution: 1024,
+  };
+
+  const titleProps = {
+    ...textProps,
+    fontSize: 10,
+    color: "#1a365d",
+    fontWeight: "bold",
+  };
+
+  const contentProps = {
+    ...textProps,
+    fontSize: 6,
+    maxWidth: 120,
+    lineHeight: 1.5,
+    anchorY: "top" as const,
+  };
 
   useEffect(() => {
-    const loader = new FontLoader();
-    loader.load(
-      "https://raw.githubusercontent.com/examples/three.js/Nanum Gothic_Regular.json",
-      (loadedFont) => {
-        setFont(loadedFont);
+    // 폰트 스타일 추가
+    const style = document.createElement("style");
+    style.textContent = `
+      @font-face {
+        font-family: 'Single Day';
+        src: url('/fonts/SingleDay-Regular.ttf') format('truetype');
       }
-    );
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []);
 
-  const textMaterial = useMemo(
-    () => new THREE.MeshPhongMaterial({ color: 0x000000 }),
-    []
-  );
-
-  if (!font) return null;
-
-  const createTextMesh = (text: string, yOffset: number) => (
-    <mesh
-      position={[position[0], position[1] + yOffset, position[2]]}
-      rotation={[-Math.PI / 2, 0, 0]}
-    >
-      <textGeometry args={[text, { font, size: 5, height: 1 }]} />
-      <primitive object={textMaterial} attach="material" />
-    </mesh>
-  );
+  const firstY = 120;
+  const sectionPadding = -30;
+  const linePadding = -10;
+  const descriptionPadding = -20;
+  const sideOffset = 80;
 
   return (
-    <group>
-      {createTextMesh(`소유자: ${info.owner}`, 10)}
-      {createTextMesh(`생성일: ${info.creationDate}`, 0)}
-      {createTextMesh(`고유 ID: ${info.uniqueId}`, -10)}
+    <group position={position}>
+      {/* 왼쪽 섹션 */}
+      <group position={[-sideOffset, firstY, 0]}>
+        {/* NFT 기본 정보 */}
+        <group>
+          <Text {...titleProps}>NFT 정보</Text>
+          <Text position={[0, linePadding, 0]} {...textProps}>
+            {`토큰 ID: ${tokenId}`}
+          </Text>
+          <Text position={[0, linePadding * 2, 0]} {...textProps}>
+            {`컨트랙트 주소: ${formatWalletAddress(
+              ContractAddress.PuzzlePiece
+            )}`}
+          </Text>
+          <Text position={[0, linePadding * 3, 0]} {...textProps}>
+            {`시즌: ${season}`}
+          </Text>
+        </group>
+
+        {/* 위치 정보 */}
+        <group position={[0, sectionPadding * 2, 0]}>
+          <Text {...titleProps}>위치 정보</Text>
+          <Text position={[0, linePadding, 0]} {...textProps}>
+            {zoneNameKr}
+          </Text>
+          <Text position={[0, linePadding * 2, 0]} {...textProps}>
+            {`(${zoneNameUs})`}
+          </Text>
+        </group>
+      </group>
+
+      {/* 중앙 섹션 - 썸네일 이미지 */}
+      {texture && (
+        <group position={[0, firstY - 30, 0]}>
+          <Plane args={[40, 40]} position={[0, 0, 0]}>
+            <meshBasicMaterial
+              map={texture}
+              side={THREE.DoubleSide}
+              transparent={true}
+            />
+          </Plane>
+          <Text position={[0, 25, 0]} {...titleProps}>
+            조각 정보
+          </Text>
+        </group>
+      )}
+
+      {/* 오른쪽 섹션 */}
+      <group position={[sideOffset, firstY, 0]}>
+        {/* 소유자 정보 */}
+        <group>
+          <Text {...titleProps}>소유자 정보</Text>
+          <Text position={[0, linePadding, 0]} {...textProps}>
+            {owner.name}
+          </Text>
+          <Text position={[0, linePadding * 2, 0]} {...textProps}>
+            {formatWalletAddress(owner.walletAddress)}
+          </Text>
+        </group>
+
+        {/* 상세 정보 */}
+        <group position={[0, sectionPadding * 2, 0]}>
+          <Text {...titleProps}>상세 정보</Text>
+          {architect && (
+            <Text
+              position={[0, descriptionPadding, 0]}
+              {...textProps}
+            >
+              {`건축가: ${architect}`}
+            </Text>
+          )}
+          {description && (
+            <Text position={[0, descriptionPadding - 10, 0]} {...contentProps}>
+              {description}
+            </Text>
+          )}
+        </group>
+      </group>
     </group>
   );
 }
@@ -79,7 +192,7 @@ function Lights() {
   );
 }
 
-function Model({ url, nftInfo }: { url: string; nftInfo: NFTInfo }) {
+function Model({ url, nftInfo }: { url: string; nftInfo?: PieceDto }) {
   const { scene } = useGLTF(url);
 
   useEffect(() => {
@@ -107,7 +220,7 @@ function Model({ url, nftInfo }: { url: string; nftInfo: NFTInfo }) {
   return (
     <>
       <primitive object={scene} />
-      <NFTInfoText info={nftInfo} position={[0, 150, 0]} />
+      {nftInfo && <NFTInfoText info={nftInfo} position={[0, 150, 0]} />}
     </>
   );
 }
@@ -121,7 +234,7 @@ function ThreeDScene({
   width: string;
   height: string;
   url: string;
-  nftInfo: NFTInfo;
+  nftInfo?: PieceDto;
 }) {
   return (
     <div style={{ width, height }}>
@@ -151,12 +264,10 @@ function ThreeDScene({
           target={[0, 50, 0]}
           maxPolarAngle={Math.PI / 2}
           minDistance={100}
-          maxDistance={500}
+          maxDistance={600}
           enableDamping={true}
           dampingFactor={0.05}
         />
-
-        {/* 후처리 효과 모두 제거 */}
       </Canvas>
     </div>
   );
