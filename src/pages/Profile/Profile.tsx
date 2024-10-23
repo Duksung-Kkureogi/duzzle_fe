@@ -4,6 +4,7 @@ import MyButton from "../../components/MyButton/MyButton";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import ConfirmCancelModal from "../../components/Modal/ConfirmCancelModal";
+import AlertModal from "../../components/Modal/AlertModal";
 
 const RequestURL = import.meta.env.VITE_REQUEST_URL;
 
@@ -26,6 +27,7 @@ function Profile() {
   const toastRef = useRef<HTMLDivElement>(null);
 
   const [showCCModal, setShowCCModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
   const [confirmAction, setConfirmAction] = useState<() => void>(() => {});
@@ -49,7 +51,7 @@ function Profile() {
 
     const setProfile = async (response: AxiosResponse) => {
       setWallet(response.data["data"]["walletAddress"]);
-      setName(response.data["data"]["name"] ?? "Anonymous");
+      setName(response.data["data"]["name"]);
       setEmail(response.data["data"]["email"]);
       setImage(response.data["data"]["image"]);
       setProfileType(response.data["data"]["profileType"]);
@@ -78,15 +80,6 @@ function Profile() {
         setShowCCModal(false);
       }
     );
-    // const ok = confirm("이름을 바꾸시겠습니까?");
-    // if (!ok) return;
-    // try {
-    //   await patchName(editedName);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    // setEditingName(false);
-    // setEditedName("");
   };
 
   async function patchName(new_name: string) {
@@ -107,10 +100,10 @@ function Profile() {
       console.error(error);
       if (isAxiosError(error)) {
         if (error.response?.data.code == "ALREADY_EXISTS") {
-          alert("동일한 이름이 존재합니다.\n다른 이름을 입력해주세요.");
+          openAlertModal("동일한 이름이 존재합니다. 다른 이름을 입력해주세요.");
         } else if (error.response?.data.code == "LIMIT_EXCEEDED") {
-          alert(
-            "이름 변경은 10분 간격으로 가능합니다.\n잠시 후에 시도해주세요."
+          openAlertModal(
+            "이름 변경은 10분 간격으로 가능합니다. 잠시 후에 시도해주세요."
           );
         }
       }
@@ -145,9 +138,9 @@ function Profile() {
       console.error(error);
       if (isAxiosError(error)) {
         if (error.response?.data.code == "FILE_NAME_EXTENSION") {
-          alert("지원되지 않는 파일 형식입니다.");
+          openAlertModal("지원되지 않는 파일 형식입니다.");
         } else if (error.response?.data.code == "FILE_NAME_CHARACTERS") {
-          alert("파일명에 특수문자를 포함할 수 없습니다.");
+          openAlertModal("파일명에 특수문자를 포함할 수 없습니다.");
         }
       }
     }
@@ -187,25 +180,6 @@ function Profile() {
         setShowCCModal(false);
       }
     );
-    // const ok = confirm("프로필 공개여부를 바꾸시겠습니까?");
-    // if (!ok) return;
-    // try {
-    //   const token = localStorage.getItem("accessToken");
-    //   const response = await axios.patch(
-    //     RequestURL + "/v1/user/profileType",
-    //     { profileType: type },
-    //     {
-    //       headers: {
-    //         Authorization: token,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    //   console.log("PATCH 성공", response);
-    //   setEditingType(false);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   }
 
   // 유저 지갑 주소 복사
@@ -235,7 +209,7 @@ function Profile() {
     }
   };
 
-  // 이름, 공개여부 변경 모달 컨트롤
+  // 이름, 공개여부 변경 모달
   const openConfirmCancelModal = (
     title: string,
     content: string,
@@ -246,8 +220,17 @@ function Profile() {
     setConfirmAction(() => onConfirm);
     setShowCCModal(true);
   };
-  const handleModalClose = () => {
+  const handleCCModalClose = () => {
     setShowCCModal(false);
+  };
+
+  // 알림 모달
+  const openAlertModal = (content: string) => {
+    setModalContent(content);
+    setShowAlertModal(true);
+  };
+  const handleAlertModalClose = () => {
+    setShowAlertModal(false);
   };
 
   return (
@@ -318,7 +301,7 @@ function Profile() {
             {isEditingName ? (
               <textarea onChange={onNameChange} placeholder={name} />
             ) : (
-              <p>{name}</p>
+              <p>{name || "Unknown"}</p>
             )}
             {isEditingName ? (
               <>
@@ -490,7 +473,14 @@ function Profile() {
           title={modalTitle}
           content={modalContent}
           onConfirm={confirmAction}
-          onCancel={handleModalClose}
+          onCancel={handleCCModalClose}
+        />
+      )}
+      {showAlertModal && (
+        <AlertModal
+          isOpen={showAlertModal}
+          content={modalContent}
+          onConfirm={handleAlertModalClose}
         />
       )}
     </div>

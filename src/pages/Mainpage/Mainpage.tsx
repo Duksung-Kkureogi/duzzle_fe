@@ -11,6 +11,7 @@ import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { useNavigate } from "react-router-dom";
+import AlertModal from "../../components/Modal/AlertModal";
 
 function Mainpage() {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ function Mainpage() {
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
   const seasonId = seasonList[seasonList.length - 1].id;
+
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   useEffect(() => {
     const getPuzzle = async () => {
@@ -83,6 +87,7 @@ function Mainpage() {
       backgroundColor: "#80DAE6",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
       overflow: "hidden",
+      zIndex: "2",
     },
   };
 
@@ -92,13 +97,11 @@ function Mainpage() {
       const pieceMetadataUrl = await rpc.unlockPuzzlePiece(pieceId);
       console.log(pieceMetadataUrl);
       setModalOpen(false);
-      alert("조각NFT 발행을 성공하였습니다.");
+      openAlertModal("조각NFT 발행을 성공하였습니다.");
     } catch (error) {
       console.log(error);
       setModalOpen(false);
-      if (confirm("재료가 부족합니다")) {
-        navigate("store");
-      }
+      openAlertModal("재료가 부족합니다.");
     }
   };
 
@@ -120,11 +123,11 @@ function Mainpage() {
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response.data.code == "LOGIN_REQUIRED") {
-          alert("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
-        } else if (error.response.data.code == "PROFILE_ACCESS_DENIED") {
-          alert("해당 사용자가 프로필 공개를 거부했습니다.");
+          openAlertModal("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
+        } else if (error.response.data.code == "ACCESS_DENIED") {
+          openAlertModal("해당 사용자가 프로필 공개를 거부했습니다.");
         } else if (error.response.data.code == "CONTENT_NOT_FOUND")
-          alert("해당 사용자가 존재하지 않습니다.");
+          openAlertModal("해당 사용자가 존재하지 않습니다.");
       }
     }
   };
@@ -150,6 +153,15 @@ function Mainpage() {
     const start = wallet.slice(0, 6);
     const end = wallet.slice(-4);
     return { start, end };
+  };
+
+  // 알림모달
+  const openAlertModal = (content: string) => {
+    setModalContent(content);
+    setShowAlertModal(true);
+  };
+  const handleAlertModalClose = () => {
+    setShowAlertModal(false);
   };
 
   return (
@@ -317,6 +329,13 @@ function Mainpage() {
         </TransformWrapper>
       </div>
       <MyBottomNavBar />
+      {showAlertModal && (
+        <AlertModal
+          isOpen={showAlertModal}
+          content={modalContent}
+          onConfirm={handleAlertModalClose}
+        />
+      )}
     </div>
   );
 }
