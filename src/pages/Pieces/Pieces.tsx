@@ -6,8 +6,10 @@ import "./Pieces.css";
 import axios from "axios";
 import { zoneList } from "../../util/zone";
 import { seasonList } from "../../util/season";
+import { useNavigate } from "react-router-dom";
 
 function Pieces() {
+  const navigate = useNavigate();
   const [totalPieces, setTotalPieces] = useState(0);
   const [pieces, setPieces] = useState<Piece[]>([]);
 
@@ -24,6 +26,37 @@ function Pieces() {
   const [isZActive, setIsZActive] = useState(false);
   const [filterSeason, setFilterSeason] = useState("시즌 전체");
   const [filterZone, setFilterZone] = useState("구역 전체");
+
+  const goToNFTDetail = async (pieceId: number) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        const response = await axios.get(
+          `${RequestUrl}/v1/my/nft-puzzles/${pieceId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response.data);
+
+        if (response.data.result) {
+          navigate("/nft-detail", {
+            state: {
+              data: response.data,
+            },
+          });
+        } else {
+          console.error("Failed to fetch piece detail");
+        }
+      } else {
+        throw new Error("No access token");
+      }
+    } catch (error) {
+      console.error("Error fetching piece detail:", error);
+    }
+  };
 
   useEffect(() => {
     const getUserPuzzle = async () => {
@@ -211,7 +244,11 @@ function Pieces() {
       </div>
       <div className="pieces_main">
         {pieces.map((piece) => (
-          <div className="piece" key={piece.name}>
+          <div
+            className="piece"
+            key={piece.name}
+            onClick={() => goToNFTDetail(piece.id)}
+          >
             <img src={piece.image} alt={piece.name} />
             <p>{piece.name}</p>
             <span className="tooltip_text">
