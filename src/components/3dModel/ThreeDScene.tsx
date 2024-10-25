@@ -6,6 +6,7 @@ import {
   PerspectiveCamera,
   Text,
   Plane,
+  Environment,
 } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -163,10 +164,7 @@ function NFTInfoText({
         <group position={[0, sectionPadding * 2, 0]}>
           <Text {...titleProps}>상세 정보</Text>
           {architect && (
-            <Text
-              position={[0, descriptionPadding, 0]}
-              {...textProps}
-            >
+            <Text position={[0, descriptionPadding, 0]} {...textProps}>
               {`건축가: ${architect}`}
             </Text>
           )}
