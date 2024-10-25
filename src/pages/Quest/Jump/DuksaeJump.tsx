@@ -191,7 +191,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     if (gameover) {
       if (score >= passingScore) {
         console.log("게임 종료 - 성공 조건 충족");
-        socket.emit("quest:duksae-jump:success", { score }, () => {
+        socket.emit("quest:duksae-jump:success", { score, logId, gamePanelOffsetWidth: 550 }, () => {
           console.log("Success 메시지가 서버로 전송되었습니다.");
         });
       } else {
