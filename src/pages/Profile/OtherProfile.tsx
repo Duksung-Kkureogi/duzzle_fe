@@ -13,9 +13,7 @@ function OtherProfile() {
     name: "",
     image: "",
     walletAddress: "",
-    rankedFirst: 0,
-    rankedThird: 0,
-    questStreak: 0,
+    history: [{ rankedFirst: 0, rankedThird: 0, questStreak: 0 }],
     items: [{ count: 0, name: "", image: "" }],
     puzzles: [{ zone: "", image: "" }],
   });
@@ -34,6 +32,7 @@ function OtherProfile() {
             },
           }
         );
+        console.log(response.data.data);
         setUser(response.data.data);
       } catch (error) {
         console.error(error);
@@ -89,18 +88,18 @@ function OtherProfile() {
         </div>
         <section>
           <div className="profile_record">
-            <p className="list_name">전적</p>
+            <p className="list_name">업적</p>
             <div className="record">
               <p className="record_title_1">시즌 랭킹 1위:</p>
-              <p className="record_number_1">{User.rankedFirst}</p>
+              <p className="record_number_1">{User.history["rankedFirst"]}</p>
             </div>
             <div className="record">
               <p className="record_title">시즌 랭킹 상위 3위:</p>
-              <p className="record_number">{User.rankedThird}</p>
+              <p className="record_number">{User.history["rankedThird"]}</p>
             </div>
             <div className="record">
               <p className="record_title">시즌 랭킹 퀘스트 연승:</p>
-              <p className="record_number">{User.questStreak}</p>
+              <p className="record_number">{User.history["questStreak"]}</p>
             </div>
           </div>
         </section>

@@ -173,7 +173,7 @@
 
 .Profile .profile_list .achievement {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 45vw;
   max-width: 150px;
   margin-left: auto;
@@ -181,6 +181,9 @@
   p {
     font-size: 10px;
   }
+}
+.Profile .record {
+  text-align: right;
 }
 
 .Profile .profile_list .type {

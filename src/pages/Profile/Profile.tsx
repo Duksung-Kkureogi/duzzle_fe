@@ -14,9 +14,7 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileType, setProfileType] = useState("");
-  const achievement = `2022 #Summer Duksung Lv.8
-    2023 #Spring Duksung Lv.9 
-    2023 #Autumn Duksung Lv.10`;
+  const [history, setHistory] = useState("");
 
   const [isEditingName, setEditingName] = useState(false);
   const [editedName, setEditedName] = useState("");
@@ -55,6 +53,7 @@ function Profile() {
       setEmail(response.data["data"]["email"]);
       setImage(response.data["data"]["image"]);
       setProfileType(response.data["data"]["profileType"]);
+      setHistory(response.data["data"]["history"]);
     };
 
     getData();
@@ -375,7 +374,13 @@ function Profile() {
         <section className="profile_achievement">
           <p className="list_name">업적</p>
           <div className="achievement">
-            <p>{achievement}</p>
+            <p className="record">시즌 랭킹 1위: {history["rankedFirst"]}</p>
+            <p className="record">
+              시즌 랭킹 상위 3위: {history["rankedThird"]}
+            </p>
+            <p className="record">
+              시즌 랭킹 퀘스트 연승: {history["questStreak"]}
+            </p>
           </div>
         </section>
         <section className="profile_type">
