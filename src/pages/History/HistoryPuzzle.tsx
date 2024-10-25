@@ -194,6 +194,7 @@ function HistoryPuzzle() {
                     onRequestClose={closeModal}
                     style={customStyles}
                     shouldCloseOnOverlayClick={false}
+                    ariaHideApp={false}
                   >
                     <div className="modal_mintedO">
                       <div className="mintedO_piece">
