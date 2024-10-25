@@ -246,6 +246,7 @@ function Mainpage() {
                     onRequestClose={closeModal}
                     style={customStyles}
                     shouldCloseOnOverlayClick={false}
+                    ariaHideApp={false}
                   >
                     {selectedPiece.minted ? (
                       <div className="modal_mintedO">

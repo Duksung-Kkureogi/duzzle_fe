@@ -145,6 +145,7 @@ function Store() {
         onRequestClose={closeModal}
         style={customStyles}
         shouldCloseOnOverlayClick={false}
+        ariaHideApp={false}
       >
         {enoughDal ? (
           loading ? (
