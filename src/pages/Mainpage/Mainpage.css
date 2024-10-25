@@ -74,7 +74,7 @@
 .Mainpage .mainImg .transform-component-module_wrapper__SPB86 {
   max-width: 100%;
   max-height: calc(-50px + 100vh);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: white;
   cursor: grab;
   img {
     height: 90vh;
@@ -106,6 +106,7 @@
   text-align: center;
   img {
     height: 20vh;
+    max-width: 100%;
   }
 }
 
