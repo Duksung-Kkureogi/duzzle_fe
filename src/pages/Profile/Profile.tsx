@@ -40,7 +40,7 @@ function Profile() {
             "Content-Type": "application/json",
           },
         });
-        console.log("GET 성공", response);
+        //console.log("GET 성공", response);
         setProfile(response);
       } catch (error) {
         console.error(error);
@@ -94,7 +94,7 @@ function Profile() {
           },
         }
       );
-      console.log("PATCH 성공", response);
+      //console.log("PATCH 성공", response);
     } catch (error) {
       console.error(error);
       if (isAxiosError(error)) {
@@ -118,7 +118,7 @@ function Profile() {
       const formData = new FormData();
       formData.append("file", e.target.files[0]);
       for (const key of formData.keys()) {
-        console.log(key, ":", formData.get(key));
+        //console.log(key, ":", formData.get(key));
       }
       const token = localStorage.getItem("accessToken");
       const response = await axios.patch(
@@ -131,7 +131,7 @@ function Profile() {
           },
         }
       );
-      console.log("PATCH 성공", response);
+      //console.log("PATCH 성공", response);
       setEditingImg(false);
     } catch (error) {
       console.error(error);
@@ -171,7 +171,7 @@ function Profile() {
               },
             }
           );
-          console.log("PATCH 성공", response);
+          //console.log("PATCH 성공", response);
           setEditingType(false);
         } catch (error) {
           console.error(error);

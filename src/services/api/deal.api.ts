@@ -32,7 +32,7 @@ export const DealApis = {
         "/v1/nft-exchange/my",
         params
       );
-      console.log(offers);
+      //console.log(offers);
 
       return offers;
     } catch (error) {

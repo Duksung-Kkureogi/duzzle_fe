@@ -34,7 +34,7 @@ function DrOne() {
         );
 
         if (responseOffer.data.result) {
-          console.log("Response nftOffer", responseOffer.data.data);
+          //console.log("Response nftOffer", responseOffer.data.data);
           const updatedNftsOffer = responseOffer.data.data.list.map(
             (nft: AvailableNft) => ({
               ...nft,

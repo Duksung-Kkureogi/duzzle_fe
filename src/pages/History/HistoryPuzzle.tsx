@@ -37,7 +37,7 @@ function HistoryPuzzle() {
           }
         );
         if (response.data.result) {
-          console.log(response.data.data);
+          //console.log(response.data.data);
           setPieces(response.data.data.pieces);
           setTotalPieces(response.data.data.total);
           setMintedPieces(response.data.data.minted);

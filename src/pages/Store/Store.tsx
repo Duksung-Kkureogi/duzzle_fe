@@ -55,7 +55,7 @@ function Store() {
       setMetadataUrl(itemMetadataUrl);
       await fetchUserDal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       closeModal();
       setError(true);
     } finally {
@@ -66,7 +66,7 @@ function Store() {
   const getNFTItem = async () => {
     try {
       const response = await fetch(metadataUrl);
-      console.log(response);
+      //console.log(response);
       const data = await response.json();
       const foundNFTItem = itemList.find(
         (it) => it.metadata_name === data.name
@@ -77,7 +77,7 @@ function Store() {
         setCurNFTItem(null);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setCurNFTItem(null);
     }
   };

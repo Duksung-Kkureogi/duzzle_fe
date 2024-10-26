@@ -192,7 +192,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem("duzzleLoggedIn", "true");
       setDuzzleUser(user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

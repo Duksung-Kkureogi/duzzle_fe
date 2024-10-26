@@ -97,7 +97,7 @@ function Mainpage() {
     const rpc = new RPC(web3auth?.provider as IProvider);
     try {
       const pieceMetadataUrl = await rpc.unlockPuzzlePiece(pieceId);
-      console.log(pieceMetadataUrl);
+      //console.log(pieceMetadataUrl);
       setLoading(false);
       setModalOpen(false);
       openAlertModal("조각NFT 발행을 성공하였습니다.");

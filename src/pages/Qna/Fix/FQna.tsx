@@ -23,7 +23,7 @@ const FQna = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("GET 성공", response);
+      //console.log("GET 성공", response);
       setQnas(response.data["data"]["list"]);
     } catch (error) {
       console.error(error);
