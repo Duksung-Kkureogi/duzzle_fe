@@ -133,14 +133,14 @@ function NFTInfoText({
   const contentProps = {
     ...textProps,
     fontSize: 15,
-    maxWidth: 220,
+    maxWidth: 280,
     lineHeight: 1.5,
     anchorY: "top" as const,
   };
 
   const baseY = position[1];
-  const sideY = baseY - 50;
-  const detailY = baseY - 110;
+  const sideY = baseY;
+  const detailY = baseY - 50;
 
   const sideOffset = 220;
   const linePadding = -40;
@@ -327,7 +327,7 @@ function ThreeDScene({
   isModal?: boolean;
 }) {
   return (
-    <div style={{ width, height }}>
+    <div style={{ width, height, backgroundColor: "#f4f1e3" }}>
       <Canvas
         gl={{
           preserveDrawingBuffer: true,
@@ -342,7 +342,7 @@ function ThreeDScene({
           near={1}
           far={2000}
         />
-        <color attach="background" args={["#f4f1e3"]} />
+        {/* <color attach="background" args={["#f4f1e3"]} /> */}
 
         <Suspense fallback={null}>
           <Model url={url} nftInfo={nftInfo} isModal={isModal} />
