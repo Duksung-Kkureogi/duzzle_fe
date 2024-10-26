@@ -278,6 +278,7 @@ function Mainpage() {
                               url={
                                 (selectedPiece.data as Minted).threeDModelUrl
                               }
+                              isModal={true}
                             />
                           </div>
                         </div>

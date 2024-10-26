@@ -6,7 +6,6 @@ import {
   PerspectiveCamera,
   Text,
   Plane,
-  Environment,
 } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -48,11 +47,10 @@ function NFTInfoText({
   };
 
   const textProps = {
-    fontSize: 7,
-    color: "black",
+    fontSize: 13,
+    color: "#239834",
     anchorX: "center" as const,
     anchorY: "middle" as const,
-    font: "/fonts/SingleDay-Regular.ttf",
     material: new THREE.MeshStandardMaterial({
       metalness: 0,
       roughness: 0.5,
@@ -64,8 +62,8 @@ function NFTInfoText({
 
   const titleProps = {
     ...textProps,
-    fontSize: 10,
-    color: "#1a365d",
+    fontSize: 15,
+    color: "#239834",
     fontWeight: "bold",
   };
 
@@ -77,63 +75,19 @@ function NFTInfoText({
     anchorY: "top" as const,
   };
 
-  useEffect(() => {
-    // 폰트 스타일 추가
-    const style = document.createElement("style");
-    style.textContent = `
-      @font-face {
-        font-family: 'Single Day';
-        src: url('/fonts/SingleDay-Regular.ttf') format('truetype');
-      }
-    `;
-    document.head.appendChild(style);
+  const baseY = position[1];
+  const sideY = baseY - 30;
+  const detailY = baseY - 80;
 
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
-  const firstY = 120;
-  const sectionPadding = -30;
-  const linePadding = -10;
-  const descriptionPadding = -20;
-  const sideOffset = 80;
+  const sideOffset = 140;
+  const linePadding = -20;
+  const descriptionPadding = -30;
 
   return (
     <group position={position}>
-      {/* 왼쪽 섹션 */}
-      <group position={[-sideOffset, firstY, 0]}>
-        {/* NFT 기본 정보 */}
-        <group>
-          <Text {...titleProps}>NFT 정보</Text>
-          <Text position={[0, linePadding, 0]} {...textProps}>
-            {`토큰 ID: ${tokenId}`}
-          </Text>
-          <Text position={[0, linePadding * 2, 0]} {...textProps}>
-            {`컨트랙트 주소: ${formatWalletAddress(
-              ContractAddress.PuzzlePiece
-            )}`}
-          </Text>
-          <Text position={[0, linePadding * 3, 0]} {...textProps}>
-            {`시즌: ${season}`}
-          </Text>
-        </group>
-
-        {/* 위치 정보 */}
-        <group position={[0, sectionPadding * 2, 0]}>
-          <Text {...titleProps}>위치 정보</Text>
-          <Text position={[0, linePadding, 0]} {...textProps}>
-            {zoneNameKr}
-          </Text>
-          <Text position={[0, linePadding * 2, 0]} {...textProps}>
-            {`(${zoneNameUs})`}
-          </Text>
-        </group>
-      </group>
-
-      {/* 중앙 섹션 - 썸네일 이미지 */}
+      {/* 중앙 섹션 */}
       {texture && (
-        <group position={[0, firstY - 30, 0]}>
+        <group position={[0, baseY, 0]}>
           <Plane args={[40, 40]} position={[0, 0, 0]}>
             <meshBasicMaterial
               map={texture}
@@ -142,38 +96,49 @@ function NFTInfoText({
             />
           </Plane>
           <Text position={[0, 25, 0]} {...titleProps}>
-            조각 정보
+            {`${zoneNameKr} (${zoneNameUs})`}
           </Text>
         </group>
       )}
 
-      {/* 오른쪽 섹션 */}
-      <group position={[sideOffset, firstY, 0]}>
-        {/* 소유자 정보 */}
-        <group>
-          <Text {...titleProps}>소유자 정보</Text>
-          <Text position={[0, linePadding, 0]} {...textProps}>
-            {owner.name}
-          </Text>
-          <Text position={[0, linePadding * 2, 0]} {...textProps}>
-            {formatWalletAddress(owner.walletAddress)}
-          </Text>
-        </group>
+      {/* 왼쪽 섹션 */}
+      <group position={[sideOffset, sideY, 0]}>
+        <Text {...titleProps}>NFT 정보</Text>
+        <Text position={[0, linePadding, 0]} {...textProps}>
+          {`토큰 ID: ${tokenId}`}
+        </Text>
+        <Text position={[0, linePadding * 2, 0]} {...textProps}>
+          {`컨트랙트 주소: ${formatWalletAddress(ContractAddress.PuzzlePiece)}`}
+        </Text>
+        <Text position={[0, linePadding * 3, 0]} {...textProps}>
+          {`시즌: ${season}`}
+        </Text>
+      </group>
 
-        {/* 상세 정보 */}
-        <group position={[0, sectionPadding * 2, 0]}>
-          <Text {...titleProps}>상세 정보</Text>
-          {architect && (
-            <Text position={[0, descriptionPadding, 0]} {...textProps}>
-              {`건축가: ${architect}`}
-            </Text>
-          )}
-          {description && (
-            <Text position={[0, descriptionPadding - 10, 0]} {...contentProps}>
-              {description}
-            </Text>
-          )}
-        </group>
+      {/* 오른쪽 섹션 */}
+      <group position={[-sideOffset, sideY, 0]}>
+        <Text {...titleProps}>소유자 정보</Text>
+        <Text position={[0, linePadding, 0]} {...textProps}>
+          {owner.name}
+        </Text>
+        <Text position={[0, linePadding * 2, 0]} {...textProps}>
+          {formatWalletAddress(owner.walletAddress)}
+        </Text>
+      </group>
+
+      {/* 상세 정보 */}
+      <group position={[0, detailY, 0]}>
+        <Text {...titleProps}>상세 정보</Text>
+        {architect && (
+          <Text position={[0, descriptionPadding, 0]} {...textProps}>
+            {`건축가: ${architect}`}
+          </Text>
+        )}
+        {description && (
+          <Text position={[0, descriptionPadding - 10, 0]} {...contentProps}>
+            {description}
+          </Text>
+        )}
       </group>
     </group>
   );
@@ -190,8 +155,23 @@ function Lights() {
   );
 }
 
-function Model({ url, nftInfo }: { url: string; nftInfo?: PieceDto }) {
+function Model({
+  url,
+  nftInfo,
+  isModal,
+}: {
+  url: string;
+  nftInfo?: PieceDto;
+  isModal?: boolean;
+}) {
   const { scene } = useGLTF(url);
+  const [centerPosition, setCenterPosition] = useState<
+    [number, number, number]
+  >([0, 150, 0]);
+  const [modelCenter, setModelCenter] = useState<[number, number, number]>([
+    0, 50, 0,
+  ]);
+  const [cameraDistance, setCameraDistance] = useState<number>(500);
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -213,12 +193,55 @@ function Model({ url, nftInfo }: { url: string; nftInfo?: PieceDto }) {
         }
       }
     });
-  }, [scene]);
+    // 모델의 바운딩 박스 계산
+    const box = new THREE.Box3().setFromObject(scene);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+
+    // 모델의 부피를 고려한 크기 계산
+    const volume = size.x * size.y * size.z;
+    const normalizedSize = Math.cbrt(volume); // 부피의 세제곱근으로 대표 크기 계산
+
+    // 모델의 종횡비(aspect ratio) 고려
+    const aspectRatio = Math.max(
+      size.x / size.y,
+      size.y / size.z,
+      size.x / size.z
+    );
+    const aspectMultiplier = Math.max(1, Math.log10(aspectRatio) * 0.5);
+
+    // 기본 거리 계산
+    const baseDistance = normalizedSize * (isModal ? 1.2 : 2);
+
+    // 최종 거리 계산 (종횡비 반영)
+    const optimalDistance = baseDistance * aspectMultiplier;
+
+    setCenterPosition([center.x, box.max.y + 70, center.z]);
+    setModelCenter([center.x, center.y, center.z]);
+    setCameraDistance(optimalDistance);
+  }, [scene, isModal]);
 
   return (
     <>
       <primitive object={scene} />
-      {nftInfo && <NFTInfoText info={nftInfo} position={[0, 150, 0]} />}
+      {nftInfo && <NFTInfoText info={nftInfo} position={centerPosition} />}
+      <PerspectiveCamera
+        makeDefault
+        position={[cameraDistance, cameraDistance, cameraDistance]}
+        fov={isModal ? 30 : 40} // 모달일 때는 FOV도 조절
+        near={1}
+        far={cameraDistance * 4}
+      />
+      <OrbitControls
+        target={modelCenter}
+        maxPolarAngle={Math.PI / 2}
+        minDistance={isModal ? cameraDistance * 0.15 : cameraDistance * 0.25}
+        maxDistance={isModal ? cameraDistance * 1.5 : cameraDistance * 2.5}
+        zoomSpeed={0.6}
+        enableDamping={true}
+        dampingFactor={0.05}
+        enableZoom={true}
+      />
     </>
   );
 }
@@ -228,11 +251,13 @@ function ThreeDScene({
   height,
   url,
   nftInfo,
+  isModal = false,
 }: {
   width: string;
   height: string;
   url: string;
   nftInfo?: PieceDto;
+  isModal?: boolean;
 }) {
   return (
     <div style={{ width, height }}>
@@ -245,27 +270,18 @@ function ThreeDScene({
       >
         <PerspectiveCamera
           makeDefault
-          position={[200, 200, 200]}
-          fov={45}
+          position={[400, 400, 400]}
+          fov={isModal ? 30 : 40} // 모달일 때 더 낮은 FOV
           near={1}
           far={2000}
         />
-        <color attach="background" args={["#f0f8ff"]} />
+        <color attach="background" args={["#f4f1e3"]} />
 
         <Suspense fallback={null}>
-          <Model url={url} nftInfo={nftInfo} />
+          <Model url={url} nftInfo={nftInfo} isModal={isModal} />
         </Suspense>
 
         <Lights />
-
-        <OrbitControls
-          target={[0, 50, 0]}
-          maxPolarAngle={Math.PI / 2}
-          minDistance={100}
-          maxDistance={600}
-          enableDamping={true}
-          dampingFactor={0.05}
-        />
       </Canvas>
     </div>
   );
