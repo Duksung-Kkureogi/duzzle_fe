@@ -74,7 +74,11 @@ function Store() {
       if (foundNFTItem) {
         setCurNFTItem(foundNFTItem);
       } else {
-        setCurNFTItem(null);
+        setCurNFTItem({
+          metadata_name: data.name,
+          item_name: data.name.split("#")[0],
+          item_img: data.image,
+        });
       }
     } catch (error) {
       console.log(error);
