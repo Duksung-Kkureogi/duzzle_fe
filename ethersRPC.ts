@@ -37,6 +37,7 @@ export default class EthereumRpc {
       모래: ContractAddress.MaterialItems[1],
       망치: ContractAddress.MaterialItems[2],
       유리: ContractAddress.MaterialItems[3],
+      산타양말: ContractAddress.MaterialItems[4],
     };
 
     const status: ApprovalStatus = {};
