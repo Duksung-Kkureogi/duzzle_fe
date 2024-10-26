@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Canvas, extend } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, extend, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
   useGLTF,
@@ -21,6 +21,69 @@ declare module "@react-three/fiber" {
       args?: ConstructorParameters<typeof TextGeometry>;
     }>;
   }
+}
+
+function FlashyText({
+  content,
+  position,
+  fontSize,
+}: {
+  content: string;
+  position: [number, number, number];
+  fontSize: number;
+}) {
+  const colors = [
+    "#FF6F61", // Coral
+    "#6B5B95", // Purple
+    "#88B04B", // Olive Green
+    "#F7CAC9", // Light Pink
+    "#92A8D1", // Light Blue
+    "#955251", // Wine Red
+    "#B3CDE0", // Light Cyan
+    "#F15A29", // Orange Red
+  ];
+
+  const textRef = useRef<THREE.Mesh>(null);
+  const [colorIndex, setColorIndex] = useState(0); // 색상 인덱스 상태
+
+  useFrame(({ clock }) => {
+    const elapsedTime = clock.getElapsedTime();
+    const opacity = 0.5 + 0.5 * Math.sin(elapsedTime * 3); // 반짝임
+    const scale = 1.5 + 0.1 * Math.sin(elapsedTime * 5); // 크기 변화
+
+    // 0.1초마다 색상 변경
+    if (Math.floor(elapsedTime * 70) % 10 === 0) {
+      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    }
+
+    if (textRef.current) {
+      if (textRef.current.material instanceof THREE.MeshStandardMaterial) {
+        textRef.current.material.opacity = opacity;
+        textRef.current.material.color.set(colors[colorIndex]); // 변경된 색상 적용
+      }
+      textRef.current.scale.set(scale, scale, scale); // 크기 변환 적용
+    }
+  });
+
+  return (
+    <Text
+      ref={textRef}
+      position={position}
+      fontSize={fontSize}
+      anchorX="center"
+      anchorY="middle"
+      fontWeight={"bold"}
+      material={
+        new THREE.MeshStandardMaterial({
+          transparent: true,
+          color: "#ff6347",
+          side: THREE.DoubleSide,
+        })
+      }
+    >
+      {content}
+    </Text>
+  );
 }
 
 function NFTInfoText({
@@ -47,7 +110,7 @@ function NFTInfoText({
   };
 
   const textProps = {
-    fontSize: 13,
+    fontSize: 18,
     color: "#239834",
     anchorX: "center" as const,
     anchorY: "middle" as const,
@@ -62,40 +125,40 @@ function NFTInfoText({
 
   const titleProps = {
     ...textProps,
-    fontSize: 15,
+    fontSize: 20,
     color: "#239834",
     fontWeight: "bold",
   };
 
   const contentProps = {
     ...textProps,
-    fontSize: 6,
-    maxWidth: 120,
+    fontSize: 15,
+    maxWidth: 220,
     lineHeight: 1.5,
     anchorY: "top" as const,
   };
 
   const baseY = position[1];
-  const sideY = baseY - 30;
-  const detailY = baseY - 80;
+  const sideY = baseY - 50;
+  const detailY = baseY - 110;
 
-  const sideOffset = 140;
-  const linePadding = -20;
-  const descriptionPadding = -30;
+  const sideOffset = 220;
+  const linePadding = -40;
+  const descriptionPadding = -50;
 
   return (
     <group position={position}>
       {/* 중앙 섹션 */}
       {texture && (
         <group position={[0, baseY, 0]}>
-          <Plane args={[40, 40]} position={[0, 0, 0]}>
+          <Plane args={[60, 60]} position={[0, 0, 0]}>
             <meshBasicMaterial
               map={texture}
               side={THREE.DoubleSide}
               transparent={true}
             />
           </Plane>
-          <Text position={[0, 25, 0]} {...titleProps}>
+          <Text position={[0, 60, 0]} {...titleProps}>
             {`${zoneNameKr} (${zoneNameUs})`}
           </Text>
         </group>
@@ -118,9 +181,13 @@ function NFTInfoText({
       {/* 오른쪽 섹션 */}
       <group position={[-sideOffset, sideY, 0]}>
         <Text {...titleProps}>소유자 정보</Text>
-        <Text position={[0, linePadding, 0]} {...textProps}>
-          {owner.name}
-        </Text>
+
+        <FlashyText
+          content={owner.name}
+          position={[0, linePadding, 0]}
+          fontSize={16}
+        />
+
         <Text position={[0, linePadding * 2, 0]} {...textProps}>
           {formatWalletAddress(owner.walletAddress)}
         </Text>
