@@ -271,22 +271,44 @@ function Mainpage() {
                               }
                             />
                           </p>
-                          <div className="piece_3d">
-                            <ThreeDScene
-                              width="100%"
-                              height="300px"
-                              url={
-                                (selectedPiece.data as Minted).threeDModelUrl
-                              }
-                              isModal={true}
-                            />
-                          </div>
+                          {(selectedPiece.data as Minted).threeDModelUrl ? (
+                            <div className="piece_3d">
+                              <ThreeDScene
+                                width="100%"
+                                height="300px"
+                                url={
+                                  (selectedPiece.data as Minted).threeDModelUrl
+                                }
+                                isModal={true}
+                              />
+                            </div>
+                          ) : (
+                            <div className="piece_img">
+                              <img
+                                src={
+                                  (selectedPiece.data as Minted).nftThumbnailUrl
+                                }
+                              ></img>
+                            </div>
+                          )}
                         </div>
                         <div className="mintedO_btn">
                           <button onClick={closeModal}>닫기</button>
-                          <button onClick={() => goToNFTDetail()}>
-                            NFT 상세
-                          </button>
+                          {(selectedPiece.data as Minted).threeDModelUrl ? (
+                            <button onClick={() => goToNFTDetail()}>
+                              NFT 상세
+                            </button>
+                          ) : (
+                            <button
+                              disabled
+                              style={{
+                                backgroundColor: "gray",
+                                cursor: "not-allowed",
+                              }}
+                            >
+                              NFT 상세
+                            </button>
+                          )}
                         </div>
                       </div>
                     ) : (

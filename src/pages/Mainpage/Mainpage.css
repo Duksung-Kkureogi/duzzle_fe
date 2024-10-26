@@ -108,12 +108,20 @@
 }
 
 .mintedO_piece .piece_img {
-  text-align: center;
-
-  img {
-    height: 20vh;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  overflow: hidden;
 }
+
+.mintedO_piece .piece_img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+}
+
 
 .mintedX_piece .required_items {
   display: flex;
