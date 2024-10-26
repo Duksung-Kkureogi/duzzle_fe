@@ -1,16 +1,5 @@
 /* Error */
 
-.Error {
-  text-align: center;
-}
-
-.Error img {
-  margin-top: 30px;
-  border-radius: 30px;
-  width: 130px;
-}
-
-
 .error-message {
   background-color: #ffebee;
   border: 1px solid #ef9a9a;
@@ -24,7 +13,19 @@
   align-items: center;
 }
 
+.error-message p {
+  word-break: keep-all;
+  width: 80%;
+  margin: 0;
+  padding: 10px;
+}
+
+.error-message img {
+  width: 10%;
+}
+
 .error-message button {
+  width: 10%;
   background: none;
   border: none;
   color: #c62828;
