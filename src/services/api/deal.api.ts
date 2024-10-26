@@ -62,7 +62,7 @@ export const DealApis = {
   },
   cancelNftExchangeOffer: async (id: string) => {
     try {
-      await Http.delete(`/v1/nft-exchange/${id}`, {});
+      await Http.delete(`/v1/nft-exchange/cancel/${id}`, {});
     } catch (error) {
       console.error(error?.response.data.code);
       console.error(error?.response?.data.message);

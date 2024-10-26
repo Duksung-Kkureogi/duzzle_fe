@@ -87,6 +87,8 @@
   text-align: center;
   img {
     width: 60%;
+    max-width: 95px;
+    min-height: 95px;
   }
 }
 
@@ -114,6 +116,7 @@
     font-weight: 700;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
   span {
     font-size: 14px;
@@ -168,6 +171,7 @@
   padding: 10px 0 10px 0;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .DrTwo .dr2_btn.disabled {
@@ -177,4 +181,5 @@
 
 .DrTwo .dr2_btn.back {
   background-color: #a2a2a2;
+  cursor: pointer;
 }
