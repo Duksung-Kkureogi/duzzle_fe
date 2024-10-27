@@ -41,7 +41,7 @@ const FQnaEdit = () => {
           },
         }
       );
-      console.log("GET 성공", response);
+      //.log("GET 성공", response);
 
       const data = response.data.data;
       setInitData({
@@ -66,7 +66,7 @@ const FQnaEdit = () => {
           },
         }
       );
-      console.log("DELETE 성공", response);
+      //console.log("DELETE 성공", response);
     } catch (error) {
       console.error(error);
     }
@@ -87,9 +87,9 @@ const FQnaEdit = () => {
         category = "ETC";
       }
       const token = localStorage.getItem("accessToken");
-      console.log("questionId:", questionId);
-      console.log("email:", email);
-      console.log("content:", content);
+      //console.log("questionId:", questionId);
+      //console.log("email:", email);
+      //console.log("content:", content);
       const response = await axios.put(
         RequestURL + `/v1/support/qna/${questionId}`,
         {
@@ -104,7 +104,7 @@ const FQnaEdit = () => {
           },
         }
       );
-      console.log("PUT 성공", response.data);
+      //console.log("PUT 성공", response.data);
     } catch (error) {
       console.error("요청 실패:", error);
     }
@@ -127,7 +127,7 @@ const FQnaEdit = () => {
         input.content
       );
       nav("/qna");
-      console.log(initData.content);
+      //console.log(initData.content);
     }
   };
 

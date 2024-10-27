@@ -55,7 +55,7 @@ function DrThree() {
         }
       );
       if (response.data.result) {
-        console.log(response.data);
+        //console.log(response.data);
         navigate("/nft-exchange");
       } else {
         console.log("Exchange failed");

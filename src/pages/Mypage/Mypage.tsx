@@ -80,7 +80,7 @@ function Mypage() {
         <img src={user.image} />
       </div>
       <div className="user_info">
-        <p className="user_name">{user.name}</p>
+        <p className="user_name">{user.name || "Unknown"}</p>
         <p className="user_email">{user.email}</p>
       </div>
       <div className="user_dal">

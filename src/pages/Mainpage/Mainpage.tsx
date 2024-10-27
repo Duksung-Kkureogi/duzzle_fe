@@ -11,6 +11,8 @@ import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { useNavigate } from "react-router-dom";
+import AlertModal from "../../components/Modal/AlertModal";
+import Loading from "../../components/Loading/Loading";
 
 function Mainpage() {
   const navigate = useNavigate();
@@ -21,9 +23,12 @@ function Mainpage() {
   const [selectedPiece, setSelectedPiece] = useState<PieceDto | null>(null);
   const [totalPieces, setTotalPieces] = useState(0);
   const [mintedPieces, setMintedPieces] = useState(0);
-
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
   const seasonId = seasonList[seasonList.length - 1].id;
+  const seasonName = seasonList[seasonList.length - 1].title;
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getPuzzle = async () => {
@@ -83,22 +88,24 @@ function Mainpage() {
       backgroundColor: "#80DAE6",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
       overflow: "hidden",
+      zIndex: "2",
     },
   };
 
   const unlockPuzzlePiece = async (pieceId: number) => {
+    setLoading(true);
     const rpc = new RPC(web3auth?.provider as IProvider);
     try {
       const pieceMetadataUrl = await rpc.unlockPuzzlePiece(pieceId);
-      console.log(pieceMetadataUrl);
+      //console.log(pieceMetadataUrl);
+      setLoading(false);
       setModalOpen(false);
-      alert("조각NFT 발행을 성공하였습니다.");
+      openAlertModal("조각NFT 발행을 성공하였습니다.");
     } catch (error) {
       console.log(error);
+      setLoading(false);
       setModalOpen(false);
-      if (confirm("재료가 부족합니다")) {
-        navigate("store");
-      }
+      openAlertModal("재료가 부족합니다.");
     }
   };
 
@@ -120,11 +127,11 @@ function Mainpage() {
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response.data.code == "LOGIN_REQUIRED") {
-          alert("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
-        } else if (error.response.data.code == "PROFILE_ACCESS_DENIED") {
-          alert("해당 사용자가 프로필 공개를 거부했습니다.");
+          openAlertModal("해당 사용자 프로필을 보려면 로그인이 필요합니다.");
+        } else if (error.response.data.code == "ACCESS_DENIED") {
+          openAlertModal("해당 사용자가 프로필 공개를 거부했습니다.");
         } else if (error.response.data.code == "CONTENT_NOT_FOUND")
-          alert("해당 사용자가 존재하지 않습니다.");
+          openAlertModal("해당 사용자가 존재하지 않습니다.");
       }
     }
   };
@@ -150,6 +157,32 @@ function Mainpage() {
     const start = wallet.slice(0, 6);
     const end = wallet.slice(-4);
     return { start, end };
+  };
+
+  // 알림모달
+  const openAlertModal = (content: string) => {
+    setModalContent(content);
+    setShowAlertModal(true);
+  };
+  const handleAlertModalClose = () => {
+    setShowAlertModal(false);
+  };
+
+  // 로딩모달
+  const customLoadingModalStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      transform: "translate(-50%, -50%)",
+      width: "300px",
+      height: "250px",
+      borderRadius: "20px",
+      justifyContent: "center",
+      backgroundColor: "#F69EBB",
+      boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
+    },
   };
 
   return (
@@ -233,12 +266,13 @@ function Mainpage() {
                     onRequestClose={closeModal}
                     style={customStyles}
                     shouldCloseOnOverlayClick={false}
+                    ariaHideApp={false}
                   >
                     {selectedPiece.minted ? (
                       <div className="modal_mintedO">
                         <div className="mintedO_piece">
                           <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                          <p className="info">{seasonName}</p>
                           <p className="info_title">조각 아이디</p>
                           <p className="info">{selectedPiece.pieceId}</p>
                           <p className="info_title">토큰 소유자</p>
@@ -282,7 +316,7 @@ function Mainpage() {
                       <div className="modal_mintedX">
                         <div className="mintedX_piece">
                           <p className="info_title">NFT 컬렉션</p>
-                          <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                          <p className="info">{seasonName}</p>
                           <p className="info_title">조각 위치</p>
                           <p className="info">{selectedPiece.zoneNameKr}</p>
                           <p className="info_title">재료</p>
@@ -309,6 +343,14 @@ function Mainpage() {
                         </div>
                       </div>
                     )}
+                    <Modal
+                      isOpen={loading}
+                      style={customLoadingModalStyles}
+                      shouldCloseOnOverlayClick={false}
+                      ariaHideApp={false}
+                    >
+                      <Loading />
+                    </Modal>
                   </Modal>
                 )}
               </TransformComponent>
@@ -317,6 +359,13 @@ function Mainpage() {
         </TransformWrapper>
       </div>
       <MyBottomNavBar />
+      {showAlertModal && (
+        <AlertModal
+          isOpen={showAlertModal}
+          content={modalContent}
+          onConfirm={handleAlertModalClose}
+        />
+      )}
     </div>
   );
 }

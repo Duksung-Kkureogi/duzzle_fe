@@ -27,7 +27,7 @@ const FQnaDetail = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("GET 성공", response);
+      //console.log("GET 성공", response);
       setSortType(response.data["data"]["category"]);
       setEmail(response.data["data"]["email"]);
       setContent(response.data["data"]["question"]);

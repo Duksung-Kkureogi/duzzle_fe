@@ -58,7 +58,7 @@ const FQnaEditor = ({ initData, onSubmit }) => {
     };
     onSubmit(updatedInput);
   };
-  console.log(input.content);
+  //console.log(input.content);
 
   return (
     <div className="Editor">
