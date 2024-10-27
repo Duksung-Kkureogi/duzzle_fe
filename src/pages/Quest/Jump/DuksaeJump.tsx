@@ -61,7 +61,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       const obstacle = obstacleRef.current;
       let obstacleX = obstacle.offsetLeft;
       if (obstacleX <= 0) {
-        // showToast("점프 성공!", ToastType.Success);
         obstacleX = window.innerWidth;
       }
 
@@ -103,7 +102,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       console.log("Socket.io 연결이 끊겼습니다.");
     });
 
-    // 서버 이벤트 리스너
     socket.on("object", (newObstacleType: string) => {
       console.log("새로운 장애물:", newObstacleType);
       setObstacleType(newObstacleType);
@@ -134,12 +132,9 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       console.log("게임 최종 결과:", resultData);
       setGameover(true);
       if (resultData.result) {
-        showToast(
-          `Success! Final Score: ${resultData.score}`,
-          ToastType.Success
-        );
+        showToast(` ${resultData.score}`, ToastType.Success);
       } else {
-        showToast(`Failed! Final Score: ${resultData.score}`, ToastType.Error);
+        showToast(`${resultData.score}`, ToastType.Error);
       }
       handleResultPageNavigation();
     });
@@ -154,7 +149,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     };
   }, [socket, showToast]);
 
-  // 덕새 점프 퀘스트 시작 이벤트 전송
   useEffect(() => {
     socket.emit("quest:duksae-jump:start", {
       logId,
@@ -187,24 +181,30 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     speed,
   ]);
 
-  // 게임 종료 후 결과 처리
   useEffect(() => {
     if (gameover) {
       if (score >= passingScore) {
         console.log("게임 종료 - 성공 조건 충족");
-        socket.emit("quest:duksae-jump:success", { score }, () => {
-          console.log("Success 메시지가 서버로 전송되었습니다.");
-        });
+        socket.emit(
+          "quest:duksae-jump:success",
+          { score, logId, gamePanelOffsetWidth: 550 },
+          () => {
+            console.log("Success 메시지가 서버로 전송되었습니다.");
+          }
+        );
       } else {
         console.log("게임 종료 - 실패 조건 충족");
-        socket.emit("quest:duksae-jump:fail", { score }, () => {
-          console.log("Fail 메시지가 서버로 전송되었습니다.");
-        });
+        socket.emit(
+          "quest:duksae-jump:fail",
+          { score, logId, gamePanelOffsetWidth: 550 },
+          () => {
+            console.log("Fail 메시지가 서버로 전송되었습니다.");
+          }
+        );
       }
     }
   }, [gameover, score, passingScore, logId, socket]);
 
-  // 점프 및 스페이스바 이벤트 핸들러
   useEffect(() => {
     const handleJump = (event: KeyboardEvent | TouchEvent) => {
       const isTouchEvent = event.type === "touchstart";
