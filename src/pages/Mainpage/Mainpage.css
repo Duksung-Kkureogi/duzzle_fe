@@ -113,7 +113,9 @@
 .mintedX_piece .required_items {
   display: flex;
   img {
-    height: 7vh;
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
     margin-right: 10px;
   }
 }

@@ -1,7 +1,7 @@
+import "./Mainpage.css";
+import mainImg from "/src/assets/images/mainImg_christmas.png";
 import React, { useCallback, useEffect, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-
-import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
 import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
@@ -244,15 +244,19 @@ function Mainpage() {
                 <button onClick={() => resetTransform()}>RESET</button>
               </div>
               <TransformComponent>
-                <img src="/src/assets/images/mainImg.png" />
+                <img src={mainImg} />
                 {pieces.map((piece) => (
                   <div
                     className="piece"
                     onClick={() => openModal(piece)}
                     key={piece.pieceId}
                     style={{
-                      left: `${piece.coordinates.split(",")[0]}%`,
-                      top: `${piece.coordinates.split(",")[1]}%`,
+                      left: `${
+                        parseFloat(piece.coordinates.split(",")[0]) * 0.115
+                      }%`,
+                      top: `${
+                        parseFloat(piece.coordinates.split(",")[1]) * 0.155
+                      }%`,
                       transform: `scale(${1 / scale})`,
                       backgroundColor: piece.minted ? "#f47735" : "#8C8C8C",
                     }}
