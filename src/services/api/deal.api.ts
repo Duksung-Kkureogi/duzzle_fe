@@ -32,7 +32,7 @@ export const DealApis = {
         "/v1/nft-exchange/my",
         params
       );
-      console.log(offers);
+      //console.log(offers);
 
       return offers;
     } catch (error) {
@@ -62,7 +62,7 @@ export const DealApis = {
   },
   cancelNftExchangeOffer: async (id: string) => {
     try {
-      await Http.delete(`/v1/nft-exchange/${id}`, {});
+      await Http.delete(`/v1/nft-exchange/cancel/${id}`, {});
     } catch (error) {
       console.error(error?.response.data.code);
       console.error(error?.response?.data.message);

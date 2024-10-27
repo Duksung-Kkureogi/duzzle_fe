@@ -6,12 +6,11 @@
 }
 
 .HistorySeason .hs {
-  margin-top: 60px;
+  margin-top: 100px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   align-items: center;
-  height: 50vh;
-  row-gap: 20%;
+  gap: 30px;
 }
 
 .HistorySeason .hs_puzzle,
@@ -19,33 +18,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ececec;
+  padding: 20px;
+  margin: 0px 20px 0px 20px;
+  border-radius: 20px;
 
   img {
-    width: 40vw;
-    max-width: 200px;
+    height: 20vh;
+    max-height: 150px;
+    padding: 10px;
   }
 
   button {
     width: 40vw;
     max-width: 200px;
-    background-color: #34a853;
-    padding: 3px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 13px;
-    color: white;
-    border: 1px solid rgba(0, 0, 0, 0.21);
+    background-color: #9ad4a9;
+    padding: 10px 20px 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #545454;
+    border: none;
     border-bottom-color: rgba(0, 0, 0, 0.34);
     border-radius: 10px;
-    box-shadow: 0 2px 0 rgba(255, 255, 255, 0.34) inset,
-      0 2px 0 -1px rgba(0, 0, 0, 0.13), 0 3px 0 -1px rgba(0, 0, 0, 0.08),
-      0 5px 13px -1px rgba(0, 0, 0, 0.21);
+    box-shadow: #34a853 0px 5px 0px 0px;
+    cursor: pointer;
   }
   button:active {
-    top: 1px;
-    border-color: rgba(0, 0, 0, 0.34) rgba(0, 0, 0, 0.21) rgba(0, 0, 0, 0.21);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.89),
-      0 1px rgba(0, 0, 0, 0.05) inset;
+    top: 5px;
     position: relative;
+    box-shadow: none;
   }
 }

@@ -26,8 +26,10 @@ const DealList: React.FC<DealListProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleDealClick = (id: number) => {
-    navigate(`/nft-exchange/${id}`);
+  const handleDealClick = (id: number, status: string) => {
+    if (status == "listed") {
+      navigate(`/nft-exchange/${id}`);
+    }
   };
 
   const getSeasonEmoji = (seasonName: string) => {
@@ -72,14 +74,14 @@ const DealList: React.FC<DealListProps> = ({
   };
 
   return (
-    <div className="deal-list">
+    <div className="nft-exchange-list">
       <h3>{title}</h3>
       {deals &&
         deals.map((Deal) => (
           <div
             key={Deal.id}
             className="deal-item"
-            onClick={() => handleDealClick(Deal.id)}
+            onClick={() => handleDealClick(Deal.id, Deal.status)}
           >
             <div className="deal-content">
               <div className="user-info">
@@ -94,20 +96,20 @@ const DealList: React.FC<DealListProps> = ({
                   <p>{getStatusText(Deal.status)}</p>
                 </div>
                 <div className="nft-info">
+                  <p className="off1">바꿔요:</p>
                   <div className="offered">
-                    <p className="off1">바꿔요:</p>
                     {Deal.offeredNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
-                        <img src={nft.imageUrl} />
+                        <img src={nft.image} />
                         {renderNftName(nft)}
                       </div>
                     ))}
                   </div>
+                  <p className="ree1">주세요:</p>
                   <div className="requested">
-                    <p className="ree1">주세요:</p>
                     {Deal.requestedNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
-                        <img src={nft.imageUrl} />
+                        <img src={nft.image} />
                         {renderNftName(nft)}
                       </div>
                     ))}

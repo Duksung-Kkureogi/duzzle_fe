@@ -4,6 +4,8 @@ import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import ApprovalModal from "../../components/Modal/Approval/ApprovalModal";
+import Loading from "../../components/Loading/Loading";
+import Modal from "react-modal";
 
 interface ApprovalManagerProps {
   web3auth: Web3Auth | null;
@@ -19,8 +21,10 @@ const ApprovalManager: React.FC<ApprovalManagerProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [approvalStatus, setApprovalStatus] = useState<ApprovalStatus>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const checkApprovalStatus = useCallback(async () => {
+    setLoading(true);
     if (web3auth?.provider) {
       const rpc = new RPC(web3auth.provider as IProvider);
       const status = await rpc.checkApprovalStatus();
@@ -33,6 +37,7 @@ const ApprovalManager: React.FC<ApprovalManagerProps> = ({
         setIsModalOpen(true);
       }
     }
+    setLoading(false);
   }, [web3auth, onAllApproved]);
 
   useEffect(() => {
@@ -104,15 +109,41 @@ const ApprovalManager: React.FC<ApprovalManagerProps> = ({
     onCancel();
   };
 
+  const customLoadingModalStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      transform: "translate(-50%, -50%)",
+      width: "300px",
+      height: "250px",
+      borderRadius: "20px",
+      justifyContent: "center",
+      backgroundColor: "#F69EBB",
+      boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
+    },
+  };
+
   return (
-    <ApprovalModal
-      isOpen={isModalOpen}
-      onClose={handleClose}
-      approvalStatus={approvalStatus}
-      onApprove={handleApprove}
-      onRevoke={handleRevoke}
-      isLoading={isLoading}
-    />
+    <>
+      <ApprovalModal
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        approvalStatus={approvalStatus}
+        onApprove={handleApprove}
+        onRevoke={handleRevoke}
+        isLoading={isLoading}
+      />
+      <Modal
+        isOpen={loading}
+        style={customLoadingModalStyles}
+        shouldCloseOnOverlayClick={false}
+        ariaHideApp={false}
+      >
+        <Loading />
+      </Modal>
+    </>
   );
 };
 

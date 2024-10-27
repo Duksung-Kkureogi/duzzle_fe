@@ -100,7 +100,7 @@ const MyBottomNavBar = () => {
           <button
             type="button"
             onClick={() => {
-              console.log("isAuthenticated: :", isAuthenticated);
+              //console.log("isAuthenticated: :", isAuthenticated);
               if (isAuthenticated) {
                 navigate("/mypage");
               } else {

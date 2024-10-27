@@ -12,7 +12,6 @@ const Error: React.FC<ErrorMessageProps> = ({ message, onClose }) => {
     <div className="error-message">
       <p>{message}</p>
       <img src={ErrorImg} alt="에러" width="10%" />
-
       <button onClick={onClose}>닫기</button>
     </div>
   );
