@@ -21,6 +21,7 @@ export class ContractAddress {
       "0x73D24f126AF6112C20579De5A2571f5f3c1851aF", // sand
       "0xE12910381A2b62D06FDF01eE4cd33317E83bB6fB", // hammer
       "0xc58d671F87f2E7be5CD4016AA8B253Db8401301B", // glass
+      "0xBc1351c028ab3dcf259f29971DeC78eB896fe7E1" // xmas stocking
     ];
   }
 

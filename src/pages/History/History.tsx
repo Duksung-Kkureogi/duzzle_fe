@@ -39,7 +39,11 @@ function History() {
           <div
             className="historySeason"
             key={season.id}
-            onClick={() => navigate(`/history/${season.id}`)}
+            onClick={() =>
+              navigate(`/history/${season.id}`, {
+                state: { seasonTitle: season.title },
+              })
+            }
           >
             <img src={season.thumbnailUrl} alt={season.title} />
             <div className="season_info">

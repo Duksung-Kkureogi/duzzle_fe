@@ -24,6 +24,7 @@ function Store() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [curNFTItem, setCurNFTItem] = useState<NFTItem | null>(null);
+  const [loadingMessage, setLoadingMessage] = useState("");
 
   interface NFTItem {
     metadata_name: string;
@@ -51,7 +52,9 @@ function Store() {
     const rpc = new RPC(web3auth?.provider as IProvider);
     setLoading(true);
     try {
-      const itemMetadataUrl = await rpc.getRandomItem();
+      const itemMetadataUrl = await rpc.getRandomItem((state) => {
+        setLoadingMessage(state);
+      });
       setMetadataUrl(itemMetadataUrl);
       await fetchUserDal();
     } catch (error) {
@@ -60,6 +63,7 @@ function Store() {
       setError(true);
     } finally {
       setLoading(false);
+      setLoadingMessage("");
     }
   };
 
@@ -74,7 +78,11 @@ function Store() {
       if (foundNFTItem) {
         setCurNFTItem(foundNFTItem);
       } else {
-        setCurNFTItem(null);
+        setCurNFTItem({
+          metadata_name: data.name,
+          item_name: data.name.split("#")[0],
+          item_img: data.image,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -149,7 +157,7 @@ function Store() {
       >
         {enoughDal ? (
           loading ? (
-            <Loading />
+            <Loading message={loadingMessage} /> 
           ) : (
             <div className="modal_dalO">
               <div className="dal_btn_X">

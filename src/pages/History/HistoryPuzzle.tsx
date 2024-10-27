@@ -1,6 +1,6 @@
 import "./HistoryPuzzle.css";
 
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
 import React, { useCallback, useEffect, useState } from "react";
@@ -11,10 +11,15 @@ import Modal from "react-modal";
 
 // 이미지
 import mainImg from "../../assets/images/mainImg.png";
+import ThreeDScene from "../../components/3dModel/ThreeDScene";
 
 function HistoryPuzzle() {
+  const navigate = useNavigate();
   const { seasonId } = useParams();
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
+
+  const location = useLocation();
+  const { seasonTitle } = (location.state || {}) as { seasonTitle?: string };
 
   const [scale, setScale] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +27,10 @@ function HistoryPuzzle() {
   const [selectedPiece, setSelectedPiece] = useState<PieceDto | null>(null);
   const [totalPieces, setTotalPieces] = useState(0);
   const [mintedPieces, setMintedPieces] = useState(0);
+
+  const goToNFTDetail = () => {
+    navigate("/nft-detail", { state: { data: selectedPiece } });
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -82,7 +91,7 @@ function HistoryPuzzle() {
       height: "60vh",
       borderRadius: "20px",
       justifyContent: "center",
-      backgroundColor: "#80DAE6",
+      backgroundColor: "#f4f1e3",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
       overflow: "hidden",
     },
@@ -199,7 +208,7 @@ function HistoryPuzzle() {
                     <div className="modal_mintedO">
                       <div className="mintedO_piece">
                         <p className="info_title">NFT 컬렉션</p>
-                        <p className="info">덕성 크리스마스 퍼즐 100조각</p>
+                        <p className="info">{seasonTitle}</p>
                         <p className="info_title">조각 아이디</p>
                         <p className="info">{selectedPiece.pieceId}</p>
                         <p className="info_title">토큰 소유자</p>
@@ -213,15 +222,44 @@ function HistoryPuzzle() {
                             }
                           />
                         </p>
-                        <div className="piece_img">
-                          <img
-                            src={(selectedPiece.data as Minted).nftThumbnailUrl}
-                          ></img>
-                        </div>
+                        {(selectedPiece.data as Minted).threeDModelUrl ? (
+                          <div className="piece_3d">
+                            <ThreeDScene
+                              width="100%"
+                              height="300px"
+                              url={
+                                (selectedPiece.data as Minted).threeDModelUrl
+                              }
+                              isModal={true}
+                            />
+                          </div>
+                        ) : (
+                          <div className="piece_img">
+                            <img
+                              src={
+                                (selectedPiece.data as Minted).nftThumbnailUrl
+                              }
+                            ></img>
+                          </div>
+                        )}
                       </div>
                       <div className="mintedO_btn">
                         <button onClick={closeModal}>닫기</button>
-                        <button>NFT 상세</button>
+                        {(selectedPiece.data as Minted).threeDModelUrl ? (
+                          <button onClick={() => goToNFTDetail()}>
+                            NFT 상세
+                          </button>
+                        ) : (
+                          <button
+                            disabled
+                            style={{
+                              backgroundColor: "gray",
+                              cursor: "not-allowed",
+                            }}
+                          >
+                            NFT 상세
+                          </button>
+                        )}{" "}
                       </div>
                     </div>
                   </Modal>
