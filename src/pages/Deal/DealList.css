@@ -1,17 +1,21 @@
 .deal-list {
-  width: 90vw;
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
 }
 
 .deal-item {
-  display: flex;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .deal-content {
@@ -22,9 +26,23 @@
   overflow-y: auto;
   max-height: 500px;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.con::-webkit-scrollbar {
+  width: 8px;
+  background-color: #c6c6c6;
+  border-radius: 10px;
+}
+.con::-webkit-scrollbar-thumb {
+  background-color: #00b5cc;
+  border-radius: 10px;
 }
 .user-info {
-  width: 80px;
   text-align: center;
   margin-right: 20px;
   display: flex;
@@ -53,6 +71,7 @@
   background: #f8f9fa;
   border-radius: 12px;
   padding: 15px;
+  width: 60%;
   flex-grow: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -142,12 +161,12 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  width: 90%;
+  width: 80%;
 }
 
 .nft-item img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin-right: 10px;
   object-fit: cover;
   flex-shrink: 0;
@@ -157,7 +176,7 @@
 .off2,
 .ree2 {
   font-size: 10px;
-
+  width: 50%;
   word-break: keep-all;
   white-space: normal;
   flex-grow: 1;

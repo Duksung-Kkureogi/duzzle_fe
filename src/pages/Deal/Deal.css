@@ -6,14 +6,6 @@
   flex-direction: column;
   align-items: center;
 }
-.Deal .con {
-  width: 90vw;
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .Deal .search-section {
   display: flex;
