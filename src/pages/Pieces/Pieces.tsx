@@ -19,6 +19,7 @@ function Pieces() {
     image: string;
     zoneKr: string;
     seasonKr: string;
+    threeDModelUrl: string;
   }
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
@@ -91,6 +92,7 @@ function Pieces() {
         if (response.data.result) {
           setTotalPieces(response.data.data.total);
           setPieces(response.data.data.list);
+          console.log(pieces);
         } else {
           console.error("Failed to fetch pieces");
         }
@@ -248,7 +250,12 @@ function Pieces() {
           <div
             className="piece"
             key={piece.name}
-            onClick={() => goToNFTDetail(piece.id)}
+            onClick={
+              piece.threeDModelUrl ? () => goToNFTDetail(piece.id) : undefined
+            }
+            style={{
+              cursor: piece.threeDModelUrl ? "pointer" : "default",
+            }}
           >
             <img src={piece.image} alt={piece.name} />
             <p>{piece.name}</p>
