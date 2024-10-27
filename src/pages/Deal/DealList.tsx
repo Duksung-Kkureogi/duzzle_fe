@@ -98,7 +98,7 @@ const DealList: React.FC<DealListProps> = ({
                     <p className="off1">바꿔요:</p>
                     {Deal.offeredNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
-                        <img src={nft.imageUrl} />
+                        <img src={nft.image} />
                         {renderNftName(nft)}
                       </div>
                     ))}
@@ -107,7 +107,7 @@ const DealList: React.FC<DealListProps> = ({
                     <p className="ree1">주세요:</p>
                     {Deal.requestedNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
-                        <img src={nft.imageUrl} />
+                        <img src={nft.image} />
                         {renderNftName(nft)}
                       </div>
                     ))}

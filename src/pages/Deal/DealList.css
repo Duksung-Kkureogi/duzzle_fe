@@ -1,7 +1,10 @@
 .deal-list {
-  width: 100%;
-  max-width: 800px;
+  width: 90vw;
+  max-width: 500px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .deal-item {
@@ -16,8 +19,9 @@
   flex-grow: 1;
 }
 .con {
-  /* overflow-y: auto;
-  max-height: 500px; */
+  overflow-y: auto;
+  max-height: 500px;
+  overflow-x: hidden;
 }
 .user-info {
   width: 80px;
@@ -120,6 +124,7 @@
 .offered,
 .requested {
   width: 48%;
+  padding-bottom: 13px;
   display: flex;
   flex-direction: column;
 }
@@ -137,7 +142,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  width: 100%;
+  width: 90%;
 }
 
 .nft-item img {
@@ -151,7 +156,8 @@
 
 .off2,
 .ree2 {
-  font-size: 14px;
+  font-size: 10px;
+
   word-break: keep-all;
   white-space: normal;
   flex-grow: 1;

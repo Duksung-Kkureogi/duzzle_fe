@@ -148,7 +148,7 @@ const DealDetail: React.FC = () => {
         <h3>제공 NFT</h3>
         {trade.offeredNfts.map((nft, index) => (
           <div key={index} className="nft-item">
-            <img src={nft.imageUrl} />
+            <img src={nft.image} />
             <div className="nft-info">
               {renderNftName(nft)}
               <p>수량: {nft.quantity}개</p>
@@ -160,7 +160,7 @@ const DealDetail: React.FC = () => {
         <h3>요청 NFT</h3>
         {trade.requestedNfts.map((nft, index) => (
           <div key={index} className="nft-item">
-            <img src={nft.imageUrl} />
+            <img src={nft.image} />
             <div className="nft-info">
               {renderNftName(nft)}
               <p>수량: {nft.quantity}개</p>

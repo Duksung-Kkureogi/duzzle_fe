@@ -16,7 +16,7 @@ export interface OfferorUserProfile {
 export interface ExchangeMaterialNFT {
   contractId: number;
   name?: string;
-  imageUrl?: string;
+  image?: string;
   quantity: number;
 }
 
@@ -24,7 +24,7 @@ export class ExchangeBlueprintOrPuzzleNFT {
   seasonZoneId: number;
   seasonName?: string;
   zoneName?: string;
-  imageUrl?: string;
+  image?: string;
   quantity: number;
 }
 
