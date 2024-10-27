@@ -142,7 +142,7 @@ const Ranking: React.FC = () => {
 
   const handleMyRankClick = () => {
     if (myRank) {
-      const element = document.getElementById(`rank-${myRank.rank}`);
+      const element = document.getElementById(`rank-${myRank.name}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
 
@@ -216,7 +216,7 @@ const Ranking: React.FC = () => {
           {rankings.map((user) => (
             <div
               key={user.rank}
-              id={`rank-${user.rank}`}
+              id={`rank-${user.name}`}
               className="ranking-item"
               onMouseEnter={() => setHoveredUser(user)}
               onMouseLeave={() => setHoveredUser(null)}

@@ -2,6 +2,7 @@
   width: 90vw;
   max-width: 500px;
   align-items: center;
+  text-align: center;
 }
 
 .c1 .Story_title {
@@ -14,12 +15,23 @@
   padding-top: 30px;
 }
 .c1 .img_story {
-  width: 86vw;
+  width: 330px;
   max-width: 500px;
 }
 .c1 .ul_story {
   list-style: none;
   padding: 0;
+  height: 40vh;
+  overflow-y: auto;
+}
+.c1 .ul_story::-webkit-scrollbar {
+  width: 8px;
+  background-color: #c6c6c6;
+  border-radius: 10px;
+}
+.c1 .ul_story::-webkit-scrollbar-thumb {
+  background-color: #00b5cc;
+  border-radius: 10px;
 }
 
 .c1 .li_story {

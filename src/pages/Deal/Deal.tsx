@@ -108,6 +108,12 @@ const DealPage = () => {
     setCurrentPage(1);
     setMyCurrentPage(1);
   };
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <div className="Deal">
@@ -119,20 +125,40 @@ const DealPage = () => {
         status={status}
         handleNewTrade={handleNewTrade}
       />
-      <DealList
-        title="등록된 거래 목록"
-        deals={registeredTrades}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={registeredTradesTotal}
-      />
-      <DealList
-        title="내가 등록한 거래"
-        deals={myTrades}
-        currentPage={myCurrentPage}
-        setCurrentPage={setMyCurrentPage}
-        totalPages={myTradesTotal}
-      />
+      <div>
+        <button
+          className="but1"
+          onClick={() => scrollToSection("registeredTrade")}
+        >
+          등록된 거래 목록 보기
+        </button>
+        <button className="but2" onClick={() => scrollToSection("myTrade")}>
+          내가 등록한 거래 보기
+        </button>
+      </div>
+
+      <div className="con">
+        <div id="registeredTrade">
+          <DealList
+            title="등록된 거래 목록"
+            deals={registeredTrades}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={registeredTradesTotal}
+          />
+        </div>
+
+        <div id="myTrade">
+          <DealList
+            title="내가 등록한 거래"
+            deals={myTrades}
+            currentPage={myCurrentPage}
+            setCurrentPage={setMyCurrentPage}
+            totalPages={myTradesTotal}
+          />
+        </div>
+      </div>
+
       <MyBottomNavBar />
       {showApprovalManager && (
         <ApprovalManager

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./StoryView.css";
 import MyHeader from "../../components/MyHeader/MyHeader";
 import MyButton from "../../components/MyButton/MyButton";
+import { useAudio } from "../../services/useAudio";
 
 interface StoryContent {
   storyId: number;
@@ -11,6 +12,7 @@ interface StoryContent {
   totalPage: number;
   content: string;
   image?: string;
+  audio?: string;
 }
 
 const StoryView: React.FC = () => {
@@ -24,6 +26,8 @@ const StoryView: React.FC = () => {
   const zoneId = state?.zoneId as string;
   const title = state?.title as string;
   const zoneNameKr = state?.zoneNameKr as string;
+  const { audioRef } = useAudio(story?.audio);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const fetchStoryContent = async (page: number) => {
@@ -84,6 +88,20 @@ const StoryView: React.FC = () => {
     }
   };
 
+  const handleAudio = useCallback(() => {
+    if (audioRef.current) {
+      if (playing) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current
+          .play()
+          .then(() => setPlaying(true))
+          .catch((e) => console.error("Audio play error:", e));
+      }
+      setPlaying(!playing);
+    }
+  }, [audioRef, playing]);
+
   if (!story) {
     return (
       <div className="LO">
@@ -100,8 +118,13 @@ const StoryView: React.FC = () => {
     <div className="c3">
       <MyHeader leftChild={<MyButton />} headerText={""} />
       <div className="container_view">
+        <p className="content_title">{title}</p>
         <div className="content_view">
-          <p className="content_title">{title}</p>
+          {story.audio && (
+            <button className="button_audio" onClick={handleAudio}>
+              {playing ? "음악 일시정지" : "음악 재생"}
+            </button>
+          )}
           <img className="content_image" src={story.image} />
           <p className="content">{story.content}</p>
         </div>

@@ -70,11 +70,11 @@ const FQnaEditor = ({ initData, onSubmit }) => {
             onChange={onChangeSortType}
             className="pl"
           >
-            <option>거래</option>
-            <option>계정</option>
-            <option>퀘스트</option>
-            <option>스토리</option>
-            <option>기타</option>
+            <option value="MARKET">거래</option>
+            <option value="ACCOUNT">계정</option>
+            <option value="QUEST">퀘스트</option>
+            <option value="STORY">스토리</option>
+            <option value="ETC">기타</option>
           </select>
         </div>
       </section>

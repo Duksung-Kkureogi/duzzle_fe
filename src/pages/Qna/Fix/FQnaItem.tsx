@@ -3,7 +3,7 @@ import Button from "./Button";
 
 import "./FQnaItem.css";
 
-const FQnaItem = ({ id, submitTime, content }) => {
+const FQnaItem = ({ id, submitTime, content, answer_section }) => {
   const nav = useNavigate();
 
   return (
@@ -15,7 +15,9 @@ const FQnaItem = ({ id, submitTime, content }) => {
         </div>
       </div>
       <div>
-        <div className="answer_section">답변대기 </div>
+        <div className="answer_section">
+          {answer_section ? "답변완료" : "답변대기"}
+        </div>
         <div className="button_section">
           <Button onClick={() => nav(`/qnaedit/${id}`)} text={"수정하기"} />
         </div>
