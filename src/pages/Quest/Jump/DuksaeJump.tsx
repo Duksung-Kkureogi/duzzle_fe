@@ -52,6 +52,15 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       dinoRect.left + buffer < obstacleRect.right - buffer &&
       dinoRect.bottom - buffer > obstacleRect.top + buffer &&
       dinoRect.top + buffer < obstacleRect.bottom - buffer;
+
+    if (isCollision) {
+      socket.emit("quest:duksae-jump:fail", {
+        score,
+        logId,
+        gamePanelOffsetWidth: 550,
+      });
+    }
+
     return isCollision;
   };
 
@@ -189,7 +198,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           "quest:duksae-jump:success",
           { score, logId, gamePanelOffsetWidth: 550 },
           () => {
-            console.log("Success 메시지가 서버로 전송되었습니다.");
+            console.log("Success 메시지");
           }
         );
       } else {
@@ -198,7 +207,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           "quest:duksae-jump:fail",
           { score, logId, gamePanelOffsetWidth: 550 },
           () => {
-            console.log("Fail 메시지가 서버로 전송되었습니다.");
+            console.log("Fail 메시지");
           }
         );
       }
