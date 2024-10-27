@@ -18,6 +18,7 @@ function Pieces() {
     name: string;
     image: string;
     zoneKr: string;
+    seasonKr: string;
   }
 
   const RequestUrl = import.meta.env.VITE_REQUEST_URL;
@@ -26,7 +27,6 @@ function Pieces() {
   const [isZActive, setIsZActive] = useState(false);
   const [filterSeason, setFilterSeason] = useState("시즌 전체");
   const [filterZone, setFilterZone] = useState("구역 전체");
-  const seasonName = seasonList[seasonList.length - 1].title;
 
   const goToNFTDetail = async (pieceId: number) => {
     try {
@@ -182,7 +182,7 @@ function Pieces() {
                 key={season.title}
                 onClick={() => handleOptionClick(season.title, "season")}
               >
-                {season.title}
+                {season.titleKr}
               </li>
             ))}
           </ul>
@@ -253,7 +253,7 @@ function Pieces() {
             <img src={piece.image} alt={piece.name} />
             <p>{piece.name}</p>
             <span className="tooltip_text">
-              시즌: {seasonName}
+              시즌: {piece.seasonKr}
               <br></br> 구역: {piece.zoneKr}
             </span>
           </div>
