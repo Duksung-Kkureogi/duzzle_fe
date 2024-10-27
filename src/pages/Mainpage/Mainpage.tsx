@@ -1,7 +1,7 @@
+import "./Mainpage.css";
+import mainImg from "/src/assets/images/mainImg_christmas.png";
 import React, { useCallback, useEffect, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-
-import "./Mainpage.css";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
 import { PieceDto, Minted, Unminted } from "../../Data/DTOs/PieceDTO";
@@ -11,6 +11,7 @@ import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { useNavigate } from "react-router-dom";
+import ThreeDScene from "../../components/3dModel/ThreeDScene";
 import AlertModal from "../../components/Modal/AlertModal";
 import Loading from "../../components/Loading/Loading";
 
@@ -85,11 +86,16 @@ function Mainpage() {
       height: "60vh",
       borderRadius: "20px",
       justifyContent: "center",
-      backgroundColor: "#80DAE6",
+      // backgroundColor: "#80DAE6",
+      backgroundColor: "#f4f1e3",
       boxShadow: "3px 3px 3px 3px rgba(0,0,0,0.25)",
       overflow: "hidden",
       zIndex: "2",
     },
+  };
+
+  const goToNFTDetail = () => {
+    navigate("nft-detail", { state: { data: selectedPiece } });
   };
 
   const unlockPuzzlePiece = async (pieceId: number) => {
@@ -244,15 +250,19 @@ function Mainpage() {
                 <button onClick={() => resetTransform()}>RESET</button>
               </div>
               <TransformComponent>
-                <img src="/src/assets/images/mainImg.png" />
+                <img src={mainImg} />
                 {pieces.map((piece) => (
                   <div
                     className="piece"
                     onClick={() => openModal(piece)}
                     key={piece.pieceId}
                     style={{
-                      left: `${piece.coordinates.split(",")[0]}%`,
-                      top: `${piece.coordinates.split(",")[1]}%`,
+                      left: `${
+                        parseFloat(piece.coordinates.split(",")[0]) * 0.115
+                      }%`,
+                      top: `${
+                        parseFloat(piece.coordinates.split(",")[1]) * 0.155
+                      }%`,
                       transform: `scale(${1 / scale})`,
                       backgroundColor: piece.minted ? "#f47735" : "#8C8C8C",
                     }}
@@ -299,17 +309,44 @@ function Mainpage() {
                               }
                             />
                           </p>
-                          <div className="piece_img">
-                            <img
-                              src={
-                                (selectedPiece.data as Minted).nftThumbnailUrl
-                              }
-                            ></img>
-                          </div>
+                          {(selectedPiece.data as Minted).threeDModelUrl ? (
+                            <div className="piece_3d">
+                              <ThreeDScene
+                                width="100%"
+                                height="300px"
+                                url={
+                                  (selectedPiece.data as Minted).threeDModelUrl
+                                }
+                                isModal={true}
+                              />
+                            </div>
+                          ) : (
+                            <div className="piece_img">
+                              <img
+                                src={
+                                  (selectedPiece.data as Minted).nftThumbnailUrl
+                                }
+                              ></img>
+                            </div>
+                          )}
                         </div>
                         <div className="mintedO_btn">
                           <button onClick={closeModal}>닫기</button>
-                          <button>NFT 상세</button>
+                          {(selectedPiece.data as Minted).threeDModelUrl ? (
+                            <button onClick={() => goToNFTDetail()}>
+                              NFT 상세
+                            </button>
+                          ) : (
+                            <button
+                              disabled
+                              style={{
+                                backgroundColor: "gray",
+                                cursor: "not-allowed",
+                              }}
+                            >
+                              NFT 상세
+                            </button>
+                          )}
                         </div>
                       </div>
                     ) : (

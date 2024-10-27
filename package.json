@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.114.6",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.3",
     "@swc/cli": "^0.3.12",
     "@swc/core": "^1.6.3",
     "@types/react-modal": "^3.16.3",
@@ -26,6 +29,7 @@
     "dotenv": "^16.4.5",
     "ethers": "^6.13.1",
     "metamask": "^0.0.1-security",
+    "postprocessing": "^6.36.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
@@ -34,11 +38,13 @@
     "react-zoom-pan-pinch": "^3.4.4",
     "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.11",
+    "three": "^0.169.0",
     "web3": "^4.7.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@types/three": "^0.169.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",

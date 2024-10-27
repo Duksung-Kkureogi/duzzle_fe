@@ -86,9 +86,9 @@
   width: 40%;
   text-align: center;
   img {
-    width: 60%;
-    max-width: 95px;
-    min-height: 95px;
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
   }
 }
 

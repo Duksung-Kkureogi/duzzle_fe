@@ -26,8 +26,8 @@ export const Web3AuthParameters: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     displayName: "Amoy",
     blockExplorerUrl: "https://www.oklink.com/amoy",
-    ticker: "MATIC",
-    tickerName: "MATIC",
+    ticker: "POL",
+    tickerName: "POL",
   },
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   openLoginAdapterOptions: {

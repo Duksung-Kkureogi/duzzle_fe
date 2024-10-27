@@ -139,8 +139,8 @@
     max-width: 55px;
   }
   p {
-    width: 15vw;
-    max-width: 65px;
+    width: 20vw;
+    max-width: 120px;
     font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
