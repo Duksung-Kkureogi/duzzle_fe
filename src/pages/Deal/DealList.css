@@ -38,12 +38,16 @@
 
 .nft-exchange-list .userT,
 .nft-exchange-list .userT1 {
-  margin: 5px 0;
+  margin: 5px 0 0 0;
   width: 100%;
   word-break: keep-all;
   white-space: normal;
   text-align: center;
   font-size: 0.2em;
+}
+
+.nft-exchange-list .userT1 {
+  margin: 0;
 }
 
 .nft-exchange-list .speech-bubble {

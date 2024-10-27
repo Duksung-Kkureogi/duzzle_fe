@@ -80,7 +80,7 @@
   }
 }
 
-.Deal .trade-item {
+/* .Deal .trade-item {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -210,4 +210,4 @@
 
 .Deal .pagination button:hover {
   background-color: #eee;
-}
+} */
