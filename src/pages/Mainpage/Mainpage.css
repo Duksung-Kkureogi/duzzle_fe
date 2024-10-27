@@ -77,7 +77,7 @@
 .Mainpage .mainImg .transform-component-module_wrapper__SPB86 {
   max-width: 100%;
   max-height: calc(-50px + 100vh);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: white;
   cursor: grab;
 
   img {
@@ -120,6 +120,11 @@
   max-height: 100%;
   object-fit: contain;
   margin: auto;
+  text-align: center;
+  img {
+    height: 20vh;
+    max-width: 100%;
+  }
 }
 
 
@@ -127,7 +132,9 @@
   display: flex;
 
   img {
-    height: 7vh;
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
     margin-right: 10px;
   }
 }
@@ -172,7 +179,7 @@
   margin-left: 15px;
   z-index: 2;
   bottom: 69.5%;
-  left: 15%;
+  left: 25%;
   transition: opacity 0.5s;
   opacity: 0;
 }

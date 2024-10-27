@@ -36,11 +36,11 @@ const DealPage = () => {
   const tradesPerPage = 2;
 
   const handleNewTrade = () => {
-    console.log("isAuthenticated: :", isAuthenticated);
+    //console.log("isAuthenticated: ", isAuthenticated);
     if (isAuthenticated) {
       setShowApprovalManager(true);
     } else {
-      console.log("isAuthenticated: :", isAuthenticated);
+      //console.log("isAuthenticated: ", isAuthenticated);
       setShowLoginModal(true);
     }
   };

@@ -18,7 +18,7 @@ function History() {
       try {
         const response = await axios.get(RequestUrl + "/v1/season-history", {});
         if (response.data.result) {
-          console.log(response.data.data);
+          //console.log(response.data.data);
           setHistorySeasons(response.data.data.list);
         } else {
           console.error("Failed to fetch items");

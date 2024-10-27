@@ -36,7 +36,7 @@ const FQnaNew = () => {
           },
         }
       );
-      console.log("POST 성공", response.data);
+      //console.log("POST 성공", response.data);
       nav("/qna");
     } catch (error) {
       console.error("요청 실패:", error);

@@ -34,7 +34,7 @@ function DrOne() {
         );
 
         if (responseOffer.data.result) {
-          console.log("Response nftOffer", responseOffer.data.data);
+          //console.log("Response nftOffer", responseOffer.data.data);
           const updatedNftsOffer = responseOffer.data.data.list.map(
             (nft: AvailableNft) => ({
               ...nft,
@@ -154,9 +154,28 @@ function DrOne() {
     }
   };
 
+  const BackButton = () => {
+    return (
+      <button className="back-button" onClick={() => navigate("/nft-exchange")}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            clipRule="evenodd"
+            fillRule="evenodd"
+            d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+          ></path>
+        </svg>
+      </button>
+    );
+  };
+
   return (
     <div className="DrOne">
-      <MyHeader headerText="NFT 교환 제안" leftChild={<MyButton />} />
+      <MyHeader headerText="NFT 교환 제안" leftChild={<BackButton />} />
       <div className="dr_stepbar">
         <div className="container">
           <div className="filler" style={fillerStyles}></div>

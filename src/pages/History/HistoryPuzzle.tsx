@@ -46,7 +46,7 @@ function HistoryPuzzle() {
           }
         );
         if (response.data.result) {
-          console.log(response.data.data);
+          //console.log(response.data.data);
           setPieces(response.data.data.pieces);
           setTotalPieces(response.data.data.total);
           setMintedPieces(response.data.data.minted);
@@ -203,6 +203,7 @@ function HistoryPuzzle() {
                     onRequestClose={closeModal}
                     style={customStyles}
                     shouldCloseOnOverlayClick={false}
+                    ariaHideApp={false}
                   >
                     <div className="modal_mintedO">
                       <div className="mintedO_piece">

@@ -5,7 +5,7 @@ import MyButton from "../../components/MyButton/MyButton";
 import "./HistorySeason.css";
 
 // 이미지
-import puzzleImg from "./hs_puzzle.jpg";
+import puzzleImg from "./hs_puzzle.png";
 import rankingImg from "./hs_ranking.png";
 
 function HistorySeason() {

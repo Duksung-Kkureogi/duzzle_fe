@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Story.css";
-import MyHeader from "../../components/MyHeader/MyHeader";
-import MyButton from "../../components/MyButton/MyButton";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 
 interface Zone {

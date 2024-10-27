@@ -13,19 +13,34 @@ export interface OfferorUserProfile {
   image: string;
 }
 
+export interface NftHistory {
+  event: string;
+  date: string;
+  toWalletAddress: string;
+  fromWalletAddress: string;
+  blockExplorerUrl: string;
+}
+
+export interface AvailableNft {
+  tokenId: number;
+  history: NftHistory[];
+}
+
 export interface ExchangeMaterialNFT {
   contractId: number;
   name?: string;
-  imageUrl?: string;
+  image?: string;
   quantity: number;
+  availableNfts?: AvailableNft[];
 }
 
 export class ExchangeBlueprintOrPuzzleNFT {
   seasonZoneId: number;
   seasonName?: string;
   zoneName?: string;
-  imageUrl?: string;
+  image?: string;
   quantity: number;
+  availableNfts?: AvailableNft[];
 }
 
 export interface Deal {

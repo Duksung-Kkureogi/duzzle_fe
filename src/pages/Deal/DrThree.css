@@ -47,8 +47,10 @@
   padding: 10px 0 10px 0;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .DrThree .dr3_btn.back {
   background-color: #a2a2a2;
+  cursor: pointer;
 }

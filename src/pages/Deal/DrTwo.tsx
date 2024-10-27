@@ -49,7 +49,7 @@ function DrTwo() {
         );
 
         if (responseRequest.data.result) {
-          console.log("Response nftRequest", responseRequest.data.data);
+          //console.log("Response nftRequest", responseRequest.data.data);
           const updatedNftsRequest = responseRequest.data.data.list.map(
             (nft: AvailableNft) => ({
               ...nft,
