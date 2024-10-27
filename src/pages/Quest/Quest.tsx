@@ -17,7 +17,7 @@ function Quest() {
         Authorization: token,
       };
       const response = token
-        ? await QuestApisForTest.startDuksaeJump()
+        ? await QuestApis.startQuest(header)
         : //await QuestApisForTest.startSpeedQuiz();
           await QuestApis.startForGuest();
       // console.log("Quest POST 성공", response);
