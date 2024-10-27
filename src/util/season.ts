@@ -23,4 +23,14 @@ export const seasonList = [
       "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/crop.png",
     totalPieces: 20,
   },
+  {
+    createdAt: "2024-10-26T20:52:42.825Z",
+    updatedAt: "2024-10-26T20:52:42.825Z",
+    id: 4,
+    title: "Xmas Puzzle",
+    titleKr: "크리스마스",
+    thumbnailUrl:
+      "https://duzzle-s3-bucket.s3.ap-northeast-2.amazonaws.com/map_christmas_crop.png",
+    totalPieces: 20,
+  },
 ];

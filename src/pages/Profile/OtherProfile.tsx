@@ -15,7 +15,7 @@ function OtherProfile() {
     walletAddress: "",
     history: [{ rankedFirst: 0, rankedThird: 0, questStreak: 0 }],
     items: [{ count: 0, name: "", image: "" }],
-    puzzles: [{ zone: "", image: "" }],
+    puzzles: [{ zone: "", image: "", season: "" }],
   });
   const { walletAddress } = useParams();
 
@@ -34,6 +34,7 @@ function OtherProfile() {
         );
         console.log(response.data.data);
         setUser(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error(error);
       }
@@ -126,9 +127,17 @@ function OtherProfile() {
             <p className="list_name">보유 조각 NFT</p>
             <div className="puzzles">
               {User.puzzles.map((puzzle) => (
-                <div className="puzzle" key={puzzle.zone}>
-                  <img src={puzzle.image} alt={puzzle.zone} />
-                  <p>{puzzle.zone}</p>
+                <div className="puzzle" key={`${puzzle.season + puzzle.zone}`}>
+                  <img
+                    src={puzzle.image}
+                    alt={`${puzzle.season + puzzle.zone}`}
+                  />
+                  <p
+                    className="puzzle-text"
+                    title={`[${puzzle.season}] ${puzzle.zone}`}
+                  >
+                    {`[${puzzle.season}] ${puzzle.zone}`}
+                  </p>{" "}
                 </div>
               ))}
             </div>

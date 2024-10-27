@@ -37,6 +37,7 @@ export default class EthereumRpc {
       모래: ContractAddress.MaterialItems[1],
       망치: ContractAddress.MaterialItems[2],
       유리: ContractAddress.MaterialItems[3],
+      산타양말: ContractAddress.MaterialItems[4],
     };
 
     const status: ApprovalStatus = {};
@@ -190,45 +191,70 @@ export default class EthereumRpc {
     return parseFloat(ethers.formatEther(balance));
   }
 
-  async getRandomItem(): Promise<any> {
-    const ethersProvider = new ethers.BrowserProvider(this.provider);
-    const signer = await ethersProvider.getSigner();
+  async getRandomItem(onStateChange?: (state: string) => void): Promise<any> {
+    try {
+      onStateChange?.("트랜잭션 시작...");
 
-    const contract = new ethers.Contract(
-      ContractAddress.PlayDuzzle,
-      JSON.parse(JSON.stringify(PlayDuzzleAbi)),
-      signer
-    );
+      const ethersProvider = new ethers.BrowserProvider(this.provider);
+      const feeData = await ethersProvider.getFeeData();
+      const gasPrice = feeData.gasPrice
+        ? (feeData.gasPrice * BigInt(14)) / BigInt(10)
+        : undefined;
 
-    const tx = await contract.getRandomItem();
-    const receipt = await tx.wait();
-    const mintEvent = receipt?.logs.find(
-      (e: any) => e.topics[0] === EventTopic.Mint
-    );
+      const signer = await ethersProvider.getSigner();
 
-    const tokenAddress = mintEvent?.address;
-    const getMetadataUrl = async (tokenAddress: string) => {
-      const abi =
-        tokenAddress === ContractAddress.BlueprintItem
-          ? BlueprintItemAbi
-          : MaterialItemAbi;
-      const iface = new ethers.Interface(BlueprintItemAbi);
-      const decodedLog = iface.parseLog(mintEvent!);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain, no-unsafe-optional-chaining
-      const [, tokenId] = decodedLog?.args!;
-      const tokenContract = new ethers.Contract(
-        tokenAddress,
-        JSON.parse(JSON.stringify(abi)),
+      const contract = new ethers.Contract(
+        ContractAddress.PlayDuzzle,
+        JSON.parse(JSON.stringify(PlayDuzzleAbi)),
         signer
       );
-      const metadataUrl = await tokenContract.tokenURI(tokenId);
+
+      onStateChange?.("트랜잭션을 전송하는 중...");
+      const tx = await contract.getRandomItem({
+        gasPrice,
+      });
+      onStateChange?.(`트랜잭션이 처리되고 있습니다...\n(예상 시간: 10-15초)`);
+
+      const receipt = await tx.wait();
+      onStateChange?.("아이템 정보를 가져오는 중...");
+
+      const mintEvent = receipt?.logs.find(
+        (e: any) => e.topics[0] === EventTopic.Mint
+      );
+
+      const tokenAddress = mintEvent?.address;
+      const getMetadataUrl = async (tokenAddress: string) => {
+        const abi =
+          tokenAddress === ContractAddress.BlueprintItem
+            ? BlueprintItemAbi
+            : MaterialItemAbi;
+        const iface = new ethers.Interface(abi);
+        const decodedLog = iface.parseLog(mintEvent!);
+
+        if (!decodedLog || !decodedLog.args) {
+          throw new Error("Failed to decode mint event");
+        }
+        console.log("Decoded log args:", decodedLog.args);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain, no-unsafe-optional-chaining
+        const [, tokenId] = decodedLog?.args!;
+        const tokenContract = new ethers.Contract(
+          tokenAddress,
+          JSON.parse(JSON.stringify(abi)),
+          signer
+        );
+        const metadataUrl = await tokenContract.tokenURI(tokenId);
+
+        return metadataUrl;
+      };
+      const metadataUrl = await getMetadataUrl(tokenAddress);
+      console.log("metadataUrl: ", metadataUrl);
+      console.timeEnd("getRandomItem");
 
       return metadataUrl;
-    };
-    const metadataUrl = await getMetadataUrl(tokenAddress);
-    console.log("metadataUrl: ", metadataUrl);
-
-    return metadataUrl;
+    } catch (error) {
+      console.error("Random Item Error:", error);
+      throw error;
+    }
   }
 
   async unlockPuzzlePiece(pieceId: number) {

@@ -38,6 +38,7 @@ import DrThree from "./pages/Deal/DrThree";
 import PictureQuizPage from "./pages/Quest/Picture/PictureQuizPage";
 import MusicQuizPage from "./pages/Quest/Music/MusicQuizPage";
 import DealDetail from "./pages/Deal/DealDetail";
+import NFTDetail from "./pages/NftDetail/NftDetailPage";
 
 function App() {
   return (
@@ -103,6 +104,7 @@ function App() {
             />
             <Route path="/picturequiz/:logId" element={<PictureQuizPage />} />
             <Route path="/musicquiz/:logId" element={<MusicQuizPage />} />
+            <Route path="/nft-detail" element={<NFTDetail />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>

@@ -100,8 +100,9 @@
   text-align: center;
   border-radius: 30px;
   img {
-    width: 15vw;
-    max-width: 70px;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
     background-color: #ececec;
     padding: 15px;
     border-radius: 20px;
