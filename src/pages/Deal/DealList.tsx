@@ -27,7 +27,7 @@ const DealList: React.FC<DealListProps> = ({
   const navigate = useNavigate();
 
   const handleDealClick = (id: number, status: string) => {
-    if (status == "listed") {
+    if (status === "listed") {
       navigate(`/nft-exchange/${id}`);
     }
   };
@@ -73,32 +73,47 @@ const DealList: React.FC<DealListProps> = ({
     }
   };
 
+  const buttonsPerPage = 5;
+  const [currentGroup, setCurrentGroup] = React.useState(0);
+
+  const handleNextGroup = () => {
+    if ((currentGroup + 1) * buttonsPerPage < totalPages) {
+      setCurrentGroup(currentGroup + 1);
+    }
+  };
+
+  const handlePrevGroup = () => {
+    if (currentGroup > 0) {
+      setCurrentGroup(currentGroup - 1);
+    }
+  };
+
   return (
     <div className="nft-exchange-list">
       <h3>{title}</h3>
-      {deals &&
-        deals.map((Deal) => (
+      {deals && deals.length > 0 ? (
+        deals.map((deal) => (
           <div
-            key={Deal.id}
+            key={deal.id}
             className="deal-item"
-            onClick={() => handleDealClick(Deal.id, Deal.status)}
+            onClick={() => handleDealClick(deal.id, deal.status)}
           >
             <div className="deal-content">
               <div className="user-info">
-                <img src={Deal.offerorUser.image} alt={Deal.offerorUser.name} />
-                <p className="userT">{Deal.offerorUser.name || "이름 없음"}</p>
+                <img src={deal.offerorUser.image} alt={deal.offerorUser.name} />
+                <p className="userT">{deal.offerorUser.name || "이름 없음"}</p>
                 <p className="userT1">
-                  {new Date(Deal.createdAt).toLocaleString().slice(0, 12)}
+                  {new Date(deal.createdAt).toLocaleString().slice(0, 12)}
                 </p>
               </div>
               <div className="speech-bubble">
-                <div className={`status-badge ${Deal.status}`}>
-                  <p>{getStatusText(Deal.status)}</p>
+                <div className={`status-badge ${deal.status}`}>
+                  <p>{getStatusText(deal.status)}</p>
                 </div>
                 <div className="nft-info">
                   <p className="off1">바꿔요:</p>
                   <div className="offered">
-                    {Deal.offeredNfts.map((nft, index) => (
+                    {deal.offeredNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
                         <img src={nft.image} />
                         {renderNftName(nft)}
@@ -107,7 +122,7 @@ const DealList: React.FC<DealListProps> = ({
                   </div>
                   <p className="ree1">주세요:</p>
                   <div className="requested">
-                    {Deal.requestedNfts.map((nft, index) => (
+                    {deal.requestedNfts.map((nft, index) => (
                       <div key={index} className="nft-item">
                         <img src={nft.image} />
                         {renderNftName(nft)}
@@ -118,15 +133,33 @@ const DealList: React.FC<DealListProps> = ({
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <p>등록된 거래가 없습니다.</p>
+      )}
+
       <div className="pagination">
-        {totalPages
-          ? [...Array(totalPages)].map((_, i) => (
-              <button key={i} onClick={() => setCurrentPage(i + 1)}>
-                {i + 1}
+        {currentGroup > 0 && <button onClick={handlePrevGroup}>&lt; </button>}
+        {[...Array(totalPages)]
+          .slice(
+            currentGroup * buttonsPerPage,
+            (currentGroup + 1) * buttonsPerPage
+          )
+          .map((_, i) => {
+            const pageNumber = currentGroup * buttonsPerPage + i + 1;
+            return (
+              <button
+                key={pageNumber}
+                onClick={() => setCurrentPage(pageNumber)}
+                className={pageNumber === currentPage ? "active" : ""}
+              >
+                {pageNumber}
               </button>
-            ))
-          : "등록된 거래가 없습니다."}
+            );
+          })}
+        {(currentGroup + 1) * buttonsPerPage < totalPages && (
+          <button onClick={handleNextGroup}> &gt;</button>
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 .nft-exchange-list {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  width: 90vw;
+  max-width: 500px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
-
 .nft-exchange-list h3 {
   margin: 10px 0;
 }
@@ -201,6 +202,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  max-width: 500px;
 }
 
 .nft-exchange-list .pagination button {
