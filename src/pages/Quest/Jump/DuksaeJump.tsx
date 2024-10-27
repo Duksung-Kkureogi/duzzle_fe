@@ -20,7 +20,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     passingScore,
   } = data;
 
-  const { socket } = useWebSocket();
+  const { socket, isConnected } = useWebSocket();
   const [speed, setSpeed] = useState(objectSpeed / 15);
   const [health, setHealth] = useState(Math.max(0, gameoverLimit || 0));
   const [jumping, setJumping] = useState(false);
@@ -54,14 +54,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       dinoRect.bottom - buffer > obstacleRect.top + buffer &&
       dinoRect.top + buffer < obstacleRect.bottom - buffer;
 
-    if (isCollision) {
-      socket.emit("quest:duksae-jump:fail", {
-        score,
-        logId,
-        gamePanelOffsetWidth: 550,
-      });
-    }
-
     return isCollision;
   };
 
@@ -88,6 +80,11 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
           const newHealth = Math.max(0, prevHealth - 1);
           if (newHealth === 0) {
             setGameover(true);
+            socket.emit("quest:duksae-jump:fail", {
+              score,
+              logId,
+              gamePanelOffsetWidth: 550,
+            });
           }
           return newHealth;
         });
@@ -99,11 +96,17 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     }, 20);
 
     return () => clearInterval(gameLoopInterval);
-  }, [moveObstacle, detectCollision, gameover, isColliding]);
-
+  }, [
+    moveObstacle,
+    detectCollision,
+    gameover,
+    isColliding,
+    socket,
+    score,
+    logId,
+  ]);
   useEffect(() => {
-    if (gameInitialized.current) return;
-    gameInitialized.current = true;
+    if (!isConnected) return;
 
     const handleConnect = () => {
       console.log("Socket.io 연결 성공", socket.id);
@@ -112,6 +115,12 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         gamePanelOffsetWidth: 550,
       });
     };
+
+    console.log("Socket.io 연결 성공", socket.id);
+    socket.emit("quest:duksae-jump:start", {
+      logId,
+      gamePanelOffsetWidth: 550,
+    });
 
     const handleDisconnect = () => {
       console.log("Socket.io 연결이 끊겼습니다.");
@@ -140,7 +149,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       console.log("게임 오버, 최종 점수:", finalScore);
       setGameover(true);
       showToast(`Game Over! Total Score: ${finalScore} m`, ToastType.Error);
-      handleResultPageNavigation();
     };
 
     const handleResult = (resultData: { result: boolean; score: number }) => {
@@ -150,7 +158,6 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
         `${resultData.score}`,
         resultData.result ? ToastType.Success : ToastType.Error
       );
-      handleResultPageNavigation();
     };
 
     socket.on("connect", handleConnect);
@@ -162,70 +169,38 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     socket.on("result", handleResult);
 
     const speedInterval = setInterval(() => {
-      setSpeed((prevSpeed) =>
-        Math.min(prevSpeed * speedIncreaseRate, objectMaxSpeed)
-      );
+      if (!gameover) {
+        setSpeed((prevSpeed) =>
+          Math.min(prevSpeed * speedIncreaseRate, objectMaxSpeed)
+        );
+      }
     }, speedIncreaseInterval);
 
     const scoreInterval = setInterval(() => {
       if (!gameover) {
-        setScore((prevScore) => prevScore + 1000 / speed);
+        setScore((prevScore) => {
+          const newScore = prevScore + 1000 / speed;
+          console.log("Score update:", {
+            prevScore,
+            newScore,
+            speed,
+            gameover,
+          });
+          return newScore;
+        });
       }
     }, 100);
 
     return () => {
-      socket.off("connect", handleConnect);
-      socket.off("disconnect", handleDisconnect);
-      socket.off("object", handleObject);
-      socket.off("speed", handleSpeed);
-      socket.off("health", handleHealth);
-      socket.off("gameover", handleGameover);
-      socket.off("result", handleResult);
+      socket.off("object");
+      socket.off("speed");
+      socket.off("health");
+      socket.off("gameover");
+      socket.off("result");
       clearInterval(speedInterval);
       clearInterval(scoreInterval);
     };
-  }, [
-    socket,
-    logId,
-    speed,
-    gameover,
-    speedIncreaseRate,
-    objectMaxSpeed,
-    speedIncreaseInterval,
-    showToast,
-  ]);
-
-  useEffect(() => {
-    socket.emit("quest:duksae-jump:start", {
-      logId,
-      gamePanelOffsetWidth: 550,
-    });
-
-    const speedInterval = setInterval(() => {
-      setSpeed((prevSpeed) =>
-        Math.min(prevSpeed * speedIncreaseRate, objectMaxSpeed)
-      );
-    }, speedIncreaseInterval);
-
-    const scoreInterval = setInterval(() => {
-      if (!gameover) {
-        setScore((prevScore) => prevScore + 1000 / speed);
-      }
-    }, 100);
-
-    return () => {
-      clearInterval(speedInterval);
-      clearInterval(scoreInterval);
-    };
-  }, [
-    logId,
-    socket,
-    speedIncreaseRate,
-    objectMaxSpeed,
-    speedIncreaseInterval,
-    gameover,
-    speed,
-  ]);
+  }, [isConnected, socket, logId, gameover]);
 
   useEffect(() => {
     if (gameover) {
