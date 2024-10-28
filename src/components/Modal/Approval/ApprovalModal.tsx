@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../Modal.css";
 import { ApprovalStatus } from "../../../../ethersRPC";
 import ApprovalItem from "./ApprovalItem";
+import { useNavigate } from "react-router-dom";
 
 interface ApprovalModalProps {
   isOpen: boolean;
@@ -20,6 +21,8 @@ const ApprovalModal: React.FC<ApprovalModalProps> = ({
   onRevoke,
   isLoading,
 }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -59,7 +62,7 @@ const ApprovalModal: React.FC<ApprovalModalProps> = ({
           {allApproved ? (
             <button
               className="button submit-button"
-              onClick={onClose}
+              onClick={() => navigate("/nft-exchange/regist/stepOne")}
               disabled={isLoading}
             >
               거래 등록하기
