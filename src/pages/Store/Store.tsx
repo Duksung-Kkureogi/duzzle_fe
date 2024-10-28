@@ -6,11 +6,11 @@ import { useAuth } from "../../services/AuthContext";
 import RPC from "../../../ethersRPC";
 import { IProvider } from "@web3auth/base";
 import { itemList } from "../../util/item";
-import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../components/Modal/LoginModal";
+import TransactionLoading from "./TransactionLoading";
 
 function Store() {
   const navigate = useNavigate();
@@ -157,7 +157,7 @@ function Store() {
       >
         {enoughDal ? (
           loading ? (
-            <Loading message={loadingMessage} />
+            <TransactionLoading message={loadingMessage} />
           ) : (
             <div className="modal_dalO">
               <div className="dal_btn_X">

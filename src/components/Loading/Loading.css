@@ -9,3 +9,9 @@
   border-radius: 30px;
   width: 130px;
 }
+
+.Loading .sub-message {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+}

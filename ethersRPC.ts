@@ -250,6 +250,8 @@ export default class EthereumRpc {
       console.log("metadataUrl: ", metadataUrl);
       console.timeEnd("getRandomItem");
 
+      onStateChange?.("완료!");
+
       return metadataUrl;
     } catch (error) {
       console.error("Random Item Error:", error);
