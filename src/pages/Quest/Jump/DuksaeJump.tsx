@@ -148,14 +148,17 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
     const handleGameover = (finalScore: number) => {
       console.log("게임 오버, 최종 점수:", finalScore);
       setGameover(true);
-      showToast(`Game Over! Total Score: ${finalScore} m`, ToastType.Error);
+      showToast(
+        `Game Over! Total Score: ${finalScore / 10} m`,
+        ToastType.Error
+      );
     };
 
     const handleResult = (resultData: { result: boolean; score: number }) => {
       console.log("게임 최종 결과:", resultData);
       setGameover(true);
       showToast(
-        `${resultData.score}`,
+        `${resultData.score / 10}`,
         resultData.result ? ToastType.Success : ToastType.Error
       );
     };
@@ -265,11 +268,11 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
   return (
     <div className="QuestJump">
       <div className="info">
-        <p className="info_t">{passingScore}m를 달성하세요!</p>
+        <p className="info_t">{passingScore * 15}m를 달성하세요!</p>
       </div>
       <div className="game-panel">
         <span className="heart1">{new Array(health).fill("💛").join("")}</span>
-        <span className="heart2"> {score.toFixed(2)} m</span>{" "}
+        <span className="heart2"> {score / 10} m</span>{" "}
         <div className={`dino ${jumping ? "jump" : ""}`} ref={dinoRef} />
         <div className={`obstacle ${obstacleType}`} ref={obstacleRef} />
       </div>
@@ -278,7 +281,7 @@ const DuksaeJump: React.FC<DuksaeJumpProps> = ({ logId, data }) => {
       {gameover && (
         <div className="score">
           <div id="distance1">Total Distance:</div>
-          <div id="distance2">{score.toFixed(2)} m</div>
+          <div id="distance2">{score / 10} m</div>
           <button
             className="restart4"
             id="restart4"

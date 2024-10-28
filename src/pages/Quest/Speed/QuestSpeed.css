@@ -35,9 +35,8 @@
   background-color: rgb(233, 233, 233);
 }
 .QuestSpeed .quiz-container .quiz {
-  padding: 15px 12px;
+  padding: 55px 0 0 0;
   list-style: none;
-  padding: 0;
   height: 50vh;
   overflow-y: auto;
 }

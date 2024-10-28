@@ -6,7 +6,7 @@
 }
 
 .Pieces .pieces_title {
-  margin: 20px;
+  margin: 40px 20px;
   text-align: center;
   p {
     font-size: 20px;
@@ -19,7 +19,7 @@
 
 .Pieces .pieces_total {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
   img {
     margin-left: auto;
     margin-top: 5px;

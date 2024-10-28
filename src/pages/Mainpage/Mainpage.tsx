@@ -83,7 +83,7 @@ function Mainpage() {
       transform: "translate(-50%, -50%)",
       width: "65vw",
       maxWidth: "300px",
-      height: "60vh",
+      height: "630px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#80DAE6",
