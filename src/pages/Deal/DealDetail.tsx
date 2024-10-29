@@ -229,7 +229,7 @@ const DealDetail: React.FC = () => {
       bottom: "auto",
       transform: "translate(-50%, -50%)",
       width: "300px",
-      height: "250px",
+      height: "300px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",
