@@ -26,10 +26,14 @@ const DealList: React.FC<DealListProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleDealClick = (id: number, status: string) => {
-    if (status === "listed") {
-      navigate(`/nft-exchange/${id}`);
-    }
+  // const handleDealClick = (id: number, status: string) => {
+  //   if (status === "listed") {
+  //     navigate(`/nft-exchange/${id}`);
+  //   }
+  // };
+
+  const handleDealClick = (id: number) => {
+    navigate(`/nft-exchange/${id}`);
   };
 
   const getSeasonEmoji = (seasonName: string) => {
@@ -96,7 +100,8 @@ const DealList: React.FC<DealListProps> = ({
           <div
             key={deal.id}
             className="deal-item"
-            onClick={() => handleDealClick(deal.id, deal.status)}
+            // onClick={() => handleDealClick(deal.id, deal.status)}
+            onClick={() => handleDealClick(deal.id)}
           >
             <div className="deal-content">
               <div className="user-info">

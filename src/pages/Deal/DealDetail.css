@@ -1,6 +1,7 @@
 .nft-exchange-detail {
   width: 90vw;
   max-width: 500px;
+  padding-bottom: 20px;
 }
 
 .nft-exchange-detail .nft-section {
