@@ -34,8 +34,8 @@ function Store() {
 
   const fetchUserDal = async () => {
     const balance = await getDal();
-    //setUserDal(balance);
-    setUserDal(0);
+    setUserDal(balance);
+    //setUserDal(0);
   };
 
   useEffect(() => {
