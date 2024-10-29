@@ -34,8 +34,8 @@ function Store() {
 
   const fetchUserDal = async () => {
     const balance = await getDal();
-    setUserDal(balance);
-    //setUserDal(0);
+    //setUserDal(balance);
+    setUserDal(0);
   };
 
   useEffect(() => {
@@ -120,7 +120,7 @@ function Store() {
       transform: "translate(-50%, -50%)",
       width: "65vw",
       maxWidth: "300px",
-      height: "270px",
+      height: "370px",
       borderRadius: "20px",
       justifyContent: "center",
       backgroundColor: "#F69EBB",

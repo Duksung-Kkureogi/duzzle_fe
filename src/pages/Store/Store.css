@@ -151,6 +151,7 @@
 
 .dalO_item {
   text-align: center;
+  padding-top: 40px;
   margin-bottom: 8px;
   img {
     width: 85px;
@@ -171,6 +172,7 @@
 }
 
 .dalO_btn {
+  padding-top: 50px;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;
@@ -191,6 +193,7 @@
 }
 
 .dalX_p {
+  padding-top: 40px;
   p {
     margin: 0;
     font-size: 20px;
@@ -203,6 +206,7 @@
 
 .dalX_btn {
   text-align: center;
+  padding-top: 50px;
   button {
     border: none;
     border-radius: 30px;
