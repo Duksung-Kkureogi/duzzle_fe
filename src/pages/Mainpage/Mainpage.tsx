@@ -194,7 +194,7 @@ function Mainpage() {
     <div className="Mainpage">
       <div className="mainImg">
         <TransformWrapper
-          initialScale={1}
+          initialScale={0.8}
           initialPositionX={-170}
           initialPositionY={0}
           centerOnInit

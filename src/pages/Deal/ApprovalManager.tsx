@@ -31,11 +31,11 @@ const ApprovalManager: React.FC<ApprovalManagerProps> = ({
       setApprovalStatus(status);
 
       const allApproved = Object.values(status).every((item) => item.approved);
-      if (allApproved) {
-        onAllApproved();
-      } else {
-        setIsModalOpen(true);
-      }
+      // if (allApproved) {
+      // onAllApproved();
+      // } else {
+      setIsModalOpen(true);
+      // }
     }
     setLoading(false);
   }, [web3auth, onAllApproved]);
