@@ -5,12 +5,13 @@ import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
 
 import "./Setting.css";
+import { useVolume } from "../../services/VolumeContext";
 
 function Setting() {
   const navigate = useNavigate();
   const [vibration_on, setVibration_on] = useState(true);
   const [vibration_off, setVibration_off] = useState(false);
-  const [volume, setVolume] = useState(0);
+  const { volume, updateVolume } = useVolume();
   const [language, setLanguage] = useState("한국어");
   const [isShowOptions, setShowOptions] = useState(false);
 
@@ -68,7 +69,7 @@ function Setting() {
               step={0.02}
               value={volume}
               onChange={(event) => {
-                setVolume(event.target.valueAsNumber);
+                updateVolume(event.target.valueAsNumber);
               }}
             />
           </div>

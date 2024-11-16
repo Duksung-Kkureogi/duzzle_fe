@@ -39,77 +39,85 @@ import PictureQuizPage from "./pages/Quest/Picture/PictureQuizPage";
 import MusicQuizPage from "./pages/Quest/Music/MusicQuizPage";
 import DealDetail from "./pages/Deal/DealDetail";
 import NFTDetail from "./pages/NftDetail/NftDetailPage";
+import { VolumeProvider } from "./services/VolumeContext";
+import AudioTest from "./pages/AudioTest";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Mainpage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/mypage/items" element={<Items />} />
-            <Route path="/mypage/pieces" element={<Pieces />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:walletAddress" element={<OtherProfile />} />
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/store" element={<Store />} />
-            <Route path="/qna" element={<FQna />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/qnadetail/:id" element={<FQnaDetail />} />
-            <Route path="/qnanew" element={<FQnaNew />} />
-            <Route path="/qnaedit/:id" element={<FQnaEdit />} />
-            <Route path="/quest" element={<Quest />} />
-            <Route path="/questsuccess" element={<QuestSuccess />} />
-            <Route path="/questfail" element={<QuestFail />} />
-            <Route path="/questspeed" element={<QuestSpeed />} />
-            <Route path="/story" element={<Story />} />
-            <Route path="/zone/:zoneId" element={<Storylist />} />
-            <Route path="/story/:storyId" element={<StoryView />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/history/:seasonId" element={<HistorySeason />} />
-            <Route
-              path="/history/:seasonId/puzzle"
-              element={<HistoryPuzzle />}
-            />
-            <Route
-              path="/history/:seasonId/ranking"
-              element={<HistoryRanking />}
-            />
-            <Route path="/nft-exchange" element={<Deal />} />
-            <Route path="/nft-exchange/:id" element={<DealDetail />} />
-            <Route path="/nft-exchange/regist/stepOne" element={<DrOne />} />
-            <Route path="/nft-exchange/regist/stepTwo" element={<DrTwo />} />
-            <Route
-              path="/nft-exchange/regist/stepThree"
-              element={<DrThree />}
-            />
-            <Route path="/ranking" element={<Ranking />} />
-            <Route
-              path="/duksaejump/:logId"
-              element={
-                <AuthGuardLayout>
-                  <DuksaeJumpPage />
-                </AuthGuardLayout>
-              }
-            />
-            <Route
-              path="/questacid/:logId?"
-              element={
-                <AuthGuardLayout>
-                  <AcidPage />
-                </AuthGuardLayout>
-              }
-            />
-            <Route path="/picturequiz/:logId" element={<PictureQuizPage />} />
-            <Route path="/musicquiz/:logId" element={<MusicQuizPage />} />
-            <Route path="/nft-detail" element={<NFTDetail />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+    <VolumeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Mainpage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/mypage/items" element={<Items />} />
+              <Route path="/mypage/pieces" element={<Pieces />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/profile/:walletAddress"
+                element={<OtherProfile />}
+              />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/qna" element={<FQna />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/qnadetail/:id" element={<FQnaDetail />} />
+              <Route path="/qnanew" element={<FQnaNew />} />
+              <Route path="/qnaedit/:id" element={<FQnaEdit />} />
+              <Route path="/quest" element={<Quest />} />
+              <Route path="/questsuccess" element={<QuestSuccess />} />
+              <Route path="/questfail" element={<QuestFail />} />
+              <Route path="/questspeed" element={<QuestSpeed />} />
+              <Route path="/story" element={<Story />} />
+              <Route path="/zone/:zoneId" element={<Storylist />} />
+              <Route path="/story/:storyId" element={<StoryView />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/history/:seasonId" element={<HistorySeason />} />
+              <Route
+                path="/history/:seasonId/puzzle"
+                element={<HistoryPuzzle />}
+              />
+              <Route
+                path="/history/:seasonId/ranking"
+                element={<HistoryRanking />}
+              />
+              <Route path="/nft-exchange" element={<Deal />} />
+              <Route path="/nft-exchange/:id" element={<DealDetail />} />
+              <Route path="/nft-exchange/regist/stepOne" element={<DrOne />} />
+              <Route path="/nft-exchange/regist/stepTwo" element={<DrTwo />} />
+              <Route
+                path="/nft-exchange/regist/stepThree"
+                element={<DrThree />}
+              />
+              <Route path="/ranking" element={<Ranking />} />
+              <Route
+                path="/duksaejump/:logId"
+                element={
+                  <AuthGuardLayout>
+                    <DuksaeJumpPage />
+                  </AuthGuardLayout>
+                }
+              />
+              <Route
+                path="/questacid/:logId?"
+                element={
+                  <AuthGuardLayout>
+                    <AcidPage />
+                  </AuthGuardLayout>
+                }
+              />
+              <Route path="/picturequiz/:logId" element={<PictureQuizPage />} />
+              <Route path="/musicquiz/:logId" element={<MusicQuizPage />} />
+              <Route path="/nft-detail" element={<NFTDetail />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/audio-test" element={<AudioTest />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </VolumeProvider>
   );
 }
 
