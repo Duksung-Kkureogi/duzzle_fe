@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import "./Store.css";
 
@@ -11,6 +11,10 @@ import Error from "../../components/Error/Error";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../components/Modal/LoginModal";
+import collectSound from "../../components/AudioPlayer/collect.mp3";
+import AudioPlayer, {
+  AudioPlayerHandle,
+} from "../../components/AudioPlayer/AudioPlayer";
 
 function Store() {
   const navigate = useNavigate();
@@ -25,6 +29,7 @@ function Store() {
   const [error, setError] = useState(false);
   const [curNFTItem, setCurNFTItem] = useState<NFTItem | null>(null);
   const [loadingMessage, setLoadingMessage] = useState("");
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
 
   interface NFTItem {
     metadata_name: string;
@@ -57,6 +62,9 @@ function Store() {
       });
       setMetadataUrl(itemMetadataUrl);
       await fetchUserDal();
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.play();
+      }
     } catch (error) {
       console.error(error);
       closeModal();
@@ -220,6 +228,7 @@ function Store() {
         }}
       />
       <MyBottomNavBar />
+      <AudioPlayer ref={audioPlayerRef} source={collectSound} loop={false} />
     </div>
   );
 }

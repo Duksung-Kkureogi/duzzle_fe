@@ -1,6 +1,6 @@
 import "./Mainpage.css";
 import mainImg from "/src/assets/images/mainImg_christmas.png";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import MyBottomNavBar from "../../components/MyBottomNavBar/MyBottomNavBar";
 import Modal from "react-modal";
@@ -14,6 +14,10 @@ import { useNavigate } from "react-router-dom";
 import ThreeDScene from "../../components/3dModel/ThreeDScene";
 import AlertModal from "../../components/Modal/AlertModal";
 import Loading from "../../components/Loading/Loading";
+import collectSound from "../../components/AudioPlayer/collect.mp3";
+import AudioPlayer, {
+  AudioPlayerHandle,
+} from "../../components/AudioPlayer/AudioPlayer";
 
 function Mainpage() {
   const navigate = useNavigate();
@@ -30,6 +34,7 @@ function Mainpage() {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
 
   useEffect(() => {
     const getPuzzle = async () => {
@@ -106,6 +111,9 @@ function Mainpage() {
       setLoading(false);
       setModalOpen(false);
       openAlertModal("조각NFT 발행을 성공하였습니다.");
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.play();
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -402,6 +410,7 @@ function Mainpage() {
           onConfirm={handleAlertModalClose}
         />
       )}
+      <AudioPlayer ref={audioPlayerRef} source={collectSound} loop={false} />
     </div>
   );
 }
