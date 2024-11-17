@@ -40,7 +40,6 @@ import MusicQuizPage from "./pages/Quest/Music/MusicQuizPage";
 import DealDetail from "./pages/Deal/DealDetail";
 import NFTDetail from "./pages/NftDetail/NftDetailPage";
 import { VolumeProvider } from "./services/VolumeContext";
-import AudioTest from "./pages/AudioTest";
 
 function App() {
   return (
@@ -112,7 +111,6 @@ function App() {
               <Route path="/musicquiz/:logId" element={<MusicQuizPage />} />
               <Route path="/nft-detail" element={<NFTDetail />} />
               <Route path="/*" element={<NotFound />} />
-              <Route path="/audio-test" element={<AudioTest />} />
             </Routes>
           </div>
         </BrowserRouter>

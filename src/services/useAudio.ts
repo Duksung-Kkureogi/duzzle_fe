@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useVolume } from "./VolumeContext";
 
 export const useAudio = (url: string | null) => {
   const [audioLoaded, setAudioLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { volume } = useVolume();
 
   useEffect(() => {
     if (!url) {
@@ -13,6 +15,7 @@ export const useAudio = (url: string | null) => {
 
     const audio = new Audio(url);
     audioRef.current = audio;
+    audioRef.current.volume = volume;
 
     const handleCanPlayThrough = () => setAudioLoaded(true);
     const handleError = (e: ErrorEvent) => {
@@ -32,7 +35,7 @@ export const useAudio = (url: string | null) => {
       audio.removeEventListener("canplaythrough", handleCanPlayThrough);
       audio.removeEventListener("error", handleError);
     };
-  }, [url]);
+  }, [url, volume]);
 
   return { audioRef, audioLoaded, error };
 };
