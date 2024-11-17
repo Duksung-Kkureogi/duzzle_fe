@@ -6,8 +6,21 @@ import {
   QuestApisForTest,
   QuestType,
 } from "../../services/api/quest.api";
+import { useEffect, useRef } from "react";
+import AudioPlayer, {
+  AudioPlayerHandle,
+} from "../../components/AudioPlayer/AudioPlayer";
+import questMainSound from "../../components/AudioPlayer/quest-main.mp3";
 
 function Quest() {
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
+
+  useEffect(() => {
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.play();
+    }
+  }, []);
+
   const nav = useNavigate();
 
   const startQuiz = async () => {
@@ -88,6 +101,7 @@ function Quest() {
         START
       </button>
       <MyBottomNavBar />
+      <AudioPlayer ref={audioPlayerRef} source={questMainSound} loop={true} />
     </div>
   );
 }

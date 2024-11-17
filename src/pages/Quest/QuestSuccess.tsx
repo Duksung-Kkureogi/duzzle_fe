@@ -1,13 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import "./QuestSuccess.css";
 import { useAuth } from "../../services/AuthContext";
+import questSuccessSound from "../../components/AudioPlayer/quest-success.mp3";
+import AudioPlayer, {
+  AudioPlayerHandle,
+} from "../../components/AudioPlayer/AudioPlayer";
 
 function QuestSuccess() {
   const nav = useNavigate();
   // const { isAuthenticated } = useAuth(); // TODO: dev 에 반영되면 주석 해제
   const isAuthenticated = !!localStorage.getItem("accessToken");
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
+
+  useEffect(() => {
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.play();
+    }
+  }, []);
 
   useEffect(() => {
     const confettiInterval = setInterval(() => {
@@ -58,6 +69,11 @@ function QuestSuccess() {
       <div className="text_suc">미션 성공</div>
       <img src="/src/pages/Quest/happy.gif" alt="happy" className="happy" />
       {renderContent()}
+      <AudioPlayer
+        ref={audioPlayerRef}
+        source={questSuccessSound}
+        loop={false}
+      />
     </div>
   );
 }

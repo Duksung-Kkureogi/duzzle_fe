@@ -1,9 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import "./QuestFail.css";
 import CanvasAnimation from "./Speed/CanvasAnimation";
+import questFailSound from "../../components/AudioPlayer/quest-fail.mp3";
+import AudioPlayer, {
+  AudioPlayerHandle,
+} from "../../components/AudioPlayer/AudioPlayer";
+import { useEffect, useRef } from "react";
 
 function QuestFail() {
   const nav = useNavigate();
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
+
+  useEffect(() => {
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.play();
+    }
+  }, []);
+
   return (
     <div className="QuestFail">
       {/* <CanvasAnimation /> */}
@@ -30,6 +43,7 @@ function QuestFail() {
           다시 도전하기
         </button>
       </div>
+      <AudioPlayer ref={audioPlayerRef} source={questFailSound} loop={false} />
     </div>
   );
 }
